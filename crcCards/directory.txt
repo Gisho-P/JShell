@@ -1,0 +1,15 @@
+Class name: Directory
+Parent class (if any): Object
+Subclasses (if any): None
+
+Responsibilities:
+*Stores the file objects
+*Stores the name of the current directory
+*Stores parent and all child dirs
+*Checks if file or dirs exists within it
+*Allows file addition, deletion and search
+*Allows traversal to parent and child directories from current directory
+*Determine the current path from current directory to the root directory
+
+Collaborators:
+*Files

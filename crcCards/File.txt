@@ -1,0 +1,14 @@
+Class name: File
+Parent class (if any): Object
+Subclasses (if any): None
+
+Responsibilities:
+*Store the name of a file
+*Store the contents of the file
+*Allow content to be appended to the end of the file
+*Allow content to be file content to be overwritten
+*Allow changes to the file name
+*Return the contents of the file
+
+Collaborators:
+*None
