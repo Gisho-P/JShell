@@ -1,0 +1,15 @@
+Class name: Shell
+Parent class (if any): Object
+Subclasses (if any): None
+
+Responsibilities:
+*Create empty root directory
+*Takes input from user
+*Retrieves output from the interpreter
+*Displays out to the user
+*Pass input to Interpreter
+*Stop the program when the user enters exit and cleanup
+
+Collaborators:
+*CommandInterpreter
+*Directory
