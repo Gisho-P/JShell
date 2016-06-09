@@ -1,0 +1,11 @@
+Class name: Mkdir
+Parent class (if any): Object
+Subclasses (if any): None
+
+Responsibilities:
+*Makes a dir in the selected dir path
+*Report an error if the selected path where the new directory needs to be made doesn't exist
+
+Collaborators:
+*FilePathInterpreter
+*Directory
