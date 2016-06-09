@@ -1,9 +1,10 @@
 What did I do last time?
-	- Created t with teammates
+	- Created product backlog with team members
 	- Helped decide which CRC cards to use
 
 What do I plan to do now?
-	- Work on the exit of console
+	- Work on initializing the shell with the session class
+	- Work on getting the shell to exit
 
 Am I blocked on anything?
-	- Not anything at the moment
+	- Haven't run in to any issues yet, still early in the process.
