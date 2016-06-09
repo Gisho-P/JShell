@@ -1,0 +1,10 @@
+What did I do last time?
+    - Created product backlog
+    - Consulted with team members and modified the software design
+
+What do I plan to do now?
+    - Create the session class which stores the history of the commands
+    - Create tests for the session class
+
+Am I blocked on anything?
+    - Need completed Shell and FilePathInterpreter classes
