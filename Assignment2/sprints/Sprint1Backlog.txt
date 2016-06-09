@@ -1,22 +1,37 @@
-Sprint 1 Backlog.
-June 8 to June 13
+//Sprint 1 Backlog.  
+June 8 to June 14
+
 
 User Stories from Product Backlog that we will address in this sprint:
-
+Allow user to exit program
+1). Allow user to traverse directories
+2). Allow user to create directory
+3). Allow user to input commands
+4). Process commands
+5). Allow user to store in directory
+6). Retrieve location of directory
 
 Specific tasks to be accomplished:
+a-1. (Shell) Continually accept input from shell
+a-2. (Shell) Terminate Shell when exit is entered
+b-1. (CommandInterpreter) Parse the user commands
+b-2. (CommandInterpreter) Notify user if the entered command is wrong
+c-1. (Directory) Allow directory to store files and other directories
+c-2. (Directory) Check if file or directory exists
+d-1. (FilePathInterpreter) Parse the file path
+d-1. (FilePathInterpreter) Traverse the directories according to the file path
 
 
 These tasks are assigned as follows:
 
-User: Adnan
-Tasks:
+User: Gisho
+Tasks: a-1, a-2
 
-User: Jin
-Tasks:
+User: John
+Tasks: b-1, b-2
 
 User: Dhrumil
-Tasks:
+Tasks: c-1, c-2
 
-User: Gisho
-Tasks:
+User: Adnan
+Tasks: d-1, d-2
