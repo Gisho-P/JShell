@@ -3,8 +3,8 @@ What did I do last time?
     - Consulted with team members and modified the software design
 
 What do I plan to do now?
-    - Create the session class which stores the history of the commands
-    - Create tests for the session class
+    - Create the directory class which stores directories and files
+    - Create tests for the directory class
 
 Am I blocked on anything?
-    - Need completed Shell and FilePathInterpreter classes
+    - Need completed Shell and FilePathInterpreter class
