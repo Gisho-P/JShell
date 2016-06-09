@@ -1,2 +1,22 @@
 Sprint 1 Backlog.
 June 8 to June 13
+
+User Stories from Product Backlog that we will address in this sprint:
+
+
+Specific tasks to be accomplished:
+
+
+These tasks are assigned as follows:
+
+User: Adnan
+Tasks:
+
+User: Jin
+Tasks:
+
+User: Dhrumil
+Tasks:
+
+User: Gisho
+Tasks:
