@@ -1,37 +1,40 @@
-//Sprint 1 Backlog.  
+Sprint 1 Backlog.  
 June 8 to June 14
 
 
 User Stories from Product Backlog that we will address in this sprint:
-Allow user to exit program
-1). Allow user to traverse directories
-2). Allow user to create directory
-3). Allow user to input commands
-4). Process commands
-5). Allow user to store in directory
-6). Retrieve location of directory
+a). Allow user to exit program
+b). Allow user to traverse directories
+c). Allow user to create directory
+d). Allow user to input commands
+e). Process commands
+f). Allow user to store and retrieve location of directory
+g). Start Shell for user
 
 Specific tasks to be accomplished:
-a-1. (Shell) Continually accept input from shell
-a-2. (Shell) Terminate Shell when exit is entered
-b-1. (CommandInterpreter) Parse the user commands
-b-2. (CommandInterpreter) Notify user if the entered command is wrong
-c-1. (Directory) Allow directory to store files and other directories
-c-2. (Directory) Check if file or directory exists
-d-1. (FilePathInterpreter) Parse the file path
-d-1. (FilePathInterpreter) Traverse the directories according to the file path
-
+a-1. (Shell) Take command to exit
+a-2. (CommandInterpreter) Process exit call to right function to complete action
+b-1. (Directory) Check if directory exists
+b-2. (FilePathInterpreter) Traverse the directories according to the file path 
+c-1. (Directory) Create the directory or give correct error message
+c-2. (Directory) Allow directory to store files and other directories
+d-1. (Shell) Continually accept input from shell
+e-1. (CommandInterpreter) Take any input, check it for validity and parse information
+e-2. (CommandInterpreter) Return any output, errors
+f-1. (FilePathInterpreter) Parse the file path
+f-2. (FilePathInterpreter) Keep track of current path, update and return path
+g-1. (Shell, Session) Create shell (console) and session information when starting
 
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: a-1, a-2
+Tasks: a-1, a-2, g-1
 
 User: John
-Tasks: b-1, b-2
+Tasks: d-1, d-2
 
 User: Dhrumil
 Tasks: c-1, c-2
 
 User: Adnan
-Tasks: d-1, d-2
+Tasks: b-1, b-2
