@@ -1,0 +1,10 @@
+What did I do last time?
+	- Created the product backlog with teammates
+	- Started editing CRC cards for command interpreter and others
+
+What do I plan to do now?
+	- Work on the output and processing input from console
+	- Start working on the implemention of the command interpreter
+
+Am I blocked on anything?
+	- Not anything at the moment, it's too early
