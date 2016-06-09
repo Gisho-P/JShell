@@ -1,5 +1,6 @@
 |		User Stories		|	Time Estimate (h)	|
 -------------------------------------------------------------------------
+|	* Create a shell for user	|		2		|
 |	* Allow user to exit program	|		1		|
 |	* Allow user to traverse	|		2.5		|
 |	  directories			|				|

@@ -1,0 +1,10 @@
+What did I do last time?
+	- Created product backlog and updated with help of team members
+	- Began editing CRC Cards and establishing new class system for Shell
+
+What do I plan to do now?
+	- Finalize CRC Cards/ Shell class system
+	- Start working on beginning implementation of Shell
+
+Am I blocked on anything?
+	- Not anything at the moment, it's too early
