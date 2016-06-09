@@ -1,0 +1,13 @@
+Class name: pushpop
+Parent class (if any): Object
+Subclasses (if any): None
+
+Responsibilities:
+*Stores directories in a stack
+*Removes the most recent stored directory
+*Able to retrieve last stored directory
+*Checks if the stack is empty
+
+Collaborators:
+*FilePathInterpreter
+*Directory

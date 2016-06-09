@@ -1,0 +1,9 @@
+Class name: Session
+Parent class: N/A
+Subclasses: N/A
+
+Responsibilities:
+* Stores user information, and session times
+* Stores system information from the computer
+Collaborators:
+* CommandInterpreter
