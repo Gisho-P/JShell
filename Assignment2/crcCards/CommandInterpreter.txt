@@ -3,18 +3,15 @@ Parent class (if any): Object
 Subclasses (if any): None
 
 Resonsibilities:
-*Parse the user command entered in the shell
-*Provide feedback if the command has the wrong syntax
-*Uses collaborators based on the user command and feed in the parsed information
-*Return output of the commands to the shell
-*Keep track of the current directory and the root directory
+* Parse the user command entered in the shell
+* Provide feedback if the command has the wrong syntax
+* Calls correct function to complete task commanded by user
+* Keep track of the current directory and the root directory
 
 Collaborators:
-*Mkdir
-*Ls
-*Mv
-*Cp
-*Get
-*Echo
-*Directory
-*FilePathInterpreter
+* Shell
+* Directory
+* FilePathInterpreter
+* File
+* 
+*
