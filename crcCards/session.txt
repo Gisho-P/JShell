@@ -1,9 +1,13 @@
 Class name: Session
-Parent class: N/A
+Parent class: Object
 Subclasses: N/A
 
 Responsibilities:
 * Stores user information, and session times
 * Stores system information from the computer
+
 Collaborators:
 * CommandInterpreter
+* Shell
+*
+*

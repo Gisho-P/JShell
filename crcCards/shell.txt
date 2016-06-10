@@ -1,15 +1,17 @@
 Class name: Shell
-Parent class (if any): Object
-Subclasses (if any): None
+Parent class: Object
+Subclasses: N/A
 
 Responsibilities:
-*Create empty root directory
-*Takes input from user
-*Retrieves output from the interpreter
-*Displays out to the user
-*Pass input to Interpreter
-*Stop the program when the user enters exit and cleanup
+* Create shell with a console for a user to enter input
+* Create empty root directory
+* Start session to keep user information at time of creation
+* Exit console and session upon user command and cleanup
+* Sends input to processor to call write command
+* Display any output/errors from command
 
 Collaborators:
-*CommandInterpreter
-*Directory
+* CommandInterpreter
+* Session
+*
+*

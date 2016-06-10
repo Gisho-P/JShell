@@ -3,12 +3,13 @@ Parent class (if any): Object
 Subclasses (if any): None
 
 Responsibilities:
-*Parse the file path
-*Traverse the directories according to the file path 
-*Returns the directory at that location
-*Report an error if the file path does not exist
+* Parse the file path
+* Traverse the directories according to the file path 
+* Returns the directory at that location
+* Report an error if the file path does not exist
 
 Collaborators:
-*Directory
-*File
-
+* Directory
+* File
+*
+*
