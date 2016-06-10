@@ -4,6 +4,7 @@ Subclasses: N/A
 
 Responsibilities:
 * Stores user information, and session times
+* Store command input history
 * Stores system information from the computer
 
 Collaborators:
