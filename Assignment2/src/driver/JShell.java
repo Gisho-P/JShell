@@ -1,9 +1,9 @@
 // **********************************************************
 // Assignment2:
 // Student1:
-// UTORID user_name:
-// UT Student #:
-// Author:
+// UTORID user_name:songjin8
+// UT Student #:1001545571
+// Author:Jin Song
 //
 // Student2:
 // UTORID user_name:
@@ -29,11 +29,26 @@
 // *********************************************************
 package driver;
 
+import java.util.Scanner;
+
 public class JShell {
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
-
+	  String lastCommand = "";
+	  CommandInterpreter cmd = new CommandInterpreter();
+	  
+	  Scanner in = new Scanner(System.in);
+	  
+	  while(lastCommand.equals("exit") == false){
+		  System.out.println("DEBUG: Enter a command");
+		  lastCommand = in.nextLine();
+		  // Printing the output
+		  System.out.println(cmd.interpretCmd(lastCommand));
+	  }
+	  exit();
   }
-
+  
+  public static void exit(){
+	  System.out.println("DEBUG: Exiting");
+  }
 }
