@@ -9,11 +9,22 @@
 |	* Process commands		|		8		|
 |	* Allow user to store and	|		3		|
 |	  retrieve location of directory|				|
-|	* Display output to user	|		1.5		|
+|	* Display output of command     |               1.5             |
+|         to user 		        |
 |	* Display contents of directory	|		1		|
 |	* Display path to directory	|		1		|
 |	* Display history		|		1		|
 |	* Display file contents		|		1		|
-|	* Store string to file/console	|		1		|
+|	* Store string to file  	|		1		|
 |	* Display user manual		|		1		|
+|       * Notify user if there is       |               1               |
+|        a problem with the command     |                               |
+|       * Keep track of user's root and |               1               |
+|	 current directory              |                               |
+|	* Determine path to current     |               1               |
+|	directory from root directory   |                               |
+|	and vice versa                  |                               |
+|	* Allow file to be overwritten  |               1               |
+|	* Allow content to be appended  |               1               |
+|	to the end of the file          |                               |	
 -------------------------------------------------------------------------
