@@ -5,6 +5,7 @@ What did I do last time?
 What do I plan to do now?
     - Create the directory class which stores directories and files
     - Create tests for the directory class
+    - Create tests for the directory and file classes
 
 Am I blocked on anything?
     - Need completed Shell and FilePathInterpreter class
