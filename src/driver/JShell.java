@@ -6,9 +6,9 @@
 // Author:Jin Song
 //
 // Student2:
-// UTORID user_name:
-// UT Student #:
-// Author:
+// UTORID user_name:pushpa10
+// UT Student #:1001624628
+// Author:Girrshotan Pushparajah
 //
 // Student3:
 // UTORID user_name:
@@ -36,12 +36,15 @@ public class JShell {
   public static void main(String[] args) {
 	  String lastCommand = "";
 	  CommandInterpreter cmd = new CommandInterpreter();
+	  MySession session = new MySession();
 	  
 	  Scanner in = new Scanner(System.in);
 	  
 	  while(lastCommand.equals("exit") == false){
 		  System.out.println("DEBUG: Enter a command");
 		  lastCommand = in.nextLine();
+		  // Save the command to history
+		  session.saveCommand(lastCommand);
 		  // Printing the output
 		  System.out.println(cmd.interpretCmd(lastCommand));
 	  }
