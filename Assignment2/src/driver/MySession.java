@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class MySession {
   
-  List<String> commandHistory;
+  protected static List<String> commandHistory;
   
   public MySession(){
     commandHistory = new ArrayList<String>();
@@ -29,25 +29,27 @@ public class MySession {
    *
    * @param numberOfCommands the number of commands to be printed from history
    */
-  public void printCommandHistory(int numberOfCommands){
-    int historySize = commandHistory.size();
-    if(numberOfCommands > historySize || numberOfCommands < 0){
-      // Update later to have a consistent format for all error messages
-      System.out.println("Invalid number");
-    }
-    else{
-      for(int cmdNumber = historySize - numberOfCommands;
-          cmdNumber <= historySize; cmdNumber++){
-        System.out.println(cmdNumber + ". " + commandHistory.get(cmdNumber - 1));
-      }
-    }
+  public static String printCommandHistory(int numberOfCommands){
+	  int historySize = commandHistory.size();
+	  if(numberOfCommands < 0){
+		  // Update later to have a consistent format for all error messages
+		  return "history usage: history [NUMBER >= 0]";
+	  } else {	
+		  String output = "";
+		  for(int cmdNumber = historySize - numberOfCommands;
+				  cmdNumber <= historySize; cmdNumber++){
+			  output = output + cmdNumber + ". " +
+				  commandHistory.get(cmdNumber - 1) + "\n";
+		  }
+		  return output;
+	  }
   }
   
   /**
    * Prints the command history to stdout.
    */
-  public void printCommandHistory(){
-    printCommandHistory(commandHistory.size());
+  public static String printCommandHistory(){
+    return printCommandHistory(commandHistory.size());
   }
 
 }
