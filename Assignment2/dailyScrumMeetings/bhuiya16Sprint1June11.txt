@@ -1,0 +1,10 @@
+What did I do last time?
+	- Finalize CRC Cards/ Shell class system
+	- Communicate changes to team so they know how to work their code
+
+What do I plan to do now?
+	- Start working on beginning implementation of Shell
+	- Complete Command Interpreter
+
+Am I blocked on anything?
+	- Not anything at the moment, it's too early
