@@ -2,6 +2,9 @@ package driver;
 
 import java.util.List;
 
+/**
+ * The Class MySession stores, and outputs a history of commands.
+ */
 public class MySession {
   
   List<String> commandHistory;
