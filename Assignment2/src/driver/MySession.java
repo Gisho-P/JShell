@@ -1,5 +1,6 @@
 package driver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class MySession {
     else{
       for(int cmdNumber = historySize - numberOfCommands;
           cmdNumber <= historySize; cmdNumber++){
-        System.out.println(cmdNumber + ". " + commandHistory[cmdNumber - 1]);
+        System.out.println(cmdNumber + ". " + commandHistory.get(cmdNumber - 1));
       }
     }
   }
