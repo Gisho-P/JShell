@@ -1,5 +1,7 @@
 package driver;
 
+import java.io.File;
+
 public class CommandInterpreter {
 
 	public CommandInterpreter() {
@@ -47,7 +49,7 @@ public class CommandInterpreter {
 				output = ""; // return output from function call
 			}
 		case "popd":
-			if (cmdArgs.length != 1) {
+			if (cmdArgs.length != 1) {	
 				output = "popd usage: popd"; // error, print usage
 			} else {
 				output = ""; // return output from function call
@@ -56,7 +58,18 @@ public class CommandInterpreter {
 			if (cmdArgs.length > 2) {
 				output = "history usage: history [number]";
 			} else {
-				output = ""; // return output from function call
+				if (cmdArgs.length == 2) {
+					try {
+						int arg = Integer.parseInt(cmdArgs[1]);
+						output = MySession.printCommandHistory(arg);
+						
+					} catch (NumberFormatException n) {
+						output = "history usage: history [number >= 0]";
+					}
+				} else {
+					output = MySession.printCommandHistory();
+				}
+				 // return output from function call
 			}
 		case "cat":
 			if (cmdArgs.length < 2) {
@@ -86,13 +99,14 @@ public class CommandInterpreter {
 			if (cmdArgs.length != 2) {
 				output = "man usage: man CMD"; // error, print usage
 			} else {
-				output = ""; // return output from function call
+				output = manCommand(cmdArgs[1]); // return output from function call
 			}
 		};
 		return output;
 	}
 	
 	public String manCommand(String cmd) {
+		File c = new File("./commands/" + cmd + ".txt");
 		return "";
 	}
 }
