@@ -68,8 +68,19 @@ public class CommandInterpreter {
 			if (cmdArgs.length != 2 || cmdArgs.length != 4) {
 				output = "echo usages: echo STRING [> OUTFILE] " +
 						 "or echo STRING >> OUTFILE";
-			} else {
-				output = ""; // return output from function call
+			} else if (cmdArgs.length == 2) {
+				if (cmdArgs[2].matches("[^>]*>(>{0,1})[^>]*")) {
+					
+				} else {
+					output = cmdArgs[1]; // return output from function call
+				}
+				
+			} else if (cmdArgs.length == 4) {
+				if (cmdArgs[2].matches("[>]+") && cmdArgs[2].length() <= 2) {
+					//pass
+				} else {
+					output = "echo usage: echo STRING >[>] OUTFILE";
+				}
 			}
 		case "man":
 			if (cmdArgs.length != 2) {
@@ -79,5 +90,9 @@ public class CommandInterpreter {
 			}
 		};
 		return output;
+	}
+	
+	public String manCommand(String cmd) {
+		return "";
 	}
 }
