@@ -1,0 +1,10 @@
+What did I do last time?
+	- Created the basic outline for the CommandInterpreter and JShell
+	- Added basic input and exit in JShell
+
+What do I plan to do now?
+	- Work on the Files
+	- Working on the FilePathInterpreter
+	
+Am I blocked on anything?
+	- Not anything at the moment, it's too early
