@@ -40,8 +40,8 @@ public class JShell {
 	  
 	  Scanner in = new Scanner(System.in);
 	  
-	  while(lastCommand.equals("exit") == false){
-		  System.out.println("DEBUG: Enter a command");
+	  while(lastCommand.matches("[\\s]*exit([\\s]+.*)*") == false){
+		  System.out.println("DEBUG: $: ");
 		  lastCommand = in.nextLine();
 		  // Save the command to history
 		  session.saveCommand(lastCommand);
