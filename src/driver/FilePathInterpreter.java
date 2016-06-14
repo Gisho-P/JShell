@@ -14,15 +14,21 @@ public class FilePathInterpreter {
 		if(currPath != ""){
 			String[] splitPath = currPath.split("/");
 			
+			if(splitPath[0].equals("..")){
+				return interpretPathRecursive(init.getParent(), currPath.substring(2, currPath.length()));
+			}
+			
 			ArrayList<Directory> subDirs = init.getChildDirs();
 			Iterator<Directory> dirIterator= subDirs.iterator();
 			
 			while(dirIterator.hasNext()){
-				if(dirIterator.next().getName().equals(splitPath[0])){
+				Directory next = dirIterator.next();
+				
+				if(next.getName().equals(splitPath[0])){
 					
 					int length = splitPath[0].length();
 					// Go into the new dir
-					return interpretPathRecursive(init, currPath.substring(length + 1, currPath.length()));
+					return interpretPathRecursive(next, currPath.substring(length + 1, currPath.length()));
 				}
 			}
 			
