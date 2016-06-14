@@ -30,12 +30,16 @@ public class Directory extends FileTypes {
         return parent;
     }
 
-    public void add(FileTypes addObject) throws NameExistsException {
+    public void add(FileTypes addObject) throws NameExistsException, InvalidAddition {
+        //If user tries to add the current directory object to the current directory
+        if (addObject == this)
+            throw new InvalidAddition("Can not add the current directory object as the child of the current directory.");
         if (nameExists(addObject.getName()) == -1) {
-            children.add(addObject);
-            if (addObject instanceof Directory)
+            if (addObject instanceof Directory) {
                 ((Directory) addObject).parent = this;
-        }else
+            }
+            children.add(addObject);
+        } else
             throw new NameExistsException(addObject.getName() + " name is already in use in the current directory.");
     }
 
@@ -79,20 +83,24 @@ public class Directory extends FileTypes {
 //            throw new InvalidObjectType("Object needs to be an instance of Directory or File");
 //    }
 
-        public void addReplace(FileTypes addObject){
-            int index;
-            if ((index = nameExists(addObject.getName())) == -1) {
-                children.add(addObject);
-            }else{
-                children.remove(index);
-                children.add(index, addObject);
-            }
+    public void addReplace(FileTypes addObject) throws InvalidAddition {
+        int index;
+        //If user tries to add the current directory object to the current directory
+        if (addObject == this)
+            throw new InvalidAddition("Can not add the current directory object as the child of the current directory.");
 
-            if (addObject instanceof Directory)
-                ((Directory) addObject).parent = this;
+        if (addObject instanceof Directory)
+            ((Directory) addObject).parent = this;
+
+        if ((index = nameExists(addObject.getName())) == -1) {
+            children.add(addObject);
+        } else {
+            children.remove(index);
+            children.add(index, addObject);
+        }
     }
 
-    public void addReplaceMulti(ArrayList<FileTypes> addObjects){
+    public void addReplaceMulti(ArrayList<FileTypes> addObjects) throws InvalidAddition{
         for (int i = 0; i < addObjects.size(); i++) {
             addReplace(addObjects.get(i));
         }
@@ -187,6 +195,13 @@ public class Directory extends FileTypes {
             super(message);
         }
     }
+
+    public class InvalidAddition extends Exception {
+        public InvalidAddition(String message) {
+            super(message);
+        }
+    }
+
 }
 
 
