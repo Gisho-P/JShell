@@ -3,14 +3,15 @@ June 8 to June 13
 
 
 User Stories from Product Backlog that we will address in this sprint:
-a). Allow user to exit program
-b). Allow user to traverse directories
-c). Allow user to create directory
-d). Allow user to input commands
-e). Process commands
-f). Allow user to store and retrieve location of directory
-g). Start Shell for user
-h). Display history
+a) Allow user to exit program
+b) Allow user to traverse directories
+c) Allow user to create directory
+d) Allow user to input commands
+e) Process commands
+f) Allow user to store and retrieve location of directory
+g) Start Shell for user
+h) Display history
+i) Display output of command to user
 
 Specific tasks to be accomplished:
 a-1. (Shell) Take command to exit
@@ -27,17 +28,20 @@ f-2. (FilePathInterpreter) Keep track of current path, update and return path
 g-1. (Shell, Session) Create shell (console) and session information when starting
 h-1. (CommandInterpreter) Call session to get history
 h-2. (Session) Return history
+i-1. (Shell) Process output received from command interpreter and display it
+i-2. (CommandInterpreter) Return error messages
+i-3. (Session, File, Directory, FileTypes) Return any output from function calls
 
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: a-1, d-1, g-1, h-2
+Tasks: g-1, h-2, i-1
 
 User: John
-Tasks: b-2, f-1, f-2, h-2
+Tasks: a-1, d-1, b-2, f-1, f-2, h-2, i-2, i-3
 
 User: Dhrumil
-Tasks: b-1, c-1, c-2
+Tasks: b-1, c-1, c-2, i-3
 
 User: Adnan
 Tasks: a-2, e-1, e-2, h-1, h-2
