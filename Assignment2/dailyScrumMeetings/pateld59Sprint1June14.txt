@@ -1,0 +1,9 @@
+What did I do last time?
+    - Created the directory class
+
+What do I plan to do now?
+    - Finish creating the Directory class
+    - Also create the File class
+
+Am I blocked on anything?
+    - Need to create the file class because Directory class collaborates with it
