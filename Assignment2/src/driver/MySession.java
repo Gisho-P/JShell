@@ -1,6 +1,7 @@
 package driver;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class MySession {
 		  for(int cmdNumber = historySize - numberOfCommands;
 				  cmdNumber <= historySize; cmdNumber++){
 			  output = output + cmdNumber + ". " +
-				  commandHistory.get(cmdNumber - 1) + "\n";
+				  commandHistory.get(cmdNumber - 1) + System.lineSeparator();
 		  }
 		  return output;
 	  }
@@ -49,7 +50,16 @@ public class MySession {
    * Prints the command history to stdout.
    */
   public static String printCommandHistory(){
-    return printCommandHistory(commandHistory.size());
+	  String output = "";
+	  
+	  Iterator<String> iterator = commandHistory.iterator();
+	  while(iterator.hasNext()){
+		  output += iterator.next() + System.lineSeparator();
+	  }
+	  return output;
   }
-
+  
+  public static void clearCommands(){
+	  commandHistory.clear();
+  }
 }
