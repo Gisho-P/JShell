@@ -5,10 +5,10 @@ import java.util.ArrayList;
 /**
  * Created by dhrumil on 12/06/16.
  */
-public class Directory {
+public class Directory extends FileTypes {
     private String name;
     private Directory parent;
-    private ArrayList children;
+    private ArrayList<FileTypes> children;
 
 
     /**
@@ -17,26 +17,8 @@ public class Directory {
      * @param name Name of the Directory
      */
     public Directory(String name) {
-        this.name = name;
+        super(name);
         children = new ArrayList();
-    }
-
-    /**
-     * Change the name of the directory
-     *
-     * @param name New Directory name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Get the name of the current directory
-     *
-     * @return The name of the directory
-     */
-    public String getName() {
-        return name;
     }
 
     /**
@@ -48,53 +30,73 @@ public class Directory {
         return parent;
     }
 
-
-    public void add(Object addObject) throws NameExistsException, InvalidObjectType {
-        if (addObject instanceof File) {
-            if (nameExists(((File) addObject).getName()) == -1)
-                children.add(addObject);
-            else
-                throw new NameExistsException(((File) addObject).getName() + " name is already in use in the current directory.");
-        } else if (addObject instanceof Directory) {
-            Directory dir = (Directory) addObject;
-            if (nameExists((dir).getName()) == -1) {
-                dir.parent = this;
-                children.add(addObject);
-            } else
-                throw new NameExistsException(dir.getName() + " name is already in use in the current directory.");
-        } else
-            throw new InvalidObjectType("Object needs to be an instance of Directory or File");
+    public void add(FileTypes addObject) throws NameExistsException {
+        if (nameExists(addObject.getName()) == -1) {
+            children.add(addObject);
+            if (addObject instanceof Directory)
+                ((Directory) addObject).parent = this;
+        }else
+            throw new NameExistsException(addObject.getName() + " name is already in use in the current directory.");
     }
 
-    public void addReplace(Object addObject) throws InvalidObjectType {
-        int index;
-        if (addObject instanceof File) {
-            if ((index = nameExists(((File) addObject).getName())) == -1)
+//    public void add(Object addObject) throws NameExistsException, InvalidObjectType {
+//        if (addObject instanceof File) {
+//            if (nameExists(((File) addObject).getName()) == -1)
+//                children.add(addObject);
+//            else
+//                throw new NameExistsException(((File) addObject).getName() + " name is already in use in the current directory.");
+//        } else if (addObject instanceof Directory) {
+//            Directory dir = (Directory) addObject;
+//            if (nameExists((dir).getName()) == -1) {
+//                dir.parent = this;
+//                children.add(addObject);
+//            } else
+//                throw new NameExistsException(dir.getName() + " name is already in use in the current directory.");
+//        } else
+//            throw new InvalidObjectType("Object needs to be an instance of Directory or File");
+//    }
+
+//    public void addReplace(Object addObject) throws InvalidObjectType {
+//        int index;
+//        if (addObject instanceof File) {
+//            if ((index = nameExists(((File) addObject).getName())) == -1)
+//                children.add(addObject);
+//            else {
+//                children.remove(index);
+//                children.add(index, addObject);
+//            }
+//
+//        } else if (addObject instanceof Directory) {
+//            ((Directory) addObject).parent = this;
+//            if ((index = nameExists(((Directory) addObject).getName())) == -1) {
+//                children.add(addObject);
+//            } else {
+//                children.remove(index);
+//                children.add(index, addObject);
+//            }
+//
+//        } else
+//            throw new InvalidObjectType("Object needs to be an instance of Directory or File");
+//    }
+
+        public void addReplace(FileTypes addObject){
+            int index;
+            if ((index = nameExists(addObject.getName())) == -1) {
                 children.add(addObject);
-            else {
+            }else{
                 children.remove(index);
                 children.add(index, addObject);
             }
 
-        } else if (addObject instanceof Directory) {
-            ((Directory) addObject).parent = this;
-            if ((index = nameExists(((Directory) addObject).getName())) == -1) {
-                children.add(addObject);
-            } else {
-                children.remove(index);
-                children.add(index, addObject);
-            }
-
-        } else
-            throw new InvalidObjectType("Object needs to be an instance of Directory or File");
+            if (addObject instanceof Directory)
+                ((Directory) addObject).parent = this;
     }
 
-    public void addReplaceMulti(ArrayList addObjects) throws InvalidObjectType {
+    public void addReplaceMulti(ArrayList<FileTypes> addObjects){
         for (int i = 0; i < addObjects.size(); i++) {
             addReplace(addObjects.get(i));
         }
     }
-
 
 
     /**
@@ -121,8 +123,8 @@ public class Directory {
         return -1;
     }
 
-    public ArrayList getChildren() {
-        return new ArrayList(children);
+    public ArrayList<FileTypes> getChildren() {
+        return new ArrayList<FileTypes>(children);
     }
 
     public ArrayList<Directory> getChildDirs() {
@@ -156,29 +158,22 @@ public class Directory {
 
     public ArrayList<String> getChildNames() {
         ArrayList<String> childNames = new ArrayList<String>();
-        Object child;
         for (int i = 0; i < children.size(); i++) {
-            if ((child = children.get(i)) instanceof File)
-                childNames.add(((File) child).getName());
-            else if (child instanceof Directory) {
-                childNames.add(((Directory) child).getName());
-            }
+            childNames.add(children.get(i).getName());
         }
         return childNames;
     }
 
-    public Object getChild(String name) throws MissingNameException {
+    public FileTypes getChild(String name) throws MissingNameException {
         int index;
         if ((index = nameExists(name)) != -1) {
             return children.get(index);
-        }else
+        } else
             throw new MissingNameException("There are no files or directories with name " + name);
-
-
     }
 
     public String toString() {
-        return "Directory Name: " + getName();
+        return "Directory Name: " + name;
     }
 
     public class NameExistsException extends Exception {
@@ -189,12 +184,6 @@ public class Directory {
 
     public class MissingNameException extends Exception {
         public MissingNameException(String message) {
-            super(message);
-        }
-    }
-
-    public class InvalidObjectType extends Exception {
-        public InvalidObjectType(String message) {
             super(message);
         }
     }

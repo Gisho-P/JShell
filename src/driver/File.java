@@ -2,26 +2,18 @@ package driver;
 /**
  * Created by dhrumil on 12/06/16.
  */
-public class File {
+public class File extends FileTypes{
     private String name;
     private String content;
 
     public File(String name) {
-        this.name = name;
+        super(name);
         content = "";
     }
 
     public File(String name, String content) {
+        super(name);
         this.content = content;
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getContent() {
