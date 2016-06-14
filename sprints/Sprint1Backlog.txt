@@ -18,14 +18,14 @@ Specific tasks to be accomplished:
 a-1. (Shell) Take command to exit
 a-2. (CommandInterpreter) Process exit call to right function to complete action
 b-1. (Directory) Check if directory exists
-b-2. (FilePathInterpreter) Traverse the directories according to the file path 
+b-2. (FilePathInterpreter) Traverse the directories according to the file path
+b-3. (FilePathInterpreter) Returns error if directory path is invalid
 c-1. (Directory) Create the directory or give correct error message
 c-2. (Directory) Allow directory to store files and other directories
 d-1. (Shell) Continually accept input from shell
 e-1. (CommandInterpreter) Take any input, check it for validity and parse information
 e-2. (CommandInterpreter) Return any output, errors
 f-1. (FilePathInterpreter) Parse the file path
-f-2. (FilePathInterpreter) Keep track of current path, update and return path
 g-1. (Shell, Session) Create shell (console) and session information when starting
 h-1. (CommandInterpreter) Call session to get history
 h-2. (Session) Return history
@@ -40,7 +40,7 @@ User: Gisho
 Tasks: g-1, h-2, i-1
 
 User: John
-Tasks: a-1, d-1, b-2, f-1, f-2, h-2, i-1, i-3
+Tasks: a-1, d-1, b-2, b-3, f-1, h-2, i-1, i-3
 
 User: Dhrumil
 Tasks: b-1, c-1, c-2, i-3, j-1
