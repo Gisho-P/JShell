@@ -12,6 +12,7 @@ f) Allow user to store and retrieve location of directory
 g) Start Shell for user
 h) Display history
 i) Display output of command to user
+j). Display contents of the directory
 
 Specific tasks to be accomplished:
 a-1. (Shell) Take command to exit
@@ -20,6 +21,7 @@ b-1. (Directory) Check if directory exists
 b-2. (FilePathInterpreter) Traverse the directories according to the file path 
 c-1. (Directory) Create the directory or give correct error message
 c-2. (Directory) Allow directory to store files and other directories
+c-3. (Directory) Display contents of directory
 d-1. (Shell) Continually accept input from shell
 e-1. (CommandInterpreter) Take any input, check it for validity and parse information
 e-2. (CommandInterpreter) Return any output, errors
@@ -41,7 +43,7 @@ User: John
 Tasks: a-1, d-1, b-2, f-1, f-2, h-2, i-2, i-3
 
 User: Dhrumil
-Tasks: b-1, c-1, c-2, i-3
+Tasks: b-1, c-1, c-2, c-3
 
 User: Adnan
 Tasks: a-2, e-1, e-2, h-1, h-2
