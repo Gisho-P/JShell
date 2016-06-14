@@ -1,7 +1,5 @@
 package driver;
 
-import java.io.File;
-
 public class CommandInterpreter {
 
 	public CommandInterpreter() {
