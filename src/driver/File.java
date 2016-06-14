@@ -1,5 +1,3 @@
-package driver;
-
 /**
  * Created by dhrumil on 12/06/16.
  */
@@ -35,5 +33,18 @@ public class File {
 
     public void appendContent(String content) {
         this.content += content;
+    }
+
+    public String toString() {
+        return "File Name: " + getName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof File) {
+            if (((File)obj).getName().equals(getName()) && ((File)obj).getContent().equals(getName()))
+                return true;
+        }
+        return false;
     }
 }
