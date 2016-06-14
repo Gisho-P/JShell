@@ -3,9 +3,29 @@ June 14 to June 19
 
 
 User Stories from Product Backlog that we will address in this sprint:
-
+a Allow user to traverse directories		
+b Allow user to create directory
+c Process commands		
+d Allow user to store and retrieve location of directory		      
+e Display contents of directory	
+f Display path to directory	
+g Display history		
+h Display file contents		
+i Overwrite, concatenate, create file
+j Display user manual		
+    
 
 Specific tasks to be accomplished:
+a Implement cd command
+b Implement mkdir command
+c 
+d Implement push pop class
+e Implement ls command
+f Implement pwd command
+g Implement history command
+h Implement cat command
+i Implement echo command
+j Implement man command
 
 
 These tasks are assigned as follows:
@@ -17,8 +37,7 @@ User: John
 Tasks: 
 
 User: Dhrumil
-Tasks: 
+Tasks: f, e, b
 
 User: Adnan
 Tasks: 
-
