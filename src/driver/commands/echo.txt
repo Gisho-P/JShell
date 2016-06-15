@@ -13,7 +13,7 @@ DESCRIPTION
 
         If the OUTFILE is an existing file in the directory, it will overwrite
         the contents of the OUTFILE with the string, otherwise it will create
-        a new file with name OUTFILE.txt .
+        a new file with name OUTFILE .
 
         STRING should be a string of characters surrounded by double quotation
         marks.
