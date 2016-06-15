@@ -33,11 +33,10 @@ public class MySession {
   public static String printCommandHistory(int numberOfCommands){
 	  int historySize = commandHistory.size();
 	  if(numberOfCommands < 0){
-		  // Update later to have a consistent format for all error messages
 		  return "history usage: history [NUMBER >= 0]";
 	  } else {	
 		  String output = "";
-		  for(int cmdNumber = historySize - numberOfCommands;
+		  for(int cmdNumber = historySize - numberOfCommands + 1;
 				  cmdNumber <= historySize; cmdNumber++){
 			  output = output + cmdNumber + ". " +
 				  commandHistory.get(cmdNumber - 1) + System.lineSeparator();
@@ -50,13 +49,7 @@ public class MySession {
    * Prints the command history to stdout.
    */
   public static String printCommandHistory(){
-	  String output = "";
-	  
-	  Iterator<String> iterator = commandHistory.iterator();
-	  while(iterator.hasNext()){
-		  output += iterator.next() + System.lineSeparator();
-	  }
-	  return output;
+	  return printCommandHistory(commandHistory.size());
   }
   
   public static void clearCommands(){
