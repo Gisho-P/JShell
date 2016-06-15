@@ -1,0 +1,10 @@
+PWD(1)                           User Commands                           PWD(1)
+
+NAME
+		pwd - prints the current directory
+
+SYNOPSIS
+		pwd
+
+DESCRIPTION
+		Prints the current working directories full path to standard output

@@ -1,0 +1,14 @@
+HISTORY(1)                       User Commands                       HISTORY(1)
+
+NAME
+        history - prints out the recent commands entered in the shell
+
+SYNOPSIS
+        history [NUMBER]
+
+DESCRIPTION
+        Prints out the commands entered in the shell from the first one entered
+        to the last.
+
+        If NUMBER is specified, will print only the last NUMBER amount of
+        commands that were entered.
