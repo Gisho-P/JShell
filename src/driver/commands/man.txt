@@ -1,0 +1,11 @@
+MAN(1)                           User Commands                           MAN(1)
+
+NAME
+        man - prints the documentation for a specified command
+
+SYNOPSIS
+        man CMD
+
+DESCRIPTION
+        Prints out the documentation for the CMD which contains information
+        on how to use the command

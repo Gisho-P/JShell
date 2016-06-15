@@ -1,0 +1,11 @@
+MKDIR(1)                         User Commands                         MKDIR(1)
+
+NAME
+        mkdir - creates directory(s)
+
+SYNOPSIS
+        mkdir DIR ...
+
+DESCRIPTION
+        Creates directories which may be in the current directory or a full
+        path relative to the root/current directory.
