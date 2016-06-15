@@ -1,5 +1,5 @@
 What did I do last time?
-	- Implemented the MySession classs and added it to the Jshell
+	- Implemented the MySession class and added it to the Jshell
 
 What do I plan to do now?
 	- Work on how the errors are outputted
