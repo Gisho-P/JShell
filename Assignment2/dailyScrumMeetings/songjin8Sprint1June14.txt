@@ -1,10 +1,11 @@
 What did I do last time?
-	- Created the product backlog with teammates
-	- Started editing CRC cards for command interpreter and others
+    - Implemented the FilePathInterpreterClass
+    - Changed how session prints of all commands
 
 What do I plan to do now?
-	- Work on the output and processing input from console
-	- Start working on the implemention of the command interpreter
+    - Implement cat and cd command
+    - Create tests for FilePathInterpreter
 
 Am I blocked on anything?
-	- Not anything at the moment, it's too early
+    - Need to create the general command class before creating them
+	
