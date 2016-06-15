@@ -1,5 +1,10 @@
 package driver;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class CommandInterpreter {
 
 	public CommandInterpreter() {
@@ -103,8 +108,30 @@ public class CommandInterpreter {
 		return output;
 	}
 	
+	/**
+	 * Given a command gets the text file with the documentation to the command
+	 * and returns a string with the contents of the file.
+	 *
+	 * @param cmd the command that's man page is getting retrieved
+	 * @return the string containing the commands man page
+	 */
 	public String manCommand(String cmd) {
-		File c = new File("./commands/" + cmd + ".txt");
-		return "";
+	    String manPage = "";
+	   // Get the file with the man page for the given command
+		try (BufferedReader br = new BufferedReader(
+		    new FileReader(System.getProperty("user.dir") +
+		        "\\src\\driver\\commands\\" + cmd+".txt"))) {
+		  
+		   String manLine = null;
+		   // Store each line of the man page to a string
+		   while ((manLine = br.readLine()) != null) {
+		       manPage = manPage + manLine + "\n";
+		   }
+		   
+		} catch (FileNotFoundException e) {
+		    return (cmd + " is not a valid command");
+        } catch (IOException e) {
+    }
+		return manPage;
 	}
 }
