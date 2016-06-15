@@ -40,6 +40,9 @@ public class JShell {
 	  
 	  Scanner in = new Scanner(System.in);
 	  
+	  // Continually accept commands until the command exit is entered
+	  // exit can precede or follow any amount of white spaces and can have
+	  // anything after exit and a white space
 	  while(lastCommand.matches("[\\s]*exit([\\s]+.*)*") == false){
 		  System.out.println("DEBUG: $: ");
 		  lastCommand = in.nextLine();
