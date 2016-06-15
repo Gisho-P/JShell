@@ -1,9 +1,10 @@
 What did I do last time?
-    - Created the directory class
+    - Created the directory class with functionality which allows users to add contents, remove contents and list contents
+    - Created the file class with functionality which allows users to overwrite or concatenate to contents
 
 What do I plan to do now?
-    - Finish creating the Directory class
-    - Also create the File class
+    - Implement the pwd, ls and mkdir commands
+    - Create tests for directory and file class
 
 Am I blocked on anything?
-    - Need to create the file class because Directory class collaborates with it
+    - Need to wait for FilePathInterpreter bugs to be fixed in order to start working on the commands
