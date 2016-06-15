@@ -5,17 +5,34 @@ import java.util.Iterator;
 
 public class FilePathInterpreter {
 
-	public static Directory interpretPath(Directory init, String path) throws InvalidDirectoryPathException{
-		return interpretPathRecursive(init, path);
+	public static FileTypes interpretPath(Directory init, String path) throws InvalidDirectoryPathException{
+		
+		if(path != ""){
+			char first = path.charAt(0);
+			if(first == '/'){
+				Directory parent = init.getParent();
+				while(parent != null){
+					init = parent;
+				}
+			}
+			
+			return interpretPathRecursive(init, path.substring(1, path.length()));
+			}
+		else
+			return init;
 	};
 	
-	public static Directory interpretPathRecursive(Directory init, String currPath) throws InvalidDirectoryPathException{
+	public static FileTypes interpretPathRecursive(Directory init, String currPath) throws InvalidDirectoryPathException{
 		
 		if(currPath != ""){
 			String[] splitPath = currPath.split("/");
 			
 			if(splitPath[0].equals("..")){
-				return interpretPathRecursive(init.getParent(), currPath.substring(2, currPath.length()));
+				return interpretPathRecursive(init.getParent(), currPath.substring(3, currPath.length()));
+			}
+			
+			if(splitPath[0].equals(".")){
+				return interpretPathRecursive(init, currPath.substring(2, currPath.length()));
 			}
 			
 			ArrayList<Directory> subDirs = init.getChildDirs();
@@ -29,6 +46,21 @@ public class FilePathInterpreter {
 					int length = splitPath[0].length();
 					// Go into the new dir
 					return interpretPathRecursive(next, currPath.substring(length + 1, currPath.length()));
+				}
+			}
+			
+			// If we're at the end looking for a file
+			if(splitPath.length == 1){
+				ArrayList<File> files = init.getChildFiles();
+				Iterator<File> filesIterator = files.iterator();
+				
+				// Else it's a file we're looking for
+				while(filesIterator.hasNext()){
+					File next = filesIterator.next();
+					
+					if(next.getName().equals(splitPath[0])){
+						return next;
+					}
 				}
 			}
 			
