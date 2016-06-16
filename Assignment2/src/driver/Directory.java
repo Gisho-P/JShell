@@ -1,12 +1,12 @@
 package driver;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by dhrumil on 12/06/16.
  */
 public class Directory extends FileTypes {
-    private String name;
     private Directory parent;
     private ArrayList<FileTypes> children;
 
@@ -181,7 +181,7 @@ public class Directory extends FileTypes {
     }
 
     public String toString() {
-        return "Directory Name: " + name;
+        return "Directory Name: " + getName();
     }
 
     public class NameExistsException extends Exception {
@@ -201,7 +201,6 @@ public class Directory extends FileTypes {
             super(message);
         }
     }
-
 }
 
 
