@@ -3,41 +3,37 @@ June 14 to June 19
 
 
 User Stories from Product Backlog that we will address in this sprint:
-a Allow user to traverse directories		
-b Allow user to create directory
-c Process commands		
-d Allow user to store and retrieve location of directory		      
-e Display contents of directory	
-f Display path to directory	
-g Display history		
-h Display file contents		
-i Overwrite, concatenate, create file
-j Display user manual		
-    
+
 
 Specific tasks to be accomplished:
-a Implement cd command
-b Implement mkdir command
-c 
-d Implement push pop class
-e Implement ls command
-f Implement pwd command
-g Implement history command
-h Implement cat command
-i Implement echo command
-j Implement man command
-
+a) As a user, I can create a directory that I can go through and create files in.
+b) As a user, I can traverse through directories to look for/create/delete files, etc.
+c) As a user, I can keep track of what directory I'm in by displaying it's path.
+d) As a user, I can choose a file and look at it's contents.
+e) As a user, I can look at the history of commands I entered in the shell.
+f) As a user, I can input commands to the shell to perform different tasks. 
+g) As a user, I can display the manual to a command I don't understand.
 
 These tasks are assigned as follows:
+a-1. (Directory) Create method to add an object to the directory
+b-1. (Directory) Create methods to get parent and child objects of current directory
+b-2. (FilePathInterpreter) Create a class that interprets a path, parses it and goes to the location
+c-1. (Directory) Create a method to return path
+d-1. (FileTypes) Create a new superclass that created files/directories inherit from
+d-2. (File) Make File inherit from FileTypes
+e-1. (Session) Display history using Iterator structure
+f-1. (Command) Create an abstract super class command for all commands entered
+g-1. Write man pages for each command
+g-2. (CommandInterpreter) Implement method in class to get man pages and display them
 
 User: Gisho
-Tasks: g, j
+Tasks: g-1, g-2
 
 User: John
-Tasks: a, h
+Tasks: b-2, e-1, f-1
 
 User: Dhrumil
-Tasks: f, e, b
+Tasks: a-1, b-1, c-1, d-1, d-2
 
 User: Adnan
 Tasks: 
