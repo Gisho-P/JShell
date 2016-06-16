@@ -1,30 +1,36 @@
-|		User Stories		|	Time Estimate (h)	|
--------------------------------------------------------------------------
-|	* Create a shell for user	|		2		|
-|	* Allow user to exit program	|		1		|
-|	* Allow user to traverse	|		2.5		|
-|	  directories			|				|
-|	* Allow user to create directory|		2		|
-|	* Allow user to input commands	|		2		|
-|	* Process commands		|		8		|
-|	* Allow user to store and	|		3		|
-|	  retrieve location of directory|				|
-|	* Display output of command     |               1.5             |
-|         to user 		        |
-|	* Display contents of directory	|		1		|
-|	* Display path to directory	|		1		|
-|	* Display history		|		1		|
-|	* Display file contents		|		1		|
-|	* Store string to file  	|		1		|
-|	* Display user manual		|		1		|
-|       * Notify user if there is       |               1               |
-|        a problem with the command     |                               |
-|       * Keep track of user's root and |               1               |
-|	 current directory              |                               |
-|	* Determine path to current     |               1               |
-|	directory from root directory   |                               |
-|	and vice versa                  |                               |
-|	* Allow file to be overwritten  |               1               |
-|	* Allow content to be appended  |               1               |
-|	to the end of the file          |                               |	
--------------------------------------------------------------------------
+Product Backlog
+---------------
+* User Story: As a user, I can run a shell program that I can interact with.
+	- Time Estimate: 2h
+* User Story: As a user, I can input commands to the shell to perform different tasks. 
+	- Time Estimate: 2h
+* User Story: As a user, I can see any output of a command that I entered.
+	- Time Estimate: 1.5h
+* User Story: As a user, if I enter a command incorrectly, I can see an error message with the correct method to use the command.
+	- Time Estimate: 1.5h
+* User Story: As a user, I can exit the program upon command.
+	- Time Estimate: 1h
+* User Story: As a user, I can create a directory that I can go through and create files in.
+	- Time Estimate: 2h
+* User Story: As a user, I can traverse through directories to look for/create/delete files, etc.
+	- Time Estimate: 2.5h
+* User Story: As a user, I can display the contents of the directory I'm currently on.
+	- Time Estimate: 1h
+* User Story: As a user, I can keep track of what directory I'm in by displaying it's path.
+	- Time Estimate: 1h
+* User Story: As a user, I can save my current directory for use later and go to a new directory.
+	- Time Estimate: 1.5h
+* User Story: As a user, I can retrieve a previously saved directory and go back to it.
+	- Time Estimate: 1.5h
+* User Story: As a user, I can look at the history of commands I entered in the shell.
+	- Time Estimate: 1h
+* User Story: As a user, I can choose a file and look at it's contents. 
+	- Time Estimate: 1h
+* User Story: As a user, I can display text in the shell.
+	- Time Estimate: 0.5h
+* User Story: As a user, I can take written text and save it in a file for later use.
+	- Time Estimate: 2h
+* User Story: As a user, I can take a file, append content to it and save it.
+	- Time Estimate: 1h
+* User Story: As a user, I can display the manual to a command I don't understand.
+	- Time Estimate: 1h

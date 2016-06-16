@@ -3,47 +3,50 @@ June 8 to June 13
 
 
 User Stories from Product Backlog that we will address in this sprint:
-a) Allow user to exit program
-b) Allow user to traverse directories
-c) Allow user to create directory
-d) Allow user to input commands
-e) Process commands
-f) Allow user to store and retrieve location of directory
-g) Start Shell for user
-h) Display history
-i) Display output of command to user
-j). Display contents of the directory
+a) As a user, I can run a shell program that I can interact with.
+b) As a user, I can input commands to the shell to perform different tasks.
+c) As a user, I can look at the history of commands I entered in the shell.
+d) As a user, I can exit the program upon command.
+e) As a user, if I enter a command incorrectly, I can see an error message with the correct method to use the command
+f) As a user, I can create a directory that I can go through and create files in.
+g) As a user, I can display the contents of the directory I'm currently on.
+h) As a user, I can choose a file and look at it's contents.
+i) As a user, I can take written text and save it in a file for later use.
+j) As a user, I can take a file, append content to it and save it.
+k) As a user, I can display the manual to a command I don't understand.
+l) As a user, I can see any output of a command that I entered.
 
 Specific tasks to be accomplished:
-a-1. (Shell) Take command to exit
-a-2. (CommandInterpreter) Process exit call to right function to complete action
-b-1. (Directory) Check if directory exists
-b-2. (FilePathInterpreter) Traverse the directories according to the file path
-b-3. (FilePathInterpreter) Returns error if directory path is invalid
-c-1. (Directory) Create the directory or give correct error message
-c-2. (Directory) Allow directory to store files and other directories
-d-1. (Shell) Continually accept input from shell
-e-1. (CommandInterpreter) Take any input, check it for validity and parse information
-e-2. (CommandInterpreter) Return any output, errors
-f-1. (FilePathInterpreter) Parse the file path
-g-1. (Shell, Session) Create shell (console) and session information when starting
-h-1. (CommandInterpreter) Call session to get history
-h-2. (Session) Return history
-i-1. (Shell) Process output received from command interpreter and display it
-i-2. (CommandInterpreter) Return error messages
-i-3. (Session, File, Directory, FileTypes) Return any output from function calls
-j-1. (Directory) Display contents of directory
+a-1. (Shell) Add a JShell class that will create user interaction
+b-1. (CommandInterpreter) Add a CommandInterpreter class that will take commands and process them
+c-1. (Session) Store commands entered to a container so they can be retrieved later
+c-2. (Shell) Save commands entered in shell to the container in session
+c-3. (Session) Make container and methods to access them static because the one session should be used among all other classes
+c-4. (CommandInterpreter) Process history call and call it accordingly
+d-1. (Shell) Create a condition that checks for exit prompt to exit program
+e-1. (CommandInterpreter) Check input entered and process it for correct formatting
+f-1. (Directory) Create a directory class to create/deal with the properties of a directory
+g-1. (Directory) Create a method to loop through and display a directory's contents
+h-1. (File) Create a file class to create/deal with the properties of a file
+h-2. (File) Create a method to return a file's contents
+i-1. (File) Create a method to overwrite text in a file
+i-2. (File) Create file with text stored in it
+j-1. (File) Create a method to append content to the current file
+k-1. Create directory and files where man pages are stored
+k-2. (CommandInterpreter) Create method to get man page when man cmd is called
+l-1. (File, Directory) Return output based on command
+l-2. (Shell) Display output to console for user
 
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: g-1, h-2, i-1
+Tasks: c-1, c-2
 
 User: John
-Tasks: a-1, d-1, b-2, b-3, f-1, h-2, i-1, i-3
+Tasks: a-1, b-1, d-1, l-2
 
 User: Dhrumil
-Tasks: b-1, c-1, c-2, i-3, j-1
+Tasks: f-1, g-1, h-1, h-2, i-1, i-2, j-1, l-1
 
 User: Adnan
-Tasks: a-2, e-1, e-2, h-1, h-2, i-2
+Tasks: c-3, c-4, d-1, e-1, k-1, k-2
