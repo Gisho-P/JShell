@@ -35,7 +35,7 @@ public class File extends FileTypes{
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof File) {
-            if (((File)obj).getName().equals(getName()) && ((File)obj).getContent().equals(getName()))
+            if (((File)obj).getName().equals(getName()) && ((File)obj).getContent().equals(getContent()))
                 return true;
         }
         return false;

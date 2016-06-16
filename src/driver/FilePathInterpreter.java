@@ -11,20 +11,22 @@ public class FilePathInterpreter {
 			char first = path.charAt(0);
 			if(first == '/'){
 				Directory parent = init.getParent();
-				while(parent != null){
-					init = parent;
+				while(init.getParent() != null){
+					init = init.getParent();
 				}
+				
+				System.out.println(init);
+				System.out.println(path.substring(1, path.length()));
+				return interpretPathRecursive(init, path.substring(1, path.length()));
 			}
-			
-			return interpretPathRecursive(init, path.substring(1, path.length()));
+			return interpretPathRecursive(init, path);	
 			}
 		else
 			return init;
 	};
 	
 	public static FileTypes interpretPathRecursive(Directory init, String currPath) throws InvalidDirectoryPathException{
-		
-		if(currPath != ""){
+		if(!currPath.equals("")){
 			String[] splitPath = currPath.split("/");
 			
 			if(splitPath[0].equals("..")){
@@ -35,19 +37,25 @@ public class FilePathInterpreter {
 				return interpretPathRecursive(init, currPath.substring(2, currPath.length()));
 			}
 			
+			
+			// Checking sub dirs
 			ArrayList<Directory> subDirs = init.getChildDirs();
 			Iterator<Directory> dirIterator= subDirs.iterator();
 			
 			while(dirIterator.hasNext()){
 				Directory next = dirIterator.next();
-				
 				if(next.getName().equals(splitPath[0])){
 					
 					int length = splitPath[0].length();
 					// Go into the new dir
-					return interpretPathRecursive(next, currPath.substring(length + 1, currPath.length()));
+					// Taking care of the '/' in case there are other sub dirs
+					if(splitPath.length == 1)
+						return interpretPathRecursive(next, currPath.substring(length, currPath.length()));
+					else
+						return interpretPathRecursive(next, currPath.substring(length + 1, currPath.length()));
 				}
 			}
+			System.out.println(splitPath[0]);
 			
 			// If we're at the end looking for a file
 			if(splitPath.length == 1){
@@ -57,7 +65,7 @@ public class FilePathInterpreter {
 				// Else it's a file we're looking for
 				while(filesIterator.hasNext()){
 					File next = filesIterator.next();
-					
+
 					if(next.getName().equals(splitPath[0])){
 						return next;
 					}
@@ -65,7 +73,7 @@ public class FilePathInterpreter {
 			}
 			
 			// Else it doesn't exist and throw an expcetion
-	        throw new InvalidDirectoryPathException("There are no files or directories with name " + currPath);	
+	        throw new InvalidDirectoryPathException("There are no files or directories with name " + currPath);
 		}
 		return init;
 	}
