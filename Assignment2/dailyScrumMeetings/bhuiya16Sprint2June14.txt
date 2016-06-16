@@ -1,0 +1,12 @@
+What did I do last time?
+	- Completed command interpreter error checking
+	- Worked with team to distribute tasks for Sprint 2
+	- Fixed some methods in shell and session class to work with command interpreter
+
+What do I plan to do now?
+	- Implement directory stack
+	- Make changes to command interpreter
+	- Fix CRC Cards, Sprint 2 logs
+
+Am I blocked on anything?
+	- No
