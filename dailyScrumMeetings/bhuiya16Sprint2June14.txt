@@ -9,4 +9,4 @@ What do I plan to do now?
 	- Fix CRC Cards, Sprint 2 logs
 
 Am I blocked on anything?
-	- No
+	- Possibly, depends on if implementation of other functions are broken
