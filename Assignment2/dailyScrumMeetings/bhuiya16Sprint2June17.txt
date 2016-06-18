@@ -1,0 +1,11 @@
+What did I do last time?
+	- Fixed Sprint logs, product backlogs
+	- Discussed with team on combining different elements together, new tasks and understanding currnt status
+
+What do I plan to do now?
+	- Implement directory stack
+	- Make changes to command interpreter
+	- Implement shell functions class
+
+Am I blocked on anything?
+	- Possibly, depends on if implementation of other functions are broken
