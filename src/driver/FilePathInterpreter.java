@@ -15,8 +15,6 @@ public class FilePathInterpreter {
 					init = init.getParent();
 				}
 				
-				System.out.println(init);
-				System.out.println(path.substring(1, path.length()));
 				return interpretPathRecursive(init, path.substring(1, path.length()));
 			}
 			return interpretPathRecursive(init, path);	
@@ -55,7 +53,6 @@ public class FilePathInterpreter {
 						return interpretPathRecursive(next, currPath.substring(length + 1, currPath.length()));
 				}
 			}
-			System.out.println(splitPath[0]);
 			
 			// If we're at the end looking for a file
 			if(splitPath.length == 1){
@@ -74,9 +71,19 @@ public class FilePathInterpreter {
 			
 			// Else it doesn't exist and throw an expcetion
 	        throw new InvalidDirectoryPathException("There are no files or directories with name " + currPath);
-		}
+		} 
 		return init;
 	}
+	
+	public static FileTypes interpretMakePath(Directory init, String path) throws InvalidDirectoryPathException{
+		if(path != ""){
+			String[] splitPath = path.split("/");
+			int last = splitPath[0].length();
+			
+			return interpretPathRecursive(init, path.substring(0, path.length() - last));
+		}
+		return init.getParent();
+	};
 	
     public static class InvalidDirectoryPathException extends Exception {
         public InvalidDirectoryPathException(String message) {
