@@ -1,0 +1,11 @@
+What did I do last time?
+    - Replanned the design of the commands to make it more convenient. Now the commands class will contain all of the commands.
+    - Fixed bugs in directory and file class
+    - Create tests for directory and file class
+
+What do I plan to do now?
+    -Need to implement the mkdir command
+    -Also create tests for the mkdir command
+
+Am I blocked on anything?
+    - Need to wait for a bug in the filepathinterpreter to be fixed before I can start working on the mkdir command
