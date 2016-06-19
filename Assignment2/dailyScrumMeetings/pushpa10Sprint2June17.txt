@@ -1,0 +1,10 @@
+What did I do last time?
+	- Finished the man pages for the commands
+	- Implemented the man, and history command
+
+What do I plan to do now?
+	- Implement the echo command
+	- Implement the history command into the shell functions class
+
+Am I blocked on anything?
+	- Nothing blocking me right now
