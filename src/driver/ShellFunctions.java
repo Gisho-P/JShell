@@ -2,6 +2,8 @@ package driver;
 
 import java.util.List;
 
+import driver.FilePathInterpreter.InvalidDirectoryPathException;
+
 public class ShellFunctions {
 
 	public ShellFunctions() {
@@ -21,8 +23,15 @@ public class ShellFunctions {
 		return retVal;
 	}
 	
-	public String cd (String directory) {
-		return null; // file path inteerpreter
+	public String cd (String path, MySession session) {
+		try {
+			Directory dest = (Directory) FilePathInterpreter.interpretPath(session.getCurrentDir(), path);
+			session.setCurrentDir(dest);
+		} catch (InvalidDirectoryPathException e) {
+			// TODO Auto-generated catch block
+			return "No such dir as" + path;
+		}
+		return "";
 	}
 	
 	public String ls (String path) {
@@ -65,11 +74,17 @@ public class ShellFunctions {
 		return MySession.printCommandHistory();
 	}
 	
-	public String cat (String[] files) {
+	public String cat (String[] filePaths, MySession session) {
 		String retVal = "";
-		for (String i: files) {
-			//retVal += ;
-			// some how get file and display contents
+		for (String i: filePaths) {
+			try {
+				retVal += (File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i);
+			} catch (InvalidDirectoryPathException e) {
+				// TODO Auto-generated catch block
+				System.out.println("No such dir as" + i);
+			} catch(ClassCastException e){
+				System.out.println("Unable to cat dir" + i);
+			}
 		}
 		return retVal;
 	}

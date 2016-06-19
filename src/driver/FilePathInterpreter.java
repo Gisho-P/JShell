@@ -23,7 +23,7 @@ public class FilePathInterpreter {
 			return init;
 	};
 	
-	public static FileTypes interpretPathRecursive(Directory init, String currPath) throws InvalidDirectoryPathException{
+	private static FileTypes interpretPathRecursive(Directory init, String currPath) throws InvalidDirectoryPathException{
 		if(!currPath.equals("")){
 			String[] splitPath = currPath.split("/");
 			
