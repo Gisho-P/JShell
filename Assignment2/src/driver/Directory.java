@@ -1,7 +1,7 @@
 package driver;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.Iterator;
 
 /**
  * Created by dhrumil on 12/06/16.
@@ -18,7 +18,7 @@ public class Directory extends FileTypes {
      */
     public Directory(String name) {
         super(name);
-        children = new ArrayList();
+        children = new ArrayList<FileTypes>();
     }
 
     /**
@@ -185,18 +185,21 @@ public class Directory extends FileTypes {
     }
 
     public class NameExistsException extends Exception {
+    	private static final long serialVersionUID = 59L;
         public NameExistsException(String message) {
             super(message);
         }
     }
 
     public class MissingNameException extends Exception {
+    	private static final long serialVersionUID = 59L;
         public MissingNameException(String message) {
             super(message);
         }
     }
 
     public class InvalidAddition extends Exception {
+    	private static final long serialVersionUID = 59L;
         public InvalidAddition(String message) {
             super(message);
         }

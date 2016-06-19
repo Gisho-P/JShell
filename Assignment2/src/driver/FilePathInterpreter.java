@@ -86,6 +86,7 @@ public class FilePathInterpreter {
 	};
 	
     public static class InvalidDirectoryPathException extends Exception {
+    	private static final long serialVersionUID = 59L;
         public InvalidDirectoryPathException(String message) {
             super(message);
         }
