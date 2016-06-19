@@ -9,7 +9,7 @@ public class CommandInterpreter {
 		functions = new ShellFunctions();
 	}
 
-	public String interpretCmd(String cmd) {
+	public String interpretCmd(String cmd, MySession session) {
 		System.out.println("DEBUG: Your cmd is " + cmd);
 		cmd = cmd.trim();
 		cmd = cmd.replaceAll("[\\s]+", " ");
@@ -32,7 +32,7 @@ public class CommandInterpreter {
 				if (cmdArgs.length != 2) {
 					output = "cd usage: cd DIR"; // error, print usage
 				} else { // return output from function call
-					output = functions.cd(cmdArgs[1]);
+					output = functions.cd(cmdArgs[1], session);
 				}
 				break;
 			case "ls":
@@ -80,7 +80,7 @@ public class CommandInterpreter {
 					output = "cat usage: cat FILE [FILE2] ...";
 				} else {
 					output = functions.cat(
-							Arrays.copyOfRange(cmdArgs, 1, cmdArgs.length));
+							Arrays.copyOfRange(cmdArgs, 1, cmdArgs.length), session);
 							// return output from function call
 				}
 				break;

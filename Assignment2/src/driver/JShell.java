@@ -49,7 +49,7 @@ public class JShell {
 		  // Save the command to history
 		  session.saveCommand(lastCommand);
 		  // Printing the output
-		  System.out.println(cmd.interpretCmd(lastCommand));
+		  System.out.println(cmd.interpretCmd(lastCommand, session));
 	  }
 	  input.close();
 	  exit();

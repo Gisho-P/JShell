@@ -13,6 +13,7 @@ public class MySession {
   protected static List<String> commandHistory;
   private static Hashtable<String,String> manCmd =
 		  new Hashtable<String,String>();
+  private Directory currentDir;
   
   public MySession(){
     commandHistory = new ArrayList<String>();
@@ -93,6 +94,8 @@ public class MySession {
     				  "SYNOPSIS\n\t\tpwd\n\nDESCRIPTION\n\t\tPrints the" +
     				  " current working directories full path to standard " +
     				  "output");
+    
+    currentDir = new Directory("");
   }
   
   /**
@@ -139,5 +142,13 @@ public class MySession {
   public static String manPages(String command) {
 	return manCmd.containsKey(command) ? manCmd.get(command):
 		"error: invalid command";
+  }
+  
+  public Directory getCurrentDir(){
+	  return currentDir;
+  }
+  
+  public void setCurrentDir(Directory currentDir){
+	  this.currentDir = currentDir;
   }
 }
