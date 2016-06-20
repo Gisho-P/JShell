@@ -78,9 +78,13 @@ public class FilePathInterpreter {
 	public static FileTypes interpretMakePath(Directory init, String path) throws InvalidDirectoryPathException{
 		if(path != ""){
 			String[] splitPath = path.split("/");
-			int last = splitPath[0].length();
 			
-			return interpretPathRecursive(init, path.substring(0, path.length() - last));
+			if(splitPath.length > 0){
+				int last = splitPath[0].length();			
+				return interpretPathRecursive(init, path.substring(0, path.length() - last));
+			}
+			return interpretPathRecursive(init, path);
+
 		}
 		return init.getParent();
 	};
