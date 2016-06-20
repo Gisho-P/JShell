@@ -4,12 +4,11 @@ import java.util.Arrays;
 
 public class CommandInterpreter {
 	private ShellFunctions functions;
-
-	public CommandInterpreter() {
-		functions = new ShellFunctions();
+	public CommandInterpreter(MySession session) {
+		functions = new ShellFunctions(session);
 	}
 
-	public String interpretCmd(String cmd, MySession session) {
+	public String interpretCmd(String cmd) {
 		System.out.println("DEBUG: Your cmd is " + cmd);
 		cmd = cmd.trim();
 		cmd = cmd.replaceAll("[\\s]+", " ");
@@ -32,7 +31,7 @@ public class CommandInterpreter {
 				if (cmdArgs.length != 2) {
 					output = "cd usage: cd DIR"; // error, print usage
 				} else { // return output from function call
-					output = functions.cd(cmdArgs[1], session);
+					output = functions.cd(cmdArgs[1]);
 				}
 				break;
 			case "ls":
@@ -80,7 +79,7 @@ public class CommandInterpreter {
 					output = "cat usage: cat FILE [FILE2] ...";
 				} else {
 					output = functions.cat(
-							Arrays.copyOfRange(cmdArgs, 1, cmdArgs.length), session);
+							Arrays.copyOfRange(cmdArgs, 1, cmdArgs.length));
 							// return output from function call
 				}
 				break;
