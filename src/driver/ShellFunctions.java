@@ -64,10 +64,10 @@ public class ShellFunctions {
             }
           } catch (InvalidDirectoryPathException e) {
               // TODO Auto-generated catch block
-              System.out.println("No such file as" + i);
+              System.out.println("No such directory as" + i);
           } catch (ClassCastException e) {
             try {
-              retVal += (File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i);
+              retVal += ((File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i)).getName();
             } catch (InvalidDirectoryPathException e1) {
               // TODO Auto-generated catch block
               System.out.println("No such directory or file as" + i);
