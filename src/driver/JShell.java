@@ -35,8 +35,9 @@ public class JShell {
 
   public static void main(String[] args) {
 	  String lastCommand = "";
-	  CommandInterpreter cmd = new CommandInterpreter();
 	  MySession session = new MySession();
+	  CommandInterpreter cmd = new CommandInterpreter(session);
+
 	  
 	  Scanner input = new Scanner(System.in);
 	  
@@ -49,7 +50,7 @@ public class JShell {
 		  // Save the command to history
 		  session.saveCommand(lastCommand);
 		  // Printing the output
-		  System.out.println(cmd.interpretCmd(lastCommand, session));
+		  System.out.println(cmd.interpretCmd(lastCommand));
 	  }
 	  input.close();
 	  exit();
