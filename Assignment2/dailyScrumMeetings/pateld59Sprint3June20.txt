@@ -1,0 +1,12 @@
+What did I do last time?
+    - Added Equals method in the directory class
+    - Updated MySession class. Modified so it saves the root directory node.
+    - Started working on the pwd and mkdir command methods
+
+What do I plan to do now?
+    -Fix bugs in the mkdir and pwd commands
+    -Also create tests for the mkdir and pwd commands
+    -Might have to change the design to use HashTable to determine what command was entered
+
+Am I blocked on anything?
+    - Need to verify the mkdir and pwd command methods are compatible with the FilePathInterpreter. Might need to add input checking to the mkdir 	function
