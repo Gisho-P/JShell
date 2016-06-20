@@ -1,5 +1,8 @@
 package driver;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
@@ -50,8 +53,32 @@ public class ShellFunctions {
         return "";
     }
 
-    public String ls(String path) {
-        return null; // call directory function on current dir
+    public String ls(String[] paths) {
+      String retVal = "";
+      for (String i : paths) {
+          try {
+            ArrayList<String> childNames = ((Directory) FilePathInterpreter.interpretPath(session.getCurrentDir(), i)).getChildNames();
+            Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+            for (String childName: childNames){
+              retVal += childName + " ";
+            }
+          } catch (InvalidDirectoryPathException e) {
+              // TODO Auto-generated catch block
+              System.out.println("No such file as" + i);
+          } catch (ClassCastException e) {
+            try {
+              retVal += (File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i);
+            } catch (InvalidDirectoryPathException e1) {
+              // TODO Auto-generated catch block
+              System.out.println("No such directory or file as" + i);
+            };
+          }
+      }
+      return retVal;
+    }
+    
+    public String ls() {
+      return ls( new String[] {session.getCurrentDir().getEntirePath()});
     }
 
     public String pwd() {
@@ -106,7 +133,11 @@ public class ShellFunctions {
     }
 
     public String echo(String outfile, boolean overwrite) {
-        return null; // mad processing to do
+      String retVal = "";
+        // Check if the file exists in the directory
+        // If it does set it as the file/ otherwise create a new one
+        // overwrite as given by parameter
+      return retVal;
     }
 
     public String man(String command) {
