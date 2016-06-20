@@ -37,8 +37,11 @@ public class CommandInterpreter {
 			case "ls":
 				if (cmdArgs.length > 2) {
 					output = "ls usage: ls [PATH]"; // error, print usage
-				} else {
-					output = functions.ls(cmdArgs[1]); // return output from function call
+				} else if (cmdArgs.length == 2){
+					output = functions.ls(Arrays.copyOfRange(
+					    cmdArgs, 1, cmdArgs.length)); // return output from function call
+				} else{
+				    output = functions.ls();
 				}
 				break;
 			case "pwd":
@@ -84,13 +87,20 @@ public class CommandInterpreter {
 				}
 				break;
 			case "echo":
-				if (cmdArgs.length > 4 || cmdArgs.length < 2) {
+				if (cmdArgs.length > 4 || cmdArgs.length < 2 ) {
 					output = "echo usage: STRING [>[>] OUTFILE]";
 				} else {
 					if (cmdArgs.length == 2) {
 					
 					} else if (cmdArgs.length == 3) {
-						
+						// Append to file
+					    if(cmdArgs[2].equals(">>")){
+						  output = functions.echo(cmdArgs[3], false);
+						}
+					    // Write to file
+					    else if(cmdArgs[2].equals(">")){
+					      output = functions.echo(cmdArgs[3], true);
+					    }
 					} else {
 						
 					}
