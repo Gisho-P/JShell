@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class FilePathInterpreter {
 
 	public static FileTypes interpretPath(Directory init, String path) throws InvalidDirectoryPathException{
-		
+		System.out.println(path);
 		if(path != ""){
 			char first = path.charAt(0);
 			if(first == '/'){
@@ -47,6 +47,8 @@ public class FilePathInterpreter {
 					int length = splitPath[0].length();
 					// Go into the new dir
 					// Taking care of the '/' in case there are other sub dirs
+					
+					System.out.println(splitPath.length);
 					if(splitPath.length == 1)
 						return interpretPathRecursive(next, currPath.substring(length, currPath.length()));
 					else
@@ -77,14 +79,22 @@ public class FilePathInterpreter {
 	
 	public static FileTypes interpretMakePath(Directory init, String path) throws InvalidDirectoryPathException{
 		if(path != ""){
-			String[] splitPath = path.split("/");
-			
-			if(splitPath.length > 0){
+			if(!path.equals("/")){
+				String[] splitPath = path.split("/");
 				int last = splitPath[splitPath.length - 1].length();
-				return interpretPath(init, path.substring(0, path.length() - last));
-			}
+				
+				System.out.println(path + "BEFORE");
+				if(splitPath.length > 1){
+					if((path.length() - last - 1) == 0){
+						return init;
+					}
+					return interpretPath(init, path.substring(0, path.length() - last - 1));	
+				}
+				
+				return interpretPath(init, path.substring(0, path.length() - last));	
+				}
+			
 			return interpretPath(init, path);
-
 		}
 		return init.getParent();
 	};
