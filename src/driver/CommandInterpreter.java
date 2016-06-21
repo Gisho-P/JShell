@@ -12,12 +12,19 @@ public class CommandInterpreter {
 		System.out.println("DEBUG: Your cmd is " + cmd);
 		cmd = cmd.trim();
 		cmd = cmd.replaceAll("[\\s]+", " ");
+		if (cmd.indexOf('\"') != 0 || cmd.lastIndexOf('\"') != cmd.length()-1) {
+			return "ERROR: Command incorrectly inputted (need quotations"
+					+ " around command)";
+		}
+		cmd = cmd.substring(1, cmd.length()-1).trim();
 		System.out.println("DEBUG: Your formatted cmd is " + cmd);
 		// Store the output here
 		String output = "";
 
 		// Splitting the cmd
 		String[] cmdArgs = cmd.split(" ");
+		System.out.println(Arrays.toString(cmdArgs));
+		
 		switch (cmdArgs[0]) {
 			case "mkdir":
 				if (cmdArgs.length == 1) {
@@ -85,12 +92,12 @@ public class CommandInterpreter {
 				}
 				break;
 			case "echo":
-				if (cmdArgs.length > 4 || cmdArgs.length < 2 ) {
+				if (cmdArgs.length != 4 || cmdArgs.length != 2 ) {
 					output = "echo usage: STRING [>[>] OUTFILE]";
 				} else {
 					if (cmdArgs.length == 2) {
-					
-					} else if (cmdArgs.length == 3) {
+						output = cmdArgs[2];
+					} else {
 						// Append to file
 					    if(cmdArgs[2].equals(">>")){
 						  output = functions.echo(cmdArgs[3], false);
@@ -99,8 +106,6 @@ public class CommandInterpreter {
 					    else if(cmdArgs[2].equals(">")){
 					      output = functions.echo(cmdArgs[3], true);
 					    }
-					} else {
-						
 					}
 				}
 				break;
