@@ -44,8 +44,8 @@ public class JShell {
 	  // Continually accept commands until the command exit is entered
 	  // exit can precede or follow any amount of white spaces and can have
 	  // anything after exit and a white space
-	  while(lastCommand.matches("[\\s]*exit([\\s]+.*)*") == false){
-		  System.out.println("DEBUG: $: ");
+	  while(lastCommand.matches("\"[\\s]*exit([\\s]+.*)*\"") == false){
+		  System.out.print("DEBUG: $: ");
 		  lastCommand = input.nextLine();
 		  // Save the command to history
 		  session.saveCommand(lastCommand);
