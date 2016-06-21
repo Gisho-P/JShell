@@ -80,10 +80,10 @@ public class FilePathInterpreter {
 			String[] splitPath = path.split("/");
 			
 			if(splitPath.length > 0){
-				int last = splitPath[0].length();			
-				return interpretPathRecursive(init, path.substring(0, path.length() - last));
+				int last = splitPath[splitPath.length - 1].length();
+				return interpretPath(init, path.substring(0, path.length() - last));
 			}
-			return interpretPathRecursive(init, path);
+			return interpretPath(init, path);
 
 		}
 		return init.getParent();

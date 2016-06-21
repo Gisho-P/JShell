@@ -39,7 +39,6 @@ public class FileTraversalTest {
 		test.add(new File("file2", "c2"));
 		
 		File result = (File)FilePathInterpreter.interpretPath(test, "file1");
-		System.out.println(result.toString());
 		assertTrue(result.equals(expected));
 	}
 
@@ -77,7 +76,7 @@ public class FileTraversalTest {
 	}
 	
 	@Test
-	public void fromRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+	public void fromRootFileTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
 		Directory sub = new Directory("dir1");
 		Directory test = new Directory("root");
 		test.add(sub);
@@ -92,5 +91,34 @@ public class FileTraversalTest {
 		
 		File result = (File)FilePathInterpreter.interpretPath(start, "/dir1/dir4/file3");
 		assertTrue(result.equals(expected));
+	}
+	
+	@Test
+	public void fromRootDirTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+		Directory sub = new Directory("dir1");
+		Directory test = new Directory("root");
+		test.add(sub);
+		Directory start = new Directory("dir4");
+		sub.add(start);
+		Directory expected = new Directory("expectedDir");
+		start.add(expected);
+		test.add(new Directory("dir2"));
+		test.add(new Directory("dir3"));
+		test.add(new File("file1"));
+		test.add(new File("file2", "c2"));
+		
+		Directory result = (Directory)FilePathInterpreter.interpretPath(start, "/dir1/dir4/expectedDir");
+		assertTrue(result.equals(expected));
+	}
+	
+	
+	@Test
+	public void getRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+		Directory start = new Directory("root");
+		Directory expected = new Directory("expectedDir");
+		start.add(expected);
+		
+		Directory result = (Directory)FilePathInterpreter.interpretPath(expected, "/");
+		assertTrue(result.equals(start));
 	}
 }

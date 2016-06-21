@@ -218,14 +218,7 @@ public class Directory extends FileTypes {
     public String toString() {
         return "Directory Name: " + getName();
     }
-
-    public boolean equals(Object o) {
-        if (o instanceof FileTypes) {
-
-        }
-        return false;
-    }
-
+    
     private boolean equalsRecursive(Directory currentDir, ArrayList<FileTypes> inputDir) {
         int index;
         FileTypes currentFileType;
