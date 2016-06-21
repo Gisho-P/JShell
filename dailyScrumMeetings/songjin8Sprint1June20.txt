@@ -1,0 +1,11 @@
+What did I do last time?
+    - Made cd and cat for the commands
+    - Create more tests for FilePathInterpreter
+
+What do I plan to do now?
+    - Make general test plans for the commands.
+
+
+Am I blocked on anything?
+    - Not blocked on anything
+	
