@@ -1,0 +1,16 @@
+What did I do last time?
+	- Remove unused variables, closed scanner, fixed little errors
+	- Removed command folders for man pages and made them strings
+	- Updated ShellFunctions, added DirStack
+	- More error processing in CommandInterpreter
+
+What do I plan to do now?
+	- Work on using Class class/ hashtables for commands
+	- Finish dirStack
+	- Rework Command Interpreter/ Shell functions
+	- Test classes
+
+Am I blocked on anything?
+	- Anything pertaining to making changes based on what prof wants
+	- Getting file objects based on name
+	- Ever changing class design
