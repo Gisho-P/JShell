@@ -24,9 +24,6 @@ public class ShellFunctions {
             try {
                 if ((slashIndex = i.indexOf("/")) == -1) {
                     session.getCurrentDir().add(new Directory(i));
-                } else if (slashIndex == 0) {
-                    parentDir = FilePathInterpreter.interpretMakePath(session.getRootDir(), i);
-                    ((Directory) parentDir).add(new Directory(i));
                 } else {
                     parentDir = FilePathInterpreter.interpretMakePath(session.getCurrentDir(), i);
                     ((Directory) parentDir).add(new Directory(i));
