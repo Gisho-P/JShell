@@ -20,20 +20,25 @@ public class ShellFunctions {
         String message = "";
         FileTypes parentDir;
         int slashIndex;
+        String splitPath[];
         for (String i : directory) {
             try {
                 if ((slashIndex = i.indexOf("/")) == -1) {
                     session.getCurrentDir().add(new Directory(i));
                 } else {
-                    parentDir = FilePathInterpreter.interpretMakePath(session.getCurrentDir(), i);
-                    ((Directory) parentDir).add(new Directory(i));
+                    splitPath = i.split("/");
+                    if (splitPath.length != 0) {
+                        parentDir = FilePathInterpreter.interpretMakePath(session.getCurrentDir(), i);
+                        ((Directory) parentDir).add(new Directory(splitPath[splitPath.length - 1]));
+                    }else
+                        message += "mkdir can't create a directory without a name";
                 }
             } catch (Directory.NameExistsException e) {
                 message += "mkdir: cannot create directory '" + i + "': File exists\n";
             } catch (Directory.InvalidAddition invalidAddition) {
                 invalidAddition.printStackTrace();
             } catch (InvalidDirectoryPathException e) {
-                message += "mkdir: cannot create directory ‘" + i + "’: No such file or directory\n";
+                message += "mkdir: cannot create directory ‘" + i + "’ Invalid Path\n";
             }
         }
         return message;
