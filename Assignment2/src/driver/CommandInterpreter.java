@@ -35,9 +35,7 @@ public class CommandInterpreter {
 				}
 				break;
 			case "ls":
-				if (cmdArgs.length > 2) {
-					output = "ls usage: ls [PATH]"; // error, print usage
-				} else if (cmdArgs.length == 2){
+				if (cmdArgs.length > 1){
 					output = functions.ls(Arrays.copyOfRange(
 					    cmdArgs, 1, cmdArgs.length)); // return output from function call
 				} else{
