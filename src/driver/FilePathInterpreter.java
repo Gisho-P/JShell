@@ -8,6 +8,8 @@ public class FilePathInterpreter {
 	public static FileTypes interpretPath(Directory init, String path) throws InvalidDirectoryPathException{
 		//System.out.println(path);
 		if(path != ""){
+			if(path.charAt(path.length() - 1) == '/')
+				return interpretPathRecursive(init, path.substring(0, path.length() - 1));
 			char first = path.charAt(0);
 			if(first == '/'){
 				Directory parent = init.getParent();
@@ -27,11 +29,22 @@ public class FilePathInterpreter {
 			String[] splitPath = currPath.split("/");
 			
 			if(splitPath[0].equals("..")){
-				return interpretPathRecursive(init.getParent(), currPath.substring(3, currPath.length()));
+				if(splitPath.length > 1){
+					return interpretPathRecursive(init.getParent(), currPath.substring(3, currPath.length()));
+				}
+				else{
+					return interpretPathRecursive(init.getParent(), currPath.substring(2, currPath.length()));
+				}
+
 			}
 			
 			if(splitPath[0].equals(".")){
-				return interpretPathRecursive(init, currPath.substring(2, currPath.length()));
+				if(splitPath.length > 1){
+					return interpretPathRecursive(init.getParent(), currPath.substring(2, currPath.length()));
+				}
+				else{
+					return interpretPathRecursive(init.getParent(), currPath.substring(1, currPath.length()));
+				}
 			}
 			
 			
