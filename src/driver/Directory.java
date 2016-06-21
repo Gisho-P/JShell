@@ -175,7 +175,11 @@ public class Directory extends FileTypes {
         String path = "/" + name;
         Directory current = this;
         while ((current = current.parent) != null) {
-            path = "/" + current.name + path;
+          // root doesn't require a slash before the name
+          if(current.name == "")
+            path = current.name + path;
+          else
+            path = "/" +current.name + path;
         }
         return path;
     }

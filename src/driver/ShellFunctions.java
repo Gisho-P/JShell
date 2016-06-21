@@ -57,30 +57,44 @@ public class ShellFunctions {
 
     public String ls(String[] paths) {
       String retVal = "";
+      ArrayList<String> childNames = new ArrayList<String>();
+      // Iterate through each path and get the dir names in each directory or
+      // the file name if it's a file
       for (String i : paths) {
+          // First we assume the path points to a directory and get the
+          // directory then add their children to the list
           try {
-            ArrayList<String> childNames = ((Directory) FilePathInterpreter.interpretPath(session.getCurrentDir(), i)).getChildNames();
-            Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-            for (String childName: childNames){
-              retVal += childName + " ";
-            }
+            childNames.addAll(((Directory) FilePathInterpreter.interpretPath(
+                session.getCurrentDir(), i)).getChildNames());
           } catch (InvalidDirectoryPathException e) {
-              // TODO Auto-generated catch block
               System.out.println("No such directory as" + i);
           } catch (ClassCastException e) {
+            // If it wasn't a directory then we assume it's a file and
+            // add the file name to the list
             try {
-              retVal += ((File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i)).getName();
+              childNames.add(((File) FilePathInterpreter.interpretPath(
+                  session.getCurrentDir(), i)).getName());
             } catch (InvalidDirectoryPathException e1) {
-              // TODO Auto-generated catch block
               System.out.println("No such directory or file as" + i);
             };
           }
+      }
+      // Sort the list of children directories/files alphabetically
+      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+      for (String childName: childNames){
+        retVal += childName + " ";
       }
       return retVal;
     }
     
     public String ls() {
-      return ls( new String[] {session.getCurrentDir().getEntirePath()});
+      String retVal = "";
+      ArrayList<String> childNames = session.getCurrentDir().getChildNames();
+      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+      for (String childName: childNames){
+        retVal += childName + " ";
+      }
+      return retVal;
     }
 
     public String pwd() {
