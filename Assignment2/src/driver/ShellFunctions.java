@@ -31,6 +31,7 @@ public class ShellFunctions {
                     splitPath = i.split("/");
                     if (splitPath.length != 0) {
                         parentDir = FilePathInterpreter.interpretMakePath(session.getCurrentDir(), i);
+//                        System.out.println(((Directory) parentDir).getName());
                         ((Directory) parentDir).add(new Directory(splitPath[splitPath.length - 1]));
                     }else
                         message += "mkdir can't create a directory without a name";
