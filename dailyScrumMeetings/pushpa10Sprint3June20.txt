@@ -1,0 +1,10 @@
+What did I do last time?
+	- Implement the echo command
+	- Implement the ls command
+
+What do I plan to do now?
+	- Write tests for echo, ls and echo
+	- Add more javadocs to classes and tests
+
+Am I blocked on anything?
+	- Nothing at the moment, most parts done
