@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class FilePathInterpreter {
 
 	public static FileTypes interpretPath(Directory init, String path) throws InvalidDirectoryPathException{
-		//System.out.println(path);
+		//System.out.println(path + "AFTER");
 		if(path != ""){
 			if(path.charAt(path.length() - 1) == '/' && !path.equals("/"))
 				return interpretPathRecursive(init, path.substring(0, path.length() - 1));
@@ -107,7 +107,7 @@ public class FilePathInterpreter {
 				//System.out.println(path + "BEFORE");
 				if(splitPath.length > 1){
 					if((path.length() - last - 1) == 0){
-						return init;
+						return interpretPath(init, "/");	
 					}
 					return interpretPath(init, path.substring(0, path.length() - last - 1));	
 				}
