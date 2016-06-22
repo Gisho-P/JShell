@@ -41,7 +41,7 @@ public class ShellFunctions {
             } catch (Directory.InvalidAddition invalidAddition) {
                 invalidAddition.printStackTrace();
             } catch (InvalidDirectoryPathException e) {
-                message += "mkdir: cannot create directory â€˜" + i + "â€™ Invalid Path\n";
+                message += "mkdir: cannot create directory ‘" + i + "’ Invalid Path\n";
             }
         }
         return message;
@@ -57,40 +57,59 @@ public class ShellFunctions {
         return "";
     }
 
+    /**
+     * Lists the name of the given file/directory followed by the contents
+     * if it is a directory.
+     *
+     * @param paths the paths of directories/files to be listed
+     * @return a list of the contents of each of the given paths
+     */
     public String ls(List<String> paths) {
       String retVal = "";
       ArrayList<String> childNames = new ArrayList<String>();
+      String fileName = "";
       // Iterate through each path and get the dir names in each directory or
       // the file name if it's a file
       for (String i : paths) {
           // First we assume the path points to a directory and get the
           // directory then add their children to the list
           try {
+            fileName = ((Directory) FilePathInterpreter.interpretPath(
+                session.getCurrentDir(), i)).getName() + ": ";
             childNames.addAll(((Directory) FilePathInterpreter.interpretPath(
                 session.getCurrentDir(), i)).getChildNames());
           } catch (InvalidDirectoryPathException e) {
               System.out.println("No such directory as " + i);
           } catch (ClassCastException e) {
             // If it wasn't a directory then we assume it's a file and
-            // add the file name to the list
+            // get the file name
             try {
-              childNames.add(((File) FilePathInterpreter.interpretPath(
+              fileName = (((File) FilePathInterpreter.interpretPath(
                   session.getCurrentDir(), i)).getName());
             } catch (InvalidDirectoryPathException e1) {
               System.out.println("No such directory or file as " + i);
             };
           }
+          // Sort the list of children directories/files alphabetically
+          Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+          retVal += fileName;
+          for (String childName: childNames){
+            retVal += childName + " ";
+          }
+          retVal += "\n";
+          childNames.clear();
       }
-      // Sort the list of children directories/files alphabetically
-      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-      for (String childName: childNames){
-        retVal += childName + " ";
-      }
-      return retVal;
+      // Remove the last new line
+      return retVal.substring(0, retVal.length() - 2);
     }
     
+    /**
+     * Returns the current directory name followed by it's contents
+     *
+     * @return the contents of the directory
+     */
     public String ls() {
-      String retVal = "";
+      String retVal = session.getCurrentDir().getName() + ": ";
       ArrayList<String> childNames = session.getCurrentDir().getChildNames();
       Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
       for (String childName: childNames){
@@ -121,10 +140,17 @@ public class ShellFunctions {
         }
     }
 
-    public String history(String cmdArgs) {
+    /**
+     * Returns a string containing the last cmdNum amount of commands entered
+     * from history
+     *
+     * @param cmdNum the last number of commands printed
+     * @return the string the history
+     */
+    public String history(String cmdNum) {
         String retVal = "";
         try {
-            int arg = Integer.parseInt(cmdArgs);
+            int arg = Integer.parseInt(cmdNum);
             retVal = MySession.printCommandHistory(arg);
 
         } catch (NumberFormatException n) {
@@ -133,6 +159,11 @@ public class ShellFunctions {
         return retVal;
     }
 
+    /**
+     * Returns the history of all commands entered (valid and invalid).
+     *
+     * @return the history of commands
+     */
     public String history() {
         return MySession.printCommandHistory();
     }
@@ -157,6 +188,16 @@ public class ShellFunctions {
         return retVal;
     }
 
+    /**
+     * Writes the given text to the output file at the given outfile path.
+     * If the file doesn't exist it creates it. Overwrites any text in the
+     * file if overwrite is true, otherwise appends it to the end.
+     *
+     * @param text the text to be written to the output file
+     * @param outfile the path of the file where the text will be written
+     * @param overwrite whether to overwrite the existing text or append to it
+     * @return the string any error messages or an empty string
+     */
     public String echo(String text, String outfile, boolean overwrite) {
         String retVal = "";
         File outputFile = new File("newFile"); // will be renamed
@@ -200,6 +241,13 @@ public class ShellFunctions {
       return retVal;
     }
 
+    /**
+     * Given a command returns the man page for that command iff it's
+     * a valid command
+     *
+     * @param command the command which needs the man page
+     * @return the the man page string
+     */
     public String man(String command) {
         return MySession.manPages(command);
     }
