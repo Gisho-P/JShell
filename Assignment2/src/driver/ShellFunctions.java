@@ -1,7 +1,7 @@
 package driver;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class ShellFunctions {
     // COULD MAKE EACH METHOD PROTECTED,
     // CALL COMMANDS TO DIFFERENT CLASSES HERE
 
-    public String mkdir(String[] directory) {
+    public String mkdir(List<String> directory) {
         String message = "";
         FileTypes parentDir;
         int slashIndex;
@@ -51,13 +51,12 @@ public class ShellFunctions {
             Directory dest = (Directory) FilePathInterpreter.interpretPath(session.getCurrentDir(), path);
             session.setCurrentDir(dest);
         } catch (InvalidDirectoryPathException e) {
-            // TODO Auto-generated catch block
             return "No such dir as" + path;
         }
         return "";
     }
 
-    public String ls(String[] paths) {
+    public String ls(List<String> paths) {
       String retVal = "";
       ArrayList<String> childNames = new ArrayList<String>();
       // Iterate through each path and get the dir names in each directory or
@@ -69,7 +68,7 @@ public class ShellFunctions {
             childNames.addAll(((Directory) FilePathInterpreter.interpretPath(
                 session.getCurrentDir(), i)).getChildNames());
           } catch (InvalidDirectoryPathException e) {
-              System.out.println("No such directory as" + i);
+              System.out.println("No such directory as " + i);
           } catch (ClassCastException e) {
             // If it wasn't a directory then we assume it's a file and
             // add the file name to the list
@@ -77,7 +76,7 @@ public class ShellFunctions {
               childNames.add(((File) FilePathInterpreter.interpretPath(
                   session.getCurrentDir(), i)).getName());
             } catch (InvalidDirectoryPathException e1) {
-              System.out.println("No such directory or file as" + i);
+              System.out.println("No such directory or file as " + i);
             };
           }
       }
@@ -105,7 +104,8 @@ public class ShellFunctions {
 
     public String pushd(String directory) {
         // should do some type of check for valid path entering
-        DirStack.pushd(directory);
+        DirStack.pushd(session.getCurrentDir().getEntirePath());
+        cd(directory);
         return "\n";
     }
 
@@ -115,7 +115,8 @@ public class ShellFunctions {
             return (String) res.get(0);
         } else {
             // call FilePathInterpreter or w/e with res.get(0)
-            return "";
+        	cd((String) res.get(0));
+            return "\n";
         }
     }
 
@@ -135,7 +136,7 @@ public class ShellFunctions {
         return MySession.printCommandHistory();
     }
 
-    public String cat(String[] filePaths) {
+    public String cat(List<String> filePaths) {
         String retVal = "";
         Boolean firstFile = true;
         for (String i : filePaths) {
@@ -145,10 +146,9 @@ public class ShellFunctions {
           try {
                 retVal += ((File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i)).getContent();
             } catch (InvalidDirectoryPathException e) {
-                // TODO Auto-generated catch block
-                System.out.println("No such dir as" + i);
+                System.out.println("No such dir as " + i);
             } catch (ClassCastException e) {
-                System.out.println("Unable to cat dir" + i);
+                System.out.println("Unable to cat dir " + i);
             }
             if(firstFile)
               firstFile = false;

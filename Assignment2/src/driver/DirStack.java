@@ -21,7 +21,7 @@ public class DirStack {
 			success = true;
 		}
 		catch (EmptyStackException e) {
-			newDir = "Empty stack, nothing to pop";
+			newDir = "ERROR: Empty stack, nothing to pop";
 		}
 		
 		List<Object> popCheck = new ArrayList<Object>();
