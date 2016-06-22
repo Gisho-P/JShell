@@ -38,20 +38,22 @@ public class JShell {
 	  MySession session = new MySession();
 	  CommandInterpreter cmd = new CommandInterpreter(session);
 
-	  
 	  Scanner input = new Scanner(System.in);
 	  
 	  // Continually accept commands until the command exit is entered
 	  // exit can precede or follow any amount of white spaces and can have
 	  // anything after exit and a white space
-	  while(lastCommand.matches("\"[\\s]*exit([\\s]+.*)*\"") == false){
-		  System.out.print("DEBUG: $: ");
+	  while(lastCommand.matches("[\\s]*exit([\\s]+.*)*") == false){
+		  System.out.print(session.getCurrentDir().getEntirePath() + "$: ");
 		  lastCommand = input.nextLine();
 		  // Save the command to history
 		  session.saveCommand(lastCommand);
-		  // Printing the output
-		  System.out.println(cmd.interpretCmd(lastCommand));
+		  if (lastCommand.matches("[\\s]*exit([\\s]+.*)*") == false) {
+			  // Printing the output
+			  System.out.println(cmd.interpretCmd(lastCommand));
+		  }
 	  }
+	  
 	  input.close();
 	  exit();
   }

@@ -12,7 +12,7 @@ public class FilePathInterpreter {
 				return interpretPathRecursive(init, path.substring(0, path.length() - 1));
 			char first = path.charAt(0);
 			if(first == '/'){
-				Directory parent = init.getParent();
+				//Directory parent = init.getParent();
 				while(init.getParent() != null){
 					init = init.getParent();
 				}

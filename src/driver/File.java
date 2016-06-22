@@ -3,7 +3,6 @@ package driver;
  * Created by dhrumil on 12/06/16.
  */
 public class File extends FileTypes{
-    private String name;
     private String content;
 
     public File(String name) {
