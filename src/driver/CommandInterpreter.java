@@ -1,6 +1,7 @@
 package driver;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class CommandInterpreter {
 	private ShellFunctions functions;
@@ -12,7 +13,7 @@ public class CommandInterpreter {
 		System.out.println("DEBUG: Your cmd is " + cmd);
 		cmd = cmd.trim();
 		cmd = cmd.replaceAll("[\\s]+", " ");
-		if (cmd.indexOf('\"') != 0 || cmd.lastIndexOf('\"') != cmd.length()-1) {
+		if (!cmd.startsWith("\"") || !cmd.endsWith("\"")) {
 			return "ERROR: Command incorrectly inputted (need quotations"
 					+ " around command)";
 		}
@@ -20,9 +21,26 @@ public class CommandInterpreter {
 		System.out.println("DEBUG: Your formatted cmd is " + cmd);
 		// Store the output here
 		String output = "";
-
+		String[] cmdArgs = {};
+		
 		// Splitting the cmd
-		String[] cmdArgs = cmd.split(" ");
+		if(cmd.contains("\"")){
+		  // If cmd contains a string seperate it while keeping the STRING
+		  // as one command
+		  String beforeQuotes = cmd.substring(0, cmd.indexOf("\"")).trim();
+		  String afterQuotes = cmd.substring(cmd.lastIndexOf("\"") + 1).trim();
+		  cmdArgs = beforeQuotes.split(" ");
+		  cmdArgs = Stream.concat(Arrays.stream(cmdArgs), Arrays.stream(
+		      new String [] {cmd.substring(cmd.indexOf("\""), cmd.lastIndexOf("\"") + 1)}))
+              .toArray(String[]::new);
+		  if(!afterQuotes.isEmpty())
+		    cmdArgs = Stream.concat(Arrays.stream(cmdArgs), Arrays.stream(
+              afterQuotes.split(" ")))
+              .toArray(String[]::new);
+		}
+		else
+		  cmdArgs = cmd.split(" ");
+		
 		System.out.println(Arrays.toString(cmdArgs));
 		
 		switch (cmdArgs[0]) {
@@ -92,22 +110,30 @@ public class CommandInterpreter {
 				}
 				break;
 			case "echo":
-				if (cmdArgs.length != 4 || cmdArgs.length != 2 ) {
+				if (cmdArgs.length != 4 && cmdArgs.length != 2 ) {
 					output = "echo usage: STRING [>[>] OUTFILE]";
 				} else {
-					if (cmdArgs.length == 2) {
-						output = cmdArgs[2];
-					} else {
-						// Append to file
-					    if(cmdArgs[2].equals(">>")){
-						  output = functions.echo(cmdArgs[3], false);
-						}
-					    // Write to file
-					    else if(cmdArgs[2].equals(">")){
-					      output = functions.echo(cmdArgs[3], true);
-					    }
+				    if(cmdArgs[1].startsWith("\"") && cmdArgs[1].endsWith("\"")){
+				      if(cmdArgs[1].length() == 2)
+				        cmdArgs[1] = null;
+				      else
+				        cmdArgs[1] = cmdArgs[1].substring(1, cmdArgs[1].length() - 1);
+				    } else{
+				        output = "ERROR: STRING must be surrounded by double quotations";
+				        break;
+				    }
+				    if(cmdArgs.length == 2)
+				      output = cmdArgs[1];
+				    
+					// Append to file
+				    else if(cmdArgs[2].equals(">>")){
+					  output = functions.echo(cmdArgs[1], cmdArgs[3], false);
 					}
-				}
+					// Write to file
+					else if(cmdArgs[2].equals(">")){
+					  output = functions.echo(cmdArgs[1], cmdArgs[3], true);
+					}
+					}
 				break;
 			case "man":
 				if (cmdArgs.length != 2) {

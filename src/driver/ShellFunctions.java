@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import driver.Directory.InvalidAddition;
+import driver.Directory.NameExistsException;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
 
 public class ShellFunctions {
@@ -135,24 +137,65 @@ public class ShellFunctions {
 
     public String cat(String[] filePaths) {
         String retVal = "";
+        Boolean firstFile = true;
         for (String i : filePaths) {
-            try {
-                retVal += (File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i);
+          // print three line breaks in between files
+          if(!firstFile)
+            retVal += "\n\n\n";   
+          try {
+                retVal += ((File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i)).getContent();
             } catch (InvalidDirectoryPathException e) {
                 // TODO Auto-generated catch block
                 System.out.println("No such dir as" + i);
             } catch (ClassCastException e) {
                 System.out.println("Unable to cat dir" + i);
             }
+            if(firstFile)
+              firstFile = false;
         }
         return retVal;
     }
 
-    public String echo(String outfile, boolean overwrite) {
-      String retVal = "";
+    public String echo(String text, String outfile, boolean overwrite) {
+        String retVal = "";
+        File outputFile = new File("newFile"); // will be renamed
+        
         // Check if the file exists in the directory
-        // If it does set it as the file/ otherwise create a new one
-        // overwrite as given by parameter
+        try {
+          outputFile = (File) FilePathInterpreter.interpretPath(session.getCurrentDir(), outfile);
+        }
+        // If the file doesn't exist create it
+        catch (InvalidDirectoryPathException e) {
+          try {
+            // Check if the file is going to be in the current directory
+            // or a different directory
+            if(outfile.contains("/")){
+              // If it's a different directory get that directory and add the file to it
+              outputFile = new File(outfile.substring(outfile.lastIndexOf("/") + 1));
+              Directory fileDir = (Directory) FilePathInterpreter.
+                  interpretPath(session.getCurrentDir(), outfile.substring(0, outfile.lastIndexOf("/")));
+              fileDir.add(outputFile);
+            }
+            else{
+              // If it's the same directory
+              outputFile = new File(outfile);
+              session.getCurrentDir().add(outputFile);
+            }
+
+          } catch (InvalidDirectoryPathException e1) {
+            return "ERROR: The directory of the file does not exist";
+          } catch (NameExistsException e1) {
+            return "ERROR: There is already a subdirectory with the same name";
+          } catch (InvalidAddition e1) {
+          } 
+        } catch (ClassCastException e){
+          return "ERROR: There is already a subdirectory with the same name";
+        }
+        // Write to the file, overwrite or append as given
+        if(overwrite)
+          outputFile.setContent(text == null ? "": text);
+        else
+          outputFile.appendContent(text == null ? "": text);
       return retVal;
     }
 
