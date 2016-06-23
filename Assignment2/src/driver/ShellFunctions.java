@@ -74,8 +74,7 @@ public class ShellFunctions {
           // First we assume the path points to a directory and get the
           // directory then add their children to the list
           try {
-            fileName = ((Directory) FilePathInterpreter.interpretPath(
-                session.getCurrentDir(), i)).getName() + ": ";
+            fileName = i + ": ";
             childNames.addAll(((Directory) FilePathInterpreter.interpretPath(
                 session.getCurrentDir(), i)).getChildNames());
           } catch (InvalidDirectoryPathException e) {
@@ -86,6 +85,8 @@ public class ShellFunctions {
             try {
               fileName = (((File) FilePathInterpreter.interpretPath(
                   session.getCurrentDir(), i)).getName());
+              // If it doesn't throw exception it means it exists, overwrite with path
+              fileName = i;
             } catch (InvalidDirectoryPathException e1) {
               System.out.println("No such directory or file as " + i);
             };
@@ -99,8 +100,7 @@ public class ShellFunctions {
           retVal += "\n";
           childNames.clear();
       }
-      // Remove the last new line
-      return retVal.substring(0, retVal.length() - 1);
+      return retVal;
     }
     
     /**
@@ -109,17 +109,17 @@ public class ShellFunctions {
      * @return the contents of the directory
      */
     public String ls() {
-      String retVal = session.getCurrentDir().getName() + ": ";
+      String retVal = session.getCurrentDir().getEntirePath()+ ": ";
       ArrayList<String> childNames = session.getCurrentDir().getChildNames();
       Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
       for (String childName: childNames){
         retVal += childName + " ";
       }
-      return retVal;
+      return retVal + "\n";
     }
 
     public String pwd() {
-        return session.getCurrentDir().getEntirePath();
+        return session.getCurrentDir().getEntirePath() + "\n";
     }
 
     public String pushd(String directory) {
@@ -154,7 +154,7 @@ public class ShellFunctions {
             retVal = MySession.printCommandHistory(arg);
 
         } catch (NumberFormatException n) {
-            retVal = "history usage: history [number (INTEGER > 0)]";
+            retVal = "history usage: history [number (INTEGER > 0)]\n";
         }
         return retVal;
     }
@@ -178,14 +178,14 @@ public class ShellFunctions {
           try {
                 retVal += ((File) FilePathInterpreter.interpretPath(session.getCurrentDir(), i)).getContent();
             } catch (InvalidDirectoryPathException e) {
-                System.out.println("No such dir as " + i);
+                retVal = "No such dir as " + i;
             } catch (ClassCastException e) {
-                System.out.println("Unable to cat dir " + i);
+                retVal = "Unable to cat dir " + i;
             }
             if(firstFile)
               firstFile = false;
         }
-        return retVal;
+        return retVal + "\n";
     }
 
     /**
@@ -225,13 +225,13 @@ public class ShellFunctions {
             }
 
           } catch (InvalidDirectoryPathException e1) {
-            return "ERROR: The directory of the file does not exist";
+            return "ERROR: The directory of the file does not exist\n";
           } catch (NameExistsException e1) {
-            return "ERROR: There is already a subdirectory with the same name";
+            return "ERROR: There is already a subdirectory with the same name\n";
           } catch (InvalidAddition e1) {
           } 
         } catch (ClassCastException e){
-          return "ERROR: There is already a subdirectory with the same name";
+          return "ERROR: There is already a subdirectory with the same name\n";
         }
         // Write to the file, overwrite or append as given
         if(overwrite)
@@ -249,6 +249,6 @@ public class ShellFunctions {
      * @return the the man page string
      */
     public String man(String command) {
-        return MySession.manPages(command);
+        return MySession.manPages(command) + "\n";
     }
 }

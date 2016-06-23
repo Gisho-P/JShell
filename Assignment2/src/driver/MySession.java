@@ -121,7 +121,7 @@ public class MySession {
     public static String printCommandHistory(int numberOfCommands) {
         int historySize = commandHistory.size();
         if (numberOfCommands < 0) {
-            return "history usage: history [NUMBER >= 0]";
+            return "history usage: history [NUMBER >= 0]\n";
         } else {
             String output = "";
             for (int cmdNumber = historySize - numberOfCommands + 1;

@@ -7,6 +7,10 @@ import driver.MySession;
 
 public class MySessionTest {
 
+	/**
+	 * Saves 5 commands to the session, and gets all history to ensure it
+	 * returns the string in the correct format & with the right content.
+	 */
 	@Test
 	public void getHistoryAll(){
 	  MySession session = new MySession();
