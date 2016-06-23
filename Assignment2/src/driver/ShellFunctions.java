@@ -41,7 +41,7 @@ public class ShellFunctions {
             } catch (Directory.InvalidAddition invalidAddition) {
                 invalidAddition.printStackTrace();
             } catch (InvalidDirectoryPathException e) {
-                message += "mkdir: cannot create directory ‘" + i + "’ Invalid Path\n";
+                message += "mkdir: cannot create directory '" + i + "': Invalid Path\n";
             }
         }
         return message;
@@ -52,7 +52,7 @@ public class ShellFunctions {
             Directory dest = (Directory) FilePathInterpreter.interpretPath(session.getCurrentDir(), path);
             session.setCurrentDir(dest);
         } catch (InvalidDirectoryPathException e) {
-            return "No such dir as" + path;
+            return "No such dir as " + path;
         }
         return "";
     }
@@ -100,7 +100,7 @@ public class ShellFunctions {
           childNames.clear();
       }
       // Remove the last new line
-      return retVal.substring(0, retVal.length() - 2);
+      return retVal.substring(0, retVal.length() - 1);
     }
     
     /**

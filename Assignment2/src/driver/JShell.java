@@ -43,22 +43,17 @@ public class JShell {
 	  // Continually accept commands until the command exit is entered
 	  // exit can precede or follow any amount of white spaces and can have
 	  // anything after exit and a white space
-	  while(lastCommand.matches("[\\s]*exit([\\s]+.*)*") == false){
+	  while(lastCommand.matches("[\\s]*exit[\\s]*") == false){
 		  System.out.print(session.getCurrentDir().getEntirePath() + "$: ");
 		  lastCommand = input.nextLine();
 		  // Save the command to history
 		  session.saveCommand(lastCommand);
-		  if (lastCommand.matches("[\\s]*exit([\\s]+.*)*") == false) {
+		  if (lastCommand.matches("[\\s]*exit[\\s]*") == false) {
 			  // Printing the output
 			  System.out.println(cmd.interpretCmd(lastCommand));
 		  }
 	  }
 	  
 	  input.close();
-	  exit();
-  }
-  
-  public static void exit(){
-	  System.out.println("DEBUG: Exiting");
   }
 }

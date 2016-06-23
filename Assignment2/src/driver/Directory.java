@@ -220,7 +220,7 @@ public class Directory extends FileTypes {
      * @return Name of the current directory
      */
     public String toString() {
-        return "Directory Name: " + getName();
+        return getName();
     }
     
     private boolean equalsRecursive(Directory currentDir, ArrayList<FileTypes> inputDir) {
