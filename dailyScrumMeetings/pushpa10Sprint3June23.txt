@@ -1,0 +1,12 @@
+What did I do last time?
+	- Fixed some issues with ls and cat
+	- Updated all commands to end with an extra new line
+	- Wrote tests for the history command
+	- Added JavaDocs to some classes, tests, and methods
+
+What do I plan to do now?
+	- Write tests for a combination of commands
+
+Am I blocked on anything?
+	- We are debating whether to change a part of our design,
+	waiting until we decide to update the design
