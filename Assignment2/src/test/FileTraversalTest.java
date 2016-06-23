@@ -111,14 +111,17 @@ public class FileTraversalTest {
 		assertTrue(result.equals(expected));
 	}
 	
-	
 	@Test
-	public void getRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+	public void mkDirRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
 		Directory start = new Directory("root");
-		Directory expected = new Directory("expectedDir");
-		start.add(expected);
 		
-		Directory result = (Directory)FilePathInterpreter.interpretPath(expected, "/");
+		Directory result = (Directory)FilePathInterpreter.interpretMakePath(start, "test");
+		assertTrue(result.equals(start));
+		
+		result = (Directory)FilePathInterpreter.interpretMakePath(start, "/test");
+		assertTrue(result.equals(start));
+		
+		result = (Directory)FilePathInterpreter.interpretMakePath(start, "../test");
 		assertTrue(result.equals(start));
 	}
 }

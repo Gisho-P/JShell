@@ -7,26 +7,20 @@ public class FilePathInterpreter {
 
 	public static FileTypes interpretPath(Directory init, String path) throws InvalidDirectoryPathException{
 		//System.out.println(path + "AFTER");
-		if(path != ""){
-			if(path.charAt(path.length() - 1) == '/' && !path.equals("/"))
-				return interpretPathRecursive(init, path.substring(0, path.length() - 1));
-			char first = path.charAt(0);
-			if(first == '/'){
-				//Directory parent = init.getParent();
-				while(init.getParent() != null){
-					init = init.getParent();
-				}
-				return interpretPathRecursive(init, path.substring(1, path.length()));
-			}
-			return interpretPathRecursive(init, path);	
-			}
-		else
-			return init;
+		return interpretPathRecursive(init, path);	
 	};
 	
 	private static FileTypes interpretPathRecursive(Directory init, String currPath) throws InvalidDirectoryPathException{
 		if(!currPath.equals("")){
 			String[] splitPath = currPath.split("/");
+			
+			if(currPath.charAt(0) == '/'){
+				//Directory parent = init.getParent();
+				while(init.getParent() != null){
+					init = init.getParent();
+				}
+				return interpretPathRecursive(init, currPath.substring(1, currPath.length()));
+			}
 			
 			if(splitPath[0].equals("..")){
 				if(init.getParent() != null){
@@ -99,23 +93,26 @@ public class FilePathInterpreter {
 	}
 	
 	public static FileTypes interpretMakePath(Directory init, String path) throws InvalidDirectoryPathException{
-		if(path != ""){
-			if(!path.equals("/")){
-				String[] splitPath = path.split("/");
-				int last = splitPath[splitPath.length - 1].length();
-				
-				//System.out.println(path + "BEFORE");
-				if(splitPath.length > 1){
-					if((path.length() - last - 1) == 0){
-						return interpretPath(init, "/");	
-					}
-					return interpretPath(init, path.substring(0, path.length() - last - 1));	
-				}
-				
-				return interpretPath(init, path.substring(0, path.length() - last));	
-				}
+		if(path != ""){	
 			
-			return interpretPath(init, path);
+			System.out.println(path);
+			
+			String[] splitPath = path.split("/");
+			int last = splitPath[splitPath.length - 1].length();
+				
+			if(splitPath[0].equals(".")){
+				
+			}
+			else if(splitPath[0].equals("..") || path.equals("/")){
+				return interpretPath(init, "/");
+			}
+			
+			// if our path has more than 1 subpath e.g. dir/dir1/dir3
+			if(splitPath.length > 1){
+				return interpretPath(init, path.substring(0, path.length() - last - 1));
+			}
+			// if our path has exactly than 1 subpath e.g. dir/dir1/dir3
+			return init;
 		}
 		return init.getParent();
 	};
