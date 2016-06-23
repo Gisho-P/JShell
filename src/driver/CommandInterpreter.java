@@ -11,11 +11,8 @@ public class CommandInterpreter {
 	}
 
 	public String interpretCmd(String cmd) {
-		System.out.println("DEBUG: Your cmd is " + cmd);
 		cmd = cmd.trim();
-		//cmd = cmd.replaceAll("[\\s]+", " ");
 
-		System.out.println("DEBUG: Your formatted cmd is " + cmd);
 		// Store the output here
 		String output = "";
 		List<String> cmdArgs = new ArrayList<String>();
