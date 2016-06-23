@@ -115,7 +115,7 @@ public class CommandInterpreter {
 				        break;
 				    }
 				    if (cmdArgs.size() == 2) {
-				      output = cmdArgs.get(1);
+				      output = cmdArgs.get(1) + "\n";
 				    } else if (cmdArgs.get(2).equals(">>")) {// Append to file
 					  output = functions.echo(cmdArgs.get(1), cmdArgs.get(3), false);
 					} else if (cmdArgs.get(2).equals(">")) { // Write to file
