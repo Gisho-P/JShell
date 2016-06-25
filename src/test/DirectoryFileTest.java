@@ -128,6 +128,7 @@ public class DirectoryFileTest {
      */
     public void addDirectoryWithExistingName() throws Directory.NameExistsException {
         try {
+            //Add a directory with existing name
             dir = new Directory("one");
             dir.add(new Directory("one"));
             dir.add(new Directory("one"));
@@ -145,6 +146,7 @@ public class DirectoryFileTest {
      */
     public void testInvalidAddition() throws Directory.InvalidAddition {
         try {
+            //Add the current directory to the current directory
             dir = new Directory("one");
             dir.add(dir);
         } catch (FileTypes.InvalidName invalidName) {
@@ -161,6 +163,7 @@ public class DirectoryFileTest {
      */
     public void testInvalidAdditionInAddReplace() throws Directory.InvalidAddition {
         try {
+            //Add the current directory to the current directory
             dir = new Directory("one");
             dir.addReplace(dir);
         } catch (FileTypes.InvalidName invalidName) {
@@ -174,6 +177,7 @@ public class DirectoryFileTest {
      */
     public void addReplaceExistingFileDirectory() {
         try {
+            //Replace Existing Files or Diretories
             dir = new Directory("one");
             dir.add(new Directory("two"));
             assertEquals(dir.getChild("two") instanceof Directory, true);
@@ -197,6 +201,7 @@ public class DirectoryFileTest {
      */
     public void addReplaceExistingFileDirectoryMulti() {
         try {
+            //Add/Replace multiple existing files or directories
             dir = new Directory("one");
             dir.add(new Directory("two"));
             dir.add(new File("three"));
@@ -207,12 +212,14 @@ public class DirectoryFileTest {
             assertEquals(dir.getChild("four") instanceof Directory, true);
             assertEquals(dir.getChild("five") instanceof Directory, true);
 
+
             ArrayList<FileTypes> multFile = new ArrayList<FileTypes>();
             multFile.add(new File("two"));
             multFile.add(new Directory("three"));
             multFile.add(new File("four"));
             dir.addReplaceMulti(multFile);
 
+            //Tes if the Files/Directories were correctly replaced
             assertEquals(dir.getChild("two") instanceof File, true);
             assertEquals(dir.getChild("three") instanceof Directory, true);
             assertEquals(dir.getChild("four") instanceof File, true);
@@ -235,6 +242,7 @@ public class DirectoryFileTest {
      */
     public void testRemoving() {
         try {
+            //Test removing an existing file or directory
             dir = new Directory("one");
             dir.add(new Directory("two"));
             dir.addReplace(new File("three"));
@@ -266,6 +274,7 @@ public class DirectoryFileTest {
     @Test(expected = Directory.MissingNameException.class)
     public void testRemovingFileDoesNotExist() throws Directory.MissingNameException {
         try {
+            //Remove a directory that doesn't exist
             dir = new Directory("one");
             dir.add(new Directory("two"));
 
@@ -288,6 +297,7 @@ public class DirectoryFileTest {
      */
     public void testNameExists() {
         try {
+            //Check if File/Directory with name exists in the current directory
             dir = new Directory("one");
             dir.add(new Directory("two"));
             dir.add(new Directory("three"));
@@ -310,6 +320,7 @@ public class DirectoryFileTest {
      */
     public void testGetChildDir() {
         try {
+            //Test retrieving only the children directories
             dir = new Directory("one");
             dir.add(new Directory("two"));
             dir.add(new File("three"));
@@ -333,6 +344,7 @@ public class DirectoryFileTest {
      */
     public void testGetChildFile() {
         try {
+            //Test retrieving only the children Files
             dir = new Directory("one");
             dir.add(new Directory("two"));
             dir.add(new File("three"));
@@ -356,6 +368,7 @@ public class DirectoryFileTest {
      */
     public void testEntirePathNoParent() {
         try {
+            //Check if the path to parent is correct
             dir = new Directory("one");
             assertEquals(dir.getEntirePath(), "/one");
         } catch (FileTypes.InvalidName invalidName) {
@@ -369,6 +382,7 @@ public class DirectoryFileTest {
      */
     public void testEntirePathMultiple() {
         try {
+            //Check if the path to parent is correct
             dir = new Directory("one");
             Directory dir2 = new Directory("two");
             dir.add(dir2);
@@ -399,11 +413,13 @@ public class DirectoryFileTest {
         childNames.add("five");
 
         try {
+            //Add children to current directory
             dir = new Directory("one");
             dir.add(new Directory("two"));
             dir.add(new File("three"));
             dir.add(new File("four"));
             dir.add(new Directory("five"));
+            //Check if all of the children names were retrieved
             assertEquals(dir.getChildNames(), childNames);
         } catch (Directory.InvalidAddition invalidAddition) {
             invalidAddition.printStackTrace();
@@ -422,6 +438,7 @@ public class DirectoryFileTest {
         try {
             File file = new File("one");
             file.setContent("B07 is fantastic!");
+            //Append to file
             file.appendContent("Yes it is.");
             assertEquals(file.getContent(), "B07 is fantastic!\nYes it is.");
         } catch (FileTypes.InvalidName invalidName) {
