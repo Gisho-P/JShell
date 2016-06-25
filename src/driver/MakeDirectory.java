@@ -15,17 +15,17 @@ public class MakeDirectory implements Command {
 	}
 
 	@Override
-	public String exec(List<String> cmdArgs, MySession session) {
+	public String exec(List<String> cmdArgs) {
 		String output;
 		if (cmdArgs.size() == 1) {
 			output = "mkdir usage: mkdir DIR [DIR2] ...";
 		} else {// return output from function call
-			output = execHelper(cmdArgs.subList(1, cmdArgs.size()), session);
+			output = execHelper(cmdArgs.subList(1, cmdArgs.size()));
 		}
 		return output;
 	}
 
-	private String execHelper(List<String> directory, MySession session) {
+	private String execHelper(List<String> directory) {
 		String message = "";
 		FileTypes parentDir;
 		int slashIndex;
@@ -33,11 +33,11 @@ public class MakeDirectory implements Command {
 		for (String i : directory) {
 			try {
 				if ((slashIndex = i.indexOf("/")) == -1) {
-					session.getCurrentDir().add(new Directory(i));
+					MySession.getCurrentDir().add(new Directory(i));
 				} else {
 					splitPath = i.split("/");
 					if (splitPath.length != 0) {
-						parentDir = FilePathInterpreter.interpretMakePath(session.getCurrentDir(), i);
+						parentDir = FilePathInterpreter.interpretMakePath(MySession.getCurrentDir(), i);
 //                        System.out.println(((Directory) parentDir).getName());
 						((Directory) parentDir).add(new Directory(splitPath[splitPath.length - 1]));
 					} else

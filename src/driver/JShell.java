@@ -38,7 +38,7 @@ import java.util.Scanner;
 
 public class JShell {
 
-	private static String callFunction(List<String> args, MySession session) {
+	private static String callFunction(List<String> args) {
 		String output = "";
 
 		try {
@@ -46,7 +46,7 @@ public class JShell {
 						 MySession.commandToClass.get(args.get(0)));
 			Object t = c.newInstance();
 			Method m = c.getMethod("exec", List.class);
-			output = (String) m.invoke(t, args, session);
+			output = (String) m.invoke(t, args);
 		} catch (ClassNotFoundException | InstantiationException | 
 				IllegalAccessException | NoSuchMethodException | 
 				SecurityException | IllegalArgumentException |
@@ -57,7 +57,7 @@ public class JShell {
 		return output;
 	}
 
-	public static String commandProcessor(String cmd, MySession session) {
+	public static String commandProcessor(String cmd) {
 		cmd = cmd.trim();
 
 		// Store the output here
@@ -81,7 +81,7 @@ public class JShell {
 			cmdArgs = Arrays.asList(cmd.split(" "));
 		}
 		
-		return callFunction(cmdArgs, session);
+		return callFunction(cmdArgs);
 	}
 	
 	public static void main(String[] args) {
@@ -99,7 +99,7 @@ public class JShell {
 			session.saveCommand(lastCommand);
 			if (lastCommand.matches("[\\s]*exit[\\s]*") == false) {
 				// Printing the output
-				System.out.println(commandProcessor(lastCommand, session));
+				System.out.println(commandProcessor(lastCommand));
 			}
 		}
 	  

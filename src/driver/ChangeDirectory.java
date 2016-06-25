@@ -17,20 +17,20 @@ public class ChangeDirectory implements Command {
 	}
 
 	@Override
-	public String exec(List<String> cmdArgs, MySession session) {
+	public String exec(List<String> cmdArgs) {
 		String output;
 		if (cmdArgs.size() != 2) {
 			output = "cd usage: cd DIR"; // error, print usage
 		} else { // return output from function call
-			output = execHelper(cmdArgs.get(1), session);
+			output = execHelper(cmdArgs.get(1));
 		}
 		return output;
 	}
 
-	public String execHelper(String path, MySession session) {
+	public String execHelper(String path) {
 		try {
-			Directory dest = (Directory) FilePathInterpreter.interpretPath(session.getCurrentDir(), path);
-			session.setCurrentDir(dest);
+			Directory dest = (Directory) FilePathInterpreter.interpretPath(MySession.getCurrentDir(), path);
+			MySession.setCurrentDir(dest);
 		} catch (FilePathInterpreter.InvalidDirectoryPathException e) {
 			return "No such dir as " + path;
 		}
