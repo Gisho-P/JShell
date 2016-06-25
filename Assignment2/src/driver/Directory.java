@@ -222,28 +222,35 @@ public class Directory extends FileTypes {
     public String toString() {
         return getName();
     }
-    
-    private boolean equalsRecursive(Directory currentDir, ArrayList<FileTypes> inputDir) {
-        int index;
-        FileTypes currentFileType;
-        for (FileTypes fileType : inputDir) {
-            if ((index = currentDir.nameExists(fileType.getName())) == -1) {
-                return false;
-            } else {
-                currentFileType = currentDir.getChildren().get(index);
-                if (fileType instanceof File && currentFileType instanceof File) {
-                    if (!(((File) fileType).equals(((File) currentFileType))))
-                        return false;
-                } else if (fileType instanceof Directory && currentFileType instanceof Directory)
-                    if (!(equalsRecursive((Directory) currentFileType, ((Directory) fileType).getChildren())))
-                        return false;
-                else
-                    return false;
-            }
-        }
-        return true;
 
-    }
+//    public boolean equals(Object o) {
+//        if (o instanceof Directory) {
+//            return equalsRecursive(this, ((Directory) o).getChildren());
+//        }
+//        return false;
+//    }
+//
+//    private boolean equalsRecursive(Directory currentDir, ArrayList<FileTypes> inputDir) {
+//        int index;
+//        FileTypes currentFileType;
+//        for (FileTypes fileType : inputDir) {
+//            if ((index = currentDir.nameExists(fileType.getName())) == -1) {
+//                return false;
+//            } else {
+//                currentFileType = currentDir.getChildren().get(index);
+//                if (fileType instanceof File && currentFileType instanceof File) {
+//                    if (!(((File) fileType).equals(((File) currentFileType))))
+//                        return false;
+//                } else if (fileType instanceof Directory && currentFileType instanceof Directory)
+//                    if (!(equalsRecursive((Directory) currentFileType, ((Directory) fileType).getChildren())))
+//                        return false;
+//                else
+//                    return false;
+//            }
+//        }
+//        return true;
+//
+//    }
 
 
     public class NameExistsException extends Exception {

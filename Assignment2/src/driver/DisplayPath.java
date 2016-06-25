@@ -25,7 +25,7 @@ public class DisplayPath implements Command {
 	@Override
 	public String exec(List<String> args) {
 		boolean o = (boolean) format(args);
-		
+
 		if (o) {
 			return MySession.getCurrentDir().getEntirePath();
 		} else {
