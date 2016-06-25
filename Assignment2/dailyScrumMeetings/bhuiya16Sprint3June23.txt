@@ -1,0 +1,14 @@
+What did I do last time?
+	- Work on using Class class/ hashtables for commands
+	- Finish dirStack
+	- Rework Command Interpreter/ Shell functions
+	- Removed debug statements, fixed formatting of output
+
+What do I plan to do now?
+	- Using class invocation system mentioned in lab (June 20)
+	- Test classes
+	- Comments, documentation
+
+Am I blocked on anything?
+	- Anything pertaining to making changes based on what prof wants
+	- Ever changing class design
