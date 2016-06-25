@@ -1,6 +1,10 @@
 package driver;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import driver.FilePathInterpreter.InvalidDirectoryPathException;
 
 public class ListDirectoryContents implements Command {
 
@@ -17,16 +21,71 @@ public class ListDirectoryContents implements Command {
                "given";
 	}
 
-	@Override
-	public String format() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+     * Lists the name of the given file/directory followed by the contents
+     * if it is a directory.
+     *
+     * @param paths the paths of directories/files to be listed
+     * @return a list of the contents of each of the given paths
+     */
+	private String exec_helper(List<String> paths) {
+	  String retVal = "";
+      ArrayList<String> childNames = new ArrayList<String>();
+      String fileName = "";
+      // Iterate through each path and get the dir names in each directory or
+      // the file name if it's a file
+      for (String i : paths) {
+          // First we assume the path points to a directory and get the
+          // directory then add their children to the list
+          try {
+              childNames.addAll(((Directory) FilePathInterpreter.interpretPath(
+                      MySession.getCurrentDir(), i)).getChildNames());
+              fileName = i + ": ";
+          } catch (InvalidDirectoryPathException e) {
+              System.out.println("No such directory as " + i);
+          } catch (ClassCastException e) {
+              // If it wasn't a directory then we assume it's a file and
+              // get the file name
+              try {
+                  fileName = (((File) FilePathInterpreter.interpretPath(
+                          MySession.getCurrentDir(), i)).getName());
+                  // If it doesn't throw exception it means it exists, overwrite with path
+                  fileName = i;
+              } catch (InvalidDirectoryPathException e1) {
+                  System.out.println("No such directory or file as " + i);
+              }
+              ;
+          }
+          // Sort the list of children directories/files alphabetically
+          Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+          retVal += fileName;
+          for (String childName : childNames) {
+              retVal += childName + " ";
+          }
+          retVal += "\n";
+          childNames.clear();
+      }
+      return retVal;
 	}
 
+	/**
+     * Returns the current directory name followed by it's contents
+     *
+     * @return the contents of the directory
+     */
 	@Override
 	public String exec(List<String> args) {
-		// TODO Auto-generated method stub
-		return null;
+      if (args.size() > 1){
+        return exec_helper(args.subList(1, args.size())); // return output from function call
+    } else{
+        String retVal = MySession.getCurrentDir().getEntirePath() + ": ";
+        ArrayList<String> childNames = MySession.getCurrentDir().getChildNames();
+        Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+        for (String childName : childNames) {
+            retVal += childName + " ";
+        }
+        return retVal + "\n";
+    }
 	}
 
 }
