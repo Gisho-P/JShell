@@ -12,24 +12,28 @@ public class DisplayPath implements Command {
                " current working directories full path to standard " +
                "output";
 	}
-
-	@Override
-	public Object format(List<String> args) {
-		if (args.size() != 1) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+//
+//	@Override
+//	public Object format(List<String> args) {
+//		if (args.size() != 1) {
+//			return false;
+//		} else {
+//			return true;
+//		}
+//	}
 
 	@Override
 	public String exec(List<String> args) {
-		boolean o = (boolean) format(args);
 
-		if (o) {
-			return MySession.getCurrentDir().getEntirePath();
-		} else {
+//		if (o) {
+//			return MySession.getCurrentDir().getEntirePath();
+//		} else {
+//			return "pwd usage: pwd";
+//		}
+		if (args.size() != 1) {
 			return "pwd usage: pwd";
+		} else {
+			return "";
 		}
 	}
 
