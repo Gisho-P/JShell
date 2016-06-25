@@ -11,7 +11,7 @@ public class MySession {
 
     protected static List<String> commandHistory;
     private static Directory currentDir;
-    private Directory rootDir;
+    private static Directory rootDir;
     public final static Hashtable<String, String> commandToClass;
 
     static{
@@ -27,16 +27,16 @@ public class MySession {
         commandToClass.put("cd", "ChangeDirectory");
         commandToClass.put("mkdir", "MakeDirectory");
         commandToClass.put("exit", "ExitProgram");
-    }
-
-    public MySession() {
-		commandHistory = new ArrayList<String>();
         try {
             rootDir = new Directory("");
         } catch (FileTypes.InvalidName invalidName) {
             invalidName.printStackTrace();
         }
         currentDir = rootDir;
+    }
+
+    public MySession() {
+		commandHistory = new ArrayList<String>();
     }
 
     /**
@@ -82,7 +82,7 @@ public class MySession {
         commandHistory.clear();
     }
 
-    public Directory getRootDir() {
+    public static Directory getRootDir() {
         return rootDir;
     }
 
@@ -90,7 +90,7 @@ public class MySession {
         return currentDir;
     }
 
-    public void setCurrentDir(Directory currentDir) {
-        this.currentDir = currentDir;
+    public static void setCurrentDir(Directory cDir) {
+        currentDir = cDir;
     }
 }
