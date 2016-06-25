@@ -16,7 +16,7 @@ public class Directory extends FileTypes {
      *
      * @param name Name of the Directory
      */
-    public Directory(String name) {
+    public Directory(String name) throws InvalidName {
         super(name);
         children = new ArrayList<FileTypes>();
     }
@@ -172,14 +172,14 @@ public class Directory extends FileTypes {
      */
     public String getEntirePath() {
         //Construct the path to the current directory from the root
-        String path = "/" + name;
+        String path = "/" + getName();
         Directory current = this;
         while ((current = current.parent) != null) {
           // root doesn't require a slash before the name
-          if(current.name == "")
-            path = current.name + path;
+          if(current.getName() == "")
+            path = current.getName() + path;
           else
-            path = "/" +current.name + path;
+            path = "/" +current.getName() + path;
         }
         return path;
     }
