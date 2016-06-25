@@ -22,7 +22,7 @@ public class DisplayFile implements Command {
 	}
 
 	@Override
-	public String exec(List<String> args) {
+	public String exec(List<String> args, MySession session) {
 		// TODO Auto-generated method stub
 		return null;
 	}

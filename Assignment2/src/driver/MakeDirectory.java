@@ -15,18 +15,17 @@ public class MakeDirectory implements Command {
 	}
 
 	@Override
-	public String exec(List<String> cmdArgs) {
-		String output = "";
+	public String exec(List<String> cmdArgs, MySession session) {
+		String output;
 		if (cmdArgs.size() == 1) {
 			output = "mkdir usage: mkdir DIR [DIR2] ...";
 		} else {// return output from function call
-			output = execHelper(cmdArgs.subList(1, cmdArgs.size()));
+			output = execHelper(cmdArgs.subList(1, cmdArgs.size()), session);
 		}
 		return output;
 	}
 
-	@Override
-	private String execHelper(List<String> directory) {
+	private String execHelper(List<String> directory, MySession session) {
 		String message = "";
 		FileTypes parentDir;
 		int slashIndex;
