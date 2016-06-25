@@ -1,23 +1,18 @@
 package driver;
 
 import java.util.List;
-import java.util.Stack;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 public class DirStack {
 
-	private static Stack<String> directories;
-	
-	public DirStack() {
-		directories = new Stack<String>();
-	}
+	static List<String> directories = new ArrayList<String>();
 	
 	public static List<Object> popd() {
 		String newDir = "";
 		boolean success = false;
 		try {
-			newDir = directories.pop();
+			newDir = directories.remove(directories.size()-1);
 			success = true;
 		}
 		catch (EmptyStackException e) {
@@ -31,9 +26,8 @@ public class DirStack {
 		return popCheck;
 	}
 	
-	public static String pushd(String directory) { // error checking for invalid path
-		directories.push(directory);
-		return "\n";
+	public static void pushd(String currPath) {
+		directories.add(currPath);
 	}
 
 }

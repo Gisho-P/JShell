@@ -74,9 +74,9 @@ public class ShellFunctions {
           // First we assume the path points to a directory and get the
           // directory then add their children to the list
           try {
-            fileName = i + ": ";
             childNames.addAll(((Directory) FilePathInterpreter.interpretPath(
                 session.getCurrentDir(), i)).getChildNames());
+            fileName = i + ": ";
           } catch (InvalidDirectoryPathException e) {
               System.out.println("No such directory as " + i);
           } catch (ClassCastException e) {
@@ -118,56 +118,6 @@ public class ShellFunctions {
       return retVal + "\n";
     }
 
-    public String pwd() {
-        return session.getCurrentDir().getEntirePath() + "\n";
-    }
-
-    public String pushd(String directory) {
-        // should do some type of check for valid path entering
-        DirStack.pushd(session.getCurrentDir().getEntirePath());
-        cd(directory);
-        return "\n";
-    }
-
-    public String popd() {
-        List<Object> res = DirStack.popd();
-        if ((boolean) res.get(1) == false) {
-            return (String) res.get(0);
-        } else {
-            // call FilePathInterpreter or w/e with res.get(0)
-        	cd((String) res.get(0));
-            return "\n";
-        }
-    }
-
-    /**
-     * Returns a string containing the last cmdNum amount of commands entered
-     * from history
-     *
-     * @param cmdNum the last number of commands printed
-     * @return the string the history
-     */
-    public String history(String cmdNum) {
-        String retVal = "";
-        try {
-            int arg = Integer.parseInt(cmdNum);
-            retVal = MySession.printCommandHistory(arg);
-
-        } catch (NumberFormatException n) {
-            retVal = "history usage: history [number (INTEGER > 0)]\n";
-        }
-        return retVal;
-    }
-
-    /**
-     * Returns the history of all commands entered (valid and invalid).
-     *
-     * @return the history of commands
-     */
-    public String history() {
-        return MySession.printCommandHistory();
-    }
-
     public String cat(List<String> filePaths) {
         String retVal = "";
         Boolean firstFile = true;
@@ -185,7 +135,7 @@ public class ShellFunctions {
             if(firstFile)
               firstFile = false;
         }
-        return retVal + "\n";
+        return retVal;
     }
 
     /**
@@ -225,13 +175,13 @@ public class ShellFunctions {
             }
 
           } catch (InvalidDirectoryPathException e1) {
-            return "ERROR: The directory of the file does not exist\n";
+            return "ERROR: The directory of the file does not exist";
           } catch (NameExistsException e1) {
-            return "ERROR: There is already a subdirectory with the same name\n";
+            return "ERROR: There is already a subdirectory with the same name";
           } catch (InvalidAddition e1) {
           } 
         } catch (ClassCastException e){
-          return "ERROR: There is already a subdirectory with the same name\n";
+          return "ERROR: There is already a subdirectory with the same name";
         }
         // Write to the file, overwrite or append as given
         if(overwrite)
@@ -239,16 +189,5 @@ public class ShellFunctions {
         else
           outputFile.appendContent(text == null ? "": text);
       return retVal;
-    }
-
-    /**
-     * Given a command returns the man page for that command iff it's
-     * a valid command
-     *
-     * @param command the command which needs the man page
-     * @return the the man page string
-     */
-    public String man(String command) {
-        return MySession.manPages(command) + "\n";
     }
 }
