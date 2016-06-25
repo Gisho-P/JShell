@@ -16,7 +16,7 @@ public class DisplayHistory implements Command {
                " specified, will print only the last NUMBER " +
                "amount of\n\t\tcommands that were entered.";
 	}
-	
+	/*
 	@Override
 	public Object format(List<String> args) {
 		List<Object> ret = new ArrayList<Object>();
@@ -55,5 +55,26 @@ public class DisplayHistory implements Command {
 			}
 		}
 	}
+	*/
+	
+	@Override
+    public String exec(List<String> args) {
+	  String retVal = "";
+	  if (args.size() > 2) {
+        retVal =  "history usage: history [number]";
+        } else {
+          if(args.size() == 2){
+            try {
+              int arg = Integer.parseInt(args.get(1));
+              retVal =  MySession.printCommandHistory(arg);
+          } catch (NumberFormatException n) {
+              retVal = "history usage: history [number (INTEGER >= 0)]";
+          }
+          } else {
+                retVal = MySession.printCommandHistory();
+            }
+        }
+	  return retVal;
+    }
 
 }

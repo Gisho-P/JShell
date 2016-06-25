@@ -16,6 +16,7 @@ public class DisplayManual implements Command {
                "contains information\n\t\ton how to use the command";
 	}
 
+	/*
 	@Override
 	public Object format(List<String> args) {
 		List<Object> f = new ArrayList<Object>();
@@ -54,5 +55,29 @@ public class DisplayManual implements Command {
 		}
 		return retVal;
 	}
+*/
+	@Override
+    public String exec(List<String> args) {
+        String retVal = "";
+        
+        if (args.size() != 2) {
+          retVal =  "man usage: man CMD";
+        } else {
+            try {
+                Class<?> c = Class.forName(
+                        "driver." +
+                        MySession.commandToClass.get((String) args.get(1)));
+                Object t = c.newInstance();
+                Method m = c.getMethod("man");
+                retVal = (String) m.invoke(t, (Object[]) null);
+            } catch (ClassNotFoundException | InstantiationException | 
+                    IllegalAccessException | NoSuchMethodException | 
+                    SecurityException | IllegalArgumentException |
+                    InvocationTargetException e) {
+                retVal = "ERROR: Command does not exist.";
+            }
+        }
+        return retVal;
+    }
 
 }

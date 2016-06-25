@@ -69,10 +69,11 @@ public class ListDirectoryContents implements Command {
 	}
 
 	/**
-     * Returns the current directory name followed by it's contents
-     *
-     * @return the contents of the directory
-     */
+	 * Returns the current directory name followed by it's contents.
+	 *
+	 * @param args the args
+	 * @return the contents of the directory
+	 */
 	@Override
 	public String exec(List<String> args) {
       if (args.size() > 1){

@@ -13,8 +13,8 @@ public class ExitProgram implements Command {
                "\n\t\tto process any more commands.";
 	}
 
-	@Override
-	public Object format(List<String> args) {return null;}
+	//@Override
+	//public Object format(List<String> args) {return null;}
 
 	@Override
 	public String exec(List<String> args) {return null;}
