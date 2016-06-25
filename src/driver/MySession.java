@@ -28,7 +28,11 @@ public class MySession {
 		commandToClass.put("mkdir", "MakeDirectory");
 		commandToClass.put("exit", "ExitProgram");
 		commandHistory = new ArrayList<String>();
-        rootDir = new Directory("");
+        try {
+            rootDir = new Directory("");
+        } catch (FileTypes.InvalidName invalidName) {
+            invalidName.printStackTrace();
+        }
         currentDir = rootDir;
     }
 

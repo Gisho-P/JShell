@@ -5,12 +5,12 @@ package driver;
 public class File extends FileTypes{
     private String content;
 
-    public File(String name) {
+    public File(String name) throws InvalidName {
         super(name);
         content = "";
     }
 
-    public File(String name, String content) {
+    public File(String name, String content) throws InvalidName {
         super(name);
         this.content = content;
     }
