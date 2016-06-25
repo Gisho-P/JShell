@@ -349,5 +349,19 @@ public class DirectoryFileTest {
         }
     }
 
+    @Test
+    public void testAppendingFileContent() {
+        try {
+            File file = new File("one");
+            file.setContent("B07 is fantastic!");
+            file.appendContent("Yes it is.");
+            assertEquals(file.getContent(), "B07 is fantastic!\nYes it is.");
+        } catch (FileTypes.InvalidName invalidName) {
+            invalidName.printStackTrace();
+        }
+
+
+    }
+
 
 }
