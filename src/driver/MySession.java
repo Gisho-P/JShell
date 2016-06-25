@@ -12,21 +12,24 @@ public class MySession {
     protected static List<String> commandHistory;
     private static Directory currentDir;
     private Directory rootDir;
-    public static Hashtable<String, String> commandToClass = new Hashtable<String, String>();
+    public final static Hashtable<String, String> commandToClass;
 
+    static{
+        commandToClass = new Hashtable<String, String>();
+        commandToClass.put("man", "DisplayManual");
+        commandToClass.put("history", "DisplayHistory");
+        commandToClass.put("echo", "DisplayStoreString");
+        commandToClass.put("cat", "DisplayFile");
+        commandToClass.put("popd", "PopDirectory");
+        commandToClass.put("pushd", "PushDirectory");
+        commandToClass.put("pwd", "DisplayPath");
+        commandToClass.put("ls", "ListDirectoryContents");
+        commandToClass.put("cd", "ChangeDirectory");
+        commandToClass.put("mkdir", "MakeDirectory");
+        commandToClass.put("exit", "ExitProgram");
+    }
 
     public MySession() {
-        commandToClass.put("man", "DisplayManual");
-		commandToClass.put("history", "DisplayHistory");
-		commandToClass.put("echo", "DisplayStoreString");
-		commandToClass.put("cat", "DisplayFile");
-		commandToClass.put("popd", "PopDirectory");
-		commandToClass.put("pushd", "PushDirectory");
-		commandToClass.put("pwd", "DisplayPath");
-		commandToClass.put("ls", "ListDirectoryContents");
-		commandToClass.put("cd", "ChangeDirectory");
-		commandToClass.put("mkdir", "MakeDirectory");
-		commandToClass.put("exit", "ExitProgram");
 		commandHistory = new ArrayList<String>();
         try {
             rootDir = new Directory("");
