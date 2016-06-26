@@ -1,36 +1,85 @@
-Product Backlog
----------------
-* User Story: As a user, I can run a shell program that I can interact with.
-	- Time Estimate: 2h
-* User Story: As a user, I can input commands to the shell to perform different tasks. 
-	- Time Estimate: 2h
-* User Story: As a user, I can see any output of a command that I entered.
-	- Time Estimate: 1.5h
-* User Story: As a user, if I enter a command incorrectly, I can see an error message with the correct method to use the command.
-	- Time Estimate: 1.5h
-* User Story: As a user, I can exit the program upon command.
-	- Time Estimate: 1h
-* User Story: As a user, I can create a directory that I can go through and create files in.
-	- Time Estimate: 2h
-* User Story: As a user, I can traverse through directories to look for/create/delete files, etc.
-	- Time Estimate: 2.5h
-* User Story: As a user, I can display the contents of the directory I'm currently on.
-	- Time Estimate: 1h
-* User Story: As a user, I can keep track of what directory I'm in by displaying it's path.
-	- Time Estimate: 1h
-* User Story: As a user, I can save my current directory for use later and go to a new directory.
-	- Time Estimate: 1.5h
-* User Story: As a user, I can retrieve a previously saved directory and go back to it.
-	- Time Estimate: 1.5h
-* User Story: As a user, I can look at the history of commands I entered in the shell.
-	- Time Estimate: 1h
-* User Story: As a user, I can choose a file and look at it's contents. 
-	- Time Estimate: 1h
-* User Story: As a user, I can display text in the shell.
-	- Time Estimate: 0.5h
-* User Story: As a user, I can take written text and save it in a file for later use.
-	- Time Estimate: 2h
-* User Story: As a user, I can take a file, append content to it and save it.
-	- Time Estimate: 1h
-* User Story: As a user, I can display the manual to a command I don't understand.
-	- Time Estimate: 1h
+	User Story	|   Time Estimate
+-------------------------------------------
+* As a user, I can run	|	2h
+  a shell program that	|
+  I can interact with.	|
+-------------------------------------------
+* As a user, I can input|	2h
+  commands to the shell |
+  to perform different  |
+  tasks.		|
+-------------------------------------------
+* As a user, I can see	|	1.5h
+  any output of a	|
+  command that		|
+  I entered.		|
+-------------------------------------------
+* As a user, if I enter	|	1.5h
+  a command incorrectly,|
+  I can see an error	|
+  message with the	|
+  correct method to use	|
+  the command.		|
+-------------------------------------------
+* As a user, I can exit	|	1h
+  the program upon	|
+  command.		|
+-------------------------------------------
+* As a user, I can	|	2h
+  create a directory	|
+  that I can go through	|
+  and create files in.	|
+-------------------------------------------
+* As a user, I can	|	2.5h
+  traverse through	|
+  directories to look	|
+  for/create/delete	|
+  files, etc.		|	
+-------------------------------------------
+* As a user, I can	|	1h
+  display the contents	|
+  of the directory I'm	|
+  currently on.		|
+-------------------------------------------
+* As a user, I can keep	|	1h
+  track of what		|
+  directory I'm in by	|
+  displaying it's path.	|
+-------------------------------------------
+* As a user, I can save	|	1.5h
+  my current directory	|
+  for use later and go	|
+  to a new directory.	|
+-------------------------------------------
+* As a user, I can	|	1.5h
+  retrieve a previously	|
+  saved directory and go|
+  back to it.		|
+-------------------------------------------
+* As a user, I can look	|	1h
+  at the history of	|
+  commands I entered	|
+  in the shell.		|
+-------------------------------------------
+* As a user, I can	|	1h
+  choose a file and	|
+  look at it's contents.|
+-------------------------------------------
+* As a user, I can	|	0.5h
+  display text in the	|
+  shell.		|
+-------------------------------------------
+* As a user, I can take	|	2h
+  written text and save	|
+  it in a file for	|
+  later use.		|
+-------------------------------------------
+* As a user, I can take	|	1h
+  a file, append content|
+  to it and save it.	|
+-------------------------------------------
+* As a user, I can	|	1h
+  display the manual to	|
+  a command I don't	|
+  understand.		|
+-------------------------------------------
