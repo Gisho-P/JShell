@@ -1,9 +1,17 @@
 package driver;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class PushDirectory implements Command {
 
+	private MySession s;
+	
+	public PushDirectory(MySession session) {
+		s = session;
+	}
+	
 	@Override
 	public String man() {
 		return "PUSHD(1)\t\t\t\tUser Commands\t\t\t\tPUSHD(1)\n\n"
@@ -17,24 +25,29 @@ public class PushDirectory implements Command {
 	}
 
 	@Override
-	public Object format(List<String> args) {
+	public String interpret(List<String> args) {
 		if (args.size() != 2) {
-			return false;
+			return "pushd usage: pushd DIR";
 		} else {
-			return true; //args.get(1);
+			return exec(args); //args.get(1);
 		}
 	}
 
 	@Override
 	public String exec(List<String> args) {
-		boolean o = (boolean) format(args);
-		if (o) {
-			DirStack.pushd(MySession.getCurrentDir().getEntirePath());
-			return cd(args.get(1));
-		} else {
-			return "pushd usage: pushd DIR";
-		}
-		//DirStack.directories.add();
+		DirStack.pushd(s.getCurrentDir().getEntirePath());
+		try {
+            Class<?> c = Class.forName("driver.ChangeDirectory");
+            Object t = c.newInstance();
+            Method m = c.getMethod("interpret", List.class);
+            return (String) m.invoke(t, args);
+        } catch (ClassNotFoundException | InstantiationException | 
+                IllegalAccessException | NoSuchMethodException | 
+                SecurityException | IllegalArgumentException |
+                InvocationTargetException e) {
+        	e.printStackTrace();
+        }
+        return null;
 	}
 
 }

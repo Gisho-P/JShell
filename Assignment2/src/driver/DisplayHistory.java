@@ -1,10 +1,15 @@
 package driver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayHistory implements Command {
 
+	private MySession s;
+	
+	public DisplayHistory(MySession session) {
+		s = session;
+	}
+	
 	@Override
 	public String man() {
 		return "HISTORY(1)\t\t\t\tUser Commands\t\t\t\t"
@@ -16,65 +21,28 @@ public class DisplayHistory implements Command {
                " specified, will print only the last NUMBER " +
                "amount of\n\t\tcommands that were entered.";
 	}
-	/*
-	@Override
-	public Object format(List<String> args) {
-		List<Object> ret = new ArrayList<Object>();
-		if (args.size() > 2) {
-			ret.add(false);
-			ret.add("history usage: history [number]");
-		} else {
-			if (args.size() == 2) {
-				try {
-		            int arg = Integer.parseInt(args.get(1));
-		            ret.add(true);
-		            ret.add(arg);
-		        } catch (NumberFormatException n) {
-		        	ret.add(false);
-		            ret.add("history usage: history [number (INTEGER >= 0)]");
-		        }
-			} else {
-				ret.add(true);
-				ret.add(-1);
-			}
-		}
-		return ret;
-	}
-
-	@Override
-	public String exec(List<String> args) {
-		List<Object> o = (List<Object>) format(args);
-		
-		if ((boolean) o.get(0) == false) {
-			return (String) o.get(1);
-		} else {
-			if ((Integer) o.get(1) == -1) {
-				return MySession.printCommandHistory(); // no param
-			} else {
-				return MySession.printCommandHistory((Integer) o.get(1)); // param
-			}
-		}
-	}
-	*/
 	
 	@Override
-    public String exec(List<String> args) {
-	  String retVal = "";
-	  if (args.size() > 2) {
-        retVal =  "history usage: history [number]";
-        } else {
-          if(args.size() == 2){
-            try {
-              int arg = Integer.parseInt(args.get(1));
-              retVal =  MySession.printCommandHistory(arg);
-          } catch (NumberFormatException n) {
-              retVal = "history usage: history [number (INTEGER >= 0)]";
-          }
-          } else {
-                retVal = MySession.printCommandHistory();
-            }
-        }
-	  return retVal;
-    }
+	public String interpret(List<String> args) {
+		if (args.size() > 2) {
+			return "history usage: history [number]";
+		} else {
+			return exec(args);
+		}
+	}
+	
+	@Override
+	public String exec(List<String> args) {
+		if (args.size() == 2) {
+			try {
+				int arg = Integer.parseInt(args.get(1));
+				return  s.printCommandHistory(arg);
+			} catch (NumberFormatException n) {
+				return "history usage: history [number (INTEGER >= 0)]";
+			}
+		} else {
+			return s.printCommandHistory();
+		}
+	}
 
 }

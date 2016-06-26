@@ -3,10 +3,15 @@ package driver;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.ArrayList;
 
 public class DisplayManual implements Command {
 
+	private MySession s;
+	
+	public DisplayManual(MySession session) {
+		s = session;
+	}
+	
 	@Override
 	public String man() {
 		return "MAN(1)\t\t\t\tUser Commands\t\t\t\tMAN(1)\n\nNAME"
@@ -16,68 +21,30 @@ public class DisplayManual implements Command {
                "contains information\n\t\ton how to use the command";
 	}
 
-	/*
 	@Override
-	public Object format(List<String> args) {
-		List<Object> f = new ArrayList<Object>();
-		
+	public String interpret(List<String> args) {
 		if (args.size() != 2) {
-			f.add("man usage: man CMD");
-			f.add(false);
+			return "man usage: man CMD";
 		} else {
-			f.add(args.get(1));
-			f.add(true);
+			return exec(args);
 		}
-		return f;
 	}
 
 	@Override
-	public String exec(List<String> args) {
-		List<Object> output = (List<Object>) format(args);
-		String retVal = "";
-		
-		if ((boolean) output.get(1) == false) {
-			retVal = (String) output.get(0);
-		} else {
-			try {
-				Class<?> c = Class.forName(
-						"driver." +
-						MySession.commandToClass.get((String) output.get(0)));
-				Object t = c.newInstance();
-				Method m = c.getMethod("man");
-				retVal = (String) m.invoke(t, (Object[]) null);
-			} catch (ClassNotFoundException | InstantiationException | 
-					IllegalAccessException | NoSuchMethodException | 
-					SecurityException | IllegalArgumentException |
-					InvocationTargetException e) {
-				retVal = "ERROR: Command does not exist.";
-			}
-		}
-		return retVal;
-	}
-*/
-	@Override
     public String exec(List<String> args) {
-        String retVal = "";
-        
-        if (args.size() != 2) {
-          retVal =  "man usage: man CMD";
-        } else {
-            try {
-                Class<?> c = Class.forName(
-                        "driver." +
-                        MySession.commandToClass.get((String) args.get(1)));
-                Object t = c.newInstance();
-                Method m = c.getMethod("man");
-                retVal = (String) m.invoke(t, (Object[]) null);
-            } catch (ClassNotFoundException | InstantiationException | 
-                    IllegalAccessException | NoSuchMethodException | 
-                    SecurityException | IllegalArgumentException |
-                    InvocationTargetException e) {
-                retVal = "ERROR: Command does not exist.";
-            }
+        try {
+            Class<?> c = Class.forName(
+                    "driver." +
+                    s.commandToClass.get((String) args.get(1)));
+            Object t = c.getConstructor(MySession.class).newInstance(s);
+            Method m = c.getMethod("man");
+            return (String) m.invoke(t, (Object[]) null);
+        } catch (ClassNotFoundException | InstantiationException | 
+                IllegalAccessException | NoSuchMethodException | 
+                SecurityException | IllegalArgumentException |
+                InvocationTargetException e) {
+            return "ERROR: Command does not exist.";
         }
-        return retVal;
     }
 
 }

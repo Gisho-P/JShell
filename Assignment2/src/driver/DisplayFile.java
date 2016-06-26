@@ -2,8 +2,16 @@ package driver;
 
 import java.util.List;
 
+import driver.FilePathInterpreter.InvalidDirectoryPathException;
+
 public class DisplayFile implements Command {
 
+	private MySession s;
+	
+	public DisplayFile(MySession session) {
+		s = session;
+	}
+	
 	@Override
 	public String man() {
 		return "CAT(1)\t\t\t\tUser Commands\t\t\t\tCAT(1)\n" +
@@ -16,15 +24,35 @@ public class DisplayFile implements Command {
 	}
 
 	@Override
-	public String format() {
-		// TODO Auto-generated method stub
-		return null;
+	public String interpret(List<String> args) {
+		if (args.size() < 2) {
+			return "cat usage: cat FILE [FILE2] ...";
+		} else {
+			return exec(args.subList(1, args.size()));
+					// return output from function call
+		}
 	}
 
 	@Override
-	public String exec(List<String> args, MySession session) {
-		// TODO Auto-generated method stub
-		return null;
+	public String exec(List<String> args) {
+		String retVal = "";
+        Boolean firstFile = true;
+        
+        for (String i : args) {
+            // print three line breaks in between files
+            if (!firstFile)
+                retVal += "\n\n\n";
+            try {
+                retVal += ((File) FilePathInterpreter.interpretPath(s.getCurrentDir(), i)).getContent();
+            } catch (InvalidDirectoryPathException e) {
+                retVal = "No such dir as " + i;
+            } catch (ClassCastException e) {
+                retVal = "Unable to cat dir " + i;
+            }
+            if (firstFile)
+                firstFile = false;
+        }
+        return retVal;
 	}
 
 }
