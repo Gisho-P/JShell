@@ -16,8 +16,7 @@ public class FileTraversalTest {
 
     @Test
     public void getLevelOneDirectoryTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
-        Directory expected = null;
-        expected = new Directory("dir1");
+        Directory expected = new Directory("dir1");
         Directory test = new Directory("root");
         test.add(expected);
         test.add(new Directory("dir2"));
@@ -134,7 +133,35 @@ public class FileTraversalTest {
 
         result = (Directory) FilePathInterpreter.interpretMakePath(start, "../test");
         assertTrue(result.equals(start));
-      
+
+    }
+
+    @Test
+    public void testInterpretMakePathGivenRoot() throws InvalidDirectoryPathException, FileTypes.InvalidName {
+        Directory root = new Directory("");
+        Directory result = (Directory) FilePathInterpreter.interpretMakePath(root, "/");
+        //Return the root in this case
+        assertTrue(result.equals(root));
+    }
+
+    @Test
+    public void testInterpretMakePathGivenChild() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
+        Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
+        //Return the root in this case
+        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/");
+        assertTrue(result.equals(root));
+    }
+
+    @Test
+    public void testInterpretMakePathReturnRoot() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
+        Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
+        //Return the root in this case
+        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/");
+        assertTrue(result.equals(root));
     }
 
 }
