@@ -17,7 +17,7 @@ public class FileTraversalTest {
     @Test
     public void getLevelOneDirectoryTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
         Directory expected = new Directory("dir1");
-        Directory test = new Directory("root");
+        Directory test = new Directory("");
         test.add(expected);
         test.add(new Directory("dir2"));
         test.add(new Directory("dir3"));
@@ -117,28 +117,98 @@ public class FileTraversalTest {
 
         Directory result = (Directory) FilePathInterpreter.interpretPath(start, "/dir1/dir4/expectedDir");
         assertTrue(result.equals(expected));
-
     }
 
     @Test
-    public void getDirSlashEnd() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+    public void getDirSlashes() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
         Directory root = new Directory("");
         Directory child = new Directory("child");
         root.add(child);
         //Should return the child directory
-        Directory result = (Directory) FilePathInterpreter.interpretPath(child, "child/");
+        Directory result = (Directory) FilePathInterpreter.interpretPath(root, "child/");
         assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/child/");
+        assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "///////");
+        assertTrue(result.equals(root));
     }
 
     @Test
-    public void getDirSlashFrontEnd() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+    public void getParentDoubleDots() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
         Directory root = new Directory("");
         Directory child = new Directory("child");
         root.add(child);
         //Should return the child directory
-        Directory result = (Directory) FilePathInterpreter.interpretPath(child, "/child/");
+        Directory result = (Directory) FilePathInterpreter.interpretPath(child, "..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "child/..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/child/..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/child/..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/../child/../../../..");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/../child/../../../../");
+        assertTrue(result.equals(root));
+    }
+
+    @Test
+    public void singleDots() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+        Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
+        //Should return the child directory
+        Directory result = (Directory) FilePathInterpreter.interpretPath(child, ".");
+        assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(root, ".");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/.");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/.");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "child/.");
+        assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/child/.");
+        assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/child/.");
+        assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/./child/./.");
+        assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "/./child/././");
         assertTrue(result.equals(child));
     }
+
+    @Test
+    public void mixtureOfDotsSlashes() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+        Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
+        child.add(new Directory("grandchild"));
+        //Should return the child directory
+        Directory result = (Directory) FilePathInterpreter.interpretPath(child, "./../");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/./../");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "../.");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/.././");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretPath(root, "child/./grandchild/.././grandchild/./../");
+        assertTrue(result.equals(child));
+        result = (Directory) FilePathInterpreter.interpretPath(child, "/./../child/grandchild/./../grandchild/.././");
+        assertTrue(result.equals(child));
+
+    }
+
+
+
 
     @Test
     public void mkDirRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
@@ -157,40 +227,30 @@ public class FileTraversalTest {
     }
 
     @Test
-    public void testInterpretMakePathGivenRoot() throws InvalidDirectoryPathException, FileTypes.InvalidName {
+    public void testInterpretMakePathGivenRootPath() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
         Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
         Directory result = (Directory) FilePathInterpreter.interpretMakePath(root, "/");
         //Return the root in this case
         assertTrue(result.equals(root));
-    }
-
-    @Test
-    public void testInterpretMakePathGivenChild() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
-        Directory root = new Directory("");
-        Directory child = new Directory("child");
-        root.add(child);
-        //Return the root in this case
-        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/");
+        result = (Directory) FilePathInterpreter.interpretMakePath(child, "/");
         assertTrue(result.equals(root));
     }
 
     @Test
-    public void testInterpretMakePathReturnRootParent() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
+    public void testInterpretMakePathSlashes() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
         Directory root = new Directory("");
         Directory child = new Directory("child");
         root.add(child);
         //Should return the root in this case
-        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/child");
+        Directory result = (Directory) FilePathInterpreter.interpretPath(child, "///////");
         assertTrue(result.equals(root));
-    }
-
-    @Test
-    public void testInterpretMakePathSlashAtEnd() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
-        Directory root = new Directory("");
-        Directory child = new Directory("child");
-        root.add(child);
-        //Should return the root in this case
-        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/child/");
+        result = (Directory) FilePathInterpreter.interpretMakePath(child, "/child");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretMakePath(child, "child/");
+        assertTrue(result.equals(root));
+        result = (Directory) FilePathInterpreter.interpretMakePath(child, "/child/");
         assertTrue(result.equals(root));
     }
 
