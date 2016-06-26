@@ -15,129 +15,115 @@ import driver.FileTypes;
 public class FileTraversalTest {
 
     @Test
-    public void getLevelOneDirectoryTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+    public void getLevelOneDirectoryTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
         Directory expected = null;
-        try {
-            expected = new Directory("dir1");
-            Directory test = new Directory("root");
-            test.add(expected);
-            test.add(new Directory("dir2"));
-            test.add(new Directory("dir3"));
-            test.add(new File("file1"));
-            test.add(new File("file2", "c2"));
-            Directory result = (Directory) FilePathInterpreter.interpretPath(test, "dir1");
-            assertTrue(result.equals(expected));
-        } catch (FileTypes.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        }
+        expected = new Directory("dir1");
+        Directory test = new Directory("root");
+        test.add(expected);
+        test.add(new Directory("dir2"));
+        test.add(new Directory("dir3"));
+        test.add(new File("file1"));
+        test.add(new File("file2", "c2"));
+        Directory result = (Directory) FilePathInterpreter.interpretPath(test, "dir1");
+        assertTrue(result.equals(expected));
     }
 
     @Test
-    public void getLevelOneFileTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
-        try {
-            Directory test = new Directory("root");
-            test.add(new Directory("test1"));
-            test.add(new Directory("test2"));
-            test.add(new Directory("test3"));
-            File expected = new File("file1", "c1");
-            test.add(expected);
-            test.add(new File("file2", "c2"));
+    public void getLevelOneFileTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
 
-            File result = (File) FilePathInterpreter.interpretPath(test, "file1");
-            assertTrue(result.equals(expected));
-        } catch (FileTypes.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        }
+        Directory test = new Directory("root");
+        test.add(new Directory("test1"));
+        test.add(new Directory("test2"));
+        test.add(new Directory("test3"));
+        File expected = new File("file1", "c1");
+        test.add(expected);
+        test.add(new File("file2", "c2"));
+
+        File result = (File) FilePathInterpreter.interpretPath(test, "file1");
+        assertTrue(result.equals(expected));
+
     }
 
     @Test
-    public void getLevelTwoDirectoryTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
-        try {
-            Directory sub = new Directory("dir1");
-            Directory test = new Directory("root");
-            test.add(sub);
-            Directory expected = new Directory("dir4");
-            sub.add(expected);
-            test.add(new Directory("dir2"));
-            test.add(new Directory("dir3"));
-            test.add(new File("file1"));
-            test.add(new File("file2", "c2"));
+    public void getLevelTwoDirectoryTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
 
-            Directory result = (Directory) FilePathInterpreter.interpretPath(test, "dir1/dir4");
-            assertTrue(result.equals(expected));
-        } catch (FileTypes.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        }
+        Directory sub = new Directory("dir1");
+        Directory test = new Directory("root");
+        test.add(sub);
+        Directory expected = new Directory("dir4");
+        sub.add(expected);
+        test.add(new Directory("dir2"));
+        test.add(new Directory("dir3"));
+        test.add(new File("file1"));
+        test.add(new File("file2", "c2"));
+
+        Directory result = (Directory) FilePathInterpreter.interpretPath(test, "dir1/dir4");
+        assertTrue(result.equals(expected));
+
     }
 
     @Test
-    public void getLevelTwoFileTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
-        try {
-            Directory sub = new Directory("dir1");
-            Directory test = new Directory("root");
-            test.add(sub);
-            sub.add(new Directory("dir4"));
-            File expected = new File("file3", "c3");
-            sub.add(expected);
-            test.add(new Directory("dir2"));
-            test.add(new Directory("dir3"));
-            test.add(new File("file1"));
-            test.add(new File("file2", "c2"));
+    public void getLevelTwoFileTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
 
-            File result = (File) FilePathInterpreter.interpretPath(test, "dir1/file3");
-            assertTrue(result.equals(expected));
-        } catch (FileTypes.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        }
+        Directory sub = new Directory("dir1");
+        Directory test = new Directory("root");
+        test.add(sub);
+        sub.add(new Directory("dir4"));
+        File expected = new File("file3", "c3");
+        sub.add(expected);
+        test.add(new Directory("dir2"));
+        test.add(new Directory("dir3"));
+        test.add(new File("file1"));
+        test.add(new File("file2", "c2"));
+
+        File result = (File) FilePathInterpreter.interpretPath(test, "dir1/file3");
+        assertTrue(result.equals(expected));
+
     }
 
     @Test
-    public void fromRootFileTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
-        try {
-            Directory sub = new Directory("dir1");
-            Directory test = new Directory("root");
-            test.add(sub);
-            Directory start = new Directory("dir4");
-            sub.add(start);
-            File expected = new File("file3", "c3");
-            start.add(expected);
-            test.add(new Directory("dir2"));
-            test.add(new Directory("dir3"));
-            test.add(new File("file1"));
-            test.add(new File("file2", "c2"));
+    public void fromRootFileTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
 
-            File result = (File) FilePathInterpreter.interpretPath(start, "/dir1/dir4/file3");
-            assertTrue(result.equals(expected));
-        } catch (FileTypes.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        }
+        Directory sub = new Directory("dir1");
+        Directory test = new Directory("root");
+        test.add(sub);
+        Directory start = new Directory("dir4");
+        sub.add(start);
+        File expected = new File("file3", "c3");
+        start.add(expected);
+        test.add(new Directory("dir2"));
+        test.add(new Directory("dir3"));
+        test.add(new File("file1"));
+        test.add(new File("file2", "c2"));
+
+        File result = (File) FilePathInterpreter.interpretPath(start, "/dir1/dir4/file3");
+        assertTrue(result.equals(expected));
+
     }
 
     @Test
-    public void fromRootDirTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
-        try {
-            Directory sub = new Directory("dir1");
-            Directory test = new Directory("root");
-            test.add(sub);
-            Directory start = new Directory("dir4");
-            sub.add(start);
-            Directory expected = new Directory("expectedDir");
-            start.add(expected);
-            test.add(new Directory("dir2"));
-            test.add(new Directory("dir3"));
-            test.add(new File("file1"));
-            test.add(new File("file2", "c2"));
+    public void fromRootDirTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
 
-            Directory result = (Directory) FilePathInterpreter.interpretPath(start, "/dir1/dir4/expectedDir");
-            assertTrue(result.equals(expected));
-        } catch (FileTypes.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        }
+        Directory sub = new Directory("dir1");
+        Directory test = new Directory("root");
+        test.add(sub);
+        Directory start = new Directory("dir4");
+        sub.add(start);
+        Directory expected = new Directory("expectedDir");
+        start.add(expected);
+        test.add(new Directory("dir2"));
+        test.add(new Directory("dir3"));
+        test.add(new File("file1"));
+        test.add(new File("file2", "c2"));
+
+        Directory result = (Directory) FilePathInterpreter.interpretPath(start, "/dir1/dir4/expectedDir");
+        assertTrue(result.equals(expected));
+
     }
 
     @Test
-    public void mkDirRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException {
-        try {
+    public void mkDirRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
+
         Directory start = new Directory("root");
 
         Directory result = (Directory) FilePathInterpreter.interpretMakePath(start, "test");
@@ -148,9 +134,7 @@ public class FileTraversalTest {
 
         result = (Directory) FilePathInterpreter.interpretMakePath(start, "../test");
         assertTrue(result.equals(start));
-        } catch (FileTypes.InvalidName invalidName) {
-            invalidName.printStackTrace();
-        }
+      
     }
 
 }
