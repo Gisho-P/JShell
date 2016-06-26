@@ -36,11 +36,40 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class provides the JShell that allows the user to enter a command,
+ * processes it and then executes it. It will display any output or error
+ * messages based on the validity of the command.
+ * 
+ * @author Adnan Bhuiyan
+ * @see reflect#InvocationTargetException
+ * @see reflect#Method
+ * @see Arrays
+ * @see ArrayList
+ * @see List
+ * @see Scanner
+ */
 public class JShell {
 
+  /**
+   * Returns output/error message from Shell based on command entered.
+   * 
+   * @param args arguments called with command
+   * @param session current shell's session attributes
+   * @return output/error message of command class
+   * @see Class
+   * @see MySession
+   * @see Method
+   * @see ClassNotFoundException
+   * @see InstantiationException
+   * @see IllegalAccessException
+   * @see NoSuchMethodException
+   * @see SecurityException
+   * @see IllegalArgumentException
+   */
   private static String callFunction(List<String> args, MySession session) {
     String output = "";
-    try {
+    try { // call command class w/ arguments and execute functions
       Class<?> c =
           Class.forName("driver." + session.commandToClass.get(args.get(0)));
       Object t = c.getConstructor(MySession.class).newInstance(session);
@@ -49,43 +78,66 @@ public class JShell {
     } catch (ClassNotFoundException | InstantiationException
         | IllegalAccessException | NoSuchMethodException | SecurityException
         | IllegalArgumentException | InvocationTargetException e) {
-      output = "ERROR: Invalid Command.";
+      output = "ERROR: Invalid Command."; // if execution failed, give error
     }
 
     return output;
   }
 
+  /**
+   * Take the user's input and parse it, then pass it to command class to
+   * execute the command. Return any output or error messages.
+   * 
+   * @param cmd user's input into shell
+   * @param session session current shell's session attributes
+   * @return output/error message of command class
+   * @see List
+   * @see String
+   * @see Arrays
+   * @see MySession
+   */
   public static String commandProcessor(String cmd, MySession session) {
-    cmd = cmd.trim();
-
     // Store the output here
     List<String> cmdArgs = new ArrayList<String>();
 
     // Splitting the cmd
+    cmd = cmd.trim();
     if (cmd.contains("\"")) {
       // If cmd contains a string separate it while keeping the STRING
-      // as one command
+      // as one argument
       String beforeQuotes = cmd.substring(0, cmd.indexOf("\"")).trim();
       String afterQuotes = cmd.substring(cmd.lastIndexOf("\"") + 1).trim();
       beforeQuotes = beforeQuotes.replaceAll("[\\s]+", " ");
       afterQuotes = afterQuotes.replaceAll("[\\s]+", " ");
+      // save args before quoted string, string, and args after
       cmdArgs.addAll(Arrays.asList(beforeQuotes.split(" ")));
       cmdArgs.add(cmd.substring(cmd.indexOf("\""), cmd.lastIndexOf("\"") + 1));
       if (!afterQuotes.isEmpty()) {
         cmdArgs.addAll(Arrays.asList(afterQuotes.split(" ")));
       }
-    } else {
+    } else { // split string and save as args
       cmd = cmd.replaceAll("[\\s]+", " ");
       cmdArgs = Arrays.asList(cmd.split(" "));
     }
 
-    return callFunction(cmdArgs, session);
+    return callFunction(cmdArgs, session); // given the args,
+                                           // execute the command
   }
 
+  /**
+   * Main method for JShell. Accept input from user until exit is entered. Take
+   * the user input and parse it into arguments. Take those arguments and try to
+   * execute command, return errors or any output returned.
+   * 
+   * @see MySession
+   * @see String
+   * @see Scanner
+   * @see Command
+   */
   public static void main(String[] args) {
     String lastCommand = "";
-    MySession session = new MySession();
-    Scanner input = new Scanner(System.in);
+    MySession session = new MySession(); // new session attributes created
+    Scanner input = new Scanner(System.in); // accept input from user
 
     // Continually accept commands until the command exit is entered
     // exit can precede or follow any amount of white spaces and can have
