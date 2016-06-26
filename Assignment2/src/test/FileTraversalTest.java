@@ -121,6 +121,26 @@ public class FileTraversalTest {
     }
 
     @Test
+    public void getDirSlashEnd() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+        Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
+        //Should return the child directory
+        Directory result = (Directory) FilePathInterpreter.interpretPath(child, "child/");
+        assertTrue(result.equals(child));
+    }
+
+    @Test
+    public void getDirSlashFrontEnd() throws FileTypes.InvalidName, NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+        Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
+        //Should return the child directory
+        Directory result = (Directory) FilePathInterpreter.interpretPath(child, "/child/");
+        assertTrue(result.equals(child));
+    }
+
+    @Test
     public void mkDirRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
 
         Directory start = new Directory("root");
@@ -155,12 +175,22 @@ public class FileTraversalTest {
     }
 
     @Test
-    public void testInterpretMakePathReturnRoot() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
+    public void testInterpretMakePathReturnRootParent() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
         Directory root = new Directory("");
         Directory child = new Directory("child");
         root.add(child);
-        //Return the root in this case
-        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/");
+        //Should return the root in this case
+        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/child");
+        assertTrue(result.equals(root));
+    }
+
+    @Test
+    public void testInterpretMakePathSlashAtEnd() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
+        Directory root = new Directory("");
+        Directory child = new Directory("child");
+        root.add(child);
+        //Should return the root in this case
+        Directory result = (Directory) FilePathInterpreter.interpretMakePath(child, "/child/");
         assertTrue(result.equals(root));
     }
 
