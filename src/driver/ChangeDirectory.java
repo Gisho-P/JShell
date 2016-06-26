@@ -4,6 +4,12 @@ import java.util.List;
 
 public class ChangeDirectory implements Command {
 
+	private MySession s;
+	
+	public ChangeDirectory(MySession session) {
+		s = session;
+	}
+	
 	@Override
 	public String man() {
 		return "CD(1)\t\t\t\tUser Commands\t\t\t\tCD(1)\n\nNAME\n\t"
@@ -17,24 +23,22 @@ public class ChangeDirectory implements Command {
 	}
 
 	@Override
-	public String exec(List<String> cmdArgs) {
-		String output;
-		if (cmdArgs.size() != 2) {
-			output = "cd usage: cd DIR"; // error, print usage
+	public String interpret(List<String> args) {
+		if (args.size() != 2) {
+			return "cd usage: cd DIR"; // error, print usage
 		} else { // return output from function call
-			output = execHelper(cmdArgs.get(1));
+			return exec(args);
 		}
-		return output;
 	}
 
-	public String execHelper(String path) {
+	public String exec(List<String> args) {
 		try {
-			Directory dest = (Directory) FilePathInterpreter.interpretPath(MySession.getCurrentDir(), path);
-			MySession.setCurrentDir(dest);
+			Directory dest = (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(1));
+			s.setCurrentDir(dest);
+			return null;
 		} catch (FilePathInterpreter.InvalidDirectoryPathException e) {
-			return "No such dir as " + path;
+			return "No such dir as " + args.get(1);
 		}
-		return "";
 	}
 
 }

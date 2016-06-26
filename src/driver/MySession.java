@@ -9,14 +9,14 @@ import java.util.List;
  */
 public class MySession {
 
-    protected static List<String> commandHistory;
-    private static Directory currentDir;
-    private static Directory rootDir;
-    public final static Hashtable<String, String> commandToClass;
+    protected List<String> commandHistory;
+    private Directory currentDir;
+    private Directory rootDir;
+    public Hashtable<String, String> commandToClass = new Hashtable<String, String>();
 
-    static{
-        commandToClass = new Hashtable<String, String>();
-        commandToClass.put("man", "DisplayManual");
+    public MySession() {
+		commandHistory = new ArrayList<String>();
+		commandToClass.put("man", "DisplayManual");
         commandToClass.put("history", "DisplayHistory");
         commandToClass.put("echo", "DisplayStoreString");
         commandToClass.put("cat", "DisplayFile");
@@ -35,10 +35,6 @@ public class MySession {
         currentDir = rootDir;
     }
 
-    public MySession() {
-		commandHistory = new ArrayList<String>();
-    }
-
     /**
      * Saves the command to the command history.
      *
@@ -54,7 +50,7 @@ public class MySession {
      *
      * @param numberOfCommands the number of commands to be printed from history
      */
-    public static String printCommandHistory(int numberOfCommands) {
+    public String printCommandHistory(int numberOfCommands) {
         int historySize = commandHistory.size();
         if (numberOfCommands < 0) {
             return "history usage: history [NUMBER >= 0]\n";
@@ -74,23 +70,23 @@ public class MySession {
     /**
      * Prints the command history to stdout.
      */
-    public static String printCommandHistory() {
+    public String printCommandHistory() {
         return printCommandHistory(commandHistory.size());
     }
 
-    public static void clearCommands() {
+    public void clearCommands() {
         commandHistory.clear();
     }
 
-    public static Directory getRootDir() {
+    public Directory getRootDir() {
         return rootDir;
     }
 
-    public static Directory getCurrentDir() {
+    public Directory getCurrentDir() {
         return currentDir;
     }
 
-    public static void setCurrentDir(Directory cDir) {
+    public void setCurrentDir(Directory cDir) {
         currentDir = cDir;
     }
 }

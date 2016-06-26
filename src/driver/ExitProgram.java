@@ -4,6 +4,12 @@ import java.util.List;
 
 public class ExitProgram implements Command {
 
+	private MySession s;
+	
+	public ExitProgram(MySession session) {
+		s = session;
+	}
+	
 	@Override
 	public String man() {
 		return "EXIT(1)\t\t\t\tUser Commands\t\t\t\tEXIT(1)\n\n"
@@ -13,10 +19,10 @@ public class ExitProgram implements Command {
                "\n\t\tto process any more commands.";
 	}
 
-	//@Override
-	//public Object format(List<String> args) {return null;}
-
 	@Override
 	public String exec(List<String> args) {return null;}
+
+	@Override
+	public String interpret(List<String> args) {return null;}
 
 }

@@ -1,9 +1,17 @@
 package driver;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class PopDirectory implements Command {
 
+	private MySession s;
+	
+	public PopDirectory(MySession session) {
+		s = session;
+	}
+	
 	@Override
 	public String man() {
 		return "POPD(1)\t\t\t\tUser Commands\t\t\t\tPOPD(1)\n\n" +
@@ -16,29 +24,36 @@ public class PopDirectory implements Command {
 	}
 
 	@Override
-	public Object format(List<String> args) {
+	public String interpret(List<String> args) {
 		if (args.size() != 1) {
-			return false;
+			return "popd usage: popd"; // error, print usage
 		} else {
-			return true;
+			return exec(args);
 		}
 	}
+	
 
 	@Override
 	public String exec(List<String> args) {
-		boolean o = (boolean) format(args);
+		List<Object> res = DirStack.popd();
 		
-		if (o) {
-			List<Object> res = DirStack.popd();
-			if ((boolean) res.get(1) == false) {
-	            return (String) res.get(0);
-	        } else {
-	            // call FilePathInterpreter or w/e with res.get(0)
-	        	return cd((String) res.get(0));
-	        }
-		} else {
-			return "popd usage: popd"; // error, print usage
-		}
+		if ((boolean) res.get(1) == false) {
+            return (String) res.get(0);
+        } else {
+        	try {
+                Class<?> c = Class.forName("driver.ChangeDirectory");
+                Object t = c.newInstance();
+                Method m = c.getMethod("interpret", List.class);
+                args.add((String) res.get(0));
+                return (String) m.invoke(t, args);
+            } catch (ClassNotFoundException | InstantiationException | 
+                    IllegalAccessException | NoSuchMethodException | 
+                    SecurityException | IllegalArgumentException |
+                    InvocationTargetException e) {
+            	e.printStackTrace();
+            }
+        	return null;
+        }
 	}
 
 }
