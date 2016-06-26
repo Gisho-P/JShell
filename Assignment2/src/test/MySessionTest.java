@@ -19,7 +19,7 @@ public class MySessionTest {
 	    session.saveCommand("echo \"cmd " + i.toString()  + "\" > newFile");
 	    expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile")) + "\r\n";
 	  }
-	  assertTrue(MySession.printCommandHistory().equals(expectedHistory));
+	  assertTrue(session.printCommandHistory().equals(expectedHistory));
 	}
 	
 	@Test
@@ -31,6 +31,6 @@ public class MySessionTest {
 	        if(i > 2)
 	          expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile")) + "\r\n";
 	      }
-	      assertTrue(MySession.printCommandHistory(2).equals(expectedHistory));
+	      assertTrue(session.printCommandHistory(2).equals(expectedHistory));
 	    }
 }
