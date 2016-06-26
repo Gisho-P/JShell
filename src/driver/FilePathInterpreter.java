@@ -7,7 +7,7 @@ public class FilePathInterpreter {
 
   public static FileTypes interpretPath(Directory init, String path)
       throws InvalidDirectoryPathException {
-    // System.out.println(path + "AFTER");
+    System.out.println(path + "AFTER");
     return interpretPathRecursive(init, path);
   };
 
@@ -104,23 +104,26 @@ public class FilePathInterpreter {
       throws InvalidDirectoryPathException {
     if (path != "") {
 
-      System.out.println(path);
+      System.out.println(path + "HI");
 
       String[] splitPath = path.split("/");
       int last = splitPath[splitPath.length - 1].length();
 
       if (splitPath[0].equals(".")) {
 
+    	  
+      // Either /t1/t2.. or /t1/t2/ or /
       } else if (splitPath[0].equals("..") || path.equals("/")) {
         return interpretPath(init, "/");
       }
 
       // if our path has more than 1 subpath e.g. dir/dir1/dir3
-      if (splitPath.length > 1) {
+      if (splitPath.length > 2) {
         return interpretPath(init, path.substring(0, path.length() - last - 1));
       }
+      // 1 dir like /test
+      return interpretPath(init, path.substring(0, path.length() - last));
       // if our path has exactly than 1 subpath e.g. dir/dir1/dir3
-      return init;
     }
     return init.getParent();
   };
