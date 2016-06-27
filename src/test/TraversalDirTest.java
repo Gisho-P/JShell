@@ -4,12 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
+import driver.*;
 import org.junit.Test;
-
-import driver.Directory;
-import driver.FileTypes;
-import driver.JShell;
-import driver.MySession;
 
 public class TraversalDirTest {
 	public MySession session;
@@ -23,9 +19,19 @@ public class TraversalDirTest {
     	session = new MySession();
         JShell.commandProcessor("cd ..", session);
         assertEquals(session.getCurrentDir(), session.getRootDir());
-    } 
-	
-	@Test
+    }
+
+    @Test
+    public void cdDoubleDotsSlash() {
+        //Add a directory to a directory
+        session = new MySession();
+        JShell.commandProcessor("cd ../", session);
+        assertEquals(session.getCurrentDir(), session.getRootDir());
+        JShell.commandProcessor("cd /..", session);
+        assertEquals(session.getCurrentDir(), session.getRootDir());
+    }
+
+    @Test
     public void cdSingleDot() {
         //Add a directory to a directory
     	session = new MySession();
@@ -71,4 +77,31 @@ public class TraversalDirTest {
         JShell.commandProcessor("cd ..", session);
         assertEquals(JShell.commandProcessor("ls", session), "/dir1: subdir1 ");
     }
+
+    @Test
+    public void cdMixtureOfSlashesDots() {
+        //Add a directory to a directory
+        session = new MySession();
+        JShell.commandProcessor("mkdir dir1", session);
+        JShell.commandProcessor("cd dir1", session);
+        JShell.commandProcessor("mkdir subdir1", session);
+        JShell.commandProcessor("mkdir subdir2", session);
+        JShell.commandProcessor("mkdir subdir3", session);
+        JShell.commandProcessor("cd subdir1", session);
+        JShell.commandProcessor("cd ../subdir1/./../../", session);
+        assertEquals(session.getCurrentDir(), session.getRootDir());
+    }
+
+    @Test
+    public void cdGivenPathToFile() throws FileTypes.InvalidName, Directory.NameExistsException, Directory.InvalidAddition {
+        //Add a directory to a directory
+        session = new MySession();
+        session.getRootDir().add(new File("file1"));
+        JShell.commandProcessor("mkdir subdir1", session);
+        System.out.println(JShell.commandProcessor("ls", session));
+
+        assertEquals("No such dir as file1", JShell.commandProcessor("cd file1", session));
+    }
+
+
 }
