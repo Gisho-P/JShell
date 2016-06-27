@@ -1,7 +1,6 @@
 package test;
 
-import driver.JShell;
-import driver.MySession;
+import driver.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,25 +22,49 @@ public class MakeDirectoryTest {
     @Test
     public void mkdirCreateDirWithSlash() {
         String message = JShell.commandProcessor("mkdir /", session);
-        assertEquals("mkdir: cannot create a directory without a name", message);
+        assertEquals("mkdir: cannot create a directory without a name\n", message);
     }
 
     @Test
     public void mkdirCreateDirWithMultipleSlash() {
         String message = JShell.commandProcessor("mkdir ////", session);
-        assertEquals("mkdir: cannot create a directory without a name", message);
+        assertEquals("mkdir: cannot create a directory without a name\n", message);
     }
 
     @Test
     public void mkdirInvalidNames() {
         String message = JShell.commandProcessor("mkdir ..", session);
-        assertEquals("mkdir: cannot create directory with name '..'. It is invalid.", message);
+        assertEquals("mkdir: cannot create directory with name '..'. It is invalid.\n", message);
         message = JShell.commandProcessor("mkdir .", session);
-        assertEquals("mkdir: cannot create directory with name '.'. It is invalid.", message);
+        assertEquals("mkdir: cannot create directory with name '.'. It is invalid.\n", message);
         message = JShell.commandProcessor("mkdir one one/..", session);
         assertEquals(session.getRootDir().getChildNames().get(0), "one");
-        assertEquals("mkdir: cannot create directory with name 'one/..'. It is invalid.", message);
+        assertEquals("mkdir: cannot create directory with name 'one/..'. It is invalid.\n", message);
     }
+
+
+    @Test
+    public void mkdirInvalidPaths() {
+        String message = JShell.commandProcessor("mkdir one/two", session);
+        assertEquals("mkdir: cannot create directory 'one/two': Invalid Path\n", message);
+        message = JShell.commandProcessor("mkdir one one/two two/one", session);
+        assertEquals("mkdir: cannot create directory 'two/one': Invalid Path\n", message);
+        message = JShell.commandProcessor("mkdir one/../two/../three one/three/four\n", session);
+        assertEquals(session.getRootDir().getChildNames().get(0), "one");
+        assertEquals("mkdir: cannot create directory 'one/../two/../three': Invalid Path\n" +
+                "mkdir: cannot create directory 'one/three/four': Invalid Path\n", message);
+    }
+
+    @Test
+    public void mkdirDirOrFileExists() throws FileTypes.InvalidName, Directory.NameExistsException, Directory.InvalidAddition {
+        String message = JShell.commandProcessor("mkdir one one", session);
+        assertEquals("mkdir: cannot create directory 'one': File exists\n", message);
+        session.getCurrentDir().add(new File("three"));
+        message = JShell.commandProcessor("mkdir three", session);
+        assertEquals("mkdir: cannot create directory 'three': File exists\n", message);
+
+    }
+
 
     @Test
     public void mkdirSingle() {
@@ -87,7 +110,7 @@ public class MakeDirectoryTest {
         expected.add("three");
         assertEquals(expected, session.getCurrentDir().getChildNames());
 
-        JShell.commandProcessor("mkdir ../one/three/../four/", session);
+        JShell.commandProcessor("mkdir ../one/two/../../four/", session);
         JShell.commandProcessor("cd ..", session);
         expected.add("four");
         assertEquals(expected, session.getCurrentDir().getChildNames());
@@ -170,19 +193,6 @@ public class MakeDirectoryTest {
         expected.clear();
         expected.addAll(Arrays.asList("two", "three", "four"));
         assertEquals(expected, session.getCurrentDir().getChildNames());
-//
-//        JShell.commandProcessor("cd ..", session);
-//        JShell.commandProcessor("mkdir /././three", session);
-//        expected.clear();
-//        expected.addAll(Arrays.asList("one", "three"));
-//        assertEquals(expected, session.getCurrentDir().getChildNames());
-//
-//        JShell.commandProcessor("cd one", session);
-//        JShell.commandProcessor("mkdir /./three/././four", session);
-//        JShell.commandProcessor("cd ../three", session);
-//        expected.clear();
-//        expected.add("four");
-//        assertEquals(expected, session.getCurrentDir().getChildNames());
     }
 
 }
