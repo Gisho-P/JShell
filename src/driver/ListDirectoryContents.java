@@ -12,7 +12,11 @@ import driver.FilePathInterpreter.InvalidDirectoryPathException;
  */
 public class ListDirectoryContents implements Command {
 
+  /**
+   * The session is used to get the current directory when searching for paths
+   */
   private MySession s;
+
 
   public ListDirectoryContents(MySession session) {
     s = session;
@@ -44,75 +48,52 @@ public class ListDirectoryContents implements Command {
    */
   private String execMult(List<String> paths) {
     String retVal = "";
+    String currentDirectory = "";
     ArrayList<String> childNames = new ArrayList<String>();
-    String fileName = "";
     ArrayList<String> directoryAndContents = new ArrayList<String>();
-    // Iterate through each path and get the dir names in each directory or
-    // the file name if it's a file
+    // Get children if path is a directory, or return path if it's a file
     for (String i : paths) {
-      // First we assume the path points to a directory and get the
-      // directory then add their children to the list
-      try {
-        fileName = "";
+      try { // Assume it's a directory and get children
         childNames.addAll(((Directory) FilePathInterpreter
             .interpretPath(s.getCurrentDir(), i)).getChildNames());
-        fileName = i + ":";
-        // Sort the list of children directories/files alphabetically
-        Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-        retVal += fileName;
-        for (String childName : childNames) {
-          retVal += childName + " ";
-        }
-        retVal += "\n";
-        childNames.clear();
+        currentDirectory = i + ":";
       } catch (InvalidDirectoryPathException e) {
-        retVal += ("No such directory as " + i + "\n");
-      } catch (ClassCastException e) {
-        // If it wasn't a directory then we assume it's a file and
-        // get the file name
-        try {
-          fileName =
-              (((File) FilePathInterpreter.interpretPath(s.getCurrentDir(), i))
-                  .getName());
-          // If it doesn't throw exception it means it exists, overwrite with
-          // path
-          fileName = i;
-          retVal += fileName + "\n";
-        } catch (InvalidDirectoryPathException e1) {
-          retVal += "No such directory or file as " + i + " \n";
+        retVal += ("No such directory or file with path " + i + "\n");
+      } catch (ClassCastException e) { // Indicates that path points to a file
+        currentDirectory = i;
+      }
+      if (currentDirectory != "") { // Sort children alphabetically and store
+        Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+        for (String childName : childNames) {
+          currentDirectory += " " + childName;
         }
+        directoryAndContents.add(currentDirectory);
+        childNames.clear();
+        currentDirectory = "";
       }
-      // Sort the list of children directories/files alphabetically
-      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-      String currentDirectory = fileName;
-      for (String childName : childNames) {
-        currentDirectory += " " + childName;
-      }
-      directoryAndContents.add(currentDirectory);
-      childNames.clear();
-    }
+    } // Sort directory and contents alphabetically and add to return
     Collections.sort(directoryAndContents, String.CASE_INSENSITIVE_ORDER);
     for (String dirCon : directoryAndContents) {
-	retVal += dirCon + "\n";
-      }
+      retVal += dirCon + "\n";
+    }
     return retVal.substring(0, retVal.length() - 1);
   }
 
   @Override
   public String exec(List<String> args) {
-      // If there are paths specified get the output form function call
-      if (args.size() > 1) {
-	  return execMult(args.subList(1, args.size()));
+    // If there are paths specified get the output form function call
+    if (args.size() > 1) {
+      return execMult(args.subList(1, args.size()));
+    }
+    // Otherwise, get the contents of the current directory and return it
+    else {
+      String retVal = "";
+      ArrayList<String> childNames = s.getCurrentDir().getChildNames();
+      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+      for (String childName : childNames) {
+        retVal += childName + " ";
       }
-      // Otherwise, get the contents of the current directory and return it
-      else {
-	  String retVal = "";
-	  ArrayList<String> childNames = s.getCurrentDir().getChildNames();
-	  Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-	  for (String childName : childNames) {
-	      retVal += childName + " ";
-	  }
-	  return retVal.trim(); // remove last blank space
+      return retVal.trim(); // remove last blank space
     }
   }
 
