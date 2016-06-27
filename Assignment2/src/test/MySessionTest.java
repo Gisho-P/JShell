@@ -17,20 +17,26 @@ public class MySessionTest {
 	  String expectedHistory = "";
 	  for(Integer i = 0; i < 5; i++){
 	    session.saveCommand("echo \"cmd " + i.toString()  + "\" > newFile");
-	    expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile")) + "\r\n";
+	    if(i != 4)
+	      expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile")) + "\n";
+	    else
+          expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile"));
 	  }
 	  assertTrue(session.printCommandHistory().equals(expectedHistory));
 	}
 	
 	@Test
-	    public void getHistoryLastTwo(){
-	      MySession session = new MySession();
-	      String expectedHistory = "";
-	      for(Integer i = 0; i < 5; i++){
-	        session.saveCommand("echo \"cmd " + i.toString()  + "\" > newFile");
-	        if(i > 2)
-	          expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile")) + "\r\n";
-	      }
-	      assertTrue(session.printCommandHistory(2).equals(expectedHistory));
-	    }
+        public void getHistoryLastTwo(){
+	    MySession session = new MySession();
+	    String expectedHistory = "";
+	    for(Integer i = 0; i < 5; i++){
+		session.saveCommand("echo \"cmd " + i.toString()  + "\" > newFile");
+		if(i > 2)
+		    if(i != 4)
+			expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile")) + "\n";
+		    else
+			expectedHistory += ((i + 1) + (". " + "echo \"cmd " + i  + "\" > newFile"));
+	    	}
+	    assertTrue(session.printCommandHistory(2).equals(expectedHistory));
+        }
 }

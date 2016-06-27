@@ -91,7 +91,7 @@ public class ListDirectoryContents implements Command {
       return execMult(args.subList(1, args.size())); // return output from
                                                      // function call
     } else {
-      String retVal = s.getCurrentDir().getEntirePath() + ": ";
+      String retVal = "";
       ArrayList<String> childNames = s.getCurrentDir().getChildNames();
       Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
       for (String childName : childNames) {
