@@ -42,8 +42,6 @@ import java.util.Scanner;
  * messages based on the validity of the command.
  * 
  * @author Adnan Bhuiyan
- * @see reflect#InvocationTargetException
- * @see reflect#Method
  * @see Arrays
  * @see ArrayList
  * @see List
@@ -151,7 +149,7 @@ public class JShell {
         // Printing the output
         String ret = commandProcessor(lastCommand, session);
         if (ret != null && ret != "") {
-          System.out.println(ret);
+           System.out.println(ret.trim());
         }
       }
     }
