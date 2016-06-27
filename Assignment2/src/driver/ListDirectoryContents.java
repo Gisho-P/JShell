@@ -48,11 +48,20 @@ public class ListDirectoryContents implements Command {
       // First we assume the path points to a directory and get the
       // directory then add their children to the list
       try {
+        fileName = "";
         childNames.addAll(((Directory) FilePathInterpreter
             .interpretPath(s.getCurrentDir(), i)).getChildNames());
         fileName = i + ": ";
+        // Sort the list of children directories/files alphabetically
+        Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+        retVal += fileName;
+        for (String childName : childNames) {
+          retVal += childName + " ";
+        }
+        retVal += "\n";
+        childNames.clear();
       } catch (InvalidDirectoryPathException e) {
-        System.out.println("No such directory as " + i);
+        retVal += ("No such directory as " + i + "\n");
       } catch (ClassCastException e) {
         // If it wasn't a directory then we assume it's a file and
         // get the file name
@@ -63,18 +72,11 @@ public class ListDirectoryContents implements Command {
           // If it doesn't throw exception it means it exists, overwrite with
           // path
           fileName = i;
+          retVal += fileName + "\n";
         } catch (InvalidDirectoryPathException e1) {
-          System.out.println("No such directory or file as " + i);
+          retVal += "No such directory or file as " + i + " \n";
         }
       }
-      // Sort the list of children directories/files alphabetically
-      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-      retVal += fileName;
-      for (String childName : childNames) {
-        retVal += childName + " ";
-      }
-      retVal += "\n";
-      childNames.clear();
     }
     return retVal.substring(0, retVal.length() - 1);
   }
