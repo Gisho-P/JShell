@@ -2,6 +2,7 @@ package driver;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -94,8 +95,10 @@ public class PopDirectory implements Command {
         Class<?> c = Class.forName("driver.ChangeDirectory");
         Object t = c.getConstructor(MySession.class).newInstance(s);
         Method m = c.getMethod("interpret", List.class);
-        args.add((String) res.get(0));
-        return (String) m.invoke(t, args);
+        List<String> r = new ArrayList<String>();
+        r.addAll(args);
+        r.add((String) res.get(0));
+        return (String) m.invoke(t, r);
       } catch (ClassNotFoundException | InstantiationException
           | IllegalAccessException | NoSuchMethodException | SecurityException
           | IllegalArgumentException | InvocationTargetException e) {
