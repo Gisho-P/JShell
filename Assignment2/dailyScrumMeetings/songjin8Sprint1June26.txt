@@ -1,0 +1,13 @@
+What did I do last time?
+    - Documented some files and tests.
+    - Create more tests for FilePathInterpreter
+    - Simplified FilePathInterpreter
+
+What do I plan to do now?
+    - Make general test plans for the commands.
+    - Document the FilePathInterpreter and other files.
+
+
+Am I blocked on anything?
+    - Not blocked on anything
+	
