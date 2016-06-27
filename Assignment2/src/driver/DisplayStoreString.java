@@ -38,32 +38,36 @@ public class DisplayStoreString implements Command {
   @Override
   public String interpret(List<String> args) {
     if (args.size() != 4 && args.size() != 2) {
-      return "echo usage: STRING [>[>] OUTFILE]";
+	return "echo usage: STRING [>[>] [OUTFILE]";
     } else {
-      if (args.get(1).startsWith("\"") && args.get(1).endsWith("\"")) {
-        if (args.get(1).length() == 2) {
-          args.set(1, null);
-        } else {
-          args.set(1, args.get(1).substring(1, args.get(1).length() - 1));
-        }
-      } else {
-        return "ERROR: STRING must be surrounded by double quotations";
-      }
-
-      List<String> retArgs = new ArrayList<String>();
-      retArgs.add(args.get(1));
-      retArgs.add(args.get(3));
+	if (args.get(1).startsWith("\"") && args.get(1).endsWith("\"")) {
+	    if (args.get(1).length() == 2) {
+		args.set(1, null);
+	    } else {
+		args.set(1, args.get(1).substring(1, args.get(1).length() - 1));
+	    }
+	} else {
+	    return "ERROR: STRING must be surrounded by double quotations";
+	}
 
       if (args.size() == 2) {
-        return args.get(1);
-      } else if (args.get(2).equals(">>")) { // Append to file
-        retArgs.add("false");
-        return exec(retArgs);
-      } else if (args.get(2).equals(">")) { // Write to file
-        retArgs.add("true");
-        return exec(retArgs);
+	  return args.get(1);
       } else {
-        return "echo usage: STRING [>[>] OUTFILE]";
+	  List<String> retArgs = new ArrayList<String>();
+	  retArgs.add(args.get(1));	  
+	  retArgs.add(args.get(3));
+	  
+	  if (args.get(2).equals(">>")) { // Append to file
+	        retArgs.add("false");
+	        return exec(retArgs);
+	  } else {
+	      if (args.get(2).equals(">")) { // Write to file
+		  retArgs.add("true");
+		  return exec(retArgs);
+	      } else {
+		  return "echo usage: STRING [>[>] [OUTFILE]";
+	      }
+	  }
       }
     }
   }
