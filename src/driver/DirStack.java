@@ -32,11 +32,11 @@ public class DirStack {
   public static List<Object> popd() {
     String newDir = "";
     boolean success = false;
-    try { // pop a directory from stack
+    if (directories.size() == 0) {
+      newDir = "ERROR: Empty stack, nothing to pop";
+    } else {
       newDir = directories.remove(directories.size() - 1);
       success = true;
-    } catch (EmptyStackException e) { // if it's empty, error message
-      newDir = "ERROR: Empty stack, nothing to pop";
     }
 
     List<Object> popCheck = new ArrayList<Object>();
@@ -54,5 +54,9 @@ public class DirStack {
    */
   public static void pushd(String currPath) {
     directories.add(currPath);
+  }
+  
+  public static boolean equals(List<String> dir) {
+    return directories.equals(dir);
   }
 }

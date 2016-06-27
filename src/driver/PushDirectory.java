@@ -87,13 +87,16 @@ public class PushDirectory implements Command {
    */
   @Override
   public String exec(List<String> args) {
-    DirStack.pushd(s.getCurrentDir().getEntirePath()); // push directory to
-                                                       // stack
+    String currDir = s.getCurrentDir().getEntirePath();
     try { // Call interpret method for cd command to change directory
       Class<?> c = Class.forName("driver.ChangeDirectory");
       Object t = c.getConstructor(MySession.class).newInstance(s);
       Method m = c.getMethod("interpret", List.class);
-      return (String) m.invoke(t, args);
+      String ret = (String) m.invoke(t, args);
+      if (ret == null || ret == "") {
+        DirStack.pushd(currDir);
+      }
+      return ret;
     } catch (ClassNotFoundException | InstantiationException
         | IllegalAccessException | NoSuchMethodException | SecurityException
         | IllegalArgumentException | InvocationTargetException e) {
