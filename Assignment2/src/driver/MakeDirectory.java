@@ -48,7 +48,7 @@ public class MakeDirectory implements Command {
                         ((Directory) parentDir)
                                 .add(new Directory(splitPath[splitPath.length - 1]));
                     } else
-                        message += "mkdir can't create a directory without a name";
+                        message += "mkdir: cannot create a directory without a name";
                 }
             } catch (Directory.NameExistsException e) {
                 message += "mkdir: cannot create directory '" + i + "': File exists";
@@ -57,8 +57,8 @@ public class MakeDirectory implements Command {
             } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
                 message += "mkdir: cannot create directory '" + i + "': Invalid Path";
             } catch (FileTypes.InvalidName invalidName) {
-                message += "mkdir: cannot create directory with name " + i
-                        + ". The name is invalid.";
+                message += "mkdir: cannot create directory with name '" + i
+                        + "'. It is invalid.";
             }
         }
         return message;

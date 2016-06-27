@@ -100,7 +100,7 @@ public class TraversalDirTest {
         JShell.commandProcessor("mkdir subdir1", session);
         System.out.println(JShell.commandProcessor("ls", session));
 
-        assertEquals("file1 is Not a directory.", JShell.commandProcessor("cd file1", session));
+        assertEquals("file1 is not a directory.", JShell.commandProcessor("cd file1", session));
     }
 
 	@Test

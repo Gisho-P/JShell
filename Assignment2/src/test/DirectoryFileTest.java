@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  * Created by dhrumil on 19/06/16.
  */
 public class DirectoryFileTest {
-    public Directory dir;
+    Directory dir;
 
     @Test
     /**
