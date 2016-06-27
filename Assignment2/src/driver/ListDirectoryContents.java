@@ -6,6 +6,10 @@ import java.util.List;
 
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
 
+/**
+ * The Class ListDirectoryContents can list the children of a given list of
+ * directories.
+ */
 public class ListDirectoryContents implements Command {
 
   private MySession s;
@@ -42,6 +46,7 @@ public class ListDirectoryContents implements Command {
     String retVal = "";
     ArrayList<String> childNames = new ArrayList<String>();
     String fileName = "";
+    ArrayList<String> directoryAndContents = new ArrayList<String>();
     // Iterate through each path and get the dir names in each directory or
     // the file name if it's a file
     for (String i : paths) {
@@ -51,7 +56,7 @@ public class ListDirectoryContents implements Command {
         fileName = "";
         childNames.addAll(((Directory) FilePathInterpreter
             .interpretPath(s.getCurrentDir(), i)).getChildNames());
-        fileName = i + ": ";
+        fileName = i + ":";
         // Sort the list of children directories/files alphabetically
         Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
         retVal += fileName;
@@ -77,29 +82,37 @@ public class ListDirectoryContents implements Command {
           retVal += "No such directory or file as " + i + " \n";
         }
       }
+      // Sort the list of children directories/files alphabetically
+      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+      String currentDirectory = fileName;
+      for (String childName : childNames) {
+        currentDirectory += " " + childName;
+      }
+      directoryAndContents.add(currentDirectory);
+      childNames.clear();
     }
+    Collections.sort(directoryAndContents, String.CASE_INSENSITIVE_ORDER);
+    for (String dirCon : directoryAndContents) {
+	retVal += dirCon + "\n";
+      }
     return retVal.substring(0, retVal.length() - 1);
   }
 
-  /**
-   * Returns the current directory name followed by it's contents.
-   *
-   * @param args the args
-   * @return the contents of the directory
-   */
   @Override
   public String exec(List<String> args) {
-    if (args.size() > 1) {
-      return execMult(args.subList(1, args.size())); // return output from
-                                                     // function call
-    } else {
-      String retVal = "";
-      ArrayList<String> childNames = s.getCurrentDir().getChildNames();
-      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-      for (String childName : childNames) {
-        retVal += childName + " ";
+      // If there are paths specified get the output form function call
+      if (args.size() > 1) {
+	  return execMult(args.subList(1, args.size()));
       }
-      return retVal;
+      // Otherwise, get the contents of the current directory and return it
+      else {
+	  String retVal = "";
+	  ArrayList<String> childNames = s.getCurrentDir().getChildNames();
+	  Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+	  for (String childName : childNames) {
+	      retVal += childName + " ";
+	  }
+	  return retVal.trim(); // remove last blank space
     }
   }
 

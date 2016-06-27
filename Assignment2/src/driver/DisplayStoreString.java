@@ -9,6 +9,10 @@ import driver.FilePathInterpreter.InvalidDirectoryPathException;
 import driver.FileTypes.InvalidName;
 
 
+/**
+ * The Class DisplayStoreString can either display a string in the JShell
+ * or store it in a new or existing file.
+ */
 public class DisplayStoreString implements Command {
 
   private MySession s;
@@ -40,18 +44,19 @@ public class DisplayStoreString implements Command {
     if (args.size() != 4 && args.size() != 2) {
 	return "echo usage: STRING [>[>] [OUTFILE]";
     } else {
+	// Check that the string is surrounded by quotes
 	if (args.get(1).startsWith("\"") && args.get(1).endsWith("\"")) {
-	    if (args.get(1).length() == 2) {
+	    if (args.get(1).length() == 2) { // Set to null if string is empty
 		args.set(1, null);
-	    } else {
+	    } else { // Remove quotes
 		args.set(1, args.get(1).substring(1, args.get(1).length() - 1));
 	    }
 	} else {
 	    return "ERROR: STRING must be surrounded by double quotations";
 	}
 
-      if (args.size() == 2) {
-	  return args.get(1);
+      if (args.size() == 2) { // return the string if no file is given
+	  return args.get(1) == null ? "" : (String) args.get(1);
       } else {
 	  List<String> retArgs = new ArrayList<String>();
 	  retArgs.add(args.get(1));	  
