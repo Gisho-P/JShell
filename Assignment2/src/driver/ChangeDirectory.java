@@ -33,10 +33,12 @@ public class ChangeDirectory implements Command {
 
   public String exec(List<String> args) {
     try {
-      Directory dest = (Directory) FilePathInterpreter
-          .interpretPath(s.getCurrentDir(), args.get(1));
-      s.setCurrentDir(dest);
-      return null;
+      FileTypes dest = FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(1));
+      if (dest instanceof Directory) {
+        s.setCurrentDir((Directory) dest);
+        return "";
+      }else
+        return (dest.getName() + " is Not a directory.");
     } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
       return "No such dir as " + args.get(1);
     }
