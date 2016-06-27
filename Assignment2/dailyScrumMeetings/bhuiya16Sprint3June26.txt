@@ -1,0 +1,15 @@
+What did I do last time?
+    - Removed debug statements, fixed error and regex statements
+	- Created Command Interface, that each command class implements
+	- Deleted ShellFunctions and CommandInterpreter classes
+	- Do processing and execution in JShell, used reflection to do so
+	- Formatting and documentation
+	- Added tests
+What do I plan to do now?
+    - Add tests
+	- Complete documentation
+	- Submit
+	- Meeting with team members to discuss final things
+
+Am I blocked on anything?
+    - Not necessarily, dependant on test failures
