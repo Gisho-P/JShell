@@ -25,7 +25,10 @@ public class File extends FileTypes {
   }
 
   public void appendContent(String content) {
-    this.content += "\n" + content;
+      if(this.content.isEmpty())
+	  setContent(content);
+      else
+	  this.content += "\n" + content;
   }
 
   public String toString() {
