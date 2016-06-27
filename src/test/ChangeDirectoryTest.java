@@ -3,18 +3,19 @@ package test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import driver.*;
 import org.junit.Test;
 
-public class TraversalDirTest {
+public class ChangeDirectoryTest {
 	public MySession session;
     
     /**
      * Test adding a directory to a directory
      */
 	@Test
-    public void cdDoubleDots() {
+    public void testCdDoubleDots() {
         //Add a directory to a directory
     	session = new MySession();
         JShell.commandProcessor("cd ..", session);
@@ -22,7 +23,7 @@ public class TraversalDirTest {
     }
 
     @Test
-    public void cdDoubleDotsSlash() {
+    public void testCdDoubleDotsSlash() {
         //Add a directory to a directory
         session = new MySession();
         JShell.commandProcessor("cd ../", session);
@@ -32,7 +33,7 @@ public class TraversalDirTest {
     }
 
     @Test
-    public void cdSingleDot() {
+    public void testCdSingleDot() {
         //Add a directory to a directory
     	session = new MySession();
         JShell.commandProcessor("cd .", session);
@@ -40,32 +41,37 @@ public class TraversalDirTest {
     }
 	
 	@Test
-    public void cdMultipleSlashes() {
+    public void testCdMultipleSlashes() {
         //Add a directory to a directory
     	session = new MySession();
         JShell.commandProcessor("mkdir sub1dir1", session);
         JShell.commandProcessor("cd sub1dir1/////////////", session);
-        assertEquals("/sub1dir1: ", JShell.commandProcessor("ls", session));
+        assertEquals(new ArrayList<String>(), session.getCurrentDir().getChildNames());
     }
 	
 	@Test
-    public void cdOneLevel() {
+    public void testCdOneLevel() {
         //Add a directory to a directory
     	session = new MySession();
+        ArrayList<String> expected = new ArrayList<String>();
     	JShell.commandProcessor("mkdir dir1", session);
         JShell.commandProcessor("cd dir1", session);
         JShell.commandProcessor("mkdir subdir1", session);
         JShell.commandProcessor("mkdir subdir2", session);
         JShell.commandProcessor("mkdir subdir3", session);
-        assertEquals( "/dir1: subdir1 subdir2 subdir3 ", JShell.commandProcessor("ls", session));
+        expected.addAll(Arrays.asList("subdir1", "subdir2", "subdir3"));
+        assertEquals(expected, session.getCurrentDir().getChildNames());
         JShell.commandProcessor("cd ..", session);
-        assertEquals("/: dir1 ", JShell.commandProcessor("ls", session));
+        expected.clear();
+        expected.add("dir1");
+        assertEquals(expected, session.getCurrentDir().getChildNames());
     }
 	
 	@Test
-    public void cdTwoLevel() {
+    public void testCdTwoLevel() {
         //Add a directory to a directory
     	session = new MySession();
+        ArrayList<String> expected = new ArrayList<String>();
     	JShell.commandProcessor("mkdir dir1", session);
         JShell.commandProcessor("cd dir1", session);
         JShell.commandProcessor("mkdir subdir1", session);
@@ -73,13 +79,16 @@ public class TraversalDirTest {
         JShell.commandProcessor("mkdir sub2dir1", session);
         JShell.commandProcessor("mkdir sub2dir2", session);
         JShell.commandProcessor("mkdir sub2dir3", session);
-        assertEquals(JShell.commandProcessor("ls", session), "/dir1/subdir1: sub2dir1 sub2dir2 sub2dir3 ");
+        expected.addAll(Arrays.asList("sub2dir1", "sub2dir2", "sub2dir3"));
+        assertEquals(expected, session.getCurrentDir().getChildNames());
         JShell.commandProcessor("cd ..", session);
-        assertEquals(JShell.commandProcessor("ls", session), "/dir1: subdir1 ");
+        expected.clear();
+        expected.add("subdir1");
+        assertEquals(expected, session.getCurrentDir().getChildNames());
     }
 
     @Test
-    public void cdMixtureOfSlashesDots() {
+    public void testCdMixtureOfSlashesDots() {
         //Add a directory to a directory
         session = new MySession();
         JShell.commandProcessor("mkdir dir1", session);
@@ -93,24 +102,13 @@ public class TraversalDirTest {
     }
 
     @Test
-    public void cdGivenPathToFile() throws FileTypes.InvalidName, Directory.NameExistsException, Directory.InvalidAddition {
+    public void testCdGivenPathToFile() throws FileTypes.InvalidName, Directory.NameExistsException, Directory.InvalidAddition {
         //Add a directory to a directory
         session = new MySession();
         session.getRootDir().add(new File("file1"));
         JShell.commandProcessor("mkdir subdir1", session);
-        System.out.println(JShell.commandProcessor("ls", session));
 
         assertEquals("file1 is not a directory.", JShell.commandProcessor("cd file1", session));
-    }
-
-	@Test
-    public void mkdirMultipleSlashes() {
-        //Add a directory to a directory
-    	session = new MySession();
-        JShell.commandProcessor("mkdir sub1dir1///////", session);
-        assertEquals("/: sub1dir1 ", JShell.commandProcessor("ls", session));
-        JShell.commandProcessor("cd sub1dir1", session);
-        assertEquals("/sub1dir1: ", JShell.commandProcessor("ls", session));
     }
 
 }

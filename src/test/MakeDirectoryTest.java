@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
  */
 public class MakeDirectoryTest {
     MySession session;
+
     @Before
     /**
      * Create a new instance of MySession before every testcase
@@ -37,8 +38,12 @@ public class MakeDirectoryTest {
      * Test creating a directory with multiple slashes as the name
      */
     public void testMkdirCreateDirWithMultipleSlash() {
+        ArrayList<String> expected = new ArrayList<String>();
         String message = JShell.commandProcessor("mkdir ////", session);
         assertEquals("mkdir: cannot create a directory without a name\n", message);
+        expected.add("sub1dir1");
+        JShell.commandProcessor("mkdir sub1dir1///////", session);
+        assertEquals(expected   , session.getRootDir().getChildNames());
     }
 
     @Test
