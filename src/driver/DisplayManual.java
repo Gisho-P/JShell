@@ -4,6 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+/**
+ * The Class DisplayManual takes a command name and returns the documentation
+ * manual for the given command.
+ */
 public class DisplayManual implements Command {
 
   private MySession s;

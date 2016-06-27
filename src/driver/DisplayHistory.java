@@ -2,6 +2,11 @@ package driver;
 
 import java.util.List;
 
+/**
+ * The Class DisplayHistory displays the history of commands entered in the
+ * shell. It can display all of the commands entered or a chosen last amount
+ * of commands can be specified.
+ */
 public class DisplayHistory implements Command {
 
   private MySession s;
