@@ -86,6 +86,11 @@ public class MakeDirectoryTest {
         JShell.commandProcessor("cd ..", session);
         expected.add("three");
         assertEquals(expected, session.getCurrentDir().getChildNames());
+
+        JShell.commandProcessor("mkdir ../one/three/../four/", session);
+        JShell.commandProcessor("cd ..", session);
+        expected.add("four");
+        assertEquals(expected, session.getCurrentDir().getChildNames());
     }
 
     @Test
