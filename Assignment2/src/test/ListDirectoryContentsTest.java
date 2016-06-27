@@ -31,7 +31,7 @@ public class ListDirectoryContentsTest {
      * Listing the contents of the empty root directory
      */
     @Test
-    public void EmptyDirectory() {
+    public void testEmptyDirectory() {
         String message = JShell.commandProcessor("ls", session);
         String messagePath = JShell.commandProcessor("ls /", session);
         assertEquals("", message);
@@ -43,7 +43,7 @@ public class ListDirectoryContentsTest {
      * and a directory
      */
     @Test
-    public void currentDirectory() {
+    public void testCurrentDirectory() {
 	try {
 	    session.getCurrentDir().add(new Directory("dir1"));
 	    session.getCurrentDir().add(new File("file1"));
@@ -59,7 +59,7 @@ public class ListDirectoryContentsTest {
      * List contents on a file which should return the file name
      */
     @Test
-    public void filePath() {
+    public void testFilePath() {
 	try {
 	    session.getCurrentDir().add(new File("file1"));
 	} catch (NameExistsException | InvalidAddition | InvalidName e) {
@@ -74,7 +74,7 @@ public class ListDirectoryContentsTest {
      * (both the contents and files/directories)
      */
     @Test
-    public void multipleDirectories() {
+    public void testMultipleDirectories() {
 	try {
 	    session.getCurrentDir().add(new Directory("dir1"));
 	    ((Directory)session.getCurrentDir().getChild("dir1")).add(new File("d"));

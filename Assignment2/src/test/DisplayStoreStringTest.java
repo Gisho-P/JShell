@@ -31,7 +31,7 @@ public class DisplayStoreStringTest {
      * Using echo to output an empty string to JShell.
      */
     @Test
-    public void DisplayEmptyString() {
+    public void testDisplayEmptyString() {
         String message = JShell.commandProcessor("echo \"\"", session);
         assertEquals("", message);
     }
@@ -40,7 +40,7 @@ public class DisplayStoreStringTest {
      * Displaying a one word string to JShell.
      */
     @Test
-    public void DisplayOneWord() {
+    public void testDisplayOneWord() {
         String message = JShell.commandProcessor("echo \"test\"", session);
         assertEquals("test", message);
     }
@@ -49,7 +49,7 @@ public class DisplayStoreStringTest {
      * Displaying a multiple word string to JShell.
      */
     @Test
-    public void DisplayMultipleWords() {
+    public void testDisplayMultipleWords() {
         String message = JShell.commandProcessor("echo \"1 2 3 4 ss\"", session);
         assertEquals("1 2 3 4 ss", message);
     }
@@ -60,7 +60,7 @@ public class DisplayStoreStringTest {
      *
      */
     @Test
-    public void StoreString() {
+    public void testStoreString() {
 	String out = JShell.commandProcessor("echo \"test\" > file", session);
         String message = "";
 	try {
@@ -79,7 +79,7 @@ public class DisplayStoreStringTest {
      *
      */
     @Test
-    public void StoreAppendString(){
+    public void testStoreAppendString(){
 	String out = JShell.commandProcessor("echo \"test\" > file", session);
 	out += JShell.commandProcessor("echo \" add\" >> file", session);
 	String message = "";
@@ -99,7 +99,7 @@ public class DisplayStoreStringTest {
      *
      */
     @Test
-    public void StoreOverwriteString() throws MissingNameException {
+    public void testStoreOverwriteString() throws MissingNameException {
 	String out = JShell.commandProcessor("echo \"test\" > file", session);
 	out += JShell.commandProcessor("echo \"write\" > file", session);
 	String message = "";
@@ -116,7 +116,7 @@ public class DisplayStoreStringTest {
      * Trying to echo to a new file with the same name as a sub directory
      */
     @Test
-    public void FileWithSameNameAsDirectory() {
+    public void testFileWithSameNameAsDirectory() {
 	try {
 	    session.getCurrentDir().add(new Directory("file"));
 	} catch (NameExistsException | InvalidAddition | InvalidName e) {
