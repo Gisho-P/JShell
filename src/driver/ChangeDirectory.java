@@ -38,7 +38,7 @@ public class ChangeDirectory implements Command {
         s.setCurrentDir((Directory) dest);
         return "";
       }else
-        return (dest.getName() + " is Not a directory.");
+        return (dest.getName() + " is not a directory.");
     } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
       return "No such dir as " + args.get(1);
     }

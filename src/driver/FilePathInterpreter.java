@@ -16,7 +16,7 @@ public class FilePathInterpreter {
 			throws InvalidDirectoryPathException {
 		if(!path.equals("")){
 			
-			System.out.println(path);
+			//System.out.println(path);
 			
 			// Splits our path up
 			String[] splitPath = path.split("/");
@@ -126,7 +126,7 @@ public class FilePathInterpreter {
 			}
 
 			// Else it doesn't exist and throw an exception
-			throw new InvalidDirectoryPathException(
+				throw new InvalidDirectoryPathException(
 					"There are no files or directories with name " + currPath);
 		}
 		return init;
