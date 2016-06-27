@@ -1,0 +1,8 @@
+What did I do last time?
+    - Added tests for FilePathInterpreter, MakeDirectory and ChangeDirectory
+
+What do I plan to do now?
+   - Fix last minute bugs, add more tests for edge cases
+
+Am I blocked on anything?
+    - Nothing right now.
