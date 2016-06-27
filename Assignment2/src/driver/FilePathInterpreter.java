@@ -16,8 +16,6 @@ public class FilePathInterpreter {
 			throws InvalidDirectoryPathException {
 		if(!path.equals("")){
 			
-			//System.out.println(path);
-			
 			// Splits our path up
 			String[] splitPath = path.split("/");
 	
@@ -46,6 +44,7 @@ public class FilePathInterpreter {
 			String currPath) throws InvalidDirectoryPathException {
 		// Checks to see whether the current path is nothing if it is we found
 		// our init	
+		
 		currPath = removeLeadingSlashes(currPath);
 		if (!currPath.equals("")) {
 			
@@ -184,13 +183,6 @@ public class FilePathInterpreter {
 			String[] splitPath = path.split("/");
 
 			int last = splitPath[splitPath.length - 1].length();
-
-			if (splitPath[0].equals(".")) {
-
-				// Either /t1/t2.. or /t1/t2/ or /
-			} else if (splitPath[0].equals("..") || path.equals("/")) {
-				return interpretPath(init, "/");
-			}
 
 			// if our path has more than 1 subpath e.g. dir/dir1/dir3
 			if (splitPath.length > 2) {

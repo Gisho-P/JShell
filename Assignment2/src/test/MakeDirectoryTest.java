@@ -150,7 +150,7 @@ public class MakeDirectoryTest {
         assertEquals(expected, session.getRootDir().getChildNames());
 
         JShell.commandProcessor("cd one", session);
-        JShell.commandProcessor("mkdir ./one/two", session);
+        JShell.commandProcessor("mkdir ../one/two", session);
         expected.clear();
         expected.addAll(Arrays.asList("two"));
         assertEquals(expected, session.getCurrentDir().getChildNames());

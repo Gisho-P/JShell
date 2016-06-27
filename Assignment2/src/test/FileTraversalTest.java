@@ -211,9 +211,6 @@ public class FileTraversalTest {
 
     }
 
-
-
-
     @Test
     public void mkDirRootTest() throws NameExistsException, InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
 
@@ -230,6 +227,7 @@ public class FileTraversalTest {
 
     }
 
+    /*
     @Test
     public void testInterpretMakePathGivenRootPath() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
         Directory root = new Directory("");
@@ -241,6 +239,7 @@ public class FileTraversalTest {
         result = (Directory) FilePathInterpreter.interpretMakePath(child, "/");
         assertTrue(result.equals(root));
     }
+    */
 
 //    @Test
 //    public void testInterpretMakePathParent() throws InvalidDirectoryPathException, FileTypes.InvalidName, NameExistsException, InvalidAddition {
