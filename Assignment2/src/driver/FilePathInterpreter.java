@@ -16,6 +16,8 @@ public class FilePathInterpreter {
 			throws InvalidDirectoryPathException {
 		if(!path.equals("")){
 			
+			System.out.println(path);
+			
 			// Splits our path up
 			String[] splitPath = path.split("/");
 	
@@ -27,6 +29,7 @@ public class FilePathInterpreter {
 				return interpretPathRecursive(init,
 						path.substring(1, path.length()));
 			}
+			
 			return interpretPathRecursive(init, path);
 		}
 		return init;
@@ -143,6 +146,23 @@ public class FilePathInterpreter {
 			}
 			slashes++;
 		}
+		return path.substring(slashes, path.length());
+	}
+	
+	/**
+	 * Removes the ending slashes in a str i.e.
+	 * @param path
+	 * @return
+	 */
+	private static String removeEndingSlashes(String path){
+		int slashes = 0;
+		
+		for(int i = 0; i < path.length(); i++){
+			if(path.charAt(path.length() - i - 1) != '/'){
+				break;
+			}
+			slashes++;
+		}
 		return path.substring(0, path.length() - slashes);
 	}
 
@@ -158,8 +178,11 @@ public class FilePathInterpreter {
 	 */
 	public static FileTypes interpretMakePath(Directory init, String path)
 			throws InvalidDirectoryPathException {
+		path = removeEndingSlashes(path);
+
 		if (path != "") {
 			String[] splitPath = path.split("/");
+
 			int last = splitPath[splitPath.length - 1].length();
 
 			if (splitPath[0].equals(".")) {

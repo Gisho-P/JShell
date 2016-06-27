@@ -100,8 +100,17 @@ public class TraversalDirTest {
         JShell.commandProcessor("mkdir subdir1", session);
         System.out.println(JShell.commandProcessor("ls", session));
 
-        assertEquals("No such dir as file1", JShell.commandProcessor("cd file1", session));
+        assertEquals("file1 is Not a directory.", JShell.commandProcessor("cd file1", session));
     }
 
+	@Test
+    public void mkdirMultipleSlashes() {
+        //Add a directory to a directory
+    	session = new MySession();
+        JShell.commandProcessor("mkdir sub1dir1///////", session);
+        assertEquals("/: sub1dir1 ", JShell.commandProcessor("ls", session));
+        JShell.commandProcessor("cd sub1dir1", session);
+        assertEquals("/sub1dir1: ", JShell.commandProcessor("ls", session));
+    }
 
 }
