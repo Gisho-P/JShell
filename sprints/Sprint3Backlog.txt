@@ -1,4 +1,4 @@
-//Sprint 2 Backlog.  
+//Sprint 3 Backlog.  
 June 20 to June 27
 
 
@@ -6,69 +6,52 @@ User Stories from Product Backlog that we will address in this sprint:
 
 
 Specific tasks to be accomplished:
-a) As a user, I can create a directory that I can go through and create files in.
-b) As a user, I can traverse through directories to look for/create/delete files, etc.
-c) As a user, I can display the contents of the directory I'm currently on.
-d) As a user, I can keep track of what directory I'm in by displaying it's path.
-e) As a user, I can save my current directory for use later and go to a new directory.
-f) As a user, I can retrieve a previously saved directory and go back to it.
-g) As a user, I can look at the history of commands I entered in the shell.
-h) As a user, I can choose a file and look at it's contents.
-i) As a user, I can display text in the shell.
-j) As a user, I can take written text and save it in a file for later use.
-k) As a user, I can take a file, append content to it and save it.
-l) As a user, I can display the manual to a command I don't understand.
+a) As a user, I can save my current directory for use later and go to a new directory.
+b) As a user, I can retrieve a previously saved directory and go back to it.
+c) As a user, I can input commands to the shell to perform different tasks.
+d) As a user, I can see	any output of a command that I entered.
+e) As a user, I can	create a directory that I can go through and create files in.
+f) As a user, I can traverse through directories to look for/create/delete	files, etc.
+g) As a user, I can create a directory that I can go through and create files in.
+h) As a user, I can take written text and save it in a file for later use.
+i) As a user, I can take a file, append content to it and save it.
+j) As a user, I can	display text in the shell.
+k) As a user, I can display the contents of the directory I'm currently on.
 
 These tasks are assigned as follows:
-a-1. (CommandInterpreter) Send args to function in shell functions
-a-2. (ShellFunctions) Return node to parent of where dir will be created
-a-3. (ShellFunctions) Create directory
-a-4. (ShellFunctions) Update parent and child links
-a-5. (Directory) Make tweaks to method that creates dir, updates links, if issues exist
-b-1. (CommandInterpreter) Send args to function in shell functions
-b-2. (ShellFunctions) Get current directory from session
-b-3. (ShellFunctions) Call file path interpreter to get new directory
-b-4. (ShellFunctions) Update new directory
-b-5. (FilePathInterpreter) Make tweaks to method if errors exist
-c-1. (CommandInterpreter) Send args to function in shell functions
-c-2. (ShellFunctions) Call function to get contents of specified directory
-c-3. (Directory) Make tweaks to method that returns dir contents, if issues exist
-d-1. (CommandInterpreter) Call function in shell functions to get path
-d-2. (ShellFunctions) Get path of directory
-d-3. (Directory) Tweak method that returns path, if errors exist
-e-1. (DirStack) Write class to save and return directories
-e-2. (CommandInterpreter) Send args to function in shell functions
-e-3. (ShellFunctions) Call push to store dir
-e-4. (ShellFunctions) Go to new path
-e-5. (FilePathInterpreter) Make tweaks to method if errors exist
-f-1. (ShellFunctions) Call pop to get dir
-f-2. (ShellFunctions) Go to new path
-f-3. (FilePathInterpreter) Make tweaks to method if errors exist
-g-1. (CommandInterpreter) Send args, call function in shell functions
-g-2. (ShellFunctions) Get history from session
-g-3. (Session) Make tweaks if history isn't returned properly
-h-1. (ShellFunctions) Call function to loop through files and return/display contents
-h-2. (File) Make tweaks to function that returns contents, if issues exist
-h-3. (CommandInterpreter) Send args to function in shell functions
-i-1. (CommandInterpreter) Return output to shell
-j-1. (ShellFunctions) Call function to store content into file
-j-2. (File) Make tweaks to function that saves/overwrites file, if issues exist
-j-3. (CommandInterpreter) Send args to function in shell functions
-k-1. (ShellFunctions) Call function to append content into file
-k-2. (File) Make tweaks to function that appends file, if issues exist
-k-3. (CommandInterpreter) Send args to function in shell functions
-l-1. (CommandInterpreter) Send args to function in shell functions
-l-2. (Session) Write man pages
-l-3. (ShellFunctions) Return man page
+a-1. (PopAndPushDirectoriesTest) Add tests for pushd command
+a-2. (PushDirectory) Make it so that directory is added to stack if directory can be changed
+b-1. (PopAndPushDirectoriesTest) Add tests for popd command
+b-2. (DirStack) Better error checking if there are no elements to pop from stack
+c-1. (JShell) Parse and call correct classes from here, use reflection to classes
+c-2. (Command) Create an interface that is shared by all the classes representing commands
+c-3. (Classes implementing Command) Use interface, update manual, format (previously CommandInterpreter), exec (formerly ShellFunctions)
+c-4. (MySession) Create a map between command name and class names
+c-5. (MySessionTest) Update tests to fit new format
+d-1. (JShell) Make it so that output is printed if there is output
+e-1. (MakeDirectoryTest) Add tests for mkdir command
+e-2. (MakeDirectory) Tweak/fix implementation for mkdir
+e-3. (FilePathInterpreter) Continue debugging mkdir
+f-1. (ChangeDirectory) Make tweaks to change directory for when cd is called for a file
+f-2. (TraversalDirTest) Add tests for cd
+f-3. (FileTraversalTest) Add tests for cd
+g-1. (FileTypes, Directory) Check for incorrect naming patterns
+g-2. (Directory) Add tests for creating/working with directories
+h-1. (DirectoryFileTest) Add tests related to files
+i-1. (DirectoryFileTest) Add tests related to files
+j-1. (DisplayStoreStringTest) Add tests for echo
+j-2. (DisplayStoreString) Complete implementation for echo command
+k-1. (ListDirectoryContents) Complete implementation for ls command
+k-2. (ListDirectoryContentsTest) Add tests for ls
 
 User: Gisho
-Tasks: c-1, c-2, j-1, j-2, k-1, k-2, g-1, g-2, g-3
+Tasks: j-1, j-2, k-1, k-2
 
 User: John
-Tasks: b-1, b-2, b-3, b-4, b-5, h-1, h-2, e-5, f-3
+Tasks: e-1, e-2, e-3, f-2, f-3
 
 User: Dhrumil
-Tasks: a-1, a-2, a-3, a-4, a-5. c-3. d-3
+Tasks: e-1, e-2, f-1, f-2, f-3, g-1, g-2, h-1, i-1
 
 User: Adnan
-Tasks: d-1, d-2, e-1, e-2, e-3, e-4, f-1, f-2, h-3, i-1, j-3, k-3, l-1, l-2, l-3
+Tasks: a-1, a-2, b-1, b-2, c-1, c-2, c-3, c-4

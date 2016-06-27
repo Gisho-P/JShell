@@ -1,6 +1,6 @@
 What did I do last time?
 	- Fixed Sprint logs, product backlogs
-	- Discussed with team on combining different elements together, new tasks and understanding currnt status
+	- Discussed with team on combining different elements together, new tasks and understanding current status
 
 What do I plan to do now?
 	- Implement directory stack
