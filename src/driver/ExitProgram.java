@@ -8,12 +8,12 @@ import java.util.List;
  * 
  * @author Adnan Bhuiyan
  * @see List
- * */
+ */
 public class ExitProgram implements Command {
 
   /**
-   * Returns a ExitProgram object that represents the exit command. This
-   * class is only used for exit's manual.
+   * Returns a ExitProgram object that represents the exit command. This class
+   * is only used for exit's manual.
    * 
    * @param session the current Shell session's attributes
    */
@@ -34,7 +34,7 @@ public class ExitProgram implements Command {
   }
 
   /**
-   * @deprecated 
+   * @deprecated
    */
   @Override
   public String exec(List<String> args) {

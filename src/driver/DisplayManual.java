@@ -7,27 +7,31 @@ import java.util.List;
 /**
  * The Class DisplayManual takes a command name and returns the documentation
  * manual for the given command.
+ * @author Adnan Bhuiyan
+ * @author Girrshotan Pushparajah
  */
 public class DisplayManual implements Command {
 
   /**
-   * Holds current JShell attributes
-   */
+   * Current session attributes of shell.
+   * */
   private MySession s;
 
   /**
-   * Create a DisplayManual instance
-   * @param session
-     */
+   * Create DisplayManual instance to run man command.
+   * 
+   * @param session Current JShell's session attributes
+   * @return DisplayManual instance
+   * */
   public DisplayManual(MySession session) {
     s = session;
   }
 
   /**
-   * Returns the manual for the man command.
+   * Return man page for man command.
    * 
-   * @return the manual for the man command
-   */
+   * @return man page for man command
+   * */
   @Override
   public String man() {
     return "MAN(1)\t\t\t\tUser Commands\t\t\t\tMAN(1)\n\nNAME"
@@ -38,12 +42,13 @@ public class DisplayManual implements Command {
   }
 
   /**
-   * Process arguments passed for man command and determine whether the command
-   * was entered correctly or not.
+   * Check the formatting of the command entered, and make sure
+   * it matches up with the correct format. If so, return man page.
+   * Otherwise, return an error message.
    * 
-   * @param args Arguments parsed from command
-   * @return The manual of the given command.
-   */
+   * @param args    Arguments to process with man command
+   * @return error message or man page
+   * */
   @Override
   public String interpret(List<String> args) {
     if (args.size() != 2) {
@@ -54,11 +59,11 @@ public class DisplayManual implements Command {
   }
 
   /**
-   * Returns the manual of the command given.
+   * Try to retrieve man page for given command in args and return results.
    * 
-   * @param args Valid arguments parsed from command
-   * @return The manual of the command given.
-   */
+   * @param args    command to get man page for
+   * @return man page for command or error
+   * */
   @Override
   public String exec(List<String> args) {
     try {

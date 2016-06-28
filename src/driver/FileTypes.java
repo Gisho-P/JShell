@@ -55,8 +55,8 @@ public abstract class FileTypes {
   /**
    * Determine if the given name is a valid name for Files and Directories.
    *
-   * @param name    Potential name of file
-   * @return    whether or not file name is valid
+   * @param name Potential name of file
+   * @return whether or not file name is valid
    */
   public boolean isValid(String name) {
     // .. and . are invalid names
@@ -70,24 +70,25 @@ public abstract class FileTypes {
   }
 
   /**
-   * The exception class InvalidName is invoked when a user tries to
-   * give a name for a FileTypes object that is invalid when comparing it
-   * with restrictions for characters that can be used.
+   * The exception class InvalidName is invoked when a user tries to give a name
+   * for a FileTypes object that is invalid when comparing it with restrictions
+   * for characters that can be used.
+   * 
    * @author Dhrumil Patel
    * 
-   * */
+   */
   public class InvalidName extends Exception {
     /**
      * Serial version ID needed when creating exceptions.
-     * */
+     */
     private static final long serialVersionUID = 59L;
 
     /**
      * Return a new InvalidName exception with specified message.
      * 
-     * @param message   Message to display when exception is thrown
-     * @return  InvalidName exception
-     * */
+     * @param message Message to display when exception is thrown
+     * @return InvalidName exception
+     */
     public InvalidName(String message) {
       super(message);
     }

@@ -11,7 +11,7 @@ import driver.MySession;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-//Tests for the push and pop directories class
+// Tests for the push and pop directories class
 public class PopAndPushDirectoriesTest {
   MySession s;
 
@@ -22,7 +22,7 @@ public class PopAndPushDirectoriesTest {
   public void setUp() throws Exception {
     s = new MySession();
   }
-  
+
   @After
   /**
    * Clear DirStack after every test
@@ -30,7 +30,7 @@ public class PopAndPushDirectoriesTest {
   public void tearDown() throws Exception {
     DirStack.clear();
   }
-  
+
   @Test
   /**
    * Test popping from empty stack at root
@@ -42,7 +42,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Directory should be at root still", "/",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test popping from empty stack not at root
@@ -56,11 +56,11 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Directory should be at root still", "/home/a",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
-   * Test popping from stack that contains only the root path until it
-   * becomes empty
+   * Test popping from stack that contains only the root path until it becomes
+   * empty
    */
   public void testPopEmptyStackOnceAddedAtRoot() {
     String ret = JShell.commandProcessor("mkdir home home/a home/a/b", s);
@@ -73,7 +73,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Directory should be at last correctly popped dir", "/home/a",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test popping from stack that contains a child node until it becomes empty
@@ -90,7 +90,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Directory should be at last correctly popped dir", "/home/a",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test if popping from non-empty stack takes you to the prev location
@@ -114,12 +114,12 @@ public class PopAndPushDirectoriesTest {
     ret = JShell.commandProcessor("cd a/b", s);
     ret = JShell.commandProcessor("pushd .", s);
     ret = JShell.commandProcessor("popd", s);
-    
+
     assertEquals("No errors", "", ret);
     assertEquals("Directory is location before pop", "/a/b",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test popping dot dot
@@ -129,15 +129,15 @@ public class PopAndPushDirectoriesTest {
     ret = JShell.commandProcessor("cd a/b/c", s);
     ret = JShell.commandProcessor("pushd ..", s);
     ret = JShell.commandProcessor("popd", s);
-    
+
     assertEquals("No errors", "", ret);
     assertEquals("Directory is after b", "/a/b/c",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
-   * Test popping stack  after performing some other commands
+   * Test popping stack after performing some other commands
    */
   public void testPopNonEmptyStackPopBetweenSubTrees() {
     String ret = JShell.commandProcessor("mkdir a b a/c b/d a/e b/f", s);
@@ -146,7 +146,7 @@ public class PopAndPushDirectoriesTest {
     ret = JShell.commandProcessor("pushd /b", s);
     ret = JShell.commandProcessor("cd ../a/c/g", s);
     ret = JShell.commandProcessor("popd", s);
-    
+
     assertEquals("No errors", "", ret);
     assertEquals("Directory is another subtree", "/b/f/h/j",
         s.getCurrentDir().getEntirePath());
@@ -164,12 +164,11 @@ public class PopAndPushDirectoriesTest {
     ret = JShell.commandProcessor("popd", s);
     ret = JShell.commandProcessor("popd", s);
     ret = JShell.commandProcessor("popd", s);
-    
+
     assertEquals("No errors", "", ret);
-    assertEquals("Directory is root", "/",
-        s.getCurrentDir().getEntirePath());
+    assertEquals("Directory is root", "/", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing root at root
@@ -179,7 +178,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("No errors", "", ret);
     assertEquals("directory is root", "/", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing root in child directory
@@ -191,7 +190,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Directory at specified DIR", "/a/c/e",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing ..
@@ -204,7 +203,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Dir at parent of dir before pushd", "/a",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing single dot
@@ -217,7 +216,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Same directory as before push", "/a/b",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing child directory
@@ -230,7 +229,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("dir is child of dir before push", "/a/b/c",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing paths with multiple single dots
@@ -241,7 +240,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("", ret);
     assertEquals("/a/b/c", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing paths with multiple double dots
@@ -253,7 +252,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("", ret);
     assertEquals("/", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing a path that leads to a subdirectory
@@ -266,7 +265,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("", ret);
     assertEquals("/b/d/i", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing invalid path at root
@@ -276,7 +275,7 @@ public class PopAndPushDirectoriesTest {
     assertNotEquals("should not be successful", "", ret);
     assertEquals("stuck at root", "/", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing invalid path not at root
@@ -289,7 +288,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("stuck at at last cd'd dir", "/a/b",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test multiple pushes in a sequence
@@ -301,7 +300,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("", ret);
     assertEquals("/a/b", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing double dot at root
@@ -311,7 +310,7 @@ public class PopAndPushDirectoriesTest {
     assertEquals("", ret);
     assertEquals("/", s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
   /**
    * Test pushing single dot at root
@@ -321,5 +320,5 @@ public class PopAndPushDirectoriesTest {
     assertEquals("", ret);
     assertEquals("/", s.getCurrentDir().getEntirePath());
   }
-  
+
 }

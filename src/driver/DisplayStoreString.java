@@ -18,10 +18,21 @@ public class DisplayStoreString implements Command {
   /** Use the session to get the current and root directory */
   private MySession s;
 
+  /**
+   * Create new DisplayStoreString instance, to be able to run echo command
+   * 
+   * @param session Current JShell session attributes
+   * @return DisplayStoreString instance
+   */
   public DisplayStoreString(MySession session) {
     s = session;
   }
 
+  /**
+   * Return man page for echo command.
+   * 
+   * @return man page for echo command
+   */
   @Override
   public String man() {
     return "ECHO(1)\t\t\t\tUser Commands\t\t\t\tECHO(1)\n\n"
@@ -38,8 +49,13 @@ public class DisplayStoreString implements Command {
         + "by double quotation\n\t\tmarks.";
   }
 
-
-
+  /**
+   * Error check format of command entered and if correct format entered, then
+   * go and try to execute command. Otherwise return error messages.
+   * 
+   * @param args    arguments to process for echo
+   * @return error message or string entered/null if stored in file
+   */
   @Override
   public String interpret(List<String> args) {
     if (args.size() != 4 && args.size() != 2) {
@@ -76,6 +92,9 @@ public class DisplayStoreString implements Command {
     }
   }
 
+  /**
+   * 
+   * */
   @Override
   public String exec(List<String> args) {
     String retVal = "";
