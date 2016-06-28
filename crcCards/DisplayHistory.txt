@@ -5,6 +5,7 @@ Subclasses: N/A
 Responsibilities:
 * Display all of the commands entered entered in Shell
 * Display a given last amount of commands entered in Shell
+* Returns a message with the history of the Session
 
 Collaborators:
 * MySession

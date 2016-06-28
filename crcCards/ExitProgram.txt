@@ -3,7 +3,7 @@ Parent class: Command
 Subclasses: N/A
 
 Responsibilities:
-* 
+* Exits the JShell
 
 Collaborators:
 * 

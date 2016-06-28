@@ -1,5 +1,5 @@
 Class name: File
-Parent class (if any): Object
+Parent class (if any): FileTypes
 Subclasses (if any): None
 
 Responsibilities:
