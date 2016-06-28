@@ -10,10 +10,6 @@ import java.util.List;
  * directory on the directory stack and goes to that location.
  * 
  * @author Adnan Bhuiyan
- * @see List
- * @see reflect#Method
- * @see reflect#InvocationTargetException
- * @see Command
  */
 public class PopDirectory implements Command {
 
@@ -29,7 +25,6 @@ public class PopDirectory implements Command {
    * 
    * @param session the current Shell session's attributes
    * @return the pop directory command class
-   * @see MySession
    */
   public PopDirectory(MySession session) {
     s = session; // store current session
@@ -57,7 +52,6 @@ public class PopDirectory implements Command {
    * 
    * @param args Arguments parsed from command
    * @return Error message/directory to go to
-   * @see List
    */
   @Override
   public String interpret(List<String> args) {
@@ -73,16 +67,6 @@ public class PopDirectory implements Command {
    * 
    * @param args Valid arguments parsed from command
    * @return Directory for shell to go to
-   * @see DirStack
-   * @see Class
-   * @see Method
-   * @see List
-   * @see ClassNotFoundException
-   * @see InstantiationException
-   * @see IllegalAccessException
-   * @see NoSuchMethodException
-   * @see SecurityException
-   * @see IllegalArgumentException
    */
   @Override
   public String exec(List<String> args) {
