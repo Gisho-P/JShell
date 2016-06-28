@@ -4,17 +4,35 @@ import java.util.List;
 
 /**
  * The Class DisplayHistory displays the history of commands entered in the
- * shell. It can display all of the commands entered or a chosen last amount
- * of commands can be specified.
+ * shell. It can display all of the commands entered or a chosen last amount of
+ * commands can be specified.
+ * 
+ * @author Adnan Bhuiyan
+ * @author Girrshotan Pushparajah
  */
 public class DisplayHistory implements Command {
 
+  /**
+   * Current session attributes of the shell
+   */
   private MySession s;
 
+  /**
+   * Create a new DisplayHistory instance, to be able to run the history
+   * command.
+   * 
+   * @param session Current shell's session attributes
+   * @return DisplayHistory instance
+   */
   public DisplayHistory(MySession session) {
-    s = session;
+    s = session; // store current session is instance variable
   }
 
+  /**
+   * Return man page for history command.
+   * 
+   * @return manual for History command
+   */
   @Override
   public String man() {
     return "HISTORY(1)\t\t\t\tUser Commands\t\t\t\t"
@@ -27,25 +45,38 @@ public class DisplayHistory implements Command {
         + "amount of\n\t\tcommands that were entered.";
   }
 
+  /**
+   * Process arguments passed for history command and determine whether the
+   * command was entered correctly or not.
+   * 
+   * @param args Arguments parsed from command
+   * @return Error message/directory to go to
+   */
   @Override
   public String interpret(List<String> args) {
-    if (args.size() > 2) {
+    if (args.size() > 2) { // too many args, error
       return "history usage: history [number]";
-    } else {
+    } else { // process args
       return exec(args);
     }
   }
 
+  /**
+   * Return history of user commands or error message.
+   * 
+   * @param args Valid arguments parsed from command
+   * @return History or error message
+   */
   @Override
   public String exec(List<String> args) {
-    if (args.size() == 2) {
-      try {
+    if (args.size() == 2) { // a potential number has been entered
+      try { // check if a number has been added
         int arg = Integer.parseInt(args.get(1));
         return s.printCommandHistory(arg);
-      } catch (NumberFormatException n) {
+      } catch (NumberFormatException n) { // number hasn't been, error
         return "history usage: history [number (INTEGER >= 0)]";
       }
-    } else {
+    } else { // print all user commands histpry
       return s.printCommandHistory();
     }
   }

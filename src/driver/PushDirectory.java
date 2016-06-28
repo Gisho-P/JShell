@@ -9,10 +9,6 @@ import java.util.List;
  * the directory stack and goes to the location specified in the argument.
  * 
  * @author Adnan Bhuiyan
- * @see List
- * @see reflect#Method
- * @see reflect#InvocationTargetException
- * @see Command
  */
 public class PushDirectory implements Command {
 
@@ -28,7 +24,6 @@ public class PushDirectory implements Command {
    * 
    * @param session the current Shell session's attributes
    * @return the push directory command class
-   * @see MySession
    */
   public PushDirectory(MySession session) {
     s = session; // store current session
@@ -57,7 +52,6 @@ public class PushDirectory implements Command {
    * 
    * @param args Arguments parsed from command
    * @return Error message/null
-   * @see List
    */
   @Override
   public String interpret(List<String> args) {
@@ -74,16 +68,6 @@ public class PushDirectory implements Command {
    * 
    * @param args Valid arguments parsed from command
    * @return Error message (or null if successful)
-   * @see DirStack
-   * @see Class
-   * @see Method
-   * @see List
-   * @see ClassNotFoundException
-   * @see InstantiationException
-   * @see IllegalAccessException
-   * @see NoSuchMethodException
-   * @see SecurityException
-   * @see IllegalArgumentException
    */
   @Override
   public String exec(List<String> args) {
@@ -100,7 +84,7 @@ public class PushDirectory implements Command {
     } catch (ClassNotFoundException | InstantiationException
         | IllegalAccessException | NoSuchMethodException | SecurityException
         | IllegalArgumentException | InvocationTargetException e) {
-      e.printStackTrace();
+      e.printStackTrace(); // print stack trace if failed, diagnose error
     }
     return null;
   }

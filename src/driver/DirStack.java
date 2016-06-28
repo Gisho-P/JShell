@@ -2,7 +2,6 @@ package driver;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 
 /**
  * This class represents the directory stack where directories can be pushed and
@@ -10,9 +9,6 @@ import java.util.EmptyStackException;
  * in the class.
  * 
  * @author Adnan Bhuiyan
- * @see List
- * @see ArrayList
- * @see EmptyStackException
  */
 public class DirStack {
 
@@ -25,9 +21,7 @@ public class DirStack {
    * Remove the last directory stored in the directory stack or an error message
    * if the stack is empty.
    * 
-   * @see EmptyStackException
-   * @see List#add(Object)
-   * @see List#remove(int)
+   * @return directory to change to
    */
   public static List<Object> popd() {
     String newDir = "";
@@ -50,16 +44,14 @@ public class DirStack {
    * Store current directory in directory stack.
    * 
    * @param currPath current directory to store in stack
-   * @see List#add(Object)
    */
   public static void pushd(String currPath) {
     directories.add(currPath);
   }
   
-  public static boolean equals(List<String> dir) {
-    return directories.equals(dir);
-  }
-  
+  /**
+   * Clear directory stack.
+   * */
   public static void clear() {
     directories.clear();
   }

@@ -42,10 +42,8 @@ import java.util.Scanner;
  * messages based on the validity of the command.
  * 
  * @author Adnan Bhuiyan
- * @see Arrays
- * @see ArrayList
- * @see List
- * @see Scanner
+ * @author Girrshotan Pushparajah
+ * @author John Song
  */
 public class JShell {
 
@@ -55,15 +53,6 @@ public class JShell {
    * @param args arguments called with command
    * @param session current shell's session attributes
    * @return output/error message of command class
-   * @see Class
-   * @see MySession
-   * @see Method
-   * @see ClassNotFoundException
-   * @see InstantiationException
-   * @see IllegalAccessException
-   * @see NoSuchMethodException
-   * @see SecurityException
-   * @see IllegalArgumentException
    */
   private static String callFunction(List<String> args, MySession session) {
     String output = "";
@@ -89,10 +78,6 @@ public class JShell {
    * @param cmd user's input into shell
    * @param session session current shell's session attributes
    * @return output/error message of command class
-   * @see List
-   * @see String
-   * @see Arrays
-   * @see MySession
    */
   public static String commandProcessor(String cmd, MySession session) {
     // Store the output here
@@ -126,11 +111,6 @@ public class JShell {
    * Main method for JShell. Accept input from user until exit is entered. Take
    * the user input and parse it into arguments. Take those arguments and try to
    * execute command, return errors or any output returned.
-   * 
-   * @see MySession
-   * @see String
-   * @see Scanner
-   * @see Command
    */
   public static void main(String[] args) {
     String lastCommand = "";
@@ -149,7 +129,7 @@ public class JShell {
         // Printing the output
         String ret = commandProcessor(lastCommand, session);
         if (ret != null && ret != "") {
-           System.out.println(ret.trim());
+          System.out.println(ret.trim());
         }
       }
     }
