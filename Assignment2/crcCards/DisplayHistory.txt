@@ -1,9 +1,10 @@
-Class name: 
-Parent class: 
-Subclasses: 
+Class name: DisplayHistory
+Parent class: Command
+Subclasses: N/A
 
 Responsibilities:
-* 
+* Display all of the commands entered entered in Shell
+* Display a given last amount of commands entered in Shell
 
 Collaborators:
-* 
+* MySession

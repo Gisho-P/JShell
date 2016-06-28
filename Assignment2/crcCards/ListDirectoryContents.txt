@@ -1,9 +1,11 @@
-Class name: 
-Parent class: 
-Subclasses: 
+Class name: ListDirectoryContents
+Parent class: Command
+Subclasses: N/A
 
 Responsibilities:
-* 
+* Get the contents of the current directory
+* Get the contents of a list of directories given their path
+* Get the name of a file/files given the path
 
 Collaborators:
-* 
+* MySession
