@@ -17,6 +17,11 @@ public class DisplayFile implements Command {
     s = session;
   }
 
+  /**
+   * Returns the manual for the cat command.
+   * 
+   * @return the manual for the cat command
+   */
   @Override
   public String man() {
     return "CAT(1)\t\t\t\tUser Commands\t\t\t\tCAT(1)\n"
@@ -28,6 +33,13 @@ public class DisplayFile implements Command {
         + " parameter.";
   }
 
+  /**
+   * Process arguments passed for cat command and determine whether the command
+   * was entered correctly or not.
+   * 
+   * @param args Arguments parsed from command
+   * @return The contents of the files given.
+   */
   @Override
   public String interpret(List<String> args) {
     if (args.size() < 2) {
@@ -37,7 +49,13 @@ public class DisplayFile implements Command {
       // return output from function call
     }
   }
-
+  
+  /**
+   * Returns the contents of the with files listed in the args.
+   * 
+   * @param args Valid arguments parsed from command
+   * @return The contents of the files given.
+   */
   @Override
   public String exec(List<String> args) {
     String retVal = "";
