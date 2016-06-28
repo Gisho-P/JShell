@@ -1,7 +1,7 @@
 package driver;
 
 /**
- * Created by dhrumil on 12/06/16.
+ * Represents files
  */
 public class File extends FileTypes {
   private String content;
