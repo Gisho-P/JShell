@@ -61,7 +61,7 @@ public class DisplayFile implements Command {
     String retVal = "";
     Boolean firstFile = true;
 
-    // Iterate through each path and get the file contents 
+    // Iterate through each path and get the file contents
     for (String i : args) {
       try {
         File currentFile =

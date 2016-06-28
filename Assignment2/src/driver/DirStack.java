@@ -48,10 +48,10 @@ public class DirStack {
   public static void pushd(String currPath) {
     directories.add(currPath);
   }
-  
+
   /**
    * Clear directory stack.
-   * */
+   */
   public static void clear() {
     directories.clear();
   }
