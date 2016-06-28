@@ -1,9 +1,20 @@
-Class name: 
-Parent class: 
+Class name: Command
+Parent class: N/A
 Subclasses: 
+* ChangeDirectory
+* DisplayFile
+* DisplayHistory
+* DisplayManual
+* DisplayPath
+* DisplayStoreString
+* ExitProgram
+* ListDirectoryContents
+* MakeDirectory
+* PopDirectory
+* PushDirectory
 
 Responsibilities:
-* 
+* A template for other sub commands to follow
 
 Collaborators:
 * 

@@ -1,9 +1,13 @@
-Class name: 
-Parent class: 
-Subclasses: 
+Class name: ChangeDirectory
+Parent class: Command
+Subclasses: N/A
 
 Responsibilities:
+* Gets the current FileTypes at that path
+* Sets the current directory of the session to the new one given by path
 * 
 
 Collaborators:
-* 
+* FilePathInterpreter
+* MySession
+* Directory

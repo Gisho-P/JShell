@@ -1,9 +1,12 @@
-Class name: 
-Parent class: 
-Subclasses: 
+Class name: DisplayFile
+Parent class: Command
+Subclasses: N/A
 
 Responsibilities:
-* 
+* Returns the contents of each filepath given
+* Goes through the path and reads the contents of the file
 
 Collaborators:
-* 
+* FilePathInterpreter
+* MySession
+* File
