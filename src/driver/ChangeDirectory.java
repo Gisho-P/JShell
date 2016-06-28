@@ -32,6 +32,7 @@ public class ChangeDirectory implements Command {
 	 * Will call exec and execute the command with the arguments if they are
 	 * valid.
 	 * 
+	 * @param args The list of arguments for ChangeDirectory to use.
 	 * @returns The output string of the command.
 	 */
 	@Override
