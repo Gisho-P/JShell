@@ -23,10 +23,12 @@ public class DisplayManual implements Command {
     s = session;
   }
 
-  @Override
   /**
-   * Store the man page information of this command
+   * Returns the manual for the man command.
+   * 
+   * @return the manual for the man command
    */
+  @Override
   public String man() {
     return "MAN(1)\t\t\t\tUser Commands\t\t\t\tMAN(1)\n\nNAME"
         + "\n\t\tman - prints the documentation for a specified"
@@ -35,10 +37,14 @@ public class DisplayManual implements Command {
         + "contains information\n\t\ton how to use the command";
   }
 
-  @Override
   /**
-   *
+   * Process arguments passed for man command and determine whether the command
+   * was entered correctly or not.
+   * 
+   * @param args Arguments parsed from command
+   * @return The manual of the given command.
    */
+  @Override
   public String interpret(List<String> args) {
     if (args.size() != 2) {
       return "man usage: man CMD";
@@ -47,6 +53,12 @@ public class DisplayManual implements Command {
     }
   }
 
+  /**
+   * Returns the manual of the command given.
+   * 
+   * @param args Valid arguments parsed from command
+   * @return The manual of the command given.
+   */
   @Override
   public String exec(List<String> args) {
     try {

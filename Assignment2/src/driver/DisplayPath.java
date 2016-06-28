@@ -10,6 +10,11 @@ public class DisplayPath implements Command {
     s = session;
   }
 
+  /**
+   * Returns the manual for the pwd command.
+   * 
+   * @return the manual for the pwd command
+   */
   @Override
   public String man() {
     return "PWD(1)\t\t\t\tUser Commands\t\t\t\tPWD(1)\n\nNAME"
@@ -18,11 +23,24 @@ public class DisplayPath implements Command {
         + " current working directories full path to standard " + "output";
   }
 
+  /**
+   * Process arguments passed for pwd command and determine whether the command
+   * was entered correctly or not.
+   * 
+   * @param args Arguments parsed from command
+   * @return The path of the given file.
+   */
   @Override
   public String interpret(List<String> args) {
     return exec(args);
   }
 
+  /**
+   * Returns the path of the given file.
+   * 
+   * @param args Valid arguments parsed from command
+   * @return The path of the given file.
+   */
   @Override
   public String exec(List<String> args) {
     if (args.size() != 1) {
