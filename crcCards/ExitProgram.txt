@@ -1,6 +1,6 @@
-Class name: 
-Parent class: 
-Subclasses: 
+Class name: ExitProgram
+Parent class: Command
+Subclasses: N/A
 
 Responsibilities:
 * 

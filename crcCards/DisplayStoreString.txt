@@ -1,9 +1,11 @@
-Class name: 
-Parent class: 
-Subclasses: 
+Class name: DisplayStoreString
+Parent class: Command
+Subclasses: N/A
 
 Responsibilities:
-* 
+* Output a string to Shell
+* Store a string in a new/existing file
+* Overwrite the contents of a file with a String
 
 Collaborators:
-* 
+* MySession

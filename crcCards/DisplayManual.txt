@@ -1,9 +1,9 @@
-Class name: 
-Parent class: 
-Subclasses: 
+Class name: DisplayManual
+Parent class: Command
+Subclasses: N/A
 
 Responsibilities:
-* 
+* Get the manual of any valid command
 
 Collaborators:
-* 
+* MySession
