@@ -3,8 +3,9 @@ Parent class: Command
 Subclasses: N/A
 
 Responsibilities:
+* Determine if the arguments to the man command are correct
 * Get the manual of any valid command
+
 
 Collaborators:
 * MySession
-* Command

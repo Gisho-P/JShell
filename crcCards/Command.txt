@@ -14,7 +14,7 @@ Subclasses:
 * PushDirectory
 
 Responsibilities:
-* A template for other sub commands to follow
+* A template for other sub commands to follow. Sub commands must implement a man, interpret and exec method.
 * Outputs a String to shell
 * Interprets a command based on args
 

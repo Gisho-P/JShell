@@ -3,6 +3,7 @@ Parent class: Command
 Subclasses: N/A
 
 Responsibilities:
+* Determine if the arguments to the pwd command have the correct format
 * Get the path of the current directory
 
 Collaborators:

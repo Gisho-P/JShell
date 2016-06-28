@@ -3,6 +3,7 @@ Parent class (if any): Object
 Subclasses (if any): None
 
 Responsibilities:
+*Determine if the command arguments have the correct format
 *Stores directories in a stack
 *Removes the most recent stored directory
 *Able to retrieve last stored directory

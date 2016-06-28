@@ -3,7 +3,8 @@ Parent class: Command
 Subclasses: N/A
 
 Responsibilities:
-* Exits the JShell
+* Store the man documentation for exit
+* Exit JShell
 
 Collaborators:
 * 

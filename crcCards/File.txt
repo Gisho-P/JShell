@@ -11,6 +11,7 @@ Responsibilities:
 * Allow changes to the file name
 * Return the contents of the file
 * Return errors during any of the above steps
+
 Collaborators: 
 * FilePathInterpreter
 * File
