@@ -3,6 +3,8 @@ Parent class: Command
 Subclasses: N/A
 
 Responsibilities:
+* Determine if the arguments for the command have the correct format
+* Output a string to Shell
 * Store a string in a new/existing file
 * Overwrite the contents of a file with a String
 

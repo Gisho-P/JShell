@@ -6,7 +6,7 @@ Responsibilities:
 * Determine of the command entered for cd is correct
 * Gets the current FileTypes at that path
 * Sets the current directory of the session to the new one given by path
-* Returns an output message if path or args are invalid
+* 
 
 Collaborators:
 * FilePathInterpreter

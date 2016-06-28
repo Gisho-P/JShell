@@ -1,8 +1,6 @@
-Class name: FileTypes
-Parent class: N/A
+Class name: 
+Parent class: 
 Subclasses: Directory, File
-* Files
-* Directory
 
 Responsibilities:
 * Template to create different types of files such as Directories or Text Files

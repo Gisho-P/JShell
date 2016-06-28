@@ -6,7 +6,6 @@ Responsibilities:
 * Determine if the arguments to the history command have the correct format
 * Display all of the commands entered entered in Shell
 * Display a given last amount of commands entered in Shell
-* Returns a message with the history of the Session
 
 Collaborators:
 * MySession
