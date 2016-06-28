@@ -10,13 +10,23 @@ import java.util.List;
  */
 public class DisplayManual implements Command {
 
+  /**
+   * Holds current JShell attributes
+   */
   private MySession s;
 
+  /**
+   * Create a DisplayManual instance
+   * @param session
+     */
   public DisplayManual(MySession session) {
     s = session;
   }
 
   @Override
+  /**
+   * Store the man page information of this command
+   */
   public String man() {
     return "MAN(1)\t\t\t\tUser Commands\t\t\t\tMAN(1)\n\nNAME"
         + "\n\t\tman - prints the documentation for a specified"
@@ -26,6 +36,9 @@ public class DisplayManual implements Command {
   }
 
   @Override
+  /**
+   *
+   */
   public String interpret(List<String> args) {
     if (args.size() != 2) {
       return "man usage: man CMD";
