@@ -4,8 +4,13 @@ import java.util.List;
 
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
 
+/**
+ * The Class DisplayFile handles displaying the contents of one or more files.
+ */
 public class DisplayFile implements Command {
 
+  // MySession is used to access the files by finding them through the
+  // root or current directory
   private MySession s;
 
   public DisplayFile(MySession session) {
@@ -38,21 +43,23 @@ public class DisplayFile implements Command {
     String retVal = "";
     Boolean firstFile = true;
 
+    // Iterate through each path and get the file contents 
     for (String i : args) {
-      // print three line breaks in between files
-      if (!firstFile)
-        retVal += "\n\n\n";
       try {
-        retVal +=
-            ((File) FilePathInterpreter.interpretPath(s.getCurrentDir(), i))
-                .getContent();
+        File currentFile =
+            ((File) FilePathInterpreter.interpretPath(s.getCurrentDir(), i));
+        // print three line breaks in between files
+        if (!firstFile)
+          retVal += "\n\n\n";
+        // Add the content to the return
+        retVal += currentFile.getContent();
+        if (firstFile)
+          firstFile = false;
       } catch (InvalidDirectoryPathException e) {
-        retVal = "No such dir as " + i;
+        retVal = "No such dir as " + i + "\n" + retVal;
       } catch (ClassCastException e) {
-        retVal = "Unable to cat dir " + i;
+        retVal = "Unable to cat dir " + i + "\n" + retVal;
       }
-      if (firstFile)
-        firstFile = false;
     }
     return retVal;
   }
