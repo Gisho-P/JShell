@@ -50,4 +50,38 @@ public class GetHistoryTest {
     }
     assertTrue(session.printCommandHistory(2).equals(expectedHistory));
   }
+  
+  /**
+   * Tests getting the history of 0 commands is empty.
+   */
+  @Test
+  public void testGetHistoryLastZero() {
+    MySession session = new MySession();
+    String expectedHistory = "";
+    for (Integer i = 0; i < 5; i++) {
+      session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
+    }
+    assertTrue(session.printCommandHistory(0).equals(expectedHistory));
+  }
+  
+  /**
+   * Saves 5 commands to the session, and tries to get the last 6 commands
+   * saved but it'll only return what it has
+   */
+  @Test
+  public void testGetHistoryMoreThenAll() {
+    MySession session = new MySession();
+    String expectedHistory = "";
+    for (Integer i = 0; i < 5; i++) {
+      session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
+      if (i != 4)
+        expectedHistory +=
+            ((i + 1) + (". " + "echo \"cmd " + i + "\" > " + "newFile")) + "\n";
+      else
+        expectedHistory +=
+            ((i + 1) + (". " + "echo \"cmd " + i + "\"" + " > newFile"));
+    }
+    assertTrue(session.printCommandHistory(6).equals(expectedHistory));
+  }
+  
 }

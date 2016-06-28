@@ -53,6 +53,10 @@ public class MySession {
    */
   public String printCommandHistory(int numberOfCommands) {
     int historySize = commandHistory.size();
+    // If a number greater then the number of commands in history is given
+    // print all commands
+    if(numberOfCommands > historySize)
+       numberOfCommands = historySize;
     if (numberOfCommands < 0) {
       return "history usage: history [NUMBER >= 0]\n";
     } else {
