@@ -1,17 +1,21 @@
 package test;
 
-import driver.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import driver.Directory;
+import driver.File;
+import driver.FileTypes;
+import driver.JShell;
+import driver.MySession;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by dhrumil on 26/06/16.
- * Unit Test for the mkdir command
+ * Tests for the MakeDirectory class
  */
 public class MakeDirectoryTest {
     MySession session;
@@ -30,7 +34,8 @@ public class MakeDirectoryTest {
      */
     public void testMkdirCreateDirWithSlash() {
         String message = JShell.commandProcessor("mkdir /", session);
-        assertEquals("mkdir: cannot create a directory without a name\n", message);
+        assertEquals("mkdir: cannot create a directory without a name\n",
+                message);
     }
 
     @Test
@@ -40,10 +45,11 @@ public class MakeDirectoryTest {
     public void testMkdirCreateDirWithMultipleSlash() {
         ArrayList<String> expected = new ArrayList<String>();
         String message = JShell.commandProcessor("mkdir ////", session);
-        assertEquals("mkdir: cannot create a directory without a name\n", message);
+        assertEquals("mkdir: cannot create a directory without a name\n",
+                message);
         expected.add("sub1dir1");
         JShell.commandProcessor("mkdir sub1dir1///////", session);
-        assertEquals(expected   , session.getRootDir().getChildNames());
+        assertEquals(expected, session.getRootDir().getChildNames());
     }
 
     @Test
@@ -52,12 +58,15 @@ public class MakeDirectoryTest {
      */
     public void testMkdirInvalidNames() {
         String message = JShell.commandProcessor("mkdir ..", session);
-        assertEquals("mkdir: cannot create directory with name '..'. It is invalid.\n", message);
+        assertEquals("mkdir: cannot create directory with name '..'. It is " +
+                "invalid.\n", message);
         message = JShell.commandProcessor("mkdir .", session);
-        assertEquals("mkdir: cannot create directory with name '.'. It is invalid.\n", message);
+        assertEquals("mkdir: cannot create directory with name '.'. It is" +
+                " invalid.\n", message);
         message = JShell.commandProcessor("mkdir one one/..", session);
         assertEquals(session.getRootDir().getChildNames().get(0), "one");
-        assertEquals("mkdir: cannot create directory with name 'one/..'. It is invalid.\n", message);
+        assertEquals("mkdir: cannot create directory with name 'one/..'. It is " +
+                "invalid.\n", message);
     }
 
 
@@ -69,29 +78,37 @@ public class MakeDirectoryTest {
     public void testMkdirInvalidPaths() {
         //Unable to create because one doesn't exist
         String message = JShell.commandProcessor("mkdir one/two", session);
-        assertEquals("mkdir: cannot create directory 'one/two': Invalid Path\n", message);
+        assertEquals("mkdir: cannot create directory 'one/two': Invalid Path\n",
+                message);
         //unable to create because two doesn't exist in the root
         message = JShell.commandProcessor("mkdir one one/two two/one", session);
-        assertEquals("mkdir: cannot create directory 'two/one': Invalid Path\n", message);
+        assertEquals("mkdir: cannot create directory 'two/one': Invalid Path\n",
+                message);
         //unable to create because two doesn't exist under the root
-        message = JShell.commandProcessor("mkdir one/../two/../three one/three/four\n", session);
+        message = JShell.commandProcessor("mkdir" +
+                " one/../two/../three one/three/four\n", session);
         assertEquals(session.getRootDir().getChildNames().get(0), "one");
-        assertEquals("mkdir: cannot create directory 'one/../two/../three': Invalid Path\n" +
-                "mkdir: cannot create directory 'one/three/four': Invalid Path\n", message);
+        assertEquals("mkdir: cannot create directory 'one/../two/../three':" +
+                " Invalid Path\n" +
+                "mkdir: cannot create directory 'one/three/four':" +
+                " Invalid Path\n", message);
     }
 
     @Test
     /**
      * Test creating a directory when a directory or file with the same name already exists
      */
-    public void testMkdirDirOrFileExists() throws FileTypes.InvalidName, Directory.NameExistsException, Directory.InvalidAddition {
+    public void testMkdirDirOrFileExists() throws FileTypes.InvalidName,
+            Directory.NameExistsException, Directory.InvalidAddition {
         //dir with same name exists shouldn't be able to create it
         String message = JShell.commandProcessor("mkdir one one", session);
-        assertEquals("mkdir: cannot create directory 'one': File exists\n", message);
+        assertEquals("mkdir: cannot create directory 'one': File exists\n",
+                message);
         //file with same name exists shouldn't be able to create it
         session.getCurrentDir().add(new File("three"));
         message = JShell.commandProcessor("mkdir three", session);
-        assertEquals("mkdir: cannot create directory 'three': File exists\n", message);
+        assertEquals("mkdir: cannot create directory 'three': File exists\n",
+                message);
 
     }
 
@@ -114,9 +131,11 @@ public class MakeDirectoryTest {
      * Test creating multiple directories at the same time
      */
     public void testMkdirMultipleLayers() {
-        //create multiple directories with multiple children in the same command
+        //create multiple directories with multiple children in the same
+        // command
         ArrayList<String> expected = new ArrayList<String>();
-        JShell.commandProcessor("mkdir one one/two one/two/three /three", session);
+        JShell.commandProcessor("mkdir one one/two one/two/three /three",
+                session);
         JShell.commandProcessor("cd one", session);
         JShell.commandProcessor("mkdir three /four", session);
         //check whether or not all of the directories were created
@@ -134,7 +153,8 @@ public class MakeDirectoryTest {
 
     @Test
     /**
-     * Tests for making directories with slashes at the end. This is a special case, it should create the directories
+     * Tests for making directories with slashes at the end. This is a
+     * special case, it should create the directories
      */
     public void testMkdirSlashAtEnd() {
         //create directories with slashes at the end single layer
@@ -160,8 +180,10 @@ public class MakeDirectoryTest {
         expected.add("four");
         assertEquals(expected, session.getCurrentDir().getChildNames());
 
-        //test to see if mkdir can follow from root combo of slashes and double dots
-        JShell.commandProcessor("mkdir /../one/two/../../four/././five/", session);
+        //test to see if mkdir can follow from root combo of slashes and
+        // double dots
+        JShell.commandProcessor("mkdir /../one/two/../../four/././five/",
+                session);
         JShell.commandProcessor("cd four", session);
         expected.clear();
         expected.addAll(Arrays.asList("five"));
@@ -170,7 +192,8 @@ public class MakeDirectoryTest {
 
     @Test
     /**
-     * Test to check if a directory is created in the correct location after a combination
+     * Test to check if a directory is created in the correct location
+     * after a combination
      * of double dots are used in the path
      */
     public void testMkdirDoubleDots() {
@@ -195,9 +218,11 @@ public class MakeDirectoryTest {
         expected.addAll(Arrays.asList("one", "two", "three"));
         assertEquals(expected, session.getCurrentDir().getChildNames());
 
-        //test using a combination of double dots and slashes on an absolute path
+        //test using a combination of double dots and slashes on an absolute
+        // path
         JShell.commandProcessor("cd one", session);
-        JShell.commandProcessor("mkdir /../three/../two/../one/../four", session);
+        JShell.commandProcessor("mkdir /../three/../two/../one/../four",
+                session);
         JShell.commandProcessor("cd ..", session);
         expected.add("four");
         assertEquals(expected, session.getCurrentDir().getChildNames());
@@ -205,7 +230,8 @@ public class MakeDirectoryTest {
 
     @Test
     /**
-     * Test to check if directory is created in the correct location after a combination of single
+     * Test to check if directory is created in the correct location
+     * after a combination of single
      * dot ares used
      */
     public void testMkdirSingleDots() {
@@ -240,7 +266,8 @@ public class MakeDirectoryTest {
 
     @Test
     /**
-     * Test to see if directory is created in correct location after a combination of slashes
+     * Test to see if directory is created in correct location after
+     * a combination of slashes
      * and double and single dots are used in the path
      */
     public void testMkdirSingleDoubleDots() {

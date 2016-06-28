@@ -1,5 +1,8 @@
 package test;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import driver.Directory;
 import driver.Directory.InvalidAddition;
 import driver.Directory.MissingNameException;
@@ -8,13 +11,10 @@ import driver.File;
 import driver.FileTypes.InvalidName;
 import driver.JShell;
 import driver.MySession;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Gisho on 27/06/16.
  * Tests that verify the functionality of the ls command in JShell which
  * lists the contents of one or more directories, or file names.
  */
@@ -83,7 +83,8 @@ public class ListDirectoryContentsTest {
 	    ((Directory)session.getCurrentDir().getChild("dir1")).add(new File("c"));
 	    session.getCurrentDir().add(new File("file1"));
 	    session.getCurrentDir().add(new Directory("dir2"));
-	} catch (NameExistsException | InvalidAddition | InvalidName | MissingNameException e) {
+	} catch (NameExistsException | InvalidAddition | InvalidName |
+            MissingNameException e) {
 	}
         String message = JShell.commandProcessor("ls file1 / dir2 dir1", session);
         assertEquals("/: dir1 dir2 file1\ndir1: a b c d\ndir2:\nfile1", message);
