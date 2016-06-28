@@ -1,6 +1,6 @@
 Class name: PopDirectory
 Parent class: Command
-Subclasses: 
+Subclasses: N/A
 
 Responsibilities:
 * Go to dir last stored in dirstack
