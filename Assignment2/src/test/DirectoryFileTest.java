@@ -1,25 +1,26 @@
 package test;
 
-import driver.Directory;
-import driver.File;
-import driver.FileTypes;
 import org.junit.Test;
-
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import driver.Directory;
+import driver.File;
+import driver.FileTypes;
+
+import static org.junit.Assert.assertEquals;
 
 
 /**
- * Created by dhrumil on 19/06/16.
+ * Tests for the Directory and File classes
  */
 public class DirectoryFileTest {
     Directory dir;
 
     @Test
     /**
-     * Create a directory with valid name and test if the invalid name exception is thrown
+     * Create a directory with valid name and test if the invalid name
+     * exception is thrown
      */
     public void createDirWithValidName() {
         try {
@@ -32,7 +33,8 @@ public class DirectoryFileTest {
 
     @Test(expected = FileTypes.InvalidName.class)
     /**
-     * Create a directory with .. as the name and test if the invalid name exception is thrown
+     * Create a directory with .. as the name and test if the invalid name
+     * exception is thrown
      */
     public void createDirWithInValidName() throws FileTypes.InvalidName {
         dir = new Directory("..");
@@ -40,7 +42,8 @@ public class DirectoryFileTest {
 
     @Test(expected = FileTypes.InvalidName.class)
     /**
-     * Create a directory with a slash in the name and test if the invalid name exception is thrown
+     * Create a directory with a slash in the name and test if the invalid name
+     * exception is thrown
      */
     public void createDirWithInValidNameSlash() throws FileTypes.InvalidName {
         dir = new Directory("Hi/Bye");
@@ -123,10 +126,12 @@ public class DirectoryFileTest {
 
     @Test(expected = Directory.NameExistsException.class)
     /**
-     * Test if NameExistsException is thrown when a directory or file with the same name is added to the current
+     * Test if NameExistsException is thrown when a directory or file with the
+     * same name is added to the current
      * directory
      */
-    public void addDirectoryWithExistingName() throws Directory.NameExistsException {
+    public void addDirectoryWithExistingName() throws
+            Directory.NameExistsException {
         try {
             //Add a directory with existing name
             dir = new Directory("one");
@@ -141,8 +146,8 @@ public class DirectoryFileTest {
 
     @Test(expected = Directory.InvalidAddition.class)
     /**
-     * Test if InvalidAddition exception is thrown from add method when the current directory is added as the
-     * child of the current directory
+     * Test if InvalidAddition exception is thrown from add method when the
+     * current directory is added as the child of the current directory
      */
     public void testInvalidAddition() throws Directory.InvalidAddition {
         try {
@@ -158,7 +163,8 @@ public class DirectoryFileTest {
 
     @Test(expected = Directory.InvalidAddition.class)
     /**
-     * Test if InvalidAddition exception is thrown from addReplace method when the current directory is added as the
+     * Test if InvalidAddition exception is thrown from addReplace method
+     * when the current directory is added as the
      * child of the current directory
      */
     public void testInvalidAdditionInAddReplace() throws Directory.InvalidAddition {
@@ -173,7 +179,8 @@ public class DirectoryFileTest {
 
     @Test
     /**
-     * Test replacing an Existing File or Directory with a File or Directory with the same name
+     * Test replacing an Existing File or Directory with a File or
+     * Directory with the same name
      */
     public void addReplaceExistingFileDirectory() {
         try {
@@ -197,7 +204,8 @@ public class DirectoryFileTest {
 
     @Test
     /**
-     * Test replacing multiple existing Files or Directories with Files or Directories with the same name
+     * Test replacing multiple existing Files or Directories with Files
+     * or Directories with the same name
      */
     public void addReplaceExistingFileDirectoryMulti() {
         try {
@@ -268,8 +276,8 @@ public class DirectoryFileTest {
     }
 
     /**
-     * Test whether or not MissingNameException is thrown when a file or directory that doesn't exist is removed
-     * @throws Directory.MissingNameException
+     * Test whether or not MissingNameException is thrown when a file or
+     * directory that doesn't exist is removed
      */
     @Test(expected = Directory.MissingNameException.class)
     public void testRemovingFileDoesNotExist() throws Directory.MissingNameException {
@@ -292,7 +300,8 @@ public class DirectoryFileTest {
 
     @Test
     /**
-     * Test to see if nameExists returns -1 when a file or directory doesn't exist and the index of the file or
+     * Test to see if nameExists returns -1 when a file or directory
+     * doesn't exist and the index of the file or
      * directory in the list otherwise
      */
     public void testNameExists() {
@@ -316,7 +325,8 @@ public class DirectoryFileTest {
 
     @Test
     /**
-     * Test if all of the child directories are returned when getChildDir method is called
+     * Test if all of the child directories are returned when getChildDir
+     * method is called
      */
     public void testGetChildDir() {
         try {
@@ -340,7 +350,8 @@ public class DirectoryFileTest {
 
     @Test
     /**
-     *  Test if all of the child Files are returned when getChildFiles method is called
+     *  Test if all of the child Files are returned when getChildFiles
+     *  method is called
      */
     public void testGetChildFile() {
         try {
@@ -403,7 +414,8 @@ public class DirectoryFileTest {
 
     @Test
     /**
-     * Test to check if the names of all of the children in the current directory are returned
+     * Test to check if the names of all of the children in the current
+     * directory are returned
      */
     public void testGetChildrenNames() {
         ArrayList<String> childNames = new ArrayList<String>();

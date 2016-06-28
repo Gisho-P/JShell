@@ -2,10 +2,21 @@ package driver;
 
 import java.util.List;
 
+/**
+ * ChangeDirectory class replicates the cd command in a shell. It allows
+ * traversal through a File System
+ */
 public class ChangeDirectory implements Command {
 
+	/**
+	 * Uses session to change and retrieve current node
+	 */
 	private MySession s;
 
+	/**
+	 * Create
+	 * @param session
+     */
 	public ChangeDirectory(MySession session) {
 		s = session;
 	}
@@ -54,6 +65,8 @@ public class ChangeDirectory implements Command {
 	 */
 	public String exec(List<String> args) {
 		try {
+          //Get the node at the end of the path if it exists and set the
+          //current directory to the node
 			FileTypes dest = FilePathInterpreter.interpretPath(
 					s.getCurrentDir(), args.get(1));
 			if (dest instanceof Directory) {
