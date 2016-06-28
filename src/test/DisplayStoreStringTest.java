@@ -1,5 +1,8 @@
 package test;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import driver.Directory;
 import driver.Directory.InvalidAddition;
 import driver.Directory.MissingNameException;
@@ -8,13 +11,12 @@ import driver.File;
 import driver.FileTypes.InvalidName;
 import driver.JShell;
 import driver.MySession;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
- * Created by Gisho on 27/06/16.
  * Tests that verify the functionality of the echo command in JShell which
  * can display strings in the shell or store them in files.
  */
@@ -121,8 +123,10 @@ public class DisplayStoreStringTest {
 	    session.getCurrentDir().add(new Directory("file"));
 	} catch (NameExistsException | InvalidAddition | InvalidName e) {
 	}
-        String message = JShell.commandProcessor("echo \"test\" > file", session);
-        assertEquals("ERROR: There is already a subdirectory with the same name", message);
+        String message = JShell.commandProcessor("echo \"test\" > file",
+                session);
+        assertEquals("ERROR: There is already a subdirectory with the same name",
+                message);
     }
     
 }

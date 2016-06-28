@@ -167,7 +167,8 @@ public class DirectoryFileTest {
      * when the current directory is added as the
      * child of the current directory
      */
-    public void testInvalidAdditionInAddReplace() throws Directory.InvalidAddition {
+    public void testInvalidAdditionInAddReplace() throws
+            Directory.InvalidAddition {
         try {
             //Add the current directory to the current directory
             dir = new Directory("one");
@@ -280,7 +281,8 @@ public class DirectoryFileTest {
      * directory that doesn't exist is removed
      */
     @Test(expected = Directory.MissingNameException.class)
-    public void testRemovingFileDoesNotExist() throws Directory.MissingNameException {
+    public void testRemovingFileDoesNotExist()
+            throws Directory.MissingNameException {
         try {
             //Remove a directory that doesn't exist
             dir = new Directory("one");

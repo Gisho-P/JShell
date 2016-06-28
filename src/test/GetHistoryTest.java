@@ -1,9 +1,10 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
 import driver.MySession;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * The Class GetHistoryTest tests out sessions history function.
@@ -18,6 +19,7 @@ public class GetHistoryTest {
   public void testGetHistoryAll() {
     MySession session = new MySession();
     String expectedHistory = "";
+    //Test getting the history of all commands
     for (Integer i = 0; i < 5; i++) {
       session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
       if (i != 4)
@@ -37,6 +39,7 @@ public class GetHistoryTest {
   public void testGetHistoryLastTwo() {
     MySession session = new MySession();
     String expectedHistory = "";
+    //Test getting the history of the last two commands
     for (Integer i = 0; i < 5; i++) {
       session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
       if (i > 2)
@@ -58,6 +61,7 @@ public class GetHistoryTest {
   public void testGetHistoryLastZero() {
     MySession session = new MySession();
     String expectedHistory = "";
+    //Test getting the history of 0 commands
     for (Integer i = 0; i < 5; i++) {
       session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
     }
@@ -72,6 +76,7 @@ public class GetHistoryTest {
   public void testGetHistoryMoreThenAll() {
     MySession session = new MySession();
     String expectedHistory = "";
+    //Test getting the history of 6 commands
     for (Integer i = 0; i < 5; i++) {
       session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
       if (i != 4)

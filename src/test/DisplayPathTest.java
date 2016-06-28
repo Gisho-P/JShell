@@ -1,14 +1,15 @@
 package test;
 
-import driver.JShell;
-import driver.MySession;
-import org.junit.*;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import driver.JShell;
+import driver.MySession;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by dhrumil on 27/06/16.
+ * Tests for DisplayPath class
  */
 public class DisplayPathTest {
     MySession session;
@@ -46,7 +47,8 @@ public class DisplayPathTest {
      * Test calling pwd on directories with multiple layers
      */
     public void testDisplayPathMultipleDir() {
-        JShell.commandProcessor("mkdir one one/two one/two/three three four", session);
+        JShell.commandProcessor("mkdir one one/two one/two/three three four",
+                session);
         JShell.commandProcessor("cd one/two/three", session);
         String path = JShell.commandProcessor("pwd", session);
         assertEquals("/one/two/three", path);
@@ -54,15 +56,16 @@ public class DisplayPathTest {
 
     @Test
     /**
-     * Test calling pwd on directories where the parent directoris all have the same name
+     * Test calling pwd on directories where the parent directoris all have
+     * the same name
      */
     public void testDisplayPathMultipleDirSameName() {
-        JShell.commandProcessor("mkdir one one/one one/one/one one/one/one/one", session);
+        JShell.commandProcessor("mkdir one one/one one/one/one one/one/one/one",
+                session);
         JShell.commandProcessor("cd one/one/one/one", session);
         String path = JShell.commandProcessor("pwd", session);
         assertEquals("/one/one/one/one", path);
     }
-
 
 
 }

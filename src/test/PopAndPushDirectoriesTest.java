@@ -1,26 +1,40 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import driver.*;
 
+import driver.DirStack;
+import driver.JShell;
+import driver.MySession;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+//Tests for the push and pop directories class
 public class PopAndPushDirectoriesTest {
   MySession s;
 
   @Before
+  /**
+   * Create a new instance of MySession before every testcase
+   */
   public void setUp() throws Exception {
     s = new MySession();
   }
   
   @After
+  /**
+   * Clear DirStack after every test
+   */
   public void tearDown() throws Exception {
     DirStack.clear();
   }
   
   @Test
+  /**
+   * Test popping from empty stack at root
+   */
   public void testPopEmptyStackNeverAddedAtRoot() {
     String ret = JShell.commandProcessor("popd", s);
     assertEquals("At root, nothing added to stack: should be an error\n",
@@ -30,6 +44,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test popping from empty stack not at root
+   */
   public void testPopEmptyStackNeverAddedNotAtRoot() {
     String ret = JShell.commandProcessor("mkdir home home/a", s);
     ret = JShell.commandProcessor("cd home/a", s);
@@ -41,6 +58,10 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test popping from stack that contains only the root path until it
+   * becomes empty
+   */
   public void testPopEmptyStackOnceAddedAtRoot() {
     String ret = JShell.commandProcessor("mkdir home home/a home/a/b", s);
     ret = JShell.commandProcessor("cd home/a", s);
@@ -54,6 +75,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test popping from stack that contains a child node until it becomes empty
+   */
   public void testPopEmptyStackOnceAddedNotAtRoot() {
     String ret = JShell.commandProcessor("mkdir home home/a home/a/b", s);
     ret = JShell.commandProcessor("cd home/a", s);
@@ -68,6 +92,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test if popping from non-empty stack takes you to the prev location
+   */
   public void testPopNonEmptyStackPopToLocationBefore() {
     String ret = JShell.commandProcessor("mkdir a mkdir a/b mkdir a/b/c", s);
     ret = JShell.commandProcessor("cd a", s);
@@ -77,8 +104,11 @@ public class PopAndPushDirectoriesTest {
     assertEquals("Directory is before b", "/a",
         s.getCurrentDir().getEntirePath());
   }
-  
+
   @Test
+  /**
+   * Test popping dot
+   */
   public void testPopNonEmptyStackPopToSameLocation() {
     String ret = JShell.commandProcessor("mkdir a mkdir a/b mkdir a/b/c", s);
     ret = JShell.commandProcessor("cd a/b", s);
@@ -91,6 +121,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test popping dot dot
+   */
   public void testPopNonEmptyStackPopToLocationAfter() {
     String ret = JShell.commandProcessor("mkdir a mkdir a/b mkdir a/b/c", s);
     ret = JShell.commandProcessor("cd a/b/c", s);
@@ -103,6 +136,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test popping stack  after performing some other commands
+   */
   public void testPopNonEmptyStackPopBetweenSubTrees() {
     String ret = JShell.commandProcessor("mkdir a b a/c b/d a/e b/f", s);
     ret = JShell.commandProcessor("mkdir a/c/g b/f/h b/f/h/i b/f/h/j", s);
@@ -117,6 +153,9 @@ public class PopAndPushDirectoriesTest {
   }
 
   @Test
+  /**
+   * Test popping multiple times in sequence
+   */
   public void testPopNonEmptyStackMultiplePops() {
     String ret = JShell.commandProcessor("mkdir a a/b a/b/c", s);
     ret = JShell.commandProcessor("pushd a", s);
@@ -132,6 +171,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing root at root
+   */
   public void testPushAtRootToRoot() {
     String ret = JShell.commandProcessor("pushd /", s);
     assertEquals("No errors", "", ret);
@@ -139,6 +181,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing root in child directory
+   */
   public void testPushAtRootToSomeWhereElse() {
     String ret = JShell.commandProcessor("mkdir a a/b a/c/ a/b/d a/c/e/", s);
     ret = JShell.commandProcessor("pushd a/c/e", s);
@@ -148,6 +193,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing ..
+   */
   public void testPushToDirectoryBeforeCurrent() {
     String ret = JShell.commandProcessor("mkdir a a/b/", s);
     ret = JShell.commandProcessor("cd a/b", s);
@@ -158,6 +206,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing single dot
+   */
   public void testPushAtDirectoryToDirectory() {
     String ret = JShell.commandProcessor("mkdir a a/b/", s);
     ret = JShell.commandProcessor("cd a/b", s);
@@ -168,6 +219,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing child directory
+   */
   public void testPushToDirectoryAfterCurrent() {
     String ret = JShell.commandProcessor("mkdir a a/b/ a/b/c", s);
     ret = JShell.commandProcessor("cd a/b", s);
@@ -178,6 +232,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing paths with multiple single dots
+   */
   public void testPushUseCurrentDotNotation() {
     String ret = JShell.commandProcessor("mkdir a a/b a/b/c a/b/c/d", s);
     ret = JShell.commandProcessor("pushd ./a/b/./c", s);
@@ -186,6 +243,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing paths with multiple double dots
+   */
   public void testPushUseParentDotNotation() {
     String ret = JShell.commandProcessor("mkdir a a/b a/b/c a/b/c/d/", s);
     ret = JShell.commandProcessor("cd a/b", s);
@@ -195,6 +255,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing a path that leads to a subdirectory
+   */
   public void testPushToDifferentFileSubTree() {
     String ret = JShell.commandProcessor("mkdir a b a/c b/d a/e b/f", s);
     ret = JShell.commandProcessor("mkdir a/c/g a/c/h b/d/i b/d/j", s);
@@ -205,6 +268,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing invalid path at root
+   */
   public void testPushGoToInvalidPathAtRoot() {
     String ret = JShell.commandProcessor("pushd noodles", s);
     assertNotEquals("should not be successful", "", ret);
@@ -212,6 +278,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing invalid path not at root
+   */
   public void testPushGoToInvalidPathNotAtRoot() {
     String ret = JShell.commandProcessor("mkdir a a/b a/b/c", s);
     ret = JShell.commandProcessor("cd a/b", s);
@@ -222,6 +291,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test multiple pushes in a sequence
+   */
   public void testPushDoMultiplePushes() {
     String ret = JShell.commandProcessor("mkdir a a/b", s);
     ret = JShell.commandProcessor("pushd a", s);
@@ -231,6 +303,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing double dot at root
+   */
   public void testPushAtRootDotParentNotation() {
     String ret = JShell.commandProcessor("pushd .", s);
     assertEquals("", ret);
@@ -238,6 +313,9 @@ public class PopAndPushDirectoriesTest {
   }
   
   @Test
+  /**
+   * Test pushing single dot at root
+   */
   public void testPushAtRootDotCurrentNotation() {
     String ret = JShell.commandProcessor("pushd ..", s);
     assertEquals("", ret);
