@@ -1,9 +1,13 @@
-Class name: 
-Parent class: 
+Class name: MakeDirectory
+Parent class: Command
 Subclasses: 
 
 Responsibilities:
+* Checks if the FilePath exists or not
+* Makes a directory at the given path
 * 
 
 Collaborators:
-* 
+* FilePathInterpreter
+* MySession
+* Directory
