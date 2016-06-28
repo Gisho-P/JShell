@@ -1,9 +1,14 @@
-Class name: 
-Parent class: 
+Class name: FileTypes
+Parent class: N/A
 Subclasses: 
+* Files
+* Directory
 
 Responsibilities:
-* 
+* Acts like a template for Files Directory
+* Stores the name of itself
+* Able to change name of itself
+* Checks if the name is valid
 
 Collaborators:
 * 
