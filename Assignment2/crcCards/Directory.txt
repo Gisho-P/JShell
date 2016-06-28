@@ -1,5 +1,5 @@
 Class name: Directory
-Parent class (if any): FileTypes
+Parent class (if any): Object
 Subclasses (if any): None
 
 Responsibilities:
