@@ -3,6 +3,7 @@ Parent class: Command
 Subclasses: N/A
 
 Responsibilities:
+* Determine if the arguments to DisplayFile have the correct format
 * Returns the contents of each filepath given
 * Goes through the path and reads the contents of the file
 
