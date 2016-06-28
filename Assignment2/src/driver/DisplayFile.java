@@ -49,7 +49,7 @@ public class DisplayFile implements Command {
       // return output from function call
     }
   }
-  
+
   /**
    * Returns the contents of the with files listed in the args.
    * 

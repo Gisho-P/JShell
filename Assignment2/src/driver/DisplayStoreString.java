@@ -53,7 +53,7 @@ public class DisplayStoreString implements Command {
    * Error check format of command entered and if correct format entered, then
    * go and try to execute command. Otherwise return error messages.
    * 
-   * @param args    arguments to process for echo
+   * @param args arguments to process for echo
    * @return error message or string entered/null if stored in file
    */
   @Override

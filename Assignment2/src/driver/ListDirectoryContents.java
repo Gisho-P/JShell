@@ -21,8 +21,8 @@ public class ListDirectoryContents implements Command {
    * Return ListDirectoryContents instance, to be able to run ls command.
    * 
    * @param session Current JShell's session attributes
-   * @return ListDirectoryContents instance 
-   * */
+   * @return ListDirectoryContents instance
+   */
   public ListDirectoryContents(MySession session) {
     s = session;
   }
@@ -31,7 +31,7 @@ public class ListDirectoryContents implements Command {
    * Return ls man page.
    * 
    * @return manual for ls command
-   * */
+   */
   @Override
   public String man() {
     return "LS(1)\t\t\t\tUser Commands\t\t\t\tLS(1)\n\nNAME\n\t"
@@ -47,9 +47,9 @@ public class ListDirectoryContents implements Command {
   /**
    * Return list of contents in directory specified.
    * 
-   * @param args    Arguments to process for ls command
+   * @param args Arguments to process for ls command
    * @return output message (directory contents) or error message
-   * */
+   */
   @Override
   public String interpret(List<String> args) {
     return exec(args);
@@ -97,10 +97,10 @@ public class ListDirectoryContents implements Command {
 
   /**
    * Returns contents of director(y/ies) in a neatly formatted string.
-   *  
-   * @param args    arguments to be run with ls command
+   * 
+   * @param args arguments to be run with ls command
    * @return error message or directory contents
-   * */
+   */
   @Override
   public String exec(List<String> args) {
     // If there are paths specified get the output form function call

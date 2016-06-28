@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * The Class DisplayManual takes a command name and returns the documentation
  * manual for the given command.
+ * 
  * @author Adnan Bhuiyan
  * @author Girrshotan Pushparajah
  */
@@ -14,7 +15,7 @@ public class DisplayManual implements Command {
 
   /**
    * Current session attributes of shell.
-   * */
+   */
   private MySession s;
 
   /**
@@ -22,7 +23,7 @@ public class DisplayManual implements Command {
    * 
    * @param session Current JShell's session attributes
    * @return DisplayManual instance
-   * */
+   */
   public DisplayManual(MySession session) {
     s = session;
   }
@@ -31,7 +32,7 @@ public class DisplayManual implements Command {
    * Return man page for man command.
    * 
    * @return man page for man command
-   * */
+   */
   @Override
   public String man() {
     return "MAN(1)\t\t\t\tUser Commands\t\t\t\tMAN(1)\n\nNAME"
@@ -42,13 +43,13 @@ public class DisplayManual implements Command {
   }
 
   /**
-   * Check the formatting of the command entered, and make sure
-   * it matches up with the correct format. If so, return man page.
-   * Otherwise, return an error message.
+   * Check the formatting of the command entered, and make sure it matches up
+   * with the correct format. If so, return man page. Otherwise, return an error
+   * message.
    * 
-   * @param args    Arguments to process with man command
+   * @param args Arguments to process with man command
    * @return error message or man page
-   * */
+   */
   @Override
   public String interpret(List<String> args) {
     if (args.size() != 2) {
@@ -61,9 +62,9 @@ public class DisplayManual implements Command {
   /**
    * Try to retrieve man page for given command in args and return results.
    * 
-   * @param args    command to get man page for
+   * @param args command to get man page for
    * @return man page for command or error
-   * */
+   */
   @Override
   public String exec(List<String> args) {
     try {
