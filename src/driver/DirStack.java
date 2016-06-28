@@ -59,4 +59,8 @@ public class DirStack {
   public static boolean equals(List<String> dir) {
     return directories.equals(dir);
   }
+  
+  public static void clear() {
+    directories.clear();
+  }
 }

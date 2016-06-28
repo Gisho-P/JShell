@@ -1,6 +1,8 @@
 package test;
 
 import static org.junit.Assert.*;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import driver.*;
@@ -11,6 +13,11 @@ public class PopAndPushDirectoriesTest {
   @Before
   public void setUp() throws Exception {
     s = new MySession();
+  }
+  
+  @After
+  public void tearDown() throws Exception {
+    DirStack.clear();
   }
   
   @Test
@@ -53,6 +60,7 @@ public class PopAndPushDirectoriesTest {
     ret = JShell.commandProcessor("pushd b", s);
     ret = JShell.commandProcessor("popd", s);
     ret = JShell.commandProcessor("popd", s);
+
     assertEquals("Stack should be empty now, error",
         "ERROR: Empty stack, nothing to pop", ret);
     assertEquals("Directory should be at last correctly popped dir", "/home/a",
@@ -125,74 +133,115 @@ public class PopAndPushDirectoriesTest {
   
   @Test
   public void testPushAtRootToRoot() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("pushd /", s);
+    assertEquals("No errors", "", ret);
+    assertEquals("directory is root", "/", s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushAtRootToSomeWhereElse() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a a/b a/c/ a/b/d a/c/e/", s);
+    ret = JShell.commandProcessor("pushd a/c/e", s);
+    assertEquals("No errors", "", ret);
+    assertEquals("Directory at specified DIR", "/a/c/e",
+        s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushToDirectoryBeforeCurrent() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a a/b/", s);
+    ret = JShell.commandProcessor("cd a/b", s);
+    ret = JShell.commandProcessor("pushd ..", s);
+    assertEquals("No errors", "", ret);
+    assertEquals("Dir at parent of dir before pushd", "/a",
+        s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushAtDirectoryToDirectory() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a a/b/", s);
+    ret = JShell.commandProcessor("cd a/b", s);
+    ret = JShell.commandProcessor("pushd .", s);
+    assertEquals("No errors", "", ret);
+    assertEquals("Same directory as before push", "/a/b",
+        s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushToDirectoryAfterCurrent() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a a/b/ a/b/c", s);
+    ret = JShell.commandProcessor("cd a/b", s);
+    ret = JShell.commandProcessor("pushd c", s);
+    assertEquals("No errors", "", ret);
+    assertEquals("dir is child of dir before push", "/a/b/c",
+        s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushUseCurrentDotNotation() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a a/b a/b/c a/b/c/d", s);
+    ret = JShell.commandProcessor("pushd ./a/b/./c", s);
+    assertEquals("", ret);
+    assertEquals("/a/b/c", s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushUseParentDotNotation() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a a/b a/b/c a/b/c/d/", s);
+    ret = JShell.commandProcessor("cd a/b", s);
+    ret = JShell.commandProcessor("pushd ../..", s);
+    assertEquals("", ret);
+    assertEquals("/", s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushToDifferentFileSubTree() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a b a/c b/d a/e b/f", s);
+    ret = JShell.commandProcessor("mkdir a/c/g a/c/h b/d/i b/d/j", s);
+    ret = JShell.commandProcessor("cd a/c/g", s);
+    ret = JShell.commandProcessor("pushd /b/d/i/", s);
+    assertEquals("", ret);
+    assertEquals("/b/d/i", s.getCurrentDir().getEntirePath());
   }
   
   @Test
-  public void testPushGoToInvalidPath() {
-    assertEquals();
-    assertEquals();
+  public void testPushGoToInvalidPathAtRoot() {
+    String ret = JShell.commandProcessor("pushd noodles", s);
+    assertNotEquals("should not be successful", "", ret);
+    assertEquals("stuck at root", "/", s.getCurrentDir().getEntirePath());
+  }
+  
+  @Test
+  public void testPushGoToInvalidPathNotAtRoot() {
+    String ret = JShell.commandProcessor("mkdir a a/b a/b/c", s);
+    ret = JShell.commandProcessor("cd a/b", s);
+    ret = JShell.commandProcessor("pushd d", s);
+    assertNotEquals("should not be successful", "", ret);
+    assertEquals("stuck at at last cd'd dir", "/a/b",
+        s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushDoMultiplePushes() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("mkdir a a/b", s);
+    ret = JShell.commandProcessor("pushd a", s);
+    ret = JShell.commandProcessor("pushd b", s);
+    assertEquals("", ret);
+    assertEquals("/a/b", s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushAtRootDotParentNotation() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("pushd .", s);
+    assertEquals("", ret);
+    assertEquals("/", s.getCurrentDir().getEntirePath());
   }
   
   @Test
   public void testPushAtRootDotCurrentNotation() {
-    assertEquals();
-    assertEquals();
+    String ret = JShell.commandProcessor("pushd ..", s);
+    assertEquals("", ret);
+    assertEquals("/", s.getCurrentDir().getEntirePath());
   }
   
 }
