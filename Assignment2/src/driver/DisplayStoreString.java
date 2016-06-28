@@ -15,6 +15,7 @@ import driver.FileTypes.InvalidName;
  */
 public class DisplayStoreString implements Command {
 
+  /** Use the session to get the current and root directory */
   private MySession s;
 
   public DisplayStoreString(MySession session) {

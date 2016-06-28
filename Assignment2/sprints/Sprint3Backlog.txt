@@ -17,6 +17,7 @@ h) As a user, I can take written text and save it in a file for later use.
 i) As a user, I can take a file, append content to it and save it.
 j) As a user, I can	display text in the shell.
 k) As a user, I can display the contents of the directory I'm currently on.
+i) As a user, I can look at the history of commands I entered in the shell.	
 
 These tasks are assigned as follows:
 a-1. (PopAndPushDirectoriesTest) Add tests for pushd command
@@ -43,9 +44,10 @@ j-1. (DisplayStoreStringTest) Add tests for echo
 j-2. (DisplayStoreString) Complete implementation for echo command
 k-1. (ListDirectoryContents) Complete implementation for ls command
 k-2. (ListDirectoryContentsTest) Add tests for ls
+i-1. (DisplayHistory) Add tests for saving and getting the history of commands
 
 User: Gisho
-Tasks: j-1, j-2, k-1, k-2
+Tasks: j-1, j-2, k-1, k-2, i-1
 
 User: John
 Tasks: e-1, e-2, e-3, f-2, f-3
