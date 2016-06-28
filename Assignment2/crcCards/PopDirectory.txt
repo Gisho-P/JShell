@@ -1,9 +1,14 @@
-Class name: 
-Parent class: 
+Class name: PopDirectory
+Parent class: Command
 Subclasses: 
 
 Responsibilities:
+* Go to dir last stored in dirstack
+* Removes last dir in dirstack
 * 
 
 Collaborators:
-* 
+* FilePathInterpreter
+* MySession
+* Directory
+* Dirstack

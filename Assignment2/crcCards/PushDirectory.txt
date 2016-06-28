@@ -1,9 +1,14 @@
-Class name: 
-Parent class: 
+Class name: PushDirectory
+Parent class: Command
 Subclasses: 
 
 Responsibilities:
+* Stores the current dir to the dirstack
+* Goes to the dir specified
 * 
 
 Collaborators:
-* 
+* FilePathInterpreter
+* MySession
+* Directory
+* Dirstack
