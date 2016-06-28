@@ -197,8 +197,8 @@ public class FilePathInterpreter {
   /**
    * Removes the leading slashes in a string path entered.
    *
-   * @param path    path specified by user
-   * @return    path without any leading slashes
+   * @param path path specified by user
+   * @return path without any leading slashes
    */
   private static String removeLeadingSlashes(String path) {
     int slashes = 0;
@@ -215,8 +215,8 @@ public class FilePathInterpreter {
   /**
    * Removes the ending slashes in a string path entered.
    *
-   * @param path    user path given
-   * @return    processed path with no end slashes
+   * @param path user path given
+   * @return processed path with no end slashes
    */
   private static String removeEndingSlashes(String path) {
     int slashes = 0;
