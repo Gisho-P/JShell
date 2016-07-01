@@ -9,7 +9,11 @@
   to perform different  |
   tasks.		|
 -------------------------------------------
-* !
+* As a user, I can run a|	1.5h
+  previously entered	|
+  command, by specifying|
+  a number following an	|
+  exclamation mark.	|
 -------------------------------------------
 * As a user, I can see	|	1.5h
   any output of a	|
