@@ -21,7 +21,8 @@
   I entered.		|
 -------------------------------------------
 * As a user, I can store|	1.5h
-  any command output directly	|
+  any command output	|
+  directly		|
   to a file of my choice|
 -------------------------------------------
 * As a user, if I enter	|	1.5h
