@@ -73,6 +73,16 @@ public class File extends FileTypes {
     return "File Name: " + getName();
   }
 
+  public static File copy(File file){
+    File newFile = null;
+    try {
+      newFile = new File(file.getName(), file.getContent());
+    } catch (InvalidName invalidName) {
+      invalidName.printStackTrace();
+    }
+    return newFile;
+  }
+
   @Override
   /**
    * Determine if the two files are equal
