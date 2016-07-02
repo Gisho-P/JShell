@@ -8,7 +8,7 @@
 // Student2:
 // UTORID user_name: pushpa10
 // UT Student #: 1001624628
-// Author: Girrshotan Pushparajah
+// Author: Girrshotan(Gisho) Pushparajah
 //
 // Student3:
 // UTORID user_name: pateld59

@@ -17,11 +17,15 @@ c-1. (Session) Add a new hashtable key/value for new command
 c-2. (Command) Create inheriting class and implement functions
 c-3. (Session) Get specific history value
 c-4. (Command) Call the class that does the function specified.
-d-1, (Command) Search given files for given substrings using a regex
-d-2, (ListDirectoryContents) Create/use existing classes or Pattern in Java to read regexes
-d-3, (FilePathInterpreter) Create a method that can go to all sub directories
-f-1. (ListDirectoryContents) Create a seperate method that deals with listing sub directories.
-f-2. (ListDirectoryContents) Update the format to print subdirectories properly
+d-1. (Command) Search given files for given substrings using a regex
+d-2. (ListDirectoryContents) Create/use existing classes or Pattern in Java to read regexes
+d-3. (FilePathInterpreter) Create a method that can go to all sub directories
+e-1. (Output) Create an output class which has a stdout, and stderror string
+e-2. (Command) Update the exec method to return an object of type output
+e-3. (JShell) Check if any command has output redirection and redirect to a file
+e-4. (Output) Create a method that stores command output into a file
+f-1. (ListDirectoryContents) Create a separate method that deals with listing sub directories.
+f-2. (ListDirectoryContents) Update the format to print sub directories properly
 
 
 
@@ -29,7 +33,7 @@ f-2. (ListDirectoryContents) Update the format to print subdirectories properly
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: f-1, f-2
+Tasks: e-1, e-2, e-3, e-4, f-1, f-2
 
 User: John
 Tasks: d-1, d-2, d-3
