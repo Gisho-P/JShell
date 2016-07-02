@@ -7,9 +7,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-/**
- * Created by dhrumil on 01/07/16.
- */
 public class RetrieveUrlFile implements Command {
     MySession session;
     public RetrieveUrlFile(MySession session) {
@@ -53,6 +50,8 @@ public class RetrieveUrlFile implements Command {
             in.close();
 
             session.getCurrentDir().add(file);
+
+            System.out.println(file.getContent());
         } catch (MalformedURLException e) {
             msg += "Malformed URL.\n";
         } catch (IOException e) {
@@ -64,6 +63,7 @@ public class RetrieveUrlFile implements Command {
         } catch (Directory.NameExistsException e) {
             msg += e.getMessage() + "\n";
         }
+
         return msg;
 
     }
