@@ -10,18 +10,23 @@ c) As a user, I can run a previously entered command, by specifying a number
    following an exclamation mark.
 d) As a user, I can search for a file that has a pattern that I specify.
 e) As a user, I can store any command output directly to a file of my choice.
+f) As a user, I can get the contents of one or more directories and their subdirectories
 
 Specific tasks to be accomplished:
 c-1. (Session) Add a new hashtable key/value for new command
 c-2. (Command) Create inheriting class and implement functions
 c-3. (Session) Get specific history value
 c-4. (Command) Call the class that does the function specified.
+f-1. (ListDirectoryContents) Create a seperate method that deals with listing sub directories.
+f-2. (ListDirectoryContents) Update the format to print subdirectories properly
+
+
 
 
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: 
+Tasks: f-1, f-2
 
 User: John
 Tasks: 
