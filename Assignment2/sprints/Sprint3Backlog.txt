@@ -3,9 +3,6 @@ June 20 to June 27
 
 
 User Stories from Product Backlog that we will address in this sprint:
-
-
-Specific tasks to be accomplished:
 a) As a user, I can save my current directory for use later and go to a new directory.
 b) As a user, I can retrieve a previously saved directory and go back to it.
 c) As a user, I can input commands to the shell to perform different tasks.
@@ -19,7 +16,7 @@ j) As a user, I can	display text in the shell.
 k) As a user, I can display the contents of the directory I'm currently on.
 i) As a user, I can look at the history of commands I entered in the shell.	
 
-These tasks are assigned as follows:
+Specific tasks to be accomplished:
 a-1. (PopAndPushDirectoriesTest) Add tests for pushd command
 a-2. (PushDirectory) Make it so that directory is added to stack if directory can be changed
 b-1. (PopAndPushDirectoriesTest) Add tests for popd command
@@ -45,6 +42,8 @@ j-2. (DisplayStoreString) Complete implementation for echo command
 k-1. (ListDirectoryContents) Complete implementation for ls command
 k-2. (ListDirectoryContentsTest) Add tests for ls
 i-1. (DisplayHistory) Add tests for saving and getting the history of commands
+
+These tasks are assigned as follows:
 
 User: Gisho
 Tasks: j-1, j-2, k-1, k-2, i-1
