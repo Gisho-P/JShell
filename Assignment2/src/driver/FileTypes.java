@@ -49,7 +49,7 @@ public abstract class FileTypes {
     if (isValid(name)) // check for name validity
       this.name = name;
     else
-      throw new InvalidName("Name contains invalid characters");
+      throw new InvalidName("Name " + name + " contains invalid characters");
   }
 
   /**
