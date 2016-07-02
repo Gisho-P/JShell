@@ -21,7 +21,7 @@
   I entered.		|
 -------------------------------------------
 * As a user, I can store|	1.5h
-  any output directly	|
+  any command output directly	|
   to a file of my choice|
 -------------------------------------------
 * As a user, if I enter	|	1.5h
@@ -49,7 +49,8 @@
 * As a user, I can	|	1h
   display the contents	|
   of the directory I'm	|
-  currently on.		|
+  currently on or a 	|
+  directory I specify.	|
 -------------------------------------------
 * As a user, I can keep	|	1h
   track of what		|

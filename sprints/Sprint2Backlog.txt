@@ -3,9 +3,6 @@ June 14 to June 19
 
 
 User Stories from Product Backlog that we will address in this sprint:
-
-
-Specific tasks to be accomplished:
 a) As a user, I can create a directory that I can go through and create files in.
 b) As a user, I can traverse through directories to look for/create/delete files, etc.
 c) As a user, I can display the contents of the directory I'm currently on.
@@ -19,7 +16,7 @@ j) As a user, I can take written text and save it in a file for later use.
 k) As a user, I can take a file, append content to it and save it.
 l) As a user, I can display the manual to a command I don't understand.
 
-These tasks are assigned as follows:
+Specific tasks to be accomplished:
 a-1. (CommandInterpreter) Send args to function in shell functions
 a-2. (ShellFunctions) Return node to parent of where dir will be created
 a-3. (ShellFunctions) Create directory
@@ -60,6 +57,8 @@ k-3. (CommandInterpreter) Send args to function in shell functions
 l-1. (CommandInterpreter) Send args to function in shell functions
 l-2. (Session) Write man pages
 l-3. (ShellFunctions) Return man page
+
+These tasks are assigned as follows:
 
 User: Gisho
 Tasks: c-1, c-2, j-1, j-2, k-1, k-2, g-1, g-2, g-3

@@ -3,13 +3,12 @@ July 9 to July 15
 
 
 User Stories from Product Backlog that we will address in this sprint:
-
-
-Specific tasks to be accomplished:
 a)
 
-These tasks are assigned as follows:
+Specific tasks to be accomplished:
 
+
+These tasks are assigned as follows:
 
 User: Gisho
 Tasks: 
