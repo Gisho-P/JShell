@@ -58,6 +58,7 @@ public class MySession {
     commandToClass.put("cd", "ChangeDirectory");
     commandToClass.put("mkdir", "MakeDirectory");
     commandToClass.put("exit", "ExitProgram");
+    commandToClass.put("curl", "RetrieveUrlFile");
 
     // try to initialize root and current directory (to root)
     try {
