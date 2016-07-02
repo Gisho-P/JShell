@@ -13,6 +13,11 @@ e) As a user, I can store any command output directly to a file of my choice.
 f) As a user, I can get the contents of one or more directories and their subdirectories
 
 Specific tasks to be accomplished:
+b-1. (Session) Add a new hashtable key/value for curl command
+b-2. (RetrieveUrlFile) Determine if url provided is valid
+b-3. (RetrieveUrlFile) Retrieve data from url
+b-4. (RetrieveUrlFile) Create a file with the same name as the file in the url
+b-5. (RetrieveUrlFile) Store retrieved data in the file and add it to the current directory
 c-1. (Session) Add a new hashtable key/value for new command
 c-2. (Command) Create inheriting class and implement functions
 c-3. (Session) Get specific history value
@@ -27,9 +32,6 @@ e-4. (Output) Create a method that stores command output into a file
 f-1. (ListDirectoryContents) Create a separate method that deals with listing sub directories.
 f-2. (ListDirectoryContents) Update the format to print sub directories properly
 
-
-
-
 These tasks are assigned as follows:
 
 User: Gisho
@@ -39,7 +41,7 @@ User: John
 Tasks: d-1, d-2, d-3
 
 User: Dhrumil
-Tasks: 
+Tasks: b-1, b-2, b-3, b-4, b-5
 
 User: Adnan
 Tasks: c-1, c-2, c-3, c-4

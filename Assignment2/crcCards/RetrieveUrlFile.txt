@@ -1,0 +1,16 @@
+Class name: RetrieveUrlFile
+Parent class: Object
+Subclasses: N/A
+
+Responsibilities:
+* Determine if url provided is valid
+* Connect to the url
+* Retrieve data from the url
+* Create a file with the same name as the file in the url
+* Store retrieved data in the file
+* Add file to the current directory
+
+Collaborators:
+*Directory
+*File
+*MySession
