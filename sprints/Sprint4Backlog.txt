@@ -3,9 +3,19 @@ July 2 to July 8
 
 
 User Stories from Product Backlog that we will address in this sprint:
-a)
+a) As a user, I can display of the directory I'm currently on or a directory
+   I specify.
+b) As a user, I can grab a file from a URL and save it to my local directory.
+c) As a user, I can run a previously entered command, by specifying a number
+   following an exclamation mark.
+d) As a user, I can search for a file that has a pattern that I specify.
+e) As a user, I can store any command output directly to a file of my choice.
 
 Specific tasks to be accomplished:
+c-1. (Session) Add a new hashtable key/value for new command
+c-2. (Command) Create inheriting class and implement functions
+c-3. (Session) Get specific history value
+c-4. (Command) Call the class that does the function specified.
 
 
 These tasks are assigned as follows:
@@ -20,4 +30,4 @@ User: Dhrumil
 Tasks: 
 
 User: Adnan
-Tasks: 
+Tasks: c-1, c-2, c-3, c-4
