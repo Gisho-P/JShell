@@ -17,6 +17,9 @@ c-1. (Session) Add a new hashtable key/value for new command
 c-2. (Command) Create inheriting class and implement functions
 c-3. (Session) Get specific history value
 c-4. (Command) Call the class that does the function specified.
+d-1, (Command) Search given files for given substrings using a regex
+d-2, (ListDirectoryContents) Create/use existing classes or Pattern in Java to read regexes
+d-3, (FilePathInterpreter) Create a method that can go to all sub directories
 f-1. (ListDirectoryContents) Create a seperate method that deals with listing sub directories.
 f-2. (ListDirectoryContents) Update the format to print subdirectories properly
 
@@ -29,7 +32,7 @@ User: Gisho
 Tasks: f-1, f-2
 
 User: John
-Tasks: 
+Tasks: d-1, d-2, d-3
 
 User: Dhrumil
 Tasks: 
