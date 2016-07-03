@@ -14,9 +14,9 @@ public class DisplayFile implements Command {
   private MySession s;
   private Output out;
 
-  public DisplayFile(MySession session, Output output) {
+  public DisplayFile(MySession session) {
     s = session;
-    out = output;
+    out = new Output();
   }
 
   /**
