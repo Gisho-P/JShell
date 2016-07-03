@@ -102,24 +102,26 @@ public class JShell {
       cmd = cmd.replaceAll("[\\s]+", " ");
       cmdArgs = Arrays.asList(cmd.split(" "));
     }
-    Output out = callFunction(cmdArgs, session);
-    if(((cmdArgs.get(cmdArgs.size() - 1) == ">") || // redirect if second
-        (cmdArgs.get(cmdArgs.size() - 1) == ">>")) && // last argument is arrow
-        !out.getStdOutput().isEmpty()){ // and stdOut is not empty
-      return reDirectOutput(cmdArgs, session); 
-    }
+    Output out = new Output();
+    if(cmdArgs.size() < 3 ? false : (cmdArgs.get(cmdArgs.size() - 2).equals(">")
+        || cmdArgs.get(cmdArgs.size() - 2).equals(">>"))){
+      out = callFunction(cmdArgs.subList(0, cmdArgs.size() - 2), session);
+      if(!out.getStdOutput().isEmpty())
+        return reDirectOutput(cmdArgs, session, out);
+    } else
+      out = callFunction(cmdArgs, session);
     return out.getAllOutput();
   }
   
-  public static String reDirectOutput(List<String> cmdArgs, MySession session){
-    Output out = callFunction(cmdArgs, session);
-    if(cmdArgs.get(cmdArgs.size() - 2)  == ">")
+  public static String reDirectOutput(List<String> cmdArgs, MySession session,
+      Output out){
+    if(cmdArgs.get(cmdArgs.size() - 2).equals(">"))
       out.redirect(session, true, cmdArgs.get(cmdArgs.size() - 1),
-          cmdArgs.get(cmdArgs.size() - 2));
+          out.getStdOutput());
     else{
-      if(cmdArgs.get(cmdArgs.size() - 2)  == ">>")
+      if(cmdArgs.get(cmdArgs.size() - 2).equals(">>"))
         out.redirect(session, false, cmdArgs.get(cmdArgs.size() - 1),
-            cmdArgs.get(cmdArgs.size() - 2));
+            out.getStdOutput());
       else
         out.addStdError("redirection usage: cmd [args] [>][>] outFile ");
     }
