@@ -37,7 +37,7 @@ public class ExitProgram implements Command {
    * @deprecated
    */
   @Override
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     return null;
   }
 
@@ -45,7 +45,7 @@ public class ExitProgram implements Command {
    * @deprecated
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     return null;
   }
 

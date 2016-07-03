@@ -5,9 +5,11 @@ import java.util.List;
 public class DisplayPath implements Command {
 
   private MySession s;
+  private Output out;
 
   public DisplayPath(MySession session) {
     s = session;
+    out = new Output();
   }
 
   /**
@@ -31,7 +33,7 @@ public class DisplayPath implements Command {
    * @return The path of the given file.
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     return exec(args);
   }
 
@@ -42,11 +44,11 @@ public class DisplayPath implements Command {
    * @return The path of the given file.
    */
   @Override
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     if (args.size() != 1) {
-      return "pwd usage: pwd";
+      return out.withStdError("pwd usage: pwd");
     } else {
-      return s.getCurrentDir().getEntirePath();
+      return out.withStdOutput(s.getCurrentDir().getEntirePath(), false);
     }
   }
 

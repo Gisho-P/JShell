@@ -16,6 +16,7 @@ public class ListDirectoryContents implements Command {
    * The session is used to get the current directory when searching for paths
    */
   private MySession s;
+  private Output out;
 
   /**
    * Return ListDirectoryContents instance, to be able to run ls command.
@@ -25,6 +26,7 @@ public class ListDirectoryContents implements Command {
    */
   public ListDirectoryContents(MySession session) {
     s = session;
+    out = new Output();
   }
 
   /**
@@ -51,7 +53,7 @@ public class ListDirectoryContents implements Command {
    * @return output message (directory contents) or error message
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     return exec(args);
   }
 
@@ -62,8 +64,7 @@ public class ListDirectoryContents implements Command {
    * @param paths the paths of directories/files to be listed
    * @return a list of the contents of each of the given paths
    */
-  private String execMult(List<String> paths) {
-    String retVal = "";
+  private Output execMult(List<String> paths) {
     String currentDirectory = "";
     ArrayList<String> childNames = new ArrayList<String>();
     ArrayList<String> directoryAndContents = new ArrayList<String>();
@@ -74,7 +75,7 @@ public class ListDirectoryContents implements Command {
             .interpretPath(s.getCurrentDir(), i)).getChildNames());
         currentDirectory = i + ":";
       } catch (InvalidDirectoryPathException e) {
-        retVal += ("No such directory or file with path " + i + "\n");
+        out.addStdError("No such directory or file with path " + i + "\n");
       } catch (ClassCastException e) { // Indicates that path points to a file
         currentDirectory = i;
       }
@@ -90,9 +91,10 @@ public class ListDirectoryContents implements Command {
     } // Sort directory and contents alphabetically and add to return
     Collections.sort(directoryAndContents, String.CASE_INSENSITIVE_ORDER);
     for (String dirCon : directoryAndContents) {
-      retVal += dirCon + "\n";
+      out.addStdOutput(dirCon + "\n");
     }
-    return retVal.substring(0, retVal.length() - 1);
+    return out.withStdOutput(
+        out.getStdOutput().substring(0, out.getStdOutput().length() - 1), true);
   }
 
   /**
@@ -102,20 +104,19 @@ public class ListDirectoryContents implements Command {
    * @return error message or directory contents
    */
   @Override
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     // If there are paths specified get the output form function call
     if (args.size() > 1) {
       return execMult(args.subList(1, args.size()));
     }
     // Otherwise, get the contents of the current directory and return it
     else {
-      String retVal = "";
       ArrayList<String> childNames = s.getCurrentDir().getChildNames();
       Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
       for (String childName : childNames) {
-        retVal += childName + " ";
+        out.addStdOutput(childName + " ");
       }
-      return retVal.trim(); // remove last blank space
+      return out.withStdOutput(out.getStdOutput().trim(), true); // remove last blank space
     }
   }
 

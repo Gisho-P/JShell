@@ -16,6 +16,7 @@ public class DisplayHistory implements Command {
    * Current session attributes of the shell
    */
   private MySession s;
+  private Output out;
 
   /**
    * Create a new DisplayHistory instance, to be able to run the history
@@ -26,6 +27,7 @@ public class DisplayHistory implements Command {
    */
   public DisplayHistory(MySession session) {
     s = session; // store current session is instance variable
+    out = new Output();
   }
 
   /**
@@ -53,9 +55,9 @@ public class DisplayHistory implements Command {
    * @return Error message/directory to go to
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     if (args.size() > 2) { // too many args, error
-      return "history usage: history [number]";
+      return out.withStdError("history usage: history [number]");
     } else { // process args
       return exec(args);
     }
@@ -68,16 +70,17 @@ public class DisplayHistory implements Command {
    * @return History or error message
    */
   @Override
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     if (args.size() == 2) { // a potential number has been entered
       try { // check if a number has been added
         int arg = Integer.parseInt(args.get(1));
-        return s.printCommandHistory(arg);
+        return s.getCommandHistory(arg);
       } catch (NumberFormatException n) { // number hasn't been, error
-        return "history usage: history [number (INTEGER >= 0)]";
+        return out.withStdError(
+            "history usage: history [number (INTEGER >= 0)]");
       }
     } else { // print all user commands histpry
-      return s.printCommandHistory();
+      return s.getCommandHistory();
     }
   }
 

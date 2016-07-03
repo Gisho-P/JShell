@@ -16,6 +16,7 @@ public class PushDirectory implements Command {
    * Holder of current JShell's session attributes
    */
   private MySession s;
+  private Output out;
 
   /**
    * Returns a PushDirectory object that represents the pushd command. Now that
@@ -27,6 +28,7 @@ public class PushDirectory implements Command {
    */
   public PushDirectory(MySession session) {
     s = session; // store current session
+    out = new Output();
   }
 
   /**
@@ -54,9 +56,9 @@ public class PushDirectory implements Command {
    * @return Error message/null
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     if (args.size() != 2) { // incorrect # of args, error message
-      return "pushd usage: pushd DIR";
+      return out.withStdError("pushd usage: pushd DIR");
     } else {
       return exec(args); // process args, complete actions for command
     }
@@ -70,23 +72,23 @@ public class PushDirectory implements Command {
    * @return Error message (or null if successful)
    */
   @Override
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     String currDir = s.getCurrentDir().getEntirePath();
     try { // Call interpret method for cd command to change directory
       Class<?> c = Class.forName("driver.ChangeDirectory");
       Object t = c.getConstructor(MySession.class).newInstance(s);
       Method m = c.getMethod("interpret", List.class);
-      String ret = (String) m.invoke(t, args);
-      if (ret == null || ret == "") {
+      out = (Output) m.invoke(t, args);
+      if (out.getStdOutput() == "") {
         DirStack.pushd(currDir);
       }
-      return ret;
+      return out;
     } catch (ClassNotFoundException | InstantiationException
         | IllegalAccessException | NoSuchMethodException | SecurityException
         | IllegalArgumentException | InvocationTargetException e) {
       e.printStackTrace(); // print stack trace if failed, diagnose error
     }
-    return null;
+    return out;
   }
 
 }

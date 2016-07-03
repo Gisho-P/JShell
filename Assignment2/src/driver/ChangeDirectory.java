@@ -12,6 +12,7 @@ public class ChangeDirectory implements Command {
    * Uses session to change and retrieve current node
    */
   private MySession s;
+  private Output out;
 
   /**
    * Create
@@ -20,6 +21,7 @@ public class ChangeDirectory implements Command {
    */
   public ChangeDirectory(MySession session) {
     s = session;
+    out = new Output();
   }
 
   /**
@@ -48,9 +50,9 @@ public class ChangeDirectory implements Command {
    * @returns The output string of the command.
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     if (args.size() != 2) {
-      return "cd usage: cd DIR"; // error, print usage
+      return out.withStdError("cd usage: cd DIR"); // error, print usage
     } else { // return output from function call
       return exec(args);
     }
@@ -63,7 +65,7 @@ public class ChangeDirectory implements Command {
    * @param args The arguments for the command to take in.
    * @return The output string of the command.
    */
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     try {
       // Get the node at the end of the path if it exists and set the
       // current directory to the node
@@ -71,11 +73,11 @@ public class ChangeDirectory implements Command {
           FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(1));
       if (dest instanceof Directory) {
         s.setCurrentDir((Directory) dest);
-        return "";
+        return out;
       } else
-        return (dest.getName() + " is not a directory.");
+        return out.withStdError(dest.getName() + " is not a directory.");
     } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
-      return "No such dir as " + args.get(1);
+      return out.withStdError("No such dir as " + args.get(1));
     }
   }
 
