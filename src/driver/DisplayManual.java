@@ -17,6 +17,7 @@ public class DisplayManual implements Command {
    * Current session attributes of shell.
    */
   private MySession s;
+  private Output out;
 
   /**
    * Create DisplayManual instance to run man command.
@@ -26,6 +27,7 @@ public class DisplayManual implements Command {
    */
   public DisplayManual(MySession session) {
     s = session;
+    out = new Output();
   }
 
   /**
@@ -51,9 +53,9 @@ public class DisplayManual implements Command {
    * @return error message or man page
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     if (args.size() != 2) {
-      return "man usage: man CMD";
+      return out.withStdError("man usage: man CMD");
     } else {
       return exec(args);
     }
@@ -66,17 +68,17 @@ public class DisplayManual implements Command {
    * @return man page for command or error
    */
   @Override
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     try {
       Class<?> c =
           Class.forName("driver." + s.commandToClass.get((String) args.get(1)));
       Object t = c.getConstructor(MySession.class).newInstance(s);
       Method m = c.getMethod("man");
-      return (String) m.invoke(t, (Object[]) null);
+      return (Output) m.invoke(t, (Object[]) null);
     } catch (ClassNotFoundException | InstantiationException
         | IllegalAccessException | NoSuchMethodException | SecurityException
         | IllegalArgumentException | InvocationTargetException e) {
-      return "ERROR: Command does not exist.";
+      return out.withStdError("ERROR: Command does not exist.");
     }
   }
 

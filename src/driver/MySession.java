@@ -86,24 +86,25 @@ public class MySession {
    * @return The history of commands, the amount of entries listed based on
    *         parameter
    */
-  public String printCommandHistory(int numberOfCommands) {
+  public Output getCommandHistory(int numberOfCommands) {
+    Output out = new Output();
     int historySize = commandHistory.size();
     // If a number greater then the number of commands in history is given
     // print all commands
     if (numberOfCommands > historySize)
       numberOfCommands = historySize;
     if (numberOfCommands < 0) { // can't print negative commands
-      return "history usage: history [NUMBER >= 0]\n";
+      return out.withStdError("history usage: history [NUMBER >= 0]\n");
     } else { // format output and return
-      String output = "";
       for (int cmdNumber = historySize - numberOfCommands
           + 1; cmdNumber <= historySize; cmdNumber++) {
-        output = output + cmdNumber + ". " + commandHistory.get(cmdNumber - 1);
+        out.addStdOutput(cmdNumber + ". " +
+          commandHistory.get(cmdNumber - 1));
         if (cmdNumber != historySize) {
-          output = output + "\n";
+          out.addStdOutput("\n");
         }
       }
-      return output;
+      return out;
     }
   }
 
@@ -112,8 +113,8 @@ public class MySession {
    * 
    * @return List of commands entered by user, ordered chronologically.
    */
-  public String printCommandHistory() {
-    return printCommandHistory(commandHistory.size()); // call
+  public Output getCommandHistory() {
+    return getCommandHistory(commandHistory.size()); // call
                                                        // printCommandHistory
                                                        // with the max number as
                                                        // a parameter

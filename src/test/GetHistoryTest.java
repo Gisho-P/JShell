@@ -29,7 +29,8 @@ public class GetHistoryTest {
         expectedHistory +=
             ((i + 1) + (". " + "echo \"cmd " + i + "\"" + " > newFile"));
     }
-    assertTrue(session.printCommandHistory().equals(expectedHistory));
+    assertTrue(session.getCommandHistory().getAllOutput().
+        equals(expectedHistory));
   }
 
   /**
@@ -51,7 +52,8 @@ public class GetHistoryTest {
           expectedHistory +=
               ((i + 1) + (". " + "echo \"cmd " + i + "\" > " + "newFile"));
     }
-    assertTrue(session.printCommandHistory(2).equals(expectedHistory));
+    assertTrue(session.getCommandHistory(2).getAllOutput().
+        equals(expectedHistory));
   }
 
   /**
@@ -65,7 +67,8 @@ public class GetHistoryTest {
     for (Integer i = 0; i < 5; i++) {
       session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
     }
-    assertTrue(session.printCommandHistory(0).equals(expectedHistory));
+    assertTrue(session.getCommandHistory(0).getAllOutput().
+        equals(expectedHistory));
   }
 
   /**
@@ -86,7 +89,8 @@ public class GetHistoryTest {
         expectedHistory +=
             ((i + 1) + (". " + "echo \"cmd " + i + "\"" + " > newFile"));
     }
-    assertTrue(session.printCommandHistory(6).equals(expectedHistory));
+    assertTrue(session.getCommandHistory(6).getAllOutput().
+        equals(expectedHistory));
   }
 
 }

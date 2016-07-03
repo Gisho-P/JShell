@@ -17,6 +17,7 @@ public class PopDirectory implements Command {
    * Holder of current JShell's session attributes
    */
   private MySession s;
+  private Output out;
 
   /**
    * Returns a PopDirectory object that represents the popd command. Now that
@@ -28,6 +29,7 @@ public class PopDirectory implements Command {
    */
   public PopDirectory(MySession session) {
     s = session; // store current session
+    out = new Output();
   }
 
   /**
@@ -54,9 +56,9 @@ public class PopDirectory implements Command {
    * @return Error message/directory to go to
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     if (args.size() != 1) { // too many args entered, return an error message
-      return "popd usage: popd";
+      return out.withStdError("popd usage: popd");
     } else { // process args and complete actions for command
       return exec(args);
     }
@@ -69,11 +71,11 @@ public class PopDirectory implements Command {
    * @return Directory for shell to go to
    */
   @Override
-  public String exec(List<String> args) {
+  public Output exec(List<String> args) {
     List<Object> res = DirStack.popd(); // pop last saved directory from stack
 
     if ((boolean) res.get(1) == false) { // if stack is empty, return error
-      return (String) res.get(0);
+      return out.withStdError((String) res.get(0));
     } else { // use reflection to change directory to popped directory
       try {
         Class<?> c = Class.forName("driver.ChangeDirectory");
@@ -82,7 +84,7 @@ public class PopDirectory implements Command {
         List<String> r = new ArrayList<String>();
         r.addAll(args);
         r.add((String) res.get(0));
-        return (String) m.invoke(t, r);
+        return (Output) m.invoke(t, r);
       } catch (ClassNotFoundException | InstantiationException
           | IllegalAccessException | NoSuchMethodException | SecurityException
           | IllegalArgumentException | InvocationTargetException e) {

@@ -26,7 +26,7 @@ public interface Command {
    * 
    * @return An error message or displayed amount from a command
    */
-  public String interpret(List<String> args);
+  public Output interpret(List<String> args);
 
   /**
    * Complete the function of the command and return any necessary output/error
@@ -34,5 +34,5 @@ public interface Command {
    * 
    * @param args Arguments used by function to complete command
    */
-  public String exec(List<String> args);
+  public Output exec(List<String> args);
 }

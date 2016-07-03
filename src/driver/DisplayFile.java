@@ -12,9 +12,11 @@ public class DisplayFile implements Command {
   // MySession is used to access the files by finding them through the
   // root or current directory
   private MySession s;
+  private Output out;
 
-  public DisplayFile(MySession session) {
+  public DisplayFile(MySession session, Output output) {
     s = session;
+    out = output;
   }
 
   /**
@@ -41,9 +43,9 @@ public class DisplayFile implements Command {
    * @return The contents of the files given.
    */
   @Override
-  public String interpret(List<String> args) {
+  public Output interpret(List<String> args) {
     if (args.size() < 2) {
-      return "cat usage: cat FILE [FILE2] ...";
+      return out.withStdError("cat usage: cat FILE [FILE2] ...");
     } else {
       return exec(args.subList(1, args.size()));
       // return output from function call
@@ -57,8 +59,7 @@ public class DisplayFile implements Command {
    * @return The contents of the files given.
    */
   @Override
-  public String exec(List<String> args) {
-    String retVal = "";
+  public Output exec(List<String> args) {
     Boolean firstFile = true;
 
     // Iterate through each path and get the file contents
@@ -68,18 +69,18 @@ public class DisplayFile implements Command {
             ((File) FilePathInterpreter.interpretPath(s.getCurrentDir(), i));
         // print three line breaks in between files
         if (!firstFile)
-          retVal += "\n\n\n";
+           out.addStdOutput("\n\n\n");
         // Add the content to the return
-        retVal += currentFile.getContent();
+        out.addStdOutput(currentFile.getContent());
         if (firstFile)
           firstFile = false;
       } catch (InvalidDirectoryPathException e) {
-        retVal = "No such dir as " + i + "\n" + retVal;
+        out.addStdError("No such dir as " + i + "\n");
       } catch (ClassCastException e) {
-        retVal = "Unable to cat dir " + i + "\n" + retVal;
+        out.addStdError("Unable to cat dir " + i + "\n");
       }
     }
-    return retVal;
+    return out;
   }
 
 }

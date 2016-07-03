@@ -5,9 +5,11 @@ import java.util.List;
 public class MakeDirectory implements Command {
 
   private MySession s;
+  private Output out;
 
   public MakeDirectory(MySession session) {
     s = session;
+    out = new Output();
   }
 
   /**
@@ -32,14 +34,12 @@ public class MakeDirectory implements Command {
    * @returns The output string of the command.
    */
   @Override
-  public String interpret(List<String> cmdArgs) {
-    String output;
+  public Output interpret(List<String> cmdArgs) {
     if (cmdArgs.size() == 1) {
-      output = "mkdir usage: mkdir DIR [DIR2] ...";
+      return out.withStdError("mkdir usage: mkdir DIR [DIR2] ...");
     } else {// return output from function call
-      output = exec(cmdArgs.subList(1, cmdArgs.size()));
+      return exec(cmdArgs.subList(1, cmdArgs.size()));
     }
-    return output;
   }
 
   /**
@@ -50,8 +50,7 @@ public class MakeDirectory implements Command {
    * @return The output string of the command.
    */
   @Override
-  public String exec(List<String> directory) {
-    String message = "";
+  public Output exec(List<String> directory) {
     FileTypes parentDir;
     int slashIndex;
     String splitPath[];
@@ -67,20 +66,23 @@ public class MakeDirectory implements Command {
             ((Directory) parentDir)
                 .add(new Directory(splitPath[splitPath.length - 1]));
           } else
-            message += "mkdir: cannot create a directory without a name\n";
+            out.addStdError(
+                "mkdir: cannot create a directory without a name\n");
         }
       } catch (Directory.NameExistsException e) {
-        message += "mkdir: cannot create directory '" + i + "': File exists\n";
+        out.addStdError(
+            "mkdir: cannot create directory '" + i + "': File exists\n");
       } catch (Directory.InvalidAddition invalidAddition) {
         invalidAddition.printStackTrace();
       } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
-        message += "mkdir: cannot create directory '" + i + "': Invalid Path\n";
+        out.addStdError(
+            "mkdir: cannot create directory '" + i + "': Invalid Path\n");
       } catch (FileTypes.InvalidName invalidName) {
-        message += "mkdir: cannot create directory with name '" + i
-            + "'. It is invalid.\n";
+        out.addStdError("mkdir: cannot create directory with name '" + i
+            + "'. It is invalid.\n");
       }
     }
-    return message;
+    return out;
   }
 
 }

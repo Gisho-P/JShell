@@ -54,21 +54,21 @@ public class JShell {
    * @param session current shell's session attributes
    * @return output/error message of command class
    */
-  private static String callFunction(List<String> args, MySession session) {
-    String output = "";
+  private static Output callFunction(List<String> args, MySession session) {
+    Output out = new Output();
     try { // call command class w/ arguments and execute functions
       Class<?> c =
           Class.forName("driver." + session.commandToClass.get(args.get(0)));
       Object t = c.getConstructor(MySession.class).newInstance(session);
       Method m = c.getMethod("interpret", List.class);
-      output = (String) m.invoke(t, args);
+      out = (Output) m.invoke(t, args);
     } catch (ClassNotFoundException | InstantiationException
         | IllegalAccessException | NoSuchMethodException | SecurityException
         | IllegalArgumentException | InvocationTargetException e) {
-      output = "ERROR: Invalid Command."; // if execution failed, give error
+      out.addStdError("ERROR: Invalid Command."); // if execution failed, give error
     }
 
-    return output;
+    return out;
   }
 
   /**
@@ -102,9 +102,28 @@ public class JShell {
       cmd = cmd.replaceAll("[\\s]+", " ");
       cmdArgs = Arrays.asList(cmd.split(" "));
     }
-
-    return callFunction(cmdArgs, session); // given the args,
-                                           // execute the command
+    Output out = callFunction(cmdArgs, session);
+    if(((cmdArgs.get(cmdArgs.size() - 1) == ">") || // redirect if second
+        (cmdArgs.get(cmdArgs.size() - 1) == ">>")) && // last argument is arrow
+        !out.getStdOutput().isEmpty()){ // and stdOut is not empty
+      return reDirectOutput(cmdArgs, session); 
+    }
+    return out.getAllOutput();
+  }
+  
+  public static String reDirectOutput(List<String> cmdArgs, MySession session){
+    Output out = callFunction(cmdArgs, session);
+    if(cmdArgs.get(cmdArgs.size() - 2)  == ">")
+      out.redirect(session, true, cmdArgs.get(cmdArgs.size() - 1),
+          cmdArgs.get(cmdArgs.size() - 2));
+    else{
+      if(cmdArgs.get(cmdArgs.size() - 2)  == ">>")
+        out.redirect(session, false, cmdArgs.get(cmdArgs.size() - 1),
+            cmdArgs.get(cmdArgs.size() - 2));
+      else
+        out.addStdError("redirection usage: cmd [args] [>][>] outFile ");
+    }
+      return out.getStdError();
   }
 
   /**
