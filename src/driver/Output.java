@@ -66,16 +66,16 @@ public class Output {
   }
   
   public void redirect(MySession s, boolean overWrite, String file, String txt){
-    File thisputFile = null;
+    File outFile = null;
     // Check if the file exists in the directory
     try {
-      thisputFile = (File) FilePathInterpreter.interpretPath(s.getCurrentDir(),
+      outFile = (File) FilePathInterpreter.interpretPath(s.getCurrentDir(),
           file);
     }
     // If the file doesn't exist create it
     catch (InvalidDirectoryPathException e) {
       try {
-        thisputFile = createFileFromPath(file, s);
+        outFile = createFileFromPath(file, s);
       } catch (InvalidDirectoryPathException e1) {
          addStdError("ERROR: The directory of the file does not exist");
       } catch (NameExistsException e1) {
@@ -88,12 +88,12 @@ public class Output {
     } catch (ClassCastException e) {
        addStdError("ERROR: There is already a subdirectory with the same name");
     }
-    if(getStdError().isEmpty()){
-    // Write to the file, overwrite or append as given
-    if (overWrite)
-      thisputFile.setContent(txt == null ? "" : txt);
-    else
-      thisputFile.appendContent(txt == null ? "" : txt);
+    if(outFile != null){
+      // Write to the file, overwrite or append as given
+      if (overWrite)
+        outFile.setContent(txt == null ? "" : txt);
+      else
+        outFile.appendContent(txt == null ? "" : txt);
     }
   }
   

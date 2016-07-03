@@ -74,7 +74,7 @@ public class DisplayManual implements Command {
           Class.forName("driver." + s.commandToClass.get((String) args.get(1)));
       Object t = c.getConstructor(MySession.class).newInstance(s);
       Method m = c.getMethod("man");
-      return (Output) m.invoke(t, (Object[]) null);
+      return out.withStdOutput((String) m.invoke(t, (Object[]) null), true);
     } catch (ClassNotFoundException | InstantiationException
         | IllegalAccessException | NoSuchMethodException | SecurityException
         | IllegalArgumentException | InvocationTargetException e) {
