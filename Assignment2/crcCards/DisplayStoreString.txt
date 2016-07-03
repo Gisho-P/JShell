@@ -11,3 +11,4 @@ Responsibilities:
 Collaborators:
 * MySession
 * File
+* Output
