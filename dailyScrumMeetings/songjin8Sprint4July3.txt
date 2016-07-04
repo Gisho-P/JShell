@@ -1,0 +1,10 @@
+What did I do last time?
+	- Helped plan design for the revised JShell
+	- Product Backlog
+	- The GREP command and recursion
+
+What do I plan to do now?
+   - Add more tests for grep testing edg cases
+
+Am I blocked on anything?
+    - Nothing at the moment
