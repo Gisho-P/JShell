@@ -79,7 +79,7 @@ public class PushDirectory implements Command {
   public Output exec(List<String> args) {
     String currDir = s.getCurrentDir().getEntirePath();
     try { // Call interpret method for cd command to change directory
-      Class<?> c = Class.forName("driver.ChangeDirectory");
+      Class<?> c = Class.forName("commands.ChangeDirectory");
       Object t = c.getConstructor(MySession.class).newInstance(s);
       Method m = c.getMethod("interpret", List.class);
       out = (Output) m.invoke(t, args);

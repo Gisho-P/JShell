@@ -82,7 +82,7 @@ public class PopDirectory implements Command {
       return out.withStdError((String) res.get(0));
     } else { // use reflection to change directory to popped directory
       try {
-        Class<?> c = Class.forName("driver.ChangeDirectory");
+        Class<?> c = Class.forName("commands.ChangeDirectory");
         Object t = c.getConstructor(MySession.class).newInstance(s);
         Method m = c.getMethod("interpret", List.class);
         List<String> r = new ArrayList<String>();

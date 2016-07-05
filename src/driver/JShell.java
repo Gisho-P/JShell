@@ -60,7 +60,7 @@ public class JShell {
     Output out = new Output();
     try { // call command class w/ arguments and execute functions
       Class<?> c =
-          Class.forName("driver." + session.commandToClass.get(args.get(0)));
+          Class.forName("commands." + session.commandToClass.get(args.get(0)));
       Object t = c.getConstructor(MySession.class).newInstance(session);
       Method m = c.getMethod("interpret", List.class);
       out = (Output) m.invoke(t, args);
