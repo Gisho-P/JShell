@@ -3,6 +3,7 @@ package driver;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import structures.*;
 
 /**
  * The Class MySession maintains various attributes of a shell's current

@@ -1,9 +1,13 @@
-package driver;
+package commands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import structures.DirStack;
+import driver.MySession;
+import structures.Output;
 
 /**
  * This class represents the command popd, which pops the most recently saved

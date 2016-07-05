@@ -1,4 +1,4 @@
-package driver;
+package structures;
 
 import java.util.List;
 import java.util.ArrayList;

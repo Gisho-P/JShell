@@ -1,6 +1,12 @@
-package driver;
+package commands;
 
 import java.util.List;
+
+import structures.Directory;
+import driver.FilePathInterpreter;
+import structures.FileTypes;
+import driver.MySession;
+import structures.Output;
 
 public class MakeDirectory implements Command {
 

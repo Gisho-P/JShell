@@ -1,6 +1,8 @@
-package driver;
+package commands;
 
 import java.util.List;
+
+import structures.Output;
 
 /**
  * This interface provides the shared behaviour for classes that represent each

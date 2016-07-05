@@ -1,11 +1,16 @@
-package driver;
+package commands;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import structures.Directory;
+import structures.File;
+import driver.FilePathInterpreter;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
+import driver.MySession;
+import structures.Output;
 
 /**
  * The Class DisplayWithSubstring handles displaying file with a specific

@@ -1,8 +1,11 @@
-package driver;
+package commands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import driver.MySession;
+import structures.Output;
 
 /**
  * The Class DisplayManual takes a command name and returns the documentation

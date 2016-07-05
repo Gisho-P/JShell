@@ -1,6 +1,9 @@
-package driver;
+package commands;
 
 import java.util.List;
+
+import driver.MySession;
+import structures.Output;
 
 public class DisplayPath implements Command {
 

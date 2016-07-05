@@ -1,9 +1,10 @@
-package driver;
+package structures;
 
-import driver.Directory.InvalidAddition;
-import driver.Directory.NameExistsException;
+import driver.*;
+import structures.Directory.InvalidAddition;
+import structures.Directory.NameExistsException;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
-import driver.FileTypes.InvalidName;
+import structures.FileTypes.InvalidName;
 
 /**
  * The Class Output stores standard output and error strings and redirects

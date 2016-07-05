@@ -1,4 +1,4 @@
-package driver;
+package commands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+
+import structures.Directory;
+import structures.File;
+import structures.FileTypes;
+import driver.MySession;
+import structures.Output;
 
 public class RetrieveUrlFile implements Command {
     MySession session;

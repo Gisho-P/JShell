@@ -1,8 +1,12 @@
-package driver;
+package commands;
 
 import java.util.List;
 
+import structures.File;
+import driver.FilePathInterpreter;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
+import driver.MySession;
+import structures.Output;
 
 /**
  * The Class DisplayFile handles displaying the contents of one or more files.
