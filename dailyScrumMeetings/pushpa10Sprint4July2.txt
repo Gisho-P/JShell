@@ -1,0 +1,9 @@
+What did I do last time?
+    - Planned design for the second part of the JShell assignment.
+    - Planned implementation of new commands and the changes to the old commands
+
+What do I plan to do now?
+    - Implemented the Output class which handles output redirection
+
+Am I blocked on anything?
+    - Nothing right now.
