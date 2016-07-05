@@ -74,7 +74,7 @@ public class DisplayManual implements Command {
   public Output exec(List<String> args) {
     try {
       Class<?> c =
-          Class.forName("driver." + s.commandToClass.get((String) args.get(1)));
+          Class.forName("commands." + s.commandToClass.get((String) args.get(1)));
       Object t = c.getConstructor(MySession.class).newInstance(s);
       Method m = c.getMethod("man");
       return out.withStdOutput((String) m.invoke(t, (Object[]) null), true);
