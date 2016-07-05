@@ -5,14 +5,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import driver.Directory;
-import driver.File;
+import structures.File;
 import driver.JShell;
 import driver.MySession;
-import driver.Directory.InvalidAddition;
-import driver.Directory.MissingNameException;
-import driver.Directory.NameExistsException;
-import driver.FileTypes.InvalidName;
+import structures.Directory.InvalidAddition;
+import structures.Directory.NameExistsException;
+import structures.FileTypes.InvalidName;
 
 public class DisplayWithSubstringTest {
 

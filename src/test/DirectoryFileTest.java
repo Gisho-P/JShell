@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import driver.Directory;
-import driver.File;
-import driver.FileTypes;
+import structures.*;
 
 import static org.junit.Assert.assertEquals;
 
