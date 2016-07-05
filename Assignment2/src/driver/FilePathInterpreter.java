@@ -3,6 +3,8 @@ package driver;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import structures.*;
+
 /**
  * The FilePathInterpreter takes a path and processes it from the current
  * directory until the end of the path is reached and returns a FileTypes object

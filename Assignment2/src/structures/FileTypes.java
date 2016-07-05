@@ -1,4 +1,4 @@
-package driver;
+package structures;
 
 import java.util.regex.Pattern;
 

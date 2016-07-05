@@ -1,4 +1,4 @@
-package driver;
+package structures;
 
 /**
  * Represents files in a file system. It has the functionality to store, and

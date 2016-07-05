@@ -1,6 +1,9 @@
-package driver;
+package commands;
 
 import java.util.List;
+
+import driver.MySession;
+import structures.Output;
 
 /**
  * This class represents the manual for the exit command, the exit command

@@ -1,6 +1,9 @@
-package driver;
+package commands;
 
 import java.util.List;
+
+import driver.MySession;
+import structures.Output;
 
 /**
  * The Class DisplayHistory displays the history of commands entered in the

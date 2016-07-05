@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import structures.*;
+
 /**
  * This class provides the JShell that allows the user to enter a command,
  * processes it and then executes it. It will display any output or error
