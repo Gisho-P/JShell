@@ -2,13 +2,13 @@ package test;
 
 import org.junit.Test;
 
-import driver.Directory;
-import driver.Directory.InvalidAddition;
-import driver.Directory.NameExistsException;
-import driver.File;
+import structures.Directory;
+import structures.Directory.InvalidAddition;
+import structures.Directory.NameExistsException;
+import structures.File;
 import driver.FilePathInterpreter;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
-import driver.FileTypes;
+import structures.FileTypes;
 
 import static org.junit.Assert.assertTrue;
 

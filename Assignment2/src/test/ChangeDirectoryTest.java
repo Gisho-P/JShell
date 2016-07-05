@@ -6,9 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import driver.Directory;
-import driver.File;
-import driver.FileTypes;
+import structures.*;
 import driver.JShell;
 import driver.MySession;
 

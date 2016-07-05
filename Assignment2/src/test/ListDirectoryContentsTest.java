@@ -3,12 +3,12 @@ package test;
 import org.junit.Before;
 import org.junit.Test;
 
-import driver.Directory;
-import driver.Directory.InvalidAddition;
-import driver.Directory.MissingNameException;
-import driver.Directory.NameExistsException;
-import driver.File;
-import driver.FileTypes.InvalidName;
+import structures.Directory;
+import structures.Directory.InvalidAddition;
+import structures.Directory.MissingNameException;
+import structures.Directory.NameExistsException;
+import structures.File;
+import structures.FileTypes.InvalidName;
 import driver.JShell;
 import driver.MySession;
 

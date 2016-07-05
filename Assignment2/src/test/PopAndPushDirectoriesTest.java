@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import driver.DirStack;
+import structures.DirStack;
 import driver.JShell;
 import driver.MySession;
 
