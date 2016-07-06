@@ -1,0 +1,16 @@
+Class name: DisplayWithSubstring
+Parent class: Command
+Subclasses: N/A
+
+Responsibilities:
+* Determine if the arguments to DisplayWithSubstring have the correct format
+* Searches a file for lines with the substring
+* Checks sub directories inside relative to the main if specified
+* Returns the lines with the substring in it
+
+Collaborators:
+* FilePathInterpreter
+* MySession
+* Directory
+* File
+* Output

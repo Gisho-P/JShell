@@ -51,4 +51,43 @@ public class DisplayWithSubstringTest {
 	    assertEquals("/:abcdefg\n" + "/:abcde\n" + "/:abc", message);
 
 	  }
+	  
+	  @Test
+	  public void testAnySubstring() {
+		    try {
+		    	File temp = new File("file1");
+		    	temp.setContent("abcdefg\n" + "abcde\n" + "abc\n");
+		      session.getCurrentDir().add(temp);
+		    } catch (NameExistsException | InvalidAddition | InvalidName e) {
+		    }
+		    String message = JShell.commandProcessor("grep -R .* file1", session);
+		    assertEquals("/:abcdefg\n" + "/:abcde\n" + "/:abc", message);
+
+	  }
+	  
+	  @Test
+	  public void testEmptySubStringPath() {
+		    try {
+		    	File temp = new File("file1");
+		    	temp.setContent("abcdefg\n" + "abcde\n" + "abc\n");
+		      session.getCurrentDir().add(temp);
+		    } catch (NameExistsException | InvalidAddition | InvalidName e) {
+		    }
+		    String message = JShell.commandProcessor("grep -R file1", session);
+		    assertEquals("", message);
+
+		  }
+	  
+	  @Test
+	  public void testSingleSubstring() {
+		    try {
+		    	File temp = new File("file1");
+		    	temp.setContent("abcdefg\n" + "abcde\n" + "abc\n");
+		      session.getCurrentDir().add(temp);
+		    } catch (NameExistsException | InvalidAddition | InvalidName e) {
+		    }
+		    String message = JShell.commandProcessor("grep -R abc file1", session);
+		    assertEquals("/:abc", message);
+
+	  }
 }
