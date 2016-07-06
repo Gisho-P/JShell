@@ -1,0 +1,8 @@
+What did I do last time?
+   - Implemented the curl command. Added copy methods to File and Directory classes for the mv and cp commands
+
+What do I plan to do now?
+   - Need to deal with edge cases of the curl command. Change the output to deal with stderr and stdout.
+
+Am I blocked on anything?
+    - Need to ask instructor about edge cases of the curl command
