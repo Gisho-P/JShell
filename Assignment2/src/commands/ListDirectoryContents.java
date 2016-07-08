@@ -141,7 +141,7 @@ public class ListDirectoryContents implements Command {
     // Otherwise, get the contents of the current directory and return it
     else {
       return out.withStdOutput(getDirectoryContents(s.getCurrentDir(),
-          s.getCurrentDir(), "", false).replaceFirst(": ", ""), false);
+          s.getCurrentDir(), "", false).replaceFirst(":", "").trim(), false);
     }
   }
 
