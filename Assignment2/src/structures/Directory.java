@@ -210,15 +210,15 @@ public class Directory extends FileTypes {
     }
 
     /**
-     * Get the path to the current directory from the root.
+     * Get the path to the current directory from a parent directory.
      *
-     * @return A path to the current directory from root
+     * @return A path to the current directory from a parent directory
      */
-    public String getEntirePath() {
+    public String getPath(Directory dir2Parent) {
         // Construct the path to the current directory from the root
         String path = "/" + getName();
         Directory current = this;
-        while ((current = current.parent) != null) {
+        while ((current = current.parent) != dir2Parent) {
             // root doesn't require a slash before the name
             if (current.getName() == "")
                 path = current.getName() + path;
@@ -226,6 +226,15 @@ public class Directory extends FileTypes {
                 path = "/" + current.getName() + path;
         }
         return path;
+    }
+
+    /**
+     * Get the path to the current directory from the root.
+     *
+     * @return A path to the current directory from root
+     */
+    public String getEntirePath(){
+      return getPath(null);
     }
 
     /**

@@ -1,7 +1,9 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import structures.Directory;
@@ -42,7 +44,7 @@ public class ListDirectoryContents implements Command {
   public String man() {
     return "LS(1)\t\t\t\tUser Commands\t\t\t\tLS(1)\n\nNAME\n\t"
         + "\tls - prints out all of the contents of one or many "
-        + "files/directories\n\nSYNOPSIS\n\t\tls [PATH ...]\n\n"
+        + "files/directories\n\nSYNOPSIS\n\t\tls [-R] [PATH ...]\n\n"
         + "DESCRIPTION\n\t\tPrints out the contents of files/"
         + "directories.\n\n\t\tIf PATH is not specified, prints "
         + "out the contents of the current\n\t\tdirectory by "
@@ -68,38 +70,50 @@ public class ListDirectoryContents implements Command {
    * @param paths the paths of directories/files to be listed
    * @return a list of the contents of each of the given paths
    */
-  private Output execMult(List<String> paths) {
-    String currentDirectory = "";
-    ArrayList<String> childNames = new ArrayList<String>();
-    ArrayList<String> directoryAndContents = new ArrayList<String>();
+  private Output execMult(List<String> paths, Boolean recursiveDirectories) {
+    Collections.sort(paths, String.CASE_INSENSITIVE_ORDER);
     // Get children if path is a directory, or return path if it's a file
     for (String i : paths) {
       try { // Assume it's a directory and get children
-        childNames.addAll(((Directory) FilePathInterpreter
-            .interpretPath(s.getCurrentDir(), i)).getChildNames());
-        currentDirectory = i + ":";
+        Directory currentDir = ((Directory) FilePathInterpreter
+            .interpretPath(s.getCurrentDir(), i));
+        out.addStdOutput(getDirectoryContents((Directory) currentDir,
+            currentDir, i, recursiveDirectories) + "\n");
       } catch (InvalidDirectoryPathException e) {
         out.addStdError("No such directory or file with path " + i + "\n");
       } catch (ClassCastException e) { // Indicates that path points to a file
-        currentDirectory = i;
+        out.addStdOutput(i + "\n");
       }
-      if (currentDirectory != "") { // Sort children alphabetically and store
-        Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-        for (String childName : childNames) {
-          currentDirectory += " " + childName;
-        }
-        directoryAndContents.add(currentDirectory);
-        childNames.clear();
-        currentDirectory = "";
-      }
-    } // Sort directory and contents alphabetically and add to return
-    Collections.sort(directoryAndContents, String.CASE_INSENSITIVE_ORDER);
-    for (String dirCon : directoryAndContents) {
-      out.addStdOutput(dirCon + "\n");
     }
     return out.withStdOutput(
         out.getStdOutput().substring(0, out.getStdOutput().length() - 1), true);
   }
+
+  private String getDirectoryContents(Directory currentDir, Directory root,
+      String path, Boolean r) {
+    String curDirContents = currentDir == root ? path + ":"
+        : (path.equals("/") ? "" : path) + currentDir.getPath(root)
+            + ":";
+    ArrayList<String> childNames = currentDir.getChildNames();
+    Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
+    for (String childName : childNames) {
+      curDirContents += " " + childName;
+    }
+    if (r) {
+      ArrayList<Directory> subDirectories = currentDir.getChildDirs();
+      Collections.sort(subDirectories, new Comparator<Directory>() {
+        @Override
+        public int compare(Directory d1, Directory d2) {
+          return d1.getName().compareTo(d2.getName()); // Ascending
+        }
+      });
+      for (Directory subDir : subDirectories) {
+        curDirContents += "\n" + getDirectoryContents(subDir, root, path, r);
+      }
+    }
+    return curDirContents;
+  }
+
 
   /**
    * Returns contents of director(y/ies) in a neatly formatted string.
@@ -109,18 +123,25 @@ public class ListDirectoryContents implements Command {
    */
   @Override
   public Output exec(List<String> args) {
+    if (args.size() == 2 && args.get(1).equals("-R")) {
+      if(s.getCurrentDir().equals(s.getRootDir()))
+        return execMult(Arrays.asList("/"), args.get(1).equals("-R"));
+      else
+        return out.withStdOutput(getDirectoryContents(s.getCurrentDir(),
+            s.getCurrentDir(), s.getCurrentDir().getName(),
+            args.get(1).equals("-R")), false);
+    }
     // If there are paths specified get the output form function call
     if (args.size() > 1) {
-      return execMult(args.subList(1, args.size()));
+      if (args.get(1).equals("-R"))
+        return execMult(args.subList(2, args.size()), true);
+      else
+        return execMult(args.subList(1, args.size()), false);
     }
     // Otherwise, get the contents of the current directory and return it
     else {
-      ArrayList<String> childNames = s.getCurrentDir().getChildNames();
-      Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
-      for (String childName : childNames) {
-        out.addStdOutput(childName + " ");
-      }
-      return out.withStdOutput(out.getStdOutput().trim(), true); // remove last blank space
+      return out.withStdOutput(getDirectoryContents(s.getCurrentDir(),
+          s.getCurrentDir(), "", false).replaceFirst(": ", ""), false);
     }
   }
 
