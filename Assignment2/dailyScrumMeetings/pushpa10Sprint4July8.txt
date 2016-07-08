@@ -1,0 +1,8 @@
+What did I do last time?
+    - Re factor list directory contents to work with sub directories
+
+What do I plan to do now?
+   - Add tests for the recursive output of listDirectoryContents
+
+Am I blocked on anything?
+    - Nothing right now.

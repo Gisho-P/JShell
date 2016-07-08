@@ -6,6 +6,9 @@ Responsibilities:
 * Get the contents of the current directory
 * Get the contents of a list of directories given their path
 * Get the name of a file/files given the path
+* Get the contents of the current directory and all of it's sub directories
+* Get the contents of a list of directories given their path, and all of those
+directories sub directories
 
 Collaborators:
 * MySession
