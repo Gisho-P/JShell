@@ -1,0 +1,15 @@
+Class name: MoveFile
+Parent class: Command
+Subclasses: N/A
+
+Responsibilities:
+* Copies the contents of the file to another place
+* Overwrites files if it already exists
+* Delets the file in the previous directory
+
+Collaborators:
+* FilePathInterpreter
+* MySession
+* File
+* Directory
+* Output
