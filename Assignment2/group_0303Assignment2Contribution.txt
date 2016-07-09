@@ -1,0 +1,923 @@
++++ASSIGNMENT2 TEAM MEMBER CONTRIBUTION+++
+
+
+
+PART 1) +++SVN CHECKOUT ON YOUR ASSIGNMENT1+++
+A    Assignment2/sprints
+A    Assignment2/sprints/readMeSprints.txt
+A    Assignment2/sprints/Sprint1Backlog.txt
+A    Assignment2/sprints/Sprint2Backlog.txt
+A    Assignment2/sprints/Sprint3Backlog.txt
+A    Assignment2/productBacklog
+A    Assignment2/productBacklog/productBacklogFor2A.txt
+A    Assignment2/productBacklog/readMeProductBacklog.txt
+A    Assignment2/crcCards
+A    Assignment2/crcCards/File.txt
+A    Assignment2/crcCards/FilePathInterpreter.txt
+A    Assignment2/crcCards/DisplayPath.txt
+A    Assignment2/crcCards/PopDirectory.txt
+A    Assignment2/crcCards/DisplayHistory.txt
+A    Assignment2/crcCards/MySession.txt
+A    Assignment2/crcCards/ExitProgram.txt
+A    Assignment2/crcCards/MakeDirectory.txt
+A    Assignment2/crcCards/DisplayManual.txt
+A    Assignment2/crcCards/FileTypes.txt
+A    Assignment2/crcCards/Directory.txt
+A    Assignment2/crcCards/PushDirectory.txt
+A    Assignment2/crcCards/dirStack.txt
+A    Assignment2/crcCards/DisplayFile.txt
+A    Assignment2/crcCards/shell.txt
+A    Assignment2/crcCards/readMeForCrcCards.txt
+A    Assignment2/crcCards/DisplayStoreString.txt
+A    Assignment2/crcCards/ChangeDirectory.txt
+A    Assignment2/crcCards/Command.txt
+A    Assignment2/crcCards/ListDirectoryContents.txt
+A    Assignment2/readMeAssignment2A.txt
+A    Assignment2/src
+A    Assignment2/src/driver
+A    Assignment2/src/driver/DisplayPath.java
+A    Assignment2/src/driver/PopDirectory.java
+A    Assignment2/src/driver/DisplayHistory.java
+A    Assignment2/src/driver/MySession.java
+A    Assignment2/src/driver/ExitProgram.java
+A    Assignment2/src/driver/MakeDirectory.java
+A    Assignment2/src/driver/DisplayManual.java
+A    Assignment2/src/driver/PushDirectory.java
+A    Assignment2/src/driver/DirStack.java
+A    Assignment2/src/driver/Directory.java
+A    Assignment2/src/driver/FileTypes.java
+A    Assignment2/src/driver/DisplayFile.java
+A    Assignment2/src/driver/DisplayStoreString.java
+A    Assignment2/src/driver/ChangeDirectory.java
+A    Assignment2/src/driver/Command.java
+A    Assignment2/src/driver/ListDirectoryContents.java
+A    Assignment2/src/driver/File.java
+A    Assignment2/src/driver/FilePathInterpreter.java
+A    Assignment2/src/driver/JShell.java
+A    Assignment2/src/test
+A    Assignment2/src/test/GetHistoryTest.java
+A    Assignment2/src/test/DisplayPathTest.java
+A    Assignment2/src/test/MakeDirectoryTest.java
+A    Assignment2/src/test/FileTraversalTest.java
+A    Assignment2/src/test/DirectoryFileTest.java
+A    Assignment2/src/test/DisplayStoreStringTest.java
+A    Assignment2/src/test/ChangeDirectoryTest.java
+A    Assignment2/src/test/ListDirectoryContentsTest.java
+A    Assignment2/src/test/PopAndPushDirectoriesTest.java
+A    Assignment2/dailyScrumMeetings
+A    Assignment2/dailyScrumMeetings/readMeDailyScrumMeetings.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June8.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint1June8.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint3June20.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint3June20.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint2June14.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint2June14.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint3June23.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint3June23.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint2June17.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint3June26.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint2June17.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June20.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint3June26.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June14.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June23.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint3June20.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint2June14.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June17.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June26.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint3June23.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint2June17.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint3June26.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint1June8.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint1June8.txt
+Checked out revision 183.
+
+
+
+PART 2) +++SVN COMMIT LOGS ARE+++
+Marks Deductions here (-.5 max): 
+------------------------------------------------------------------------
+r183 | bhuiya16@UTORONTO.CA | 2016-06-27 23:59:12 -0400 (Mon, 27 Jun 2016) | 1 line
+
+formatted
+------------------------------------------------------------------------
+r182 | pateld59@UTORONTO.CA | 2016-06-27 23:58:51 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Made minor adjustments to commands
+------------------------------------------------------------------------
+r181 | bhuiya16@UTORONTO.CA | 2016-06-27 23:58:03 -0400 (Mon, 27 Jun 2016) | 1 line
+
+documentation final
+------------------------------------------------------------------------
+r180 | songjin8@UTORONTO.CA | 2016-06-27 23:50:28 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added JavaDocs for DisplayFIle DisplayManual and DisplayPath.
+------------------------------------------------------------------------
+r179 | pateld59@UTORONTO.CA | 2016-06-27 23:39:05 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Made changes to some docs
+------------------------------------------------------------------------
+r178 | songjin8@UTORONTO.CA | 2016-06-27 23:36:21 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added DirStack as a collaborator to Push/PopDirectory
+------------------------------------------------------------------------
+r177 | songjin8@UTORONTO.CA | 2016-06-27 23:35:47 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Revisited some CRC cards.
+------------------------------------------------------------------------
+r176 | bhuiya16@UTORONTO.CA | 2016-06-27 23:23:51 -0400 (Mon, 27 Jun 2016) | 1 line
+
+documentation
+------------------------------------------------------------------------
+r175 | pateld59@UTORONTO.CA | 2016-06-27 23:22:21 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Removed DisplaySession and GeneralShellTests. They were no longer required
+------------------------------------------------------------------------
+r174 | pateld59@UTORONTO.CA | 2016-06-27 23:04:28 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Updated the documentation and format of multiple tests
+------------------------------------------------------------------------
+r173 | songjin8@UTORONTO.CA | 2016-06-27 22:56:58 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Revised the CRC cards for Displaypath DisplayStoreString File ListDirectory Pop/PushDirectory
+------------------------------------------------------------------------
+r172 | songjin8@UTORONTO.CA | 2016-06-27 22:05:26 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added CRC cards for Command ChangeDirectory DisplayFile.
+------------------------------------------------------------------------
+r171 | pushpa10@UTORONTO.CA | 2016-06-27 21:49:25 -0400 (Mon, 27 Jun 2016) | 1 line
+
+updated cat to work with invalid files
+------------------------------------------------------------------------
+r170 | pateld59@UTORONTO.CA | 2016-06-27 21:47:30 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Updated documentation for few files
+------------------------------------------------------------------------
+r169 | songjin8@UTORONTO.CA | 2016-06-27 21:37:50 -0400 (Mon, 27 Jun 2016) | 3 lines
+
+Shortened the FilePathInterpreter and seperated methods, added documentation to ChangeDirectory.
+
+
+------------------------------------------------------------------------
+r168 | pushpa10@UTORONTO.CA | 2016-06-27 21:30:32 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Updated the crcCards for a number of classes
+------------------------------------------------------------------------
+r167 | songjin8@UTORONTO.CA | 2016-06-27 21:17:45 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added documentation for MakeDirectory.
+------------------------------------------------------------------------
+r166 | pateld59@UTORONTO.CA | 2016-06-27 21:15:54 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Modified documentation for Directory class
+------------------------------------------------------------------------
+r165 | pushpa10@UTORONTO.CA | 2016-06-27 21:08:21 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added crc cards for all classes, and updated sprint3 to include one more task i worked on
+------------------------------------------------------------------------
+r164 | bhuiya16@UTORONTO.CA | 2016-06-27 21:04:56 -0400 (Mon, 27 Jun 2016) | 1 line
+
+push, pop tests
+------------------------------------------------------------------------
+r163 | songjin8@UTORONTO.CA | 2016-06-27 20:56:27 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added comments for change directory command.
+------------------------------------------------------------------------
+r162 | pushpa10@UTORONTO.CA | 2016-06-27 20:11:39 -0400 (Mon, 27 Jun 2016) | 1 line
+
+updated printcommandhistory to display all commands if a number greater then the current amount is given, and added more tests to getHistoryTest
+------------------------------------------------------------------------
+r161 | pushpa10@UTORONTO.CA | 2016-06-27 19:55:46 -0400 (Mon, 27 Jun 2016) | 1 line
+
+updated gethistory test to fix mistake in test
+------------------------------------------------------------------------
+r160 | pushpa10@UTORONTO.CA | 2016-06-27 19:50:06 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Separated displayStoreString's exec by adding a helper, modified method names for tests to include test prefix and changed mysessiontest to gethistorytest
+------------------------------------------------------------------------
+r159 | pushpa10@UTORONTO.CA | 2016-06-27 18:57:00 -0400 (Mon, 27 Jun 2016) | 1 line
+
+updated execMult method in ListDirectoryContents by removing unnecessary extra check if file exists
+------------------------------------------------------------------------
+r158 | pateld59@UTORONTO.CA | 2016-06-27 18:42:12 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Renamed TraversalDirTest to ChangeDirectory test and modified it so it doesn't rely on ls. Transferred a test from ChangeDirectoryTests to MakeDirectoryTests
+------------------------------------------------------------------------
+r157 | pateld59@UTORONTO.CA | 2016-06-27 18:06:54 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added test for Display Paths
+------------------------------------------------------------------------
+r156 | bhuiya16@UTORONTO.CA | 2016-06-27 18:01:21 -0400 (Mon, 27 Jun 2016) | 1 line
+
+updated Sprint3Backlog.txt to match work done
+------------------------------------------------------------------------
+r155 | pushpa10@UTORONTO.CA | 2016-06-27 17:27:00 -0400 (Mon, 27 Jun 2016) | 1 line
+
+removed extra files, that were accidently added
+------------------------------------------------------------------------
+r154 | pushpa10@UTORONTO.CA | 2016-06-27 17:21:51 -0400 (Mon, 27 Jun 2016) | 1 line
+
+added docs to command classes, test suites for echo and ls, and refactored ls to print the paths in alphabetical order
+------------------------------------------------------------------------
+r153 | pateld59@UTORONTO.CA | 2016-06-27 17:20:55 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Updated documentation for the MakeDirectoryTest
+------------------------------------------------------------------------
+r152 | pushpa10@UTORONTO.CA | 2016-06-27 14:40:00 -0400 (Mon, 27 Jun 2016) | 1 line
+
+fixed bug in echo which wasn't outputting strings to stdout, and updated append to not include a new line if the file is empty
+------------------------------------------------------------------------
+r151 | pateld59@UTORONTO.CA | 2016-06-27 14:38:36 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Updated filepathinterpreter to ignore files with slash at the end in the name
+------------------------------------------------------------------------
+r150 | pateld59@UTORONTO.CA | 2016-06-27 12:59:33 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Fixed bugs in ListDirectoryContents.java
+------------------------------------------------------------------------
+r149 | pateld59@UTORONTO.CA | 2016-06-27 11:57:10 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Fixed newlinebug in JShell, added more tests for MakeDirectory
+------------------------------------------------------------------------
+r148 | pushpa10@UTORONTO.CA | 2016-06-27 03:54:37 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added scrum log
+------------------------------------------------------------------------
+r147 | pushpa10@UTORONTO.CA | 2016-06-27 03:51:27 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Updated listDirectoryContents to not print current path if no paths are specified, and updated session tests
+------------------------------------------------------------------------
+r146 | bhuiya16@UTORONTO.CA | 2016-06-27 01:38:28 -0400 (Mon, 27 Jun 2016) | 1 line
+
+renamed PopDirectoryTest to PopAndPushDirectoriesTest, added DisplaySessionAttributesTest for ls, pwd, history, etc. (not cat, echo)
+------------------------------------------------------------------------
+r145 | pateld59@UTORONTO.CA | 2016-06-27 01:05:07 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added few more tests for MakeDirectory class
+------------------------------------------------------------------------
+r144 | bhuiya16@UTORONTO.CA | 2016-06-27 01:04:01 -0400 (Mon, 27 Jun 2016) | 2 lines
+
+scrum log
+
+------------------------------------------------------------------------
+r143 | songjin8@UTORONTO.CA | 2016-06-27 01:03:18 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added scrum log for 26th.
+------------------------------------------------------------------------
+r142 | pateld59@UTORONTO.CA | 2016-06-27 01:03:11 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added last sprint log
+------------------------------------------------------------------------
+r141 | songjin8@UTORONTO.CA | 2016-06-27 00:57:03 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Removed and changed some tests for file path interpreter.
+------------------------------------------------------------------------
+r140 | bhuiya16@UTORONTO.CA | 2016-06-27 00:55:15 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Added popd tests, did error checking for popd and pushd classes
+------------------------------------------------------------------------
+r139 | pateld59@UTORONTO.CA | 2016-06-27 00:31:25 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Created testsfor Make Directory class
+------------------------------------------------------------------------
+r138 | pateld59@UTORONTO.CA | 2016-06-27 00:16:42 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Fixed severalsmall bugs in MakeDirectory
+------------------------------------------------------------------------
+r137 | songjin8@UTORONTO.CA | 2016-06-27 00:01:34 -0400 (Mon, 27 Jun 2016) | 1 line
+
+Changed removal of ending extra slashes in interpret make path.
+------------------------------------------------------------------------
+r136 | pateld59@UTORONTO.CA | 2016-06-26 21:23:53 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Fixed a bug in change directory related to the user trying to change the current directory toa file
+------------------------------------------------------------------------
+r135 | pateld59@UTORONTO.CA | 2016-06-26 21:12:00 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Added few testcases to TraversalDirTest and FileTraversalTest
+------------------------------------------------------------------------
+r134 | pateld59@UTORONTO.CA | 2016-06-26 19:05:21 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Added tests for slash
+------------------------------------------------------------------------
+r133 | songjin8@UTORONTO.CA | 2016-06-26 18:20:51 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Added two tests and chagned some things about file path interpreter.
+------------------------------------------------------------------------
+r132 | pateld59@UTORONTO.CA | 2016-06-26 16:58:33 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Added some edge case tests for FilePathInterpreter
+------------------------------------------------------------------------
+r131 | pateld59@UTORONTO.CA | 2016-06-26 16:21:00 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Added more tests for FileTraversal
+------------------------------------------------------------------------
+r130 | songjin8@UTORONTO.CA | 2016-06-26 16:16:50 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Changed file path interpreter bug.
+------------------------------------------------------------------------
+r129 | pateld59@UTORONTO.CA | 2016-06-26 15:04:56 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Updated exception handling in FileTraversalTest
+------------------------------------------------------------------------
+r128 | songjin8@UTORONTO.CA | 2016-06-26 12:21:13 -0400 (Sun, 26 Jun 2016) | 1 line
+
+Changed tests to run with new design.
+------------------------------------------------------------------------
+r127 | bhuiya16@UTORONTO.CA | 2016-06-26 09:12:40 -0400 (Sun, 26 Jun 2016) | 1 line
+
+started adding documentation to classes
+------------------------------------------------------------------------
+r126 | bhuiya16@UTORONTO.CA | 2016-06-26 06:13:45 -0400 (Sun, 26 Jun 2016) | 1 line
+
+rechanged format of product backlog to match what is asked for
+------------------------------------------------------------------------
+r125 | bhuiya16@UTORONTO.CA | 2016-06-26 03:55:26 -0400 (Sun, 26 Jun 2016) | 1 line
+
+fixed formatting to comply with xml google sheet
+------------------------------------------------------------------------
+r124 | bhuiya16@UTORONTO.CA | 2016-06-26 03:08:25 -0400 (Sun, 26 Jun 2016) | 1 line
+
+removed the useless shellfunctions and commandinterpreter classes
+------------------------------------------------------------------------
+r123 | bhuiya16@UTORONTO.CA | 2016-06-26 03:07:41 -0400 (Sun, 26 Jun 2016) | 5 lines
+
+- completed separation of all commands as classes, rendered shellfunctions and CommandInterpreter useless.
+- JShell takes care of taking, parsing and executing command
+- reflection used to call command classes
+- formatting done on JShell
+- command classes import current session upon creation
+------------------------------------------------------------------------
+r122 | pateld59@UTORONTO.CA | 2016-06-25 19:34:39 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Added inline comments to DirectoryFileTest
+------------------------------------------------------------------------
+r121 | pateld59@UTORONTO.CA | 2016-06-25 19:24:38 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Updated documentation for DirectoryFileTest.java
+------------------------------------------------------------------------
+r120 | pushpa10@UTORONTO.CA | 2016-06-25 18:22:54 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Updated commands to work without the separate format method
+------------------------------------------------------------------------
+r119 | pateld59@UTORONTO.CA | 2016-06-25 18:10:41 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Updated Display path to remove format method
+------------------------------------------------------------------------
+r118 | pateld59@UTORONTO.CA | 2016-06-25 17:54:39 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Created a test for Directory and File Classes
+------------------------------------------------------------------------
+r117 | pushpa10@UTORONTO.CA | 2016-06-25 16:48:05 -0400 (Sat, 25 Jun 2016) | 1 line
+
+updated ls and echo for new design of commands
+------------------------------------------------------------------------
+r116 | pateld59@UTORONTO.CA | 2016-06-25 15:02:23 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Updated the documentation of FileTypes class
+------------------------------------------------------------------------
+r115 | pateld59@UTORONTO.CA | 2016-06-25 14:47:22 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Modified ChangeDirectory and MakeDirectory to use  static getCurrentDir from MySession class
+------------------------------------------------------------------------
+r114 | pateld59@UTORONTO.CA | 2016-06-25 13:08:58 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Implemented Change Directory class. Updated Command interface, JShesll and MakeDirectory to take MySession object
+------------------------------------------------------------------------
+r113 | pateld59@UTORONTO.CA | 2016-06-25 12:49:25 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Implemented MakeDirectory class. Modified MySession to initialize HashTable outside of constructor since it is static
+------------------------------------------------------------------------
+r112 | pateld59@UTORONTO.CA | 2016-06-25 11:49:46 -0400 (Sat, 25 Jun 2016) | 1 line
+
+Updated FileTypes to check whether or not the name entered by the user contains invalid characters
+------------------------------------------------------------------------
+r111 | bhuiya16@UTORONTO.CA | 2016-06-25 07:33:15 -0400 (Sat, 25 Jun 2016) | 3 lines
+
+- added new classes for each command (will eventually remove CommandInterpreter and ShellFunctions), interface Command that these classes inherit from
+- session, create a hashtable that maps commands to classes
+- jshell, contains parsing command and executing command functions
+------------------------------------------------------------------------
+r110 | bhuiya16@UTORONTO.CA | 2016-06-24 22:15:56 -0400 (Fri, 24 Jun 2016) | 2 lines
+
+scrum log
+
+------------------------------------------------------------------------
+r109 | songjin8@UTORONTO.CA | 2016-06-24 22:13:42 -0400 (Fri, 24 Jun 2016) | 1 line
+
+Added scrum log for 23rd.
+------------------------------------------------------------------------
+r108 | pushpa10@UTORONTO.CA | 2016-06-23 18:22:46 -0400 (Thu, 23 Jun 2016) | 2 lines
+
+Added scrum log for june 23
+
+------------------------------------------------------------------------
+r107 | pateld59@UTORONTO.CA | 2016-06-23 18:01:48 -0400 (Thu, 23 Jun 2016) | 1 line
+
+Added June 23scrum meeting
+------------------------------------------------------------------------
+r106 | songjin8@UTORONTO.CA | 2016-06-23 11:37:48 -0400 (Thu, 23 Jun 2016) | 1 line
+
+Cleaned up file path intrepreter.
+------------------------------------------------------------------------
+r105 | pushpa10@UTORONTO.CA | 2016-06-23 03:08:12 -0400 (Thu, 23 Jun 2016) | 1 line
+
+Updated ls command again to print directory/file path instead of name, added line breaks such that every command(some did and some didn't) ends with an extra line break at the end
+------------------------------------------------------------------------
+r104 | bhuiya16@UTORONTO.CA | 2016-06-23 02:16:09 -0400 (Thu, 23 Jun 2016) | 1 line
+
+removed debug statements, fixed error statement, regex statements
+------------------------------------------------------------------------
+r103 | pushpa10@UTORONTO.CA | 2016-06-22 16:39:57 -0400 (Wed, 22 Jun 2016) | 1 line
+
+Fixed ls to include the directory name, added javadocs to ls, cd, man, and history
+------------------------------------------------------------------------
+r102 | songjin8@UTORONTO.CA | 2016-06-22 12:25:32 -0400 (Wed, 22 Jun 2016) | 1 line
+
+Tiny change in file path interpreter.
+------------------------------------------------------------------------
+r101 | pateld59@UTORONTO.CA | 2016-06-22 12:10:10 -0400 (Wed, 22 Jun 2016) | 1 line
+
+Added temp generalshelltest
+------------------------------------------------------------------------
+r100 | bhuiya16@UTORONTO.CA | 2016-06-22 06:02:09 -0400 (Wed, 22 Jun 2016) | 4 lines
+
+- CommandInterpreter: String[] to ArrayList<String>, removed outer "" formatting
+- JShell: Shouldn't go to CommandInterpreter if exit is entered
+- Session: Updated man page formatting
+- ShellFunctions: String[] to ArrayList<String>
+------------------------------------------------------------------------
+r99 | pushpa10@UTORONTO.CA | 2016-06-22 04:49:52 -0400 (Wed, 22 Jun 2016) | 1 line
+
+wrote tests for My Session and added updated sprint log
+------------------------------------------------------------------------
+r98 | pushpa10@UTORONTO.CA | 2016-06-21 20:37:34 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Implemented the echo method, fixed cat, and updated command interpreter to take into account STRINGS
+------------------------------------------------------------------------
+r97 | bhuiya16@UTORONTO.CA | 2016-06-21 19:23:40 -0400 (Tue, 21 Jun 2016) | 2 lines
+
+dealt with quotations in input
+
+------------------------------------------------------------------------
+r96 | songjin8@UTORONTO.CA | 2016-06-21 18:58:58 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Changed some more stuff in file path interpreter.
+------------------------------------------------------------------------
+r95 | pateld59@UTORONTO.CA | 2016-06-21 18:52:32 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Added temporary cd and mkdir testcases for debugging
+------------------------------------------------------------------------
+r94 | songjin8@UTORONTO.CA | 2016-06-21 18:07:17 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Changed more things about the file path interpreter.
+------------------------------------------------------------------------
+r93 | pushpa10@UTORONTO.CA | 2016-06-21 17:18:31 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Fixed ls command and updated the print full path command to avoid extra slash for root
+------------------------------------------------------------------------
+r92 | pateld59@UTORONTO.CA | 2016-06-21 16:56:19 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Commented some debugging statements
+------------------------------------------------------------------------
+r91 | songjin8@UTORONTO.CA | 2016-06-21 15:56:32 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Changed how making file path intrepretering works.
+------------------------------------------------------------------------
+r90 | pateld59@UTORONTO.CA | 2016-06-21 13:32:47 -0400 (Tue, 21 Jun 2016) | 1 line
+
+Fixed the bug where files with incorrect names were being created in mkdir
+------------------------------------------------------------------------
+r89 | songjin8@UTORONTO.CA | 2016-06-20 23:01:26 -0400 (Mon, 20 Jun 2016) | 1 line
+
+Added scrumlog for june 20th.
+------------------------------------------------------------------------
+r88 | songjin8@UTORONTO.CA | 2016-06-20 23:00:19 -0400 (Mon, 20 Jun 2016) | 1 line
+
+Fixed an importatn bug in file path intrepreter, mkdir and cd should now work.
+------------------------------------------------------------------------
+r87 | bhuiya16@UTORONTO.CA | 2016-06-20 21:21:53 -0400 (Mon, 20 Jun 2016) | 1 line
+
+new sprint, scrum logs
+------------------------------------------------------------------------
+r86 | pateld59@UTORONTO.CA | 2016-06-20 19:23:26 -0400 (Mon, 20 Jun 2016) | 1 line
+
+Added June 20sprint 3 daily scrum
+------------------------------------------------------------------------
+r85 | pushpa10@UTORONTO.CA | 2016-06-20 17:15:05 -0400 (Mon, 20 Jun 2016) | 1 line
+
+updated the ls command for a file to return the file name instead of the contents
+------------------------------------------------------------------------
+r84 | pushpa10@UTORONTO.CA | 2016-06-20 13:43:10 -0400 (Mon, 20 Jun 2016) | 1 line
+
+wrote the ls function, and got the skeleton for the echo function
+------------------------------------------------------------------------
+r83 | songjin8@UTORONTO.CA | 2016-06-19 20:30:12 -0400 (Sun, 19 Jun 2016) | 1 line
+
+Fixed small bug.
+------------------------------------------------------------------------
+r82 | pateld59@UTORONTO.CA | 2016-06-19 20:08:56 -0400 (Sun, 19 Jun 2016) | 1 line
+
+Updated CommandInterpreter, JShell and ShellFunctions class to take session object in the constructor. Updated documentation for directory class and also added an equals method. Updated the mkdir method in the shell functions class
+------------------------------------------------------------------------
+r81 | pushpa10@UTORONTO.CA | 2016-06-19 19:55:32 -0400 (Sun, 19 Jun 2016) | 1 line
+
+added june 17's scrum meeting file
+------------------------------------------------------------------------
+r80 | songjin8@UTORONTO.CA | 2016-06-19 16:59:03 -0400 (Sun, 19 Jun 2016) | 2 lines
+
+Added cat, current dir and cd.
+
+------------------------------------------------------------------------
+r79 | bhuiya16@UTORONTO.CA | 2016-06-19 07:42:21 -0400 (Sun, 19 Jun 2016) | 5 lines
+
+- Removed commands folder, made them strings in a hashtable located in MySession
+- Added dirStack class to do pushd and popd
+- Updated ShellFunctions to call correct methods to complete command call
+- For CommandInterpreter, more error processing, call functions in ShellFunctions
+- Shell, close scanner; other classes, deleted unused variables
+------------------------------------------------------------------------
+r78 | bhuiya16@UTORONTO.CA | 2016-06-18 03:11:48 -0400 (Sat, 18 Jun 2016) | 2 lines
+
+added new scrum, editing last
+
+------------------------------------------------------------------------
+r77 | pateld59@UTORONTO.CA | 2016-06-18 01:06:21 -0400 (Sat, 18 Jun 2016) | 1 line
+
+Added daily scrum meeting logs
+------------------------------------------------------------------------
+r76 | pateld59@UTORONTO.CA | 2016-06-18 01:00:22 -0400 (Sat, 18 Jun 2016) | 1 line
+
+Fixed scrum meeting name from pateld59Sprint1June14 to pateld59Sprint2June14
+------------------------------------------------------------------------
+r75 | songjin8@UTORONTO.CA | 2016-06-17 22:49:17 -0400 (Fri, 17 Jun 2016) | 1 line
+
+Added scrum log and changed method for FilePathInterpreter.
+------------------------------------------------------------------------
+r74 | bhuiya16@UTORONTO.CA | 2016-06-16 18:53:16 -0400 (Thu, 16 Jun 2016) | 1 line
+
+update sprint1, 2 logs to update tasks, created shell functions class
+------------------------------------------------------------------------
+r73 | songjin8@UTORONTO.CA | 2016-06-16 13:31:59 -0400 (Thu, 16 Jun 2016) | 1 line
+
+Added file traversal test and fixed file path interpreter.
+------------------------------------------------------------------------
+r72 | bhuiya16@UTORONTO.CA | 2016-06-16 06:11:50 -0400 (Thu, 16 Jun 2016) | 1 line
+
+Rewrote product backlog, sprint log 1 and 2, by writing stories properly and going thru log and seeing what was done and what story was taken care of
+------------------------------------------------------------------------
+r71 | bhuiya16@UTORONTO.CA | 2016-06-15 21:36:09 -0400 (Wed, 15 Jun 2016) | 1 line
+
+added sprint 2 june 14 log
+------------------------------------------------------------------------
+r70 | pushpa10@UTORONTO.CA | 2016-06-15 19:38:34 -0400 (Wed, 15 Jun 2016) | 1 line
+
+Changed printCommandHistory in MySession(w/out parameters) to use the other printCommandHistory since it prints the command number as well
+------------------------------------------------------------------------
+r69 | pushpa10@UTORONTO.CA | 2016-06-15 18:37:18 -0400 (Wed, 15 Jun 2016) | 1 line
+
+Implemented the man command in the command interpreter
+------------------------------------------------------------------------
+r68 | pushpa10@UTORONTO.CA | 2016-06-15 17:43:28 -0400 (Wed, 15 Jun 2016) | 1 line
+
+Wrote the man pages for the commands
+------------------------------------------------------------------------
+r67 | songjin8@UTORONTO.CA | 2016-06-15 17:24:27 -0400 (Wed, 15 Jun 2016) | 1 line
+
+Accidently swapped two sprint logs 8th and 14th, swapped them around to correct dates.
+------------------------------------------------------------------------
+r66 | pushpa10@UTORONTO.CA | 2016-06-15 15:52:20 -0400 (Wed, 15 Jun 2016) | 1 line
+
+Added my scrum meeting log, and indicated my tasks for sprint 2
+------------------------------------------------------------------------
+r65 | songjin8@UTORONTO.CA | 2016-06-14 20:28:29 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Added the blank abstract command class.
+------------------------------------------------------------------------
+r64 | songjin8@UTORONTO.CA | 2016-06-14 20:27:22 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Added new scrum log and added tasks for sprint 2.
+------------------------------------------------------------------------
+r63 | songjin8@UTORONTO.CA | 2016-06-14 20:24:20 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Changed the crc card to reflect new design for file path interpreter.
+------------------------------------------------------------------------
+r62 | songjin8@UTORONTO.CA | 2016-06-14 20:23:54 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Changed the FilePathInterpreter to include files.
+------------------------------------------------------------------------
+r61 | pateld59@UTORONTO.CA | 2016-06-14 20:06:31 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Modified responsibilities in the daily scrum meeting
+------------------------------------------------------------------------
+r60 | pateld59@UTORONTO.CA | 2016-06-14 19:49:52 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Updated Sprint 2 Backlog to include roles and responsibilities for the second sprint
+------------------------------------------------------------------------
+r59 | pateld59@UTORONTO.CA | 2016-06-14 19:32:29 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Added June 14 scrum meeting
+------------------------------------------------------------------------
+r58 | songjin8@UTORONTO.CA | 2016-06-14 19:09:13 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Changed the spring 1 backlog.
+------------------------------------------------------------------------
+r57 | bhuiya16@UTORONTO.CA | 2016-06-14 19:00:33 -0400 (Tue, 14 Jun 2016) | 1 line
+
+continued adjustments to sprint 1
+------------------------------------------------------------------------
+r56 | pateld59@UTORONTO.CA | 2016-06-14 18:56:24 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Modified responsibility in sprint 1
+------------------------------------------------------------------------
+r55 | bhuiya16@UTORONTO.CA | 2016-06-14 18:44:36 -0400 (Tue, 14 Jun 2016) | 1 line
+
+updated sprint1
+------------------------------------------------------------------------
+r54 | songjin8@UTORONTO.CA | 2016-06-14 18:38:46 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Allowed file path interpreter to travel to parent.
+------------------------------------------------------------------------
+r53 | songjin8@UTORONTO.CA | 2016-06-14 18:27:12 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Changed how print command history is done using iterators.
+------------------------------------------------------------------------
+r52 | songjin8@UTORONTO.CA | 2016-06-14 17:00:48 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Added the FilePathInterpreter and removed file import.
+------------------------------------------------------------------------
+r51 | pateld59@UTORONTO.CA | 2016-06-14 12:02:55 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Modified to throw InvalidAddition exception if the user tries to insert the current directory as the child of the current directory
+------------------------------------------------------------------------
+r50 | pateld59@UTORONTO.CA | 2016-06-14 11:37:25 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Refactored directory and file classes to inherit from FileType abstract class so objects do not have to be continously casted
+------------------------------------------------------------------------
+r49 | pateld59@UTORONTO.CA | 2016-06-14 10:47:43 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Added missing package statements
+------------------------------------------------------------------------
+r48 | pateld59@UTORONTO.CA | 2016-06-14 10:40:33 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Updated File class to include equals method
+------------------------------------------------------------------------
+r47 | pateld59@UTORONTO.CA | 2016-06-14 10:39:21 -0400 (Tue, 14 Jun 2016) | 1 line
+
+Updated Directory class to include more useful methods
+------------------------------------------------------------------------
+r46 | bhuiya16@UTORONTO.CA | 2016-06-12 17:47:36 -0400 (Sun, 12 Jun 2016) | 1 line
+
+Added templates for other print backlogs and updated Sprint1
+------------------------------------------------------------------------
+r45 | bhuiya16@UTORONTO.CA | 2016-06-12 17:37:08 -0400 (Sun, 12 Jun 2016) | 2 lines
+
+- turned command history to a static function that returns String
+- continued error checking. added function for getting man file (incomplete) (Interpreter)
+------------------------------------------------------------------------
+r44 | bhuiya16@UTORONTO.CA | 2016-06-12 16:33:20 -0400 (Sun, 12 Jun 2016) | 1 line
+
+man page files
+------------------------------------------------------------------------
+r43 | bhuiya16@UTORONTO.CA | 2016-06-12 16:20:39 -0400 (Sun, 12 Jun 2016) | 1 line
+
+added man function to return man commands, commands folder
+------------------------------------------------------------------------
+r42 | songjin8@UTORONTO.CA | 2016-06-12 16:10:12 -0400 (Sun, 12 Jun 2016) | 1 line
+
+Fixed some package issues with File and Dir.
+------------------------------------------------------------------------
+r41 | pateld59@UTORONTO.CA | 2016-06-12 11:48:09 -0400 (Sun, 12 Jun 2016) | 1 line
+
+Added the Directory and File classes
+------------------------------------------------------------------------
+r40 | pateld59@UTORONTO.CA | 2016-06-12 11:00:13 -0400 (Sun, 12 Jun 2016) | 1 line
+
+Added my name to the honour code
+------------------------------------------------------------------------
+r39 | pateld59@UTORONTO.CA | 2016-06-12 10:53:44 -0400 (Sun, 12 Jun 2016) | 1 line
+
+Made slight modification to user stories
+------------------------------------------------------------------------
+r38 | pateld59@UTORONTO.CA | 2016-06-12 10:31:18 -0400 (Sun, 12 Jun 2016) | 1 line
+
+Added the June 11 scrum meeting log
+------------------------------------------------------------------------
+r37 | bhuiya16@UTORONTO.CA | 2016-06-12 04:04:27 -0400 (Sun, 12 Jun 2016) | 1 line
+
+Added further cases for input, did more cleanup/formatting on input passed in, did error checking (CommandInterpreter). For exit prompt, do a regex check for exit
+------------------------------------------------------------------------
+r36 | bhuiya16@UTORONTO.CA | 2016-06-12 00:02:03 -0400 (Sun, 12 Jun 2016) | 1 line
+
+added second scrum log for sprint 1
+------------------------------------------------------------------------
+r35 | pushpa10@UTORONTO.CA | 2016-06-11 23:18:16 -0400 (Sat, 11 Jun 2016) | 1 line
+
+Added javadoc to MySession and added todays scrumMeeting file
+------------------------------------------------------------------------
+r34 | pushpa10@UTORONTO.CA | 2016-06-11 23:13:02 -0400 (Sat, 11 Jun 2016) | 1 line
+
+Implemented the MySession class and added it to the JShell
+------------------------------------------------------------------------
+r33 | songjin8@UTORONTO.CA | 2016-06-11 23:11:10 -0400 (Sat, 11 Jun 2016) | 1 line
+
+Updated my scrum for June 11th.
+------------------------------------------------------------------------
+r32 | bhuiya16@UTORONTO.CA | 2016-06-11 22:40:50 -0400 (Sat, 11 Jun 2016) | 1 line
+
+removed early scrum log
+------------------------------------------------------------------------
+r31 | songjin8@UTORONTO.CA | 2016-06-11 13:22:04 -0400 (Sat, 11 Jun 2016) | 1 line
+
+Added the JShell and the CommandInterpreter skeleton.
+------------------------------------------------------------------------
+r30 | bhuiya16@UTORONTO.CA | 2016-06-10 06:08:02 -0400 (Fri, 10 Jun 2016) | 1 line
+
+Added responsibility for session
+------------------------------------------------------------------------
+r29 | bhuiya16@UTORONTO.CA | 2016-06-10 06:07:17 -0400 (Fri, 10 Jun 2016) | 1 line
+
+Deleted classes that were based on individual commands, renamed pushpop to dirStack, directory -> Directory, existing classes not removed have been given added responsibilities from deleted classes and needed functionalities 
+------------------------------------------------------------------------
+r28 | bhuiya16@UTORONTO.CA | 2016-06-10 02:37:42 -0400 (Fri, 10 Jun 2016) | 1 line
+
+scrum meeting 2
+------------------------------------------------------------------------
+r27 | pushpa10@UTORONTO.CA | 2016-06-09 01:13:12 -0400 (Thu, 09 Jun 2016) | 1 line
+
+update daily scrum meeting log
+------------------------------------------------------------------------
+r25 | pushpa10@UTORONTO.CA | 2016-06-09 00:01:26 -0400 (Thu, 09 Jun 2016) | 1 line
+
+Filled out daily backlog
+------------------------------------------------------------------------
+r24 | songjin8@UTORONTO.CA | 2016-06-08 23:54:35 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Add the sprint backlog for cycle 1.
+------------------------------------------------------------------------
+r23 | bhuiya16@UTORONTO.CA | 2016-06-08 23:42:40 -0400 (Wed, 08 Jun 2016) | 1 line
+
+finish sprint backlog
+------------------------------------------------------------------------
+r22 | bhuiya16@UTORONTO.CA | 2016-06-08 23:21:40 -0400 (Wed, 08 Jun 2016) | 1 line
+
+updating sprint log
+------------------------------------------------------------------------
+r21 | bhuiya16@UTORONTO.CA | 2016-06-08 22:34:04 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Updated product backlog, added daily scrum
+------------------------------------------------------------------------
+r20 | pateld59@UTORONTO.CA | 2016-06-08 21:59:44 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Modified responsibility for first sprint
+------------------------------------------------------------------------
+r19 | pateld59@UTORONTO.CA | 2016-06-08 21:52:49 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Add sprint 1 backlog with roles and responsibilities of each team member
+------------------------------------------------------------------------
+r18 | bhuiya16@UTORONTO.CA | 2016-06-08 21:38:43 -0400 (Wed, 08 Jun 2016) | 1 line
+
+sprint backlog 1 file updated template
+------------------------------------------------------------------------
+r17 | bhuiya16@UTORONTO.CA | 2016-06-08 21:35:03 -0400 (Wed, 08 Jun 2016) | 1 line
+
+sprint backlog 1 file
+------------------------------------------------------------------------
+r16 | pateld59@UTORONTO.CA | 2016-06-08 21:15:49 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Added June 8 Scrum meeting log file
+------------------------------------------------------------------------
+r15 | pateld59@UTORONTO.CA | 2016-06-08 21:07:06 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Removed get class
+------------------------------------------------------------------------
+r14 | songjin8@UTORONTO.CA | 2016-06-08 20:00:42 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Added some more cards and removed undeeded cards for non existing functions
+------------------------------------------------------------------------
+r13 | bhuiya16@UTORONTO.CA | 2016-06-08 19:53:55 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Rewrote entire file on linux
+------------------------------------------------------------------------
+r12 | bhuiya16@UTORONTO.CA | 2016-06-08 19:45:37 -0400 (Wed, 08 Jun 2016) | 1 line
+
+starting again
+------------------------------------------------------------------------
+r11 | bhuiya16@UTORONTO.CA | 2016-06-08 19:44:01 -0400 (Wed, 08 Jun 2016) | 1 line
+
+again
+------------------------------------------------------------------------
+r10 | bhuiya16@UTORONTO.CA | 2016-06-08 19:33:15 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Fixed formatting of product backlog
+------------------------------------------------------------------------
+r9 | bhuiya16@UTORONTO.CA | 2016-06-08 19:20:54 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Added product backlog
+------------------------------------------------------------------------
+r8 | songjin8@UTORONTO.CA | 2016-06-08 16:37:48 -0400 (Wed, 08 Jun 2016) | 1 line
+
+Added some base crc cards for the shell.
+------------------------------------------------------------------------
+r7 | attarwal@UTORONTO.CA | 2016-06-05 18:56:52 -0400 (Sun, 05 Jun 2016) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r6 | attarwal@UTORONTO.CA | 2016-06-05 18:56:51 -0400 (Sun, 05 Jun 2016) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r5 | attarwal@UTORONTO.CA | 2016-06-05 18:56:50 -0400 (Sun, 05 Jun 2016) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r4 | attarwal@UTORONTO.CA | 2016-06-05 18:56:50 -0400 (Sun, 05 Jun 2016) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r3 | attarwal@UTORONTO.CA | 2016-06-05 18:56:49 -0400 (Sun, 05 Jun 2016) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r2 | attarwal@UTORONTO.CA | 2016-06-05 18:56:48 -0400 (Sun, 05 Jun 2016) | 1 line
+
+Starter code by instructor
+------------------------------------------------------------------------
+r1 | markus | 2016-06-05 18:21:18 -0400 (Sun, 05 Jun 2016) | 1 line
+
+
+------------------------------------------------------------------------
+
+
+
+Part 3) +++Work Distribution of Team Members+++
++++ON ALL SOURCE FILES+++
+  24 attarwal@U
+1546 bhuiya16@U
+1587 pateld59@U
+ 488 pushpa10@U
+ 456 songjin8@U
++++ON CRC CARDS+++
+   9 attarwal@U
+  23 bhuiya16@U
+  23 pateld59@U
+  86 pushpa10@U
+ 129 songjin8@U
++++ON DAILYSCRUMMEETINGS+++
+  33 attarwal@U
+  88 bhuiya16@U
+  71 pateld59@U
+  70 pushpa10@U
+  78 songjin8@U
++++ON PRODUCT BACKLOG +++
+  11 attarwal@U
+  85 bhuiya16@U
++++ON SPRINTS+++
+  68 attarwal@U
+ 178 bhuiya16@U
+   4 pateld59@U
+   3 pushpa10@U
+3595
+Part 4) SVN Commits
+
+
+On Sprints
+   1  attarwal@UTORONTO.CA 
+  11  bhuiya16@UTORONTO.CA 
+   3  pateld59@UTORONTO.CA 
+   2  pushpa10@UTORONTO.CA 
+   2  songjin8@UTORONTO.CA 
+
+
+On CRC Cards
+   1  attarwal@UTORONTO.CA 
+   2  bhuiya16@UTORONTO.CA 
+   2  pateld59@UTORONTO.CA 
+   3  pushpa10@UTORONTO.CA 
+   7  songjin8@UTORONTO.CA 
+
+
+On DailyScrumMeetings
+   1  attarwal@UTORONTO.CA 
+  10  bhuiya16@UTORONTO.CA 
+  10  pateld59@UTORONTO.CA 
+   8  pushpa10@UTORONTO.CA 
+   8  songjin8@UTORONTO.CA 
+
+
+On ProductBacklog
+   1  attarwal@UTORONTO.CA 
+   8  bhuiya16@UTORONTO.CA 
+   1  pateld59@UTORONTO.CA 
+
+
+On source
+   1  attarwal@UTORONTO.CA 
+  20  bhuiya16@UTORONTO.CA 
+  41  pateld59@UTORONTO.CA 
+  23  pushpa10@UTORONTO.CA 
+  26  songjin8@UTORONTO.CA 
