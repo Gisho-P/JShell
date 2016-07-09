@@ -3,21 +3,43 @@ July 9 to July 15
 
 
 User Stories from Product Backlog that we will address in this sprint:
-a)
+a) As a user, I can display the contents of the directory I'm currently on or a directory
+   I specify.
+b) As a user, I can grab a file from a URL and save it to my local directory.
+c) As a user, I can run a previously entered command, by specifying a number
+   following an exclamation mark.
+d) As a user, I can search for a file that has a pattern that I specify.
+e) As a user, I can store any command output directly to a file of my choice.
+f) As a user, I can copy a file from one directory to another.
+g) As a user, I can move a file from one directory to another.
 
 Specific tasks to be accomplished:
-
+a-1. (ListDirectoryContents) add tests
+a-2. (ListDirectoryContents) fix errors
+b-1. (RetrieveUrlFile) finish implementation
+b-2. (RetrieveUrlFile) add tests
+b-3. (RetrieveUrlFile) fix errors
+c-1. (ExecuteFromHistory) finish implementation
+c-2. (ExecuteFromHistory) add tests
+c-3. (ExecuteFromHistory) fix errors
+d-1. (DisplayWithSubstring) add tests
+d-2. (DisplayWithSubstring) fix errors
+e-1. (JShell) Add method to work with potential redirections
+f-1. (CopyFile) add tests
+f-2. (CopyFile) fix errors
+g-1. (MoveFile) add tests
+g-2. (MoveFile) fix errors
 
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: 
+Tasks: a-1, a-2, e-1
 
 User: John
-Tasks: 
+Tasks: d-1, d-2, f-1, f-2, g-1, g-2
 
 User: Dhrumil
-Tasks: 
+Tasks: b-1, b-2, b-3
 
 User: Adnan
-Tasks: 
+Tasks: c-1, c-2, c-3

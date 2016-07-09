@@ -15,6 +15,8 @@ g) As a user, I can copy a file from one directory to another.
 h) As a user, I can move a file from one directory to another.
 
 Specific tasks to be accomplished:
+a-1. (ListDirectoryContents) Create a separate method that deals with listing sub directories.
+a-2. (ListDirectoryContents) Update the format to print sub directories properly
 b-1. (Session) Add a new hashtable key/value for curl command
 b-2. (RetrieveUrlFile) Determine if url provided is valid
 b-3. (RetrieveUrlFile) Retrieve data from url
@@ -31,18 +33,16 @@ e-1. (Output) Create an output class which has a stdout, and stderror string
 e-2. (Command) Update the exec method to return an object of type output
 e-3. (JShell) Check if any command has output redirection and redirect to a file
 e-4. (Output) Create a method that stores command output into a file
-f-1. (ListDirectoryContents) Create a separate method that deals with listing sub directories.
-f-2. (ListDirectoryContents) Update the format to print sub directories properly
-g-1. (CopyFile) I can copy the contents from one path to another
-h-1. (MoveFile) I can remove the contents from one path to another
+f-1. (CopyFile) I can copy the contents from one path to another
+g-1. (MoveFile) I can remove the contents from one path to another
 
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: e-1, e-2, e-3, e-4, f-1, f-2
+Tasks: a-1, a-2, e-1, e-2, e-3, e-4
 
 User: John
-Tasks: d-1, d-2, d-3, g-1, h-1
+Tasks: d-1, d-2, d-3, f-1, g-1
 
 User: Dhrumil
 Tasks: b-1, b-2, b-3, b-4, b-5

@@ -87,6 +87,10 @@ public class JShell {
 
     // Splitting the cmd
     cmd = cmd.trim();
+    if (cmd.charAt(0) == '!') {
+      cmdArgs.add(cmd.substring(0,1));
+      cmd = cmd.substring(1);
+    }
     if (cmd.contains("\"")) {
       // If cmd contains a string separate it while keeping the STRING
       // as one argument
