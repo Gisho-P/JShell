@@ -61,6 +61,8 @@ public class MySession {
     commandToClass.put("exit", "ExitProgram");
     commandToClass.put("curl", "RetrieveUrlFile");
     commandToClass.put("grep", "DisplayWithSubstring");
+    commandToClass.put("cp", "CopyFile");
+    commandToClass.put("mv", "MoveFile");
     commandToClass.put("!", "ExecuteFromHistory");
 
 

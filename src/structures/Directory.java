@@ -1,6 +1,8 @@
 package structures;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * This class represents a directory in the FileSystem. It can be used to store
@@ -267,6 +269,29 @@ public class Directory extends FileTypes {
         } else
             throw new MissingNameException(
                     "There are no files or directories with name " + name);
+    }
+    
+    /**
+     * Checks whether a file is a child of the this directory and all it's sub
+     * directories recursively.
+     * @return
+     */
+    public boolean hasDeepChild(FileTypes wanted){
+    	Queue<Directory> children = new LinkedList<Directory>();
+    	children.addAll(this.getChildDirs());
+    	while(!children.isEmpty()){
+    		// Dequeuing our latest
+    		Directory curr = children.poll();
+    		for(FileTypes file: curr.getChildren()){
+    			// Checking if they're equal
+    			if(file.equals(wanted)){
+    				return true;
+    			}
+    		}
+    		// Adding the children
+    		children.addAll(curr.getChildDirs());
+    	}
+    	return false;
     }
 
     /**
