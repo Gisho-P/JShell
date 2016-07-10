@@ -17,12 +17,11 @@ import structures.Output;
  * directories.
  */
 public class ListDirectoryContents implements Command {
-
+//TODO: Make better recursive
   /**
    * The session is used to get the current directory when searching for paths
    */
   private MySession s;
-  private Output out;
 
   /**
    * Return ListDirectoryContents instance, to be able to run ls command.
@@ -32,7 +31,6 @@ public class ListDirectoryContents implements Command {
    */
   public ListDirectoryContents(MySession session) {
     s = session;
-    out = new Output();
   }
 
   /**
@@ -41,15 +39,15 @@ public class ListDirectoryContents implements Command {
    * @return manual for ls command
    */
   @Override
-  public String man() {
-    return "LS(1)\t\t\t\tUser Commands\t\t\t\tLS(1)\n\nNAME\n\t"
+  public void man() {
+    s.setError("LS(1)\t\t\t\tUser Commands\t\t\t\tLS(1)\n\nNAME\n\t"
         + "\tls - prints out all of the contents of one or many "
         + "files/directories\n\nSYNOPSIS\n\t\tls [-R] [PATH ...]\n\n"
         + "DESCRIPTION\n\t\tPrints out the contents of files/"
         + "directories.\n\n\t\tIf PATH is not specified, prints "
         + "out the contents of the current\n\t\tdirectory by "
         + "default.\n\n\t\tIf PATH is specified, prints out the "
-        + "contents of the files/directories\n\t\tfor each PATH given";
+        + "contents of the files/directories\n\t\tfor each PATH given");
   }
 
   /**
@@ -59,8 +57,8 @@ public class ListDirectoryContents implements Command {
    * @return output message (directory contents) or error message
    */
   @Override
-  public Output interpret(List<String> args) {
-    return exec(args);
+  public void interpret(List<String> args) {
+    exec(args);
   }
 
   /**

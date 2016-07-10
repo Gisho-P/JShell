@@ -12,16 +12,12 @@ import structures.File;
 import structures.FileTypes;
 import driver.MySession;
 import structures.Output;
-
+//TODO: Finish
 public class RetrieveUrlFile implements Command {
     MySession session;
-    Output out;
-
     public RetrieveUrlFile(MySession session) {
         this.session = session;
-        this.out = new Output();
     }
-
     /**
      * Store the man page for the curl command
      * @return The string representation of the man page
@@ -97,6 +93,4 @@ public class RetrieveUrlFile implements Command {
         return out;
 
     }
-
-
 }

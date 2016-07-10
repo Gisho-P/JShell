@@ -10,31 +10,28 @@ import structures.Directory.InvalidAddition;
 import structures.Directory.MissingNameException;
 import structures.Directory.NameExistsException;
 import structures.FileTypes;
-import structures.Output;
 
 /**
  * The Class DisplayFile handles the moveing of a file to another dir.
  */
 public class MoveFile implements Command {
 
-    // MySession is used to access the files by finding them through the
-    // root or current directory
-    private MySession s;
-    private Output out;
+	// MySession is used to access the files by finding them through the
+	// root or current directory
+	private MySession s;
 
-    public MoveFile(MySession session) {
-        s = session;
-        out = new Output();
-    }
+	public MoveFile(MySession session) {
+		s = session;
+	}
 
-    /**
-     * Returns the manual for the mv command.
-     *
-     * @return the manual for the mv command
-     */
-    @Override
-    public String man() {
-        return "mv(1)\t\t\t\tUser Commands\t\t\t\tmv(1)\n"
+	/**
+	 * Returns the manual for the mv command.
+	 * 
+	 * @return the manual for the mv command
+	 */
+	@Override
+	public void man() {
+		s.setOutput("MV(1)\t\t\t\tUser Commands\t\t\t\tMV(1)\n"
                 + "\nNAME\n\t\tmv - Move file from source to destination. \n" +
                 "\n" +
                 "SYNOPSIS\n" +
@@ -42,26 +39,27 @@ public class MoveFile implements Command {
                 "\n\t\t"
                 + "mv FILE1 [FILE2]\n\nDESCRIPTION\n\t\t"
                 + "Move the file from the source path to the \n" +
-                "destination paths if it is valid.";
+                "destination paths if it is valid.");
+	}
 
-    }
+	/**
+	 * Process arguments passed for mv command and determine whether the
+	 * command was entered correctly or not.
+	 * 
+	 * @param args
+	 *            Arguments parsed from command
+	 * @return The contents of the files given.
+	 */
+	@Override
+	public void interpret(List<String> args) {
+		if (args.size() != 3) {
+			s.setError("mv usage: mv SRCPATH [DESTPATH] ...");
+		} else {
+			exec(args.subList(1, args.size()));
+			// return output from function call
+		}
+	}
 
-    /**
-     * Process arguments passed for mv command and determine whether the command
-     * was entered correctly or not.
-     *
-     * @param args Arguments parsed from command
-     * @return The contents of the files given.
-     */
-    @Override
-    public Output interpret(List<String> args) {
-        if (args.size() != 3) {
-            return out.withStdError("mv usage: mv Src Dest");
-        } else {
-            return exec(args.subList(1, args.size()));
-            // return output from function call
-        }
-    }
 
     /**
      * Copies the file from one directory to another

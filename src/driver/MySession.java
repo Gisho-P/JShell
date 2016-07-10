@@ -3,6 +3,8 @@ package driver;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+
+import commands.*;
 import structures.*;
 
 /**
@@ -33,9 +35,24 @@ public class MySession {
   /**
    * Table mapping commands to classes to invoke in JShell.
    */
-  public Hashtable<String, String> commandToClass =
-      new Hashtable<String, String>();
+  public Hashtable<String, Command> commandToClass =
+      new Hashtable<String, Command>();
+  
+  /**
+   * Running status of Shell
+   * */
+  private boolean status;
+  
+  /**
+   * Session's directory stack
+   * */
+  private DirStack ds = new DirStack();
 
+  /**
+   * JShell's output/error buffer
+   * */
+  private Output o;
+  
   /**
    * Create a new MySession object with default attributes for root and current
    * directory. Furthermore, the map between commands and classes, as well as
@@ -43,27 +60,30 @@ public class MySession {
    * 
    * @return New MySession object
    */
-  public MySession() {
+  public MySession(Output o) {
+    this.o = o; // initialize shell output buffer
+    // set shell status
+    status = true;
     // initialize command storage
     commandHistory = new ArrayList<String>();
 
     // map commands to classes in src
-    commandToClass.put("man", "DisplayManual");
-    commandToClass.put("history", "DisplayHistory");
-    commandToClass.put("echo", "DisplayStoreString");
-    commandToClass.put("cat", "DisplayFile");
-    commandToClass.put("popd", "PopDirectory");
-    commandToClass.put("pushd", "PushDirectory");
-    commandToClass.put("pwd", "DisplayPath");
-    commandToClass.put("ls", "ListDirectoryContents");
-    commandToClass.put("cd", "ChangeDirectory");
-    commandToClass.put("mkdir", "MakeDirectory");
-    commandToClass.put("exit", "ExitProgram");
-    commandToClass.put("curl", "RetrieveUrlFile");
-    commandToClass.put("grep", "DisplayWithSubstring");
-    commandToClass.put("cp", "CopyFile");
-    commandToClass.put("mv", "MoveFile");
-    commandToClass.put("!", "ExecuteFromHistory");
+    commandToClass.put("man", new DisplayManual(this));
+    commandToClass.put("history", new DisplayHistory(this));
+    commandToClass.put("echo", new DisplayStoreString(this));
+    commandToClass.put("cat", new DisplayFile(this));
+    commandToClass.put("popd", new PopDirectory(this));
+    commandToClass.put("pushd", new PushDirectory(this));
+    commandToClass.put("pwd", new DisplayPath(this));
+    commandToClass.put("ls", new ListDirectoryContents(this));
+    commandToClass.put("cd", new ChangeDirectory(this));
+    commandToClass.put("mkdir", new MakeDirectory(this));
+    commandToClass.put("exit", new ExitProgram(this));
+    commandToClass.put("curl", new RetrieveUrlFile(this));
+    commandToClass.put("grep", new DisplayWithSubstring(this));
+    commandToClass.put("cp", new CopyFile(this));
+    commandToClass.put("mv", new MoveFile(this));
+    commandToClass.put("!", new ExecuteFromHistory(this));
 
 
     // try to initialize root and current directory (to root)
@@ -92,25 +112,29 @@ public class MySession {
    * @return The history of commands, the amount of entries listed based on
    *         parameter
    */
-  public Output getCommandHistory(int numberOfCommands) {
-    Output out = new Output();
+  public List<Object> getCommandHistory(int numberOfCommands) {
     int historySize = commandHistory.size();
+    List<Object> a = new ArrayList<Object>();
     // If a number greater then the number of commands in history is given
     // print all commands
     if (numberOfCommands > historySize)
       numberOfCommands = historySize;
     if (numberOfCommands < 0) { // can't print negative commands
-      return out.withStdError("history usage: history [NUMBER >= 0]\n");
+      a.add("history usage: history [NUMBER >= 0]");
+      a.add(false);
+      return a;
     } else { // format output and return
-      for (int cmdNumber = historySize - numberOfCommands
-          + 1; cmdNumber <= historySize; cmdNumber++) {
-        out.addStdOutput(cmdNumber + ". " +
-          commandHistory.get(cmdNumber - 1));
+      String ret = "";
+      for (int cmdNumber = historySize - numberOfCommands + 1;
+          cmdNumber <= historySize; cmdNumber++) {
+        ret += cmdNumber + ". " + commandHistory.get(cmdNumber - 1);
         if (cmdNumber != historySize) {
-          out.addStdOutput("\n");
+          ret += "\n";
         }
       }
-      return out;
+      a.add(ret);
+      a.add(true);
+      return a;
     }
   }
 
@@ -119,7 +143,7 @@ public class MySession {
    * 
    * @return List of commands entered by user, ordered chronologically.
    */
-  public Output getCommandHistory() {
+  public List<Object> getCommandHistory() {
     return getCommandHistory(commandHistory.size()); // call
                                                        // printCommandHistory
                                                        // with the max number as
@@ -158,5 +182,76 @@ public class MySession {
    */
   public void setCurrentDir(Directory cDir) {
     currentDir = cDir;
+  }
+  
+  /**
+   * Change the Shell's running status to false (exit)
+   * */
+  public void turnOffShell() {
+    status = false;
+  }
+  
+  /**
+   * Get the running status of JShell
+   * 
+   * @return Running status of JShell
+   * */
+  public boolean getRunStatus() {
+    return status;
+  }
+  
+  /***/
+  public void storeDirectory(String path) {
+    ds.pushd(path);
+  }
+  
+  /***/
+  public List<Object> retrieveDirectory() {
+    return ds.popd();
+  }
+
+  public List<Object> getHistoricalCommand(int i) {
+    List<Object> a = new ArrayList<Object>();
+    boolean bound = (i >= 1 && i <= commandHistory.size());
+    a.add(bound ? commandHistory.get(i-1) : 
+      "ERROR: Number entered is out of bounds.");
+    a.add(bound);
+    return a;
+  }
+  
+  public String returnBuffer() {
+    return o.getAllOutput();
+  }
+  
+  public void clearBuffer() {
+    o.clear();
+  }
+
+  public String getError() {
+    return o.getStdError();
+  }
+  
+  public void setError(String err) {
+    o.setStdError(err);
+  }
+  
+  public void addError(String err) {
+    o.addStdError(err);
+  }
+  
+  public String getOutput() {
+    return o.getStdOutput();
+  }
+  
+  public void setOutput(String out) {
+    o.setStdOutput(out);
+  }
+  
+  public void addOutput(String out) {
+    o.addStdError(out);
+  }
+  
+  public void redirectOutput(String file, String type) {
+    o.redirect(file, type, this.getCurrentDir());
   }
 }

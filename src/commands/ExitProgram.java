@@ -3,53 +3,60 @@ package commands;
 import java.util.List;
 
 import driver.MySession;
-import structures.Output;
 
 /**
  * This class represents the manual for the exit command, the exit command
  * execution is done immediately in the shell.
  * 
  * @author Adnan Bhuiyan
- * @see List
  */
 public class ExitProgram implements Command {
 
+  /**
+   * Current JShell attributes
+   * */
+  private MySession s;
+  
   /**
    * Returns a ExitProgram object that represents the exit command. This class
    * is only used for exit's manual.
    * 
    * @param session the current Shell session's attributes
    */
-  public ExitProgram(MySession session) {}
+  public ExitProgram(MySession session) {
+    s = session;
+  }
 
   /**
-   * Returns the manual for the exit command.
-   * 
-   * @return the manual for the exit command
+   * Sets the output as the manual for the exit command.
    */
   @Override
-  public String man() {
-    return "EXIT(1)\t\t\t\tUser Commands\t\t\t\tEXIT(1)\n\n"
+  public void man() {
+    s.setOutput("EXIT(1)\t\t\t\tUser Commands\t\t\t\tEXIT(1)\n\n"
         + "NAME\n\t\texit - terminates the shell\n\nSYNOPSIS\n\t\t"
         + "exit\n\nDESCRIPTION\n\t\tTerminates the users"
         + " session with the shell which removes their ability"
-        + "\n\t\tto process any more commands.";
+        + "\n\t\tto process any more commands.");
   }
 
   /**
-   * @deprecated
+   * Turn off the shell or display an error message
    */
   @Override
-  public Output exec(List<String> args) {
-    return null;
+  public void exec(List<String> args) {
+    if (args.size() == 1) {
+      s.turnOffShell();
+    } else {
+      s.setError("exit usage: exit");
+    }
   }
 
   /**
-   * @deprecated
+   * No arguments to process, check validity in exec() method
    */
   @Override
-  public Output interpret(List<String> args) {
-    return null;
+  public void interpret(List<String> args) {
+    exec(args);
   }
 
 }

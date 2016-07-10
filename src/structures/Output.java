@@ -14,16 +14,6 @@ public class Output {
   private String stdOutput;
   private String stdError;
   
-  public Output(String standardOutput, String standardError){
-    stdOutput = standardOutput;
-    stdError = standardError;
-  }
-  
-  public Output(String standardError){
-    stdError = standardError;
-    stdOutput = "";
-  }
-  
   public Output(){
     stdOutput = "";
     stdError = "";
@@ -32,8 +22,11 @@ public class Output {
   public String getStdOutput() {
      return stdOutput;
   }
-
-  public void addStdOutput(String stdOutput) {
+  
+  public void addStdOutput(String stdOutput){
+    if (!this.stdOutput.isEmpty()) {
+      this.stdOutput += "\n";
+    }
     this.stdOutput += stdOutput;
   }
   
@@ -41,47 +34,45 @@ public class Output {
     this.stdOutput = stdOutput;
   }
   
-  public Output withStdOutput(String stdOutput, Boolean overwrite) {
-    if(overwrite)
-      this.stdOutput = stdOutput;
-    else
-      this.stdOutput += stdOutput;
-     return this;
+  public void clear() {
+    stdOutput = "";
+    stdError = "";
   }
 
   public String getStdError() {
      return stdError;
   }
   
-  public void addStdError(String standardError){
-    stdError += standardError;
+  public void setStdError(String standardError) {
+    stdError = standardError;
   }
   
-  public Output withStdError(String standardError){
+  public void addStdError(String standardError){
+    if (!stdError.isEmpty()) {
+      stdError += "\n";
+    }
     stdError += standardError;
-     return this;
   }
   
   public String getAllOutput(){
-     return stdError + stdOutput;
+     return getStdError() + getStdOutput();
   }
   
-  public void redirect(MySession s, boolean overWrite, String file, String txt){
+  public void redirect(String file, String type, Directory directory) {
     File outFile = null;
     // Check if the file exists in the directory
     try {
-      outFile = (File) FilePathInterpreter.interpretPath(s.getCurrentDir(),
-          file);
+      outFile = (File) FilePathInterpreter.interpretPath(directory, file);
     }
     // If the file doesn't exist create it
     catch (InvalidDirectoryPathException e) {
       try {
-        outFile = createFileFromPath(file, s);
+        outFile = createFileFromPath(directory, file);
       } catch (InvalidDirectoryPathException e1) {
          addStdError("ERROR: The directory of the file does not exist");
       } catch (NameExistsException e1) {
-         addStdError(
-             "ERROR: There is already a subdirectory with the same name");
+        //TODO: Overwrite content in here
+        /*addStdError("ERROR: There is already a subdirectory with the same name");*/
       } catch (InvalidAddition e1) {
       } catch (InvalidName e1) {
          addStdError("ERROR: That's an invalid file name");
@@ -89,17 +80,23 @@ public class Output {
     } catch (ClassCastException e) {
        addStdError("ERROR: There is already a subdirectory with the same name");
     }
-    if(outFile != null){
+    redirectFile(outFile, type);
+  }
+  
+  public void redirectFile(File file, String type) {
+    if(file != null) {
       // Write to the file, overwrite or append as given
-      if (overWrite)
-        outFile.setContent(txt == null ? "" : txt);
+      if (type.equals(">"))
+        file.setContent(getStdOutput());
       else
-        outFile.appendContent(txt == null ? "" : txt);
+        file.appendContent(getStdOutput());
+      stdOutput = "";
     }
   }
   
   /**
    * Creates the file from the given path, and throws an exception otherwise.
+   * @param directory 
    *
    * @param path the path to the file
    * @return the file
@@ -109,7 +106,7 @@ public class Output {
    *         name
    * @throws InvalidAddition adding a file to the same file
    */
-  private File createFileFromPath(String path, MySession s) throws InvalidName,
+  private File createFileFromPath(Directory directory, String path) throws InvalidName,
       InvalidDirectoryPathException, NameExistsException, InvalidAddition {
     File outputFile = new File("");
     // Check if the file is going to be in the current directory
@@ -120,15 +117,14 @@ public class Output {
       outputFile = new File(
           ((String) path).substring(((String) path).lastIndexOf("/") + 1));
       Directory fileDir =
-          (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(),
+          (Directory) FilePathInterpreter.interpretPath(directory,
               path.substring(0, path.lastIndexOf("/")));
       fileDir.add(outputFile);
     } else {
       // If it's the same directory
       outputFile = new File((String) path);
-      s.getCurrentDir().add(outputFile);
+      directory.add(outputFile);
     }
     return outputFile;
   }
-
 }

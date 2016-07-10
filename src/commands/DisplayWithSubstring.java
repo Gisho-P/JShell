@@ -17,15 +17,13 @@ import structures.Output;
  * pattern.
  */
 public class DisplayWithSubstring implements Command {
-
+//TODO: remove use of two methods for exec, simple recursive way of checking
 	// MySession is used to access the files by finding them through the
 	// root or current directory
 	private MySession s;
-	private Output out;
 
 	public DisplayWithSubstring(MySession session) {
 		s = session;
-		out = new Output();
 	}
 
 	/**
@@ -34,14 +32,14 @@ public class DisplayWithSubstring implements Command {
 	 * @return the manual for the grep command
 	 */
 	@Override
-	public String man() {
-		return "GREP(1)\t\t\t\tUser Commands\t\t\t\tGREP(1)\n"
+	public void man() {
+		s.setError("GREP(1)\t\t\t\tUser Commands\t\t\t\tGREP(1)\n"
 				+ "\nNAME\n\t\tcat - displays the contents of one or "
 				+ "more files on the standard output\n\nSYNOPSIS\n\t\t"
 				+ "grep FILE1 [FILE2 ...]\n\nDESCRIPTION\n\t\t"
 				+ "Concatenates one or more files to the standard output"
 				+ ".\n\t\tCan take any amount of files greater then one as a"
-				+ " parameter.";
+				+ " parameter.");
 	}
 
 	/**
@@ -53,11 +51,11 @@ public class DisplayWithSubstring implements Command {
 	 * @return The files lines names with the pattern inside.
 	 */
 	@Override
-	public Output interpret(List<String> args) {
+	public void interpret(List<String> args) {
 		if (args.size() < 3) {
-			return out.withStdError("grep usage: grep [options] REGEX PATH...");
+			s.addError("grep usage: grep [options] REGEX PATH...");
 		} else {
-			return exec(args);
+			exec(args);
 			// return output from function call
 		}
 	}
