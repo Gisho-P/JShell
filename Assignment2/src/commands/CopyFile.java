@@ -35,12 +35,14 @@ public class CopyFile implements Command {
 	@Override
 	public String man() {
 		return "cp(1)\t\t\t\tUser Commands\t\t\t\tcp(1)\n"
-				+ "\nNAME\n\t\tcp - displays the contents of one or "
-				+ "more files on the standard output\n\nSYNOPSIS\n\t\t"
-				+ "cp FILE1 [FILE2 ...]\n\nDESCRIPTION\n\t\t"
-				+ "Concpenates one or more files to the standard output"
-				+ ".\n\t\tCan take any amount of files greater then one as a"
-				+ " parameter.";
+				+ "\nNAME\n\t\tcp - Copy file from source to destination. \n" +
+				"\n" +
+				"SYNOPSIS\n" +
+				"\t\t" +
+				"\n\t\t"
+				+ "cp FILE1 [FILE2]\n\nDESCRIPTION\n\t\t"
+				+ "Copy the file from the source path to the \n" +
+				"destination paths if it is valid.";
 	}
 
 	/**
@@ -54,7 +56,7 @@ public class CopyFile implements Command {
 	@Override
 	public Output interpret(List<String> args) {
 		if (args.size() != 3) {
-			return out.withStdError("cp usage: cp Src Dest ...");
+			return out.withStdError("cp usage: cp Src Dest");
 		} else {
 			return exec(args.subList(1, args.size()));
 			// return output from function call
@@ -73,10 +75,10 @@ public class CopyFile implements Command {
 		try {
 			FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(0));
 			Directory dest = (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(1));
-			
+
 			try {
 				if(src instanceof File){
-					dest.add(src);
+					dest.add(File.copy((File)src));
 				}
 				else if(src instanceof Directory){
 					dest.add(Directory.deepCopy((Directory)src));
