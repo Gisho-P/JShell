@@ -8,6 +8,7 @@ import driver.MySession;
 import structures.Directory;
 import structures.File;
 import structures.FileTypes;
+import structures.Output;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
@@ -22,7 +23,7 @@ public class RetrieveUrlFileTest {
      * Create a new instance of MySession to start with an empty directory
      */
     public void setUp() {
-        session = new MySession();
+        session = new MySession(new Output());
     }
 
     @Test
@@ -30,7 +31,8 @@ public class RetrieveUrlFileTest {
      * Test creating a file when the given url is invalid
      */
     public void testCreatingFileInvalidUrl() {
-        assertEquals(JShell.commandProcessor("curl hi", session), "Malformed " +
+        JShell.commandProcessor("curl hi", session);
+        assertEquals(session.getError(), "Malformed " +
                 "URL.\n");
     }
 
@@ -41,8 +43,9 @@ public class RetrieveUrlFileTest {
     public void testCreatingFileThatExists() throws FileTypes.InvalidName,
             Directory.NameExistsException, Directory.InvalidAddition {
         session.getCurrentDir().add(new File("073.txt"));
-        assertEquals(JShell.commandProcessor(
-                "curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt", session),
+        JShell.commandProcessor(
+                "curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt", session);
+        assertEquals(session.getError(),
                 "073.txt name is already in use in the current directory.\n");
 
     }
