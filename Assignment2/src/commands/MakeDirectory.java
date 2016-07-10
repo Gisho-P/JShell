@@ -6,16 +6,13 @@ import structures.Directory;
 import driver.FilePathInterpreter;
 import structures.FileTypes;
 import driver.MySession;
-import structures.Output;
 
 public class MakeDirectory implements Command {
 
   private MySession s;
-  private Output out;
 
   public MakeDirectory(MySession session) {
     s = session;
-    out = new Output();
   }
 
   /**
@@ -24,12 +21,12 @@ public class MakeDirectory implements Command {
    * @returns The manual of the command MakeDirectory.
    */
   @Override
-  public String man() {
-    return "MKDIR(1)\t\t\t\tUser Commands\t\t\t\tMKDIR(1)\n\n"
+  public void man() {
+    s.setOutput("MKDIR(1)\t\t\t\tUser Commands\t\t\t\tMKDIR(1)\n\n"
         + "NAME\n\t\tmkdir - creates directory(s)\n\nSYNOPSIS"
         + "\n\t\tmkdir DIR ...\n\nDESCRIPTION\n\t\tCreates "
         + "directories which may be in the current directory "
-        + "or a full\n\t\tpath relative to the root/current " + "directory.";
+        + "or a full\n\t\tpath relative to the root/current " + "directory.");
   }
 
   /**
@@ -40,11 +37,11 @@ public class MakeDirectory implements Command {
    * @returns The output string of the command.
    */
   @Override
-  public Output interpret(List<String> cmdArgs) {
+  public void interpret(List<String> cmdArgs) {
     if (cmdArgs.size() == 1) {
-      return out.withStdError("mkdir usage: mkdir DIR [DIR2] ...");
+      s.addError("mkdir usage: mkdir DIR [DIR2] ...");
     } else {// return output from function call
-      return exec(cmdArgs.subList(1, cmdArgs.size()));
+      exec(cmdArgs.subList(1, cmdArgs.size()));
     }
   }
 
@@ -56,7 +53,7 @@ public class MakeDirectory implements Command {
    * @return The output string of the command.
    */
   @Override
-  public Output exec(List<String> directory) {
+  public void exec(List<String> directory) {
     FileTypes parentDir;
     int slashIndex;
     String splitPath[];
@@ -72,23 +69,22 @@ public class MakeDirectory implements Command {
             ((Directory) parentDir)
                 .add(new Directory(splitPath[splitPath.length - 1]));
           } else
-            out.addStdError(
+            s.addError(
                 "mkdir: cannot create a directory without a name\n");
         }
       } catch (Directory.NameExistsException e) {
-        out.addStdError(
+        s.addError(
             "mkdir: cannot create directory '" + i + "': File exists\n");
       } catch (Directory.InvalidAddition invalidAddition) {
         invalidAddition.printStackTrace();
       } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
-        out.addStdError(
+        s.addError(
             "mkdir: cannot create directory '" + i + "': Invalid Path\n");
       } catch (FileTypes.InvalidName invalidName) {
-        out.addStdError("mkdir: cannot create directory with name '" + i
+        s.addError("mkdir: cannot create directory with name '" + i
             + "'. It is invalid.\n");
       }
     }
-    return out;
   }
 
 }

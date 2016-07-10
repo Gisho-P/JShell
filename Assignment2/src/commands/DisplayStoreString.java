@@ -1,10 +1,8 @@
 package commands;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import driver.MySession;
-import structures.Output;
+import driver.*;
 
 
 /**
@@ -15,7 +13,6 @@ public class DisplayStoreString implements Command {
 
   /** Use the session to get the current and root directory */
   private MySession s;
-  private Output out;
 
   /**
    * Create new DisplayStoreString instance, to be able to run echo command
@@ -25,7 +22,6 @@ public class DisplayStoreString implements Command {
    */
   public DisplayStoreString(MySession session) {
     s = session;
-    out = new Output();
   }
 
   /**
@@ -34,8 +30,8 @@ public class DisplayStoreString implements Command {
    * @return man page for echo command
    */
   @Override
-  public String man() {
-    return "ECHO(1)\t\t\t\tUser Commands\t\t\t\tECHO(1)\n\n"
+  public void man() {
+    s.setOutput("ECHO(1)\t\t\t\tUser Commands\t\t\t\tECHO(1)\n\n"
         + "NAME\n\t\techo - prints a string to standard output,"
         + " or saves a string to a text\n\t\tfile\n\nSYNOPSIS"
         + "\n\t\techo STRING [>[>] OUTFILE]\n\nDESCRIPTION\n\t\t"
@@ -46,7 +42,7 @@ public class DisplayStoreString implements Command {
         + " of the OUTFILE with the string, otherwise it will"
         + " create\n\t\ta new file with name OUTFILE .\n\n\t\t"
         + "STRING should be a string of characters surrounded "
-        + "by double quotation\n\t\tmarks.";
+        + "by double quotation\n\t\tmarks.");
   }
 
   /**
@@ -57,48 +53,22 @@ public class DisplayStoreString implements Command {
    * @return error message or string entered/null if stored in file
    */
   @Override
-  public Output interpret(List<String> args) {
-    if (args.size() != 4 && args.size() != 2) {
-      return out.withStdError("echo usage: STRING [>[>] [OUTFILE]");
+  public void interpret(List<String> args) {
+    if (args.size() != 2) {
+      s.addError("echo usage: echo STRING (In quotes)");
     } else {
       // Check that the string is surrounded by quotes
-      if (args.get(1).startsWith("\"") && args.get(1).endsWith("\"")) {
-        if (args.get(1).length() == 2) { // Set to null if string is empty
-          args.set(1, null);
-        } else { // Remove quotes
-          args.set(1, args.get(1).substring(1, args.get(1).length() - 1));
-        }
+      if (!args.get(1).startsWith("\"") || !args.get(1).endsWith("\"")) {
+        s.addError("ERROR: STRING must be surrounded by double quotations");
       } else {
-        return out.withStdError(
-            "ERROR: STRING must be surrounded by double quotations");
-      }
-      if (args.size() == 2) { // return the string if no file is given
-        return out.withStdOutput(
-            args.get(1) == null ? "" : (String) args.get(1), false);
-      } else {
-        List<String> retArgs = new ArrayList<String>();
-        retArgs.add(args.get(1));
-        retArgs.add(args.get(3));
-        if (args.get(2).equals(">>")) { // Append to file
-          retArgs.add("false");
-          return exec(retArgs);
-        } else {
-          if (args.get(2).equals(">")) { // Write to file
-            retArgs.add("true");
-            return exec(retArgs);
-          } else {
-            return out.withStdError("echo usage: STRING [>[>] [OUTFILE]");
-          }
-        }
+        exec(args);
       }
     }
   }
-
+  
   @Override
-  public Output exec(List<String> args) {
-    // Redirect the string to a file
-    out.redirect(s, Boolean.valueOf(args.get(2)), args.get(1), args.get(0));
-    return out;
+  public void exec(List<String> args) {
+    String text = args.get(1);
+    s.addOutput(text.length() == 2 ? "" : text.substring(1, text.length()-1));
   }
-
 }

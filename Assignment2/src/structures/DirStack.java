@@ -15,7 +15,7 @@ public class DirStack {
   /**
    * Data type to hold directory stack
    */
-  static List<String> directories = new ArrayList<String>();
+  private List<String> directories = new ArrayList<String>();
 
   /**
    * Remove the last directory stored in the directory stack or an error message
@@ -23,7 +23,7 @@ public class DirStack {
    * 
    * @return directory to change to
    */
-  public static List<Object> popd() {
+  public List<Object> popd() {
     String newDir = "";
     boolean success = false;
     if (directories.size() == 0) {
@@ -45,14 +45,14 @@ public class DirStack {
    * 
    * @param currPath current directory to store in stack
    */
-  public static void pushd(String currPath) {
+  public void pushd(String currPath) {
     directories.add(currPath);
   }
 
   /**
    * Clear directory stack.
    */
-  public static void clear() {
+  public void clear() {
     directories.clear();
   }
 }

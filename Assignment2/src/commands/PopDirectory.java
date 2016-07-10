@@ -1,13 +1,9 @@
 package commands;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import structures.DirStack;
 import driver.MySession;
-import structures.Output;
 
 /**
  * This class represents the command popd, which pops the most recently saved
@@ -21,7 +17,6 @@ public class PopDirectory implements Command {
    * Holder of current JShell's session attributes
    */
   private MySession s;
-  private Output out;
 
   /**
    * Returns a PopDirectory object that represents the popd command. Now that
@@ -33,7 +28,6 @@ public class PopDirectory implements Command {
    */
   public PopDirectory(MySession session) {
     s = session; // store current session
-    out = new Output();
   }
 
   /**
@@ -42,14 +36,14 @@ public class PopDirectory implements Command {
    * @return the manual for the popd command
    */
   @Override
-  public String man() {
-    return "POPD(1)\t\t\t\tUser Commands\t\t\t\tPOPD(1)\n\n"
+  public void man() {
+    s.setOutput("POPD(1)\t\t\t\tUser Commands\t\t\t\tPOPD(1)\n\n"
         + "NAME\n\t\tpopd - removes the last directory pushed,"
         + " and changes the current\n\t\tdirectory to that one"
         + "\n\nSYNOPSIS\n\t\tpopd\n\nDESCRIPTION\n\t\tRemoves "
         + "the last directory that was pushed to the directory "
         + "stack,\n\t\tand changes the current working "
-        + "directory to this directory.";
+        + "directory to this directory.");
   }
 
   /**
@@ -60,11 +54,11 @@ public class PopDirectory implements Command {
    * @return Error message/directory to go to
    */
   @Override
-  public Output interpret(List<String> args) {
+  public void interpret(List<String> args) {
     if (args.size() != 1) { // too many args entered, return an error message
-      return out.withStdError("popd usage: popd");
+      s.setError("popd usage: popd");
     } else { // process args and complete actions for command
-      return exec(args);
+      exec(args);
     }
   }
 
@@ -75,26 +69,17 @@ public class PopDirectory implements Command {
    * @return Directory for shell to go to
    */
   @Override
-  public Output exec(List<String> args) {
-    List<Object> res = DirStack.popd(); // pop last saved directory from stack
+  public void exec(List<String> args) {
+    List<Object> res = s.retrieveDirectory(); // pop last saved directory from stack
 
     if ((boolean) res.get(1) == false) { // if stack is empty, return error
-      return out.withStdError((String) res.get(0));
+      s.setError((String) res.get(0));
     } else { // use reflection to change directory to popped directory
-      try {
-        Class<?> c = Class.forName("commands.ChangeDirectory");
-        Object t = c.getConstructor(MySession.class).newInstance(s);
-        Method m = c.getMethod("interpret", List.class);
-        List<String> r = new ArrayList<String>();
-        r.addAll(args);
-        r.add((String) res.get(0));
-        return (Output) m.invoke(t, r);
-      } catch (ClassNotFoundException | InstantiationException
-          | IllegalAccessException | NoSuchMethodException | SecurityException
-          | IllegalArgumentException | InvocationTargetException e) {
-        e.printStackTrace();
-      }
-      return null;
+      ChangeDirectory cd = new ChangeDirectory(s);
+      List<String> r = new ArrayList<String>();
+      r.addAll(args);
+      r.add((String) (res.get(0)));
+      cd.interpret(r);
     }
   }
 

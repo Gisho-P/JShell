@@ -3,16 +3,13 @@ package commands;
 import java.util.List;
 
 import driver.MySession;
-import structures.Output;
 
 public class DisplayPath implements Command {
 
   private MySession s;
-  private Output out;
 
   public DisplayPath(MySession session) {
     s = session;
-    out = new Output();
   }
 
   /**
@@ -21,11 +18,11 @@ public class DisplayPath implements Command {
    * @return the manual for the pwd command
    */
   @Override
-  public String man() {
-    return "PWD(1)\t\t\t\tUser Commands\t\t\t\tPWD(1)\n\nNAME"
+  public void man() {
+    s.setOutput("PWD(1)\t\t\t\tUser Commands\t\t\t\tPWD(1)\n\nNAME"
         + "\n\t\tpwd - prints the current directory\n\n"
         + "SYNOPSIS\n\t\tpwd\n\nDESCRIPTION\n\t\tPrints the"
-        + " current working directories full path to standard " + "output";
+        + " current working directories full path to standard " + "output");
   }
 
   /**
@@ -36,8 +33,12 @@ public class DisplayPath implements Command {
    * @return The path of the given file.
    */
   @Override
-  public Output interpret(List<String> args) {
-    return exec(args);
+  public void interpret(List<String> args) {
+    if (args.size() != 1) {
+      s.setError("pwd usage: pwd");
+    } else {
+      exec(args);
+    }
   }
 
   /**
@@ -47,12 +48,8 @@ public class DisplayPath implements Command {
    * @return The path of the given file.
    */
   @Override
-  public Output exec(List<String> args) {
-    if (args.size() != 1) {
-      return out.withStdError("pwd usage: pwd");
-    } else {
-      return out.withStdOutput(s.getCurrentDir().getEntirePath(), false);
-    }
+  public void exec(List<String> args) {
+    s.addOutput(s.getCurrentDir().getEntirePath());
   }
 
 }

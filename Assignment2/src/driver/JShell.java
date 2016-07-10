@@ -29,13 +29,12 @@
 // *********************************************************
 package driver;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import commands.Command;
 import structures.*;
 
 /**
@@ -56,23 +55,15 @@ public class JShell {
    * @param session current shell's session attributes
    * @return output/error message of command class
    */
-  private static Output callFunction(List<String> args, MySession session) {
-    Output out = new Output();
-    try { // call command class w/ arguments and execute functions
-      Class<?> c =
-          Class.forName("commands." + session.commandToClass.get(args.get(0)));
-      Object t = c.getConstructor(MySession.class).newInstance(session);
-      Method m = c.getMethod("interpret", List.class);
-      out = (Output) m.invoke(t, args);
-    } catch (ClassNotFoundException | InstantiationException
-        | IllegalAccessException | NoSuchMethodException | SecurityException
-        | IllegalArgumentException | InvocationTargetException e) {
-      out.addStdError("ERROR: Invalid Command."); // if execution failed, give error
+  private static void callFunction(List<String> args, MySession session) {
+    if (session.commandToClass.containsKey(args.get(0))) {
+      Command c = session.commandToClass.get(args.get(0));
+      c.interpret(args);
+    } else {
+      session.setError("ERROR: Invalid Command.");
     }
-
-    return out;
   }
-
+  
   /**
    * Take the user's input and parse it, then pass it to command class to
    * execute the command. Return any output or error messages.
@@ -81,7 +72,7 @@ public class JShell {
    * @param session session current shell's session attributes
    * @return output/error message of command class
    */
-  public static String commandProcessor(String cmd, MySession session) {
+  public static void commandProcessor(String cmd, MySession session) {
     // Store the output here
     List<String> cmdArgs = new ArrayList<String>();
 
@@ -108,30 +99,24 @@ public class JShell {
       cmd = cmd.replaceAll("[\\s]+", " ");
       cmdArgs = Arrays.asList(cmd.split(" "));
     }
-    Output out = new Output();
-    if(cmdArgs.size() < 3 ? false : (cmdArgs.get(cmdArgs.size() - 2).equals(">")
-        || cmdArgs.get(cmdArgs.size() - 2).equals(">>"))){
-      out = callFunction(cmdArgs.subList(0, cmdArgs.size() - 2), session);
-      if(!out.getStdOutput().isEmpty())
-        return reDirectOutput(cmdArgs, session, out);
-    } else
-      out = callFunction(cmdArgs, session);
-    return out.getAllOutput();
+    
+    processForRedirection(session, cmdArgs);
   }
   
-  public static String reDirectOutput(List<String> cmdArgs, MySession session,
-      Output out){
-    if(cmdArgs.get(cmdArgs.size() - 2).equals(">"))
-      out.redirect(session, true, cmdArgs.get(cmdArgs.size() - 1),
-          out.getStdOutput());
-    else{
-      if(cmdArgs.get(cmdArgs.size() - 2).equals(">>"))
-        out.redirect(session, false, cmdArgs.get(cmdArgs.size() - 1),
-            out.getStdOutput());
-      else
-        out.addStdError("redirection usage: cmd [args] [>][>] outFile ");
+  private static void processForRedirection(MySession s, List<String> args) {
+    int argSize = args.size();
+    if (args.get(argSize-2).equals(">>") || args.get(argSize-2).equals(">")) {
+      callFunction(args.subList(0, argSize-2), s);
+      redirectOutput(args.get(argSize-2), args.get(argSize-1), s);
+    } else {
+      callFunction(args, s);
     }
-      return out.getStdError();
+  }
+  
+  private static void redirectOutput(String type, String file, MySession s) {
+    if (!s.getOutput().isEmpty()) {
+      s.redirectOutput(file, type);
+    } 
   }
 
   /**
@@ -141,26 +126,27 @@ public class JShell {
    */
   public static void main(String[] args) {
     String lastCommand = "";
-    MySession session = new MySession(); // new session attributes created
+    MySession session = new MySession(new Output()); // new session attributes created
     Scanner input = new Scanner(System.in); // accept input from user
 
     // Continually accept commands until the command exit is entered
     // exit can precede or follow any amount of white spaces and can have
     // anything after exit and a white space
-    while (lastCommand.matches("[\\s]*exit[\\s]*") == false) {
+    while (session.getRunStatus()) {
       System.out.print(session.getCurrentDir().getEntirePath() + "$: ");
       lastCommand = input.nextLine();
       // Save the command to history
       session.saveCommand(lastCommand);
-      if (lastCommand.matches("[\\s]*exit[\\s]*") == false) {
+      commandProcessor(lastCommand, session);
+      if (session.getRunStatus()) {
         // Printing the output
-        String ret = commandProcessor(lastCommand, session);
+        String ret = session.returnBuffer();
         if (ret != null && ret != "") {
           System.out.println(ret.trim());
         }
       }
+      session.clearBuffer();
     }
-
     input.close();
   }
 

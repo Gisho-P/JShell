@@ -1,11 +1,8 @@
 package commands;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import driver.MySession;
-import structures.Output;
 
 /**
  * The Class DisplayManual takes a command name and returns the documentation
@@ -20,7 +17,6 @@ public class DisplayManual implements Command {
    * Current session attributes of shell.
    */
   private MySession s;
-  private Output out;
 
   /**
    * Create DisplayManual instance to run man command.
@@ -30,7 +26,6 @@ public class DisplayManual implements Command {
    */
   public DisplayManual(MySession session) {
     s = session;
-    out = new Output();
   }
 
   /**
@@ -39,12 +34,12 @@ public class DisplayManual implements Command {
    * @return man page for man command
    */
   @Override
-  public String man() {
-    return "MAN(1)\t\t\t\tUser Commands\t\t\t\tMAN(1)\n\nNAME"
+  public void man() {
+    s.setOutput("MAN(1)\t\t\t\tUser Commands\t\t\t\tMAN(1)\n\nNAME"
         + "\n\t\tman - prints the documentation for a specified"
         + " command\n\nSYNOPSIS\n\t\tman CMD\n\nDESCRIPTION\n\t\t"
         + "Prints out the documentation for the CMD which "
-        + "contains information\n\t\ton how to use the command";
+        + "contains information\n\t\ton how to use the command");
   }
 
   /**
@@ -56,11 +51,11 @@ public class DisplayManual implements Command {
    * @return error message or man page
    */
   @Override
-  public Output interpret(List<String> args) {
+  public void interpret(List<String> args) {
     if (args.size() != 2) {
-      return out.withStdError("man usage: man CMD");
+      s.setError("man usage: man CMD");
     } else {
-      return exec(args);
+      exec(args);
     }
   }
 
@@ -71,17 +66,12 @@ public class DisplayManual implements Command {
    * @return man page for command or error
    */
   @Override
-  public Output exec(List<String> args) {
-    try {
-      Class<?> c =
-          Class.forName("commands." + s.commandToClass.get((String) args.get(1)));
-      Object t = c.getConstructor(MySession.class).newInstance(s);
-      Method m = c.getMethod("man");
-      return out.withStdOutput((String) m.invoke(t, (Object[]) null), true);
-    } catch (ClassNotFoundException | InstantiationException
-        | IllegalAccessException | NoSuchMethodException | SecurityException
-        | IllegalArgumentException | InvocationTargetException e) {
-      return out.withStdError("ERROR: Command does not exist.");
+  public void exec(List<String> args) {
+    if (s.commandToClass.containsKey((String) args.get(1))) {
+      Command c = s.commandToClass.get((String) args.get(1));
+      c.man();
+    } else {
+      s.addError("ERROR: Command does not exist.");
     }
   }
 

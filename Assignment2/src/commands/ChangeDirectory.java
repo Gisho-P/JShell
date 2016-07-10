@@ -6,7 +6,6 @@ import structures.Directory;
 import driver.FilePathInterpreter;
 import structures.FileTypes;
 import driver.MySession;
-import structures.Output;
 
 /**
  * ChangeDirectory class replicates the cd command in a shell. It allows
@@ -18,7 +17,6 @@ public class ChangeDirectory implements Command {
    * Uses session to change and retrieve current node
    */
   private MySession s;
-  private Output out;
 
   /**
    * Create
@@ -27,7 +25,6 @@ public class ChangeDirectory implements Command {
    */
   public ChangeDirectory(MySession session) {
     s = session;
-    out = new Output();
   }
 
   /**
@@ -36,15 +33,15 @@ public class ChangeDirectory implements Command {
    * @returns The manual of the command ChangeDirectory.
    */
   @Override
-  public String man() {
-    return "CD(1)\t\t\t\tUser Commands\t\t\t\tCD(1)\n\nNAME\n\t"
+  public void man() {
+    s.setOutput("CD(1)\t\t\t\tUser Commands\t\t\t\tCD(1)\n\nNAME\n\t"
         + "\tcd - changes the working directory of the shell"
         + "\n\nSYNOPSIS\n\t\tcd DIR\n\nDESCRIPTION\n\t\t"
         + "Changes the current directory of the shell to the one"
         + " specified by DIR.\n\n\t\tThe DIR may be relative to "
         + "the current directory or the full path.\n\n\t\t"
         + ".. indicates the parent directory, and . indicates "
-        + "the current directory\n\t\twhen specifying the DIR.";
+        + "the current directory\n\t\twhen specifying the DIR.");
   }
 
   /**
@@ -56,11 +53,11 @@ public class ChangeDirectory implements Command {
    * @returns The output string of the command.
    */
   @Override
-  public Output interpret(List<String> args) {
+  public void interpret(List<String> args) {
     if (args.size() != 2) {
-      return out.withStdError("cd usage: cd DIR"); // error, print usage
+      s.setError("cd usage: cd DIR"); // error, print usage
     } else { // return output from function call
-      return exec(args);
+      exec(args);
     }
   }
 
@@ -71,7 +68,7 @@ public class ChangeDirectory implements Command {
    * @param args The arguments for the command to take in.
    * @return The output string of the command.
    */
-  public Output exec(List<String> args) {
+  public void exec(List<String> args) {
     try {
       // Get the node at the end of the path if it exists and set the
       // current directory to the node
@@ -79,11 +76,10 @@ public class ChangeDirectory implements Command {
           FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(1));
       if (dest instanceof Directory) {
         s.setCurrentDir((Directory) dest);
-        return out;
       } else
-        return out.withStdError(dest.getName() + " is not a directory.");
+        s.addError(dest.getName() + " is not a directory.");
     } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
-      return out.withStdError("No such dir as " + args.get(1));
+      s.addError("No such dir as " + args.get(1));
     }
   }
 
