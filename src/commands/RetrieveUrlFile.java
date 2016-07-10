@@ -7,11 +7,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import driver.MySession;
 import structures.Directory;
 import structures.File;
 import structures.FileTypes;
-import driver.MySession;
-import structures.Output;
 //TODO: Finish
 public class RetrieveUrlFile implements Command {
     MySession session;
@@ -22,14 +21,14 @@ public class RetrieveUrlFile implements Command {
      * Store the man page for the curl command
      * @return The string representation of the man page
      */
-    public String man() {
-        return "CURL(1)\t\t\t\tUser Commands\t\t\t\tCURL(1)\n"
+    public void man() {
+        session.setOutput("CURL(1)\t\t\t\tUser Commands\t\t\t\tCURL(1)\n"
                 + "\nNAME\n\t\tcurl - Add the file at the given url "
                 + "to the current directory\n\nSYNOPSIS\n\t\t"
                 + "curl URL\n\nDESCRIPTION\n\t\t"
                 + "Add the file at given url to the current directory."
                 + "\n\t\tThe name of the file is the same as the file in"
-                + " the url.";
+                + " the url.");
     }
 
     /**
@@ -37,13 +36,13 @@ public class RetrieveUrlFile implements Command {
      * @param args The arguments given in the curl command
      * @return Message after the command is executed
      */
-    public Output interpret(List<String> args) {
+    public void interpret(List<String> args) {
         //usage error if incorrect num of args
         if (args.size() != 2) {
-            out.withStdError("usage: curl url");
+            session.setError("usage: curl url");
         }
         //Otherwise execute the command
-        return exec(args.subList(1, args.size()));
+        exec(args.subList(1, args.size()));
     }
 
     /**
@@ -51,7 +50,7 @@ public class RetrieveUrlFile implements Command {
      * @param args Arguments used by function to complete command
      * @return Message related to the command execution
      */
-    public Output exec(List<String> args) {
+    public void exec(List<String> args) {
         //http://www.cs.cmu.edu/~spok/grimmtmp/073.txt
         try {
             //Connect to the url
@@ -79,18 +78,16 @@ public class RetrieveUrlFile implements Command {
 
             //System.out.println(file.getContent());
         } catch (MalformedURLException e) {
-            out.addStdError("Malformed URL.\n");
+            session.addError("Malformed URL.\n");
         } catch (IOException e) {
-            out.addStdError("Error reading data from URL\n");
+            session.addError("Error reading data from URL\n");
         } catch (FileTypes.InvalidName invalidName) {
-            out.addStdError(invalidName.getMessage() + "\n");
+            session.addError(invalidName.getMessage() + "\n");
         } catch (Directory.InvalidAddition invalidAddition) {
-            out.addStdError(invalidAddition.getMessage() + "\n");
+            session.addError(invalidAddition.getMessage() + "\n");
         } catch (Directory.NameExistsException e) {
-            out.addStdError(e.getMessage() + "\n");
+            session.addError(e.getMessage() + "\n");
         }
-
-        return out;
 
     }
 }
