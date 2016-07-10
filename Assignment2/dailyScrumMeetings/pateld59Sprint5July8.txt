@@ -1,0 +1,9 @@
+What did I do last time?
+   - Fixed edge cases for the curl command. Fixed bugs related to mv and cp
+
+What do I plan to do now?
+   - Create tests for the curl command and update the documentation. There are still bugs in the
+     cp and mv command that need to be fixed.
+
+Am I blocked on anything?
+    - Need to ask questions to clarify certain functions of the cp and mv command
