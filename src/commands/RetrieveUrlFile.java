@@ -16,6 +16,7 @@ import structures.Output;
 public class RetrieveUrlFile implements Command {
     MySession session;
     Output out;
+
     public RetrieveUrlFile(MySession session) {
         this.session = session;
         this.out = new Output();
@@ -36,7 +37,8 @@ public class RetrieveUrlFile implements Command {
 
     public Output exec(List<String> args) {
         //http://www.cs.cmu.edu/~spok/grimmtmp/073.txt
-        try {;
+        try {
+            ;
             URL url = new URL(args.get(0));
             BufferedReader in = new BufferedReader(new InputStreamReader
                     (url.openStream()));
@@ -44,9 +46,10 @@ public class RetrieveUrlFile implements Command {
             //what about urls that end with slashes? Do we have to consider
             // those? What about urls with no files at the end? Or urls with
             // no slashes at all
-            String filename = url.getPath().substring(url.getPath()
-                    .lastIndexOf('/') + 1);
-
+            // might have to change names to add
+            String[] parseUrl = args.get(0).split("/");
+            String filename = parseUrl[parseUrl.length - 1];
+            System.out.println(filename);
             File file = new File(filename);
 
             String inputLine;

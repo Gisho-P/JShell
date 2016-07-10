@@ -64,7 +64,7 @@ public abstract class FileTypes {
       return false;
       // If the name doesn't contain all alphanumeric character return false
     } else {
-      Pattern p = Pattern.compile("[^a-zA-Z0-9.]");
+      Pattern p = Pattern.compile("[^a-zA-Z0-9._-]");
       return !p.matcher(name).find();
     }
   }

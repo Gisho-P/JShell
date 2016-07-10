@@ -38,7 +38,7 @@ public class MoveFile implements Command {
 		return "mv(1)\t\t\t\tUser Commands\t\t\t\tmv(1)\n"
 				+ "\nNAME\n\t\tmv - displays the contents of one or "
 				+ "more files on the standard output\n\nSYNOPSIS\n\t\t"
-				+ "mv FILE1 [FILE2 ...]\n\nDESCRIPTION\n\t\t"
+				+ "mv FILE1 [FILE2]\n\nDESCRIPTION\n\t\t"
 				+ "Conmvenates one or more files to the standard output"
 				+ ".\n\t\tCan take any amount of files greater then one as a"
 				+ " parameter.";
@@ -55,7 +55,7 @@ public class MoveFile implements Command {
 	@Override
 	public Output interpret(List<String> args) {
 		if (args.size() != 3) {
-			return out.withStdError("mv usage: mv Src Dest ...");
+			return out.withStdError("mv usage: mv Src Dest");
 		} else {
 			return exec(args.subList(1, args.size()));
 			// return output from function call
