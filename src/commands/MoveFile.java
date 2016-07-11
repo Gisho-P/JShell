@@ -16,22 +16,22 @@ import structures.FileTypes;
  */
 public class MoveFile implements Command {
 
-	// MySession is used to access the files by finding them through the
-	// root or current directory
-	private MySession s;
+    // MySession is used to access the files by finding them through the
+    // root or current directory
+    private MySession s;
 
-	public MoveFile(MySession session) {
-		s = session;
-	}
+    public MoveFile(MySession session) {
+        s = session;
+    }
 
-	/**
-	 * Returns the manual for the mv command.
-	 * 
-	 * @return the manual for the mv command
-	 */
-	@Override
-	public void man() {
-		s.setOutput("MV(1)\t\t\t\tUser Commands\t\t\t\tMV(1)\n"
+    /**
+     * Returns the manual for the mv command.
+     *
+     * @return the manual for the mv command
+     */
+    @Override
+    public void man() {
+        s.setOutput("MV(1)\t\t\t\tUser Commands\t\t\t\tMV(1)\n"
                 + "\nNAME\n\t\tmv - Move file from source to destination. \n" +
                 "\n" +
                 "SYNOPSIS\n" +
@@ -40,26 +40,76 @@ public class MoveFile implements Command {
                 + "mv FILE1 [FILE2]\n\nDESCRIPTION\n\t\t"
                 + "Move the file from the source path to the \n" +
                 "destination paths if it is valid.");
-	}
+    }
 
-	/**
-	 * Process arguments passed for mv command and determine whether the
-	 * command was entered correctly or not.
-	 * 
-	 * @param args
-	 *            Arguments parsed from command
-	 * @return The contents of the files given.
-	 */
-	@Override
-	public void interpret(List<String> args) {
-		if (args.size() != 3) {
-			s.setError("mv usage: mv SRCPATH [DESTPATH] ...");
-		} else {
-			exec(args.subList(1, args.size()));
-			// return output from function call
-		}
-	}
+    /**
+     * Process arguments passed for mv command and determine whether the command
+     * was entered correctly or not.
+     *
+     * @param args Arguments parsed from command
+     * @return The contents of the files given.
+     */
+    @Override
+    public void interpret(List<String> args) {
+        if (args.size() != 3) {
+            s.setError("mv usage: mv SRCPATH [DESTPATH] ...");
+        } else {
+            exec(args.subList(1, args.size()));
+            // return output from function call
+        }
+    }
 
+    /**
+     * Once this is finished delete the other one
+     * @param args
+     */
+    public void exec2(List<String> args) {
+        try {
+            FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(),
+                    args.get(0));
+
+            Directory dest;
+            String newName = "";
+            try {
+                //Determine if the destination path exists
+                dest = (Directory) FilePathInterpreter.interpretPath(s
+                                .getCurrentDir(),
+                        args.get(1));
+            } catch (InvalidDirectoryPathException e) {
+                //If the dest path doesn't exist, maybe the command is asking
+                // for a rename so check if the parent exists
+                dest = (Directory) FilePathInterpreter
+                        .interpretMakePath(s.getCurrentDir(),
+                                args.get(1));
+                String [] names = args.get(1).split("/");
+                newName= names[names.length - 1];
+            }
+
+            Directory parent = (Directory) FilePathInterpreter.interpretMakePath(s.getCurrentDir(),
+                    args.get(0));
+
+
+            //Are we supposed to replace?
+            dest.addReplace(src);
+            parent.remove(src.getName());
+
+            if (!newName.equals("")) {
+                src.setName(newName);
+            }
+
+
+        } catch (InvalidDirectoryPathException e) {
+            s.addError("The source or destination path does not exist\n");
+        } catch (ClassCastException i) {
+            s.addError("The destination path does not lead to a directory\n");
+        } catch (InvalidAddition invalidAddition) {
+            s.addError(invalidAddition.getMessage());
+        } catch (MissingNameException e) {
+            s.addError(e.getMessage());
+        } catch (FileTypes.InvalidName invalidName) {
+            s.addError(invalidName.getMessage());
+        }
+    }
 
     /**
      * Copies the file from one directory to another
@@ -68,7 +118,7 @@ public class MoveFile implements Command {
      * @return The contents of the files given.
      */
     @Override
-    public Output exec(List<String> args) {
+    public void exec(List<String> args) {
         try {
             // Getting both the src and dest place
 
@@ -94,13 +144,15 @@ public class MoveFile implements Command {
                 parent.remove(src.getName());
 
             } catch (NameExistsException | InvalidAddition | MissingNameException e) {
-                out.addStdError("The file cannot be added. It already " +
+                s.addError("The file cannot be added. It already " +
                         "exists or is not valid.\n");
             }
 
         } catch (InvalidDirectoryPathException e) {
-            out.addStdError("The source path does not exist\n");
+            s.addError("The source path does not exist\n");
+        } catch (ClassCastException i) {
+            s.addError("The destination path leads to a file instead of a " +
+                    "directory");
         }
-        return out;
     }
 }
