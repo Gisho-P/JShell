@@ -1,0 +1,9 @@
+What did I do last time?
+	- Added some more tests for grep
+
+What do I plan to do now?
+   - MV and CP Tests
+   - Shorten path for MV, CP and Grep
+
+Am I blocked on anything?
+    - Nothing at the moment
