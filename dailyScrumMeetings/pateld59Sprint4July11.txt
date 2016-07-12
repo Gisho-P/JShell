@@ -1,0 +1,11 @@
+What did I do last time?
+   - Fixed case where mv is used to rename files or directories
+   - Fixed bug in setName and getParent methods of the Directory class
+
+What do I plan to do now?
+   - Add tests for mv and cp
+   - Make changes to directory so it uses singleton design for the root
+   - Make mv command collaborate with cp to remove duplicate code
+
+Am I blocked on anything?
+    - Need to clarify the output redirection. When are commands supposed to ignore output redirection. When the stdout is empty?
