@@ -299,8 +299,8 @@ public class Directory extends FileTypes {
      */
     public static Directory deepCopy(Directory dir) {
         Directory newDir = null;
-        //This should always work since a directory can't be created with
-        //an invalidName
+        //This should always work since the original directory couldn't have
+        // been created with an invalidName
         try {
             newDir = new Directory(dir.getName());
         } catch (InvalidName invalidName) {
