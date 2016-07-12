@@ -14,11 +14,6 @@ import java.util.Queue;
 public class Directory extends FileTypes {
 
     /**
-     * Stores the parent of the current directory
-     */
-    private Directory parent;
-
-    /**
      * Stores the children of the current directory
      */
     private ArrayList<FileTypes> children;
@@ -32,15 +27,6 @@ public class Directory extends FileTypes {
     public Directory(String name) throws InvalidName {
         super(name); // store name in super class' name attribute
         children = new ArrayList<FileTypes>();
-    }
-
-    /**
-     * Get the parent Directory of current directory.
-     *
-     * @return The parent Directory of the current directory
-     */
-    public Directory getParent() {
-        return parent;
     }
 
     /**
@@ -68,8 +54,13 @@ public class Directory extends FileTypes {
         }
         // Check if FileType object with the same name already exists
         if (nameExists(addObject.getName()) == -1) {
-            if (addObject instanceof Directory) {
-                ((Directory) addObject).parent = this;
+            children.add(addObject);
+            try {
+                addObject.setParent(this);
+                //Should never reach the catch part since we added the object
+                // to the children list
+            } catch (InvalidSetParentException e) {
+                e.printStackTrace();
             }
             children.add(addObject);
         } else
@@ -100,9 +91,8 @@ public class Directory extends FileTypes {
             current = current.getParent();
         }
 
-        // Make the parent of the given object this one
-        if (addObject instanceof Directory)
-            ((Directory) addObject).parent = this;
+//        if (addObject instanceof Directory)
+//            ((Directory) addObject).parent = this;
 
         // Check if FileType object with the same name already exists
         if ((index = nameExists(addObject.getName())) == -1) {
@@ -110,6 +100,14 @@ public class Directory extends FileTypes {
         } else {
             children.remove(index);
             children.add(index, addObject);
+        }
+
+        try {
+            addObject.setParent(this);
+            //Should never reach the catch part since we added the object
+            // to the children list
+        } catch (InvalidSetParentException e) {
+            e.printStackTrace();
         }
     }
 
@@ -220,7 +218,7 @@ public class Directory extends FileTypes {
         // Construct the path to the current directory from the root
         String path = "/" + getName();
         Directory current = this;
-        while ((current = current.parent) != dir2Parent) {
+        while ((current = current.getParent()) != dir2Parent) {
             // root doesn't require a slash before the name
             if (current.getName() == "")
                 path = current.getName() + path;
@@ -235,8 +233,8 @@ public class Directory extends FileTypes {
      *
      * @return A path to the current directory from root
      */
-    public String getEntirePath(){
-      return getPath(null);
+    public String getEntirePath() {
+        return getPath(null);
     }
 
     /**
@@ -270,32 +268,32 @@ public class Directory extends FileTypes {
             throw new MissingNameException(
                     "There are no files or directories with name " + name);
     }
-    
+
     /**
      * Checks whether a file is a child of the this directory and all it's sub
      * directories recursively.
-     * @return
      */
-    public boolean hasDeepChild(FileTypes wanted){
-    	Queue<Directory> children = new LinkedList<Directory>();
-    	children.addAll(this.getChildDirs());
-    	while(!children.isEmpty()){
-    		// Dequeuing our latest
-    		Directory curr = children.poll();
-    		for(FileTypes file: curr.getChildren()){
-    			// Checking if they're equal
-    			if(file.equals(wanted)){
-    				return true;
-    			}
-    		}
-    		// Adding the children
-    		children.addAll(curr.getChildDirs());
-    	}
-    	return false;
+    public boolean hasDeepChild(FileTypes wanted) {
+        Queue<Directory> children = new LinkedList<Directory>();
+        children.addAll(this.getChildDirs());
+        while (!children.isEmpty()) {
+            // Dequeuing our latest
+            Directory curr = children.poll();
+            for (FileTypes file : curr.getChildren()) {
+                // Checking if they're equal
+                if (file.equals(wanted)) {
+                    return true;
+                }
+            }
+            // Adding the children
+            children.addAll(curr.getChildDirs());
+        }
+        return false;
     }
 
     /**
      * Create a deep copy of the directory and all of its contents
+     *
      * @param dir Directory to be copied
      * @return the copied Directory
      */
@@ -344,7 +342,7 @@ public class Directory extends FileTypes {
      *
      * @author Dhrumil Patel
      */
-    public class NameExistsException extends Exception {
+    public static class NameExistsException extends Exception {
         /**
          * Serial ID needed when creating exceptions.
          */
@@ -367,7 +365,7 @@ public class Directory extends FileTypes {
      *
      * @author Dhrumil Patel
      */
-    public class MissingNameException extends Exception {
+    public static class MissingNameException extends Exception {
         /**
          * Serial ID needed when creating exceptions.
          */
@@ -390,7 +388,7 @@ public class Directory extends FileTypes {
      *
      * @author Dhrumil Patel
      */
-    public class InvalidAddition extends Exception {
+    public static class InvalidAddition extends Exception {
         /**
          * Serial ID needed when creating exceptions.
          */

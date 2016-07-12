@@ -1,5 +1,7 @@
 package commands;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,7 +61,7 @@ public class DisplayWithSubstring implements Command {
 			// return output from function call
 		}
 	}
-
+	// TODO: 11/07/16 Check if lowercase -r is supposed to work as well. I think i saw it somewhere
 	/**
 	 * Returns the files with the pattern inside.
 	 * 
@@ -94,7 +96,7 @@ public class DisplayWithSubstring implements Command {
 
 		ArrayList<Directory> nextDirLevel = new ArrayList<Directory>();
 		while (!currentDirLevel.isEmpty()) {
-			// Loop trhough all the dirs in the current level
+			// Loop through all the dirs in the current level
 			for (Directory dir : currentDirLevel) {
 				for (File path : s.getCurrentDir().getChildFiles()) {
 					String lines[] = path.getContent().split("\n");
