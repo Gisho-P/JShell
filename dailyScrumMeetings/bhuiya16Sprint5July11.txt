@@ -1,0 +1,13 @@
+What did I do last time?
+    - Set everything to new output scructure
+	- Reorganized JShell to complete command before redirection
+	- Continued on !NUMBER command
+	
+What do I plan to do now?
+    - Maintain, add to new structure
+	- Comments, documentation, CRC Card
+	- Finish !
+	- Clean up
+	
+Am I blocked on anything?
+    - Not necessarily, dependant on test failures
