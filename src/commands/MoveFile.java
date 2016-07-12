@@ -59,6 +59,7 @@ public class MoveFile implements Command {
         }
     }
 
+    // TODO: 10/07/16 Need to check what happens if the user tries to move the root. Also have some sort of collaboration with cp and mv 
     /**
      * Once this is finished delete the other one
      * @param args
