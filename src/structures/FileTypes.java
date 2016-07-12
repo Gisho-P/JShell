@@ -90,7 +90,9 @@ public abstract class FileTypes {
           Directory.NameExistsException {
     if (isValid(name)) // check for name validity
     {
-      if (this.getParent().nameExists(name) == -1)
+      if (this.getParent() == null)
+        this.name = name;
+      else if (this.getParent().nameExists(name) == -1)
         this.name = name;
       else
         throw new Directory.NameExistsException("Unable to change name. A " +
