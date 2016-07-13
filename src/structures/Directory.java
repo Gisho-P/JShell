@@ -62,7 +62,6 @@ public class Directory extends FileTypes {
             } catch (InvalidSetParentException e) {
                 e.printStackTrace();
             }
-            children.add(addObject);
         } else
             throw new NameExistsException(addObject.getName()
                     + " name is already in use in the current directory.");

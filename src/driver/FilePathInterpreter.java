@@ -77,7 +77,7 @@ public class FilePathInterpreter {
 
   /**
    * Returns the file from a subdir.
-   * 
+   *
    * @param init The dir the file is found at.
    * @param currPath The current path of the file.
    * @param splitPath An array split from currPath with the '/' delimiter;
@@ -107,7 +107,7 @@ public class FilePathInterpreter {
 
   /**
    * Returns a subdir within another dir and calls interpret path recursively.
-   * 
+   *
    * @param init The dir the subdir is found at.
    * @param currPath The current path of the subdir.
    * @param splitPath An array split from currPath with the '/' delimiter;
@@ -115,36 +115,35 @@ public class FilePathInterpreter {
    * @throws InvalidDirectoryPathException
    */
   private static FileTypes getSubDirFromDir(Directory init, String currPath,
-      String[] splitPath) throws InvalidDirectoryPathException {
-    // Checking sub dirs
-    ArrayList<Directory> subDirs = init.getChildDirs();
-    Iterator<Directory> dirIterator = subDirs.iterator();
+                                            String[] splitPath) throws InvalidDirectoryPathException {
+      // Checking sub dirs
+      ArrayList<Directory> subDirs = init.getChildDirs();
+      Iterator<Directory> dirIterator = subDirs.iterator();
 
-    // Looping over to see if what we're looking for is a dir
-    while (dirIterator.hasNext()) {
-      Directory next = dirIterator.next();
-      if (next.getName().equals(splitPath[0])) {
+      // Looping over to see if what we're looking for is a dir
+      while (dirIterator.hasNext()) {
+          Directory next = dirIterator.next();
+          if (next.getName().equals(splitPath[0])) {
 
-        int length = splitPath[0].length();
-        // Go into the new dir
-        // Taking care of the '/' in case there are other sub dirs
+              int length = splitPath[0].length();
+              // Go into the new dir
+              // Taking care of the '/' in case there are other sub dirs
 
-        if (splitPath.length == 1)
-          return interpretPathRecursive(next,
-              currPath.substring(length, currPath.length()));
-        else
-          return interpretPathRecursive(next,
-              currPath.substring(length + 1, currPath.length()));
+              if (splitPath.length == 1)
+                  return interpretPathRecursive(next,
+                          currPath.substring(length, currPath.length()));
+              else
+                  return interpretPathRecursive(next,
+                          currPath.substring(length + 1, currPath.length()));
+          }
       }
-    }
 
-    throw new InvalidDirectoryPathException(
-        "There are no files or directories with name " + currPath);
+      throw new InvalidDirectoryPathException(
+              "There are no files or directories with name " + currPath);
   }
-
   /**
    * Parses the current single dot from currPath and calls interpretPath again.
-   * 
+   *
    * @param init The dir to interpret the path from.
    * @param currPath The current path of the file.
    * @param splitPath An array split from currPath with the '/' delimiter;
@@ -165,7 +164,7 @@ public class FilePathInterpreter {
 
   /**
    * Parses the double dots from currPath and calls interpretPath again.
-   * 
+   *
    * @param init The dir to interpret the path from.
    * @param currPath The current path of the file.
    * @param splitPath An array split from currPath with the '/' delimiter;

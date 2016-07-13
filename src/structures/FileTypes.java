@@ -63,9 +63,10 @@ public abstract class FileTypes {
         childExists = true;
         break;
       }
-      if (!childExists)
-        throw new InvalidSetParentException();
     }
+
+    if (!childExists)
+      throw new InvalidSetParentException();
 
   }
 

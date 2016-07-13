@@ -95,7 +95,11 @@ public class MoveFile implements Command {
             parent.remove(src.getName());
 
             if (!newName.equals("")) {
-                src.setName(newName);
+                try {
+                    src.setName(newName);
+                } catch (NameExistsException e) {
+                    e.printStackTrace();
+                }
             }
 
 
