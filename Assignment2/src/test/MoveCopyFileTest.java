@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +24,12 @@ public class MoveCopyFileTest {
 	 * Create new instance of MySession before every test
 	 */
 	public void setUp() {
-		session = new MySession();
+		session = new MySession(new Output());
+	}
+	
+	@After
+	public void tearDown() {
+		session.clearBuffer();
 	}
 
 	/**

@@ -70,19 +70,19 @@ public class MakeDirectory implements Command {
                 .add(new Directory(splitPath[splitPath.length - 1]));
           } else
             s.addError(
-                "mkdir: cannot create a directory without a name\n");
+                "mkdir: cannot create a directory without a name");
         }
       } catch (Directory.NameExistsException e) {
         s.addError(
-            "mkdir: cannot create directory '" + i + "': File exists\n");
+            "mkdir: cannot create directory '" + i + "': File exists");
       } catch (Directory.InvalidAddition invalidAddition) {
         invalidAddition.printStackTrace();
       } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
         s.addError(
-            "mkdir: cannot create directory '" + i + "': Invalid Path\n");
+            "mkdir: cannot create directory '" + i + "': Invalid Path");
       } catch (FileTypes.InvalidName invalidName) {
         s.addError("mkdir: cannot create directory with name '" + i
-            + "'. It is invalid.\n");
+            + "'. It is invalid.");
       }
     }
   }

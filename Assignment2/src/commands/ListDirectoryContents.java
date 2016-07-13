@@ -10,14 +10,13 @@ import structures.Directory;
 import driver.FilePathInterpreter;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
 import driver.MySession;
-import structures.Output;
 
 /**
  * The Class ListDirectoryContents can list the children of a given list of
  * directories.
  */
 public class ListDirectoryContents implements Command {
-//TODO: Make better recursive
+
   /**
    * The session is used to get the current directory when searching for paths
    */
@@ -40,7 +39,7 @@ public class ListDirectoryContents implements Command {
    */
   @Override
   public void man() {
-    s.setError("LS(1)\t\t\t\tUser Commands\t\t\t\tLS(1)\n\nNAME\n\t"
+    s.addOutput("LS(1)\t\t\t\tUser Commands\t\t\t\tLS(1)\n\nNAME\n\t"
         + "\tls - prints out all of the contents of one or many "
         + "files/directories\n\nSYNOPSIS\n\t\tls [-R] [PATH ...]\n\n"
         + "DESCRIPTION\n\t\tPrints out the contents of files/"
@@ -68,23 +67,21 @@ public class ListDirectoryContents implements Command {
    * @param paths the paths of directories/files to be listed
    * @return a list of the contents of each of the given paths
    */
-  private Output execMult(List<String> paths, Boolean recursiveDirectories) {
+  private void execMult(List<String> paths, Boolean recursiveDirectories) {
     Collections.sort(paths, String.CASE_INSENSITIVE_ORDER);
     // Get children if path is a directory, or return path if it's a file
     for (String i : paths) {
       try { // Assume it's a directory and get children
         Directory currentDir = ((Directory) FilePathInterpreter
             .interpretPath(s.getCurrentDir(), i));
-        out.addStdOutput(getDirectoryContents((Directory) currentDir,
-            currentDir, i, recursiveDirectories) + "\n");
+        s.addOutput(getDirectoryContents((Directory) currentDir,
+            currentDir, i, recursiveDirectories));
       } catch (InvalidDirectoryPathException e) {
-        out.addStdError("No such directory or file with path " + i + "\n");
+        s.addError("No such directory or file with path " + i + "\n");
       } catch (ClassCastException e) { // Indicates that path points to a file
-        out.addStdOutput(i + "\n");
+        s.addOutput(i + "\n");
       }
     }
-    return out.withStdOutput(
-        out.getStdOutput().substring(0, out.getStdOutput().length() - 1), true);
   }
 
   private String getDirectoryContents(Directory currentDir, Directory root,
@@ -120,26 +117,26 @@ public class ListDirectoryContents implements Command {
    * @return error message or directory contents
    */
   @Override
-  public Output exec(List<String> args) {
+  public void exec(List<String> args) {
     if (args.size() == 2 && args.get(1).equals("-R")) {
       if(s.getCurrentDir().equals(s.getRootDir()))
-        return execMult(Arrays.asList("/"), args.get(1).equals("-R"));
+        execMult(Arrays.asList("/"), args.get(1).equals("-R"));
       else
-        return out.withStdOutput(getDirectoryContents(s.getCurrentDir(),
+        s.addOutput(getDirectoryContents(s.getCurrentDir(),
             s.getCurrentDir(), s.getCurrentDir().getName(),
-            args.get(1).equals("-R")), false);
+            args.get(1).equals("-R")));
     }
     // If there are paths specified get the output form function call
     if (args.size() > 1) {
       if (args.get(1).equals("-R"))
-        return execMult(args.subList(2, args.size()), true);
+        execMult(args.subList(2, args.size()), true);
       else
-        return execMult(args.subList(1, args.size()), false);
+        execMult(args.subList(1, args.size()), false);
     }
     // Otherwise, get the contents of the current directory and return it
     else {
-      return out.withStdOutput(getDirectoryContents(s.getCurrentDir(),
-          s.getCurrentDir(), "", false).replaceFirst(":", "").trim(), false);
+      s.addOutput(getDirectoryContents(s.getCurrentDir(),
+          s.getCurrentDir(), "", false).replaceFirst(":", "").trim());
     }
   }
 

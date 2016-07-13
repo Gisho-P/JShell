@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +24,12 @@ public class ChangeDirectoryTest {
    * Create new instance of MySession before every test
    */
   public void setUp() {
-    session = new MySession();
+    session = new MySession(new Output());
+  }
+  
+  @After
+  public void tearDown() {
+	  session.clearBuffer();
   }
 
   /**
@@ -141,8 +147,9 @@ public class ChangeDirectoryTest {
     session.getRootDir().add(new File("file1"));
     JShell.commandProcessor("mkdir subdir1", session);
     // Should fail to change directory since file is given
+    JShell.commandProcessor("cd file1", session);
     assertEquals("file1 is not a directory.",
-        JShell.commandProcessor("cd file1", session));
+        session.returnBuffer());
   }
 
 }

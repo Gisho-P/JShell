@@ -5,8 +5,11 @@ import org.junit.Test;
 
 import driver.JShell;
 import driver.MySession;
+import structures.Output;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
 
 /**
  * Tests for DisplayPath class
@@ -19,7 +22,12 @@ public class DisplayPathTest {
    * Create a new instance of MySession before every test
    */
   public void setUp() {
-    session = new MySession();
+    session = new MySession(new Output());
+  }
+  
+  @After
+  public void tearDown() {
+	  session.clearBuffer();
   }
 
   @Test
@@ -27,8 +35,8 @@ public class DisplayPathTest {
    * Test calling pwd on empty directory
    */
   public void testDisplayPathEmpty() {
-    String path = JShell.commandProcessor("pwd", session);
-    assertEquals("/", path);
+    JShell.commandProcessor("pwd", session);
+    assertEquals("/", session.returnBuffer());
   }
 
   @Test
@@ -38,8 +46,8 @@ public class DisplayPathTest {
   public void testDisplayPathSingleDir() {
     JShell.commandProcessor("mkdir one", session);
     JShell.commandProcessor("cd one", session);
-    String path = JShell.commandProcessor("pwd", session);
-    assertEquals("/one", path);
+    JShell.commandProcessor("pwd", session);
+    assertEquals("/one", session.returnBuffer());
   }
 
   @Test
@@ -50,21 +58,21 @@ public class DisplayPathTest {
     JShell.commandProcessor("mkdir one one/two one/two/three three four",
         session);
     JShell.commandProcessor("cd one/two/three", session);
-    String path = JShell.commandProcessor("pwd", session);
-    assertEquals("/one/two/three", path);
+    JShell.commandProcessor("pwd", session);
+    assertEquals("/one/two/three", session.returnBuffer());
   }
 
   @Test
   /**
-   * Test calling pwd on directories where the parent directoris all have the
+   * Test calling pwd on directories where the parent directories all have the
    * same name
    */
   public void testDisplayPathMultipleDirSameName() {
     JShell.commandProcessor("mkdir one one/one one/one/one one/one/one/one",
         session);
     JShell.commandProcessor("cd one/one/one/one", session);
-    String path = JShell.commandProcessor("pwd", session);
-    assertEquals("/one/one/one/one", path);
+    JShell.commandProcessor("pwd", session);
+    assertEquals("/one/one/one/one", session.returnBuffer());
   }
 
 

@@ -3,16 +3,13 @@ package commands;
 import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import structures.Directory;
 import structures.File;
 import driver.FilePathInterpreter;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
 import driver.MySession;
-import structures.Output;
 
 /**
  * The Class DisplayWithSubstring handles displaying file with a specific
@@ -35,7 +32,7 @@ public class DisplayWithSubstring implements Command {
 	 */
 	@Override
 	public void man() {
-		s.setError("GREP(1)\t\t\t\tUser Commands\t\t\t\tGREP(1)\n"
+		s.setOutput("GREP(1)\t\t\t\tUser Commands\t\t\t\tGREP(1)\n"
 				+ "\nNAME\n\t\tcat - displays the contents of one or "
 				+ "more files on the standard output\n\nSYNOPSIS\n\t\t"
 				+ "grep FILE1 [FILE2 ...]\n\nDESCRIPTION\n\t\t"
@@ -55,7 +52,7 @@ public class DisplayWithSubstring implements Command {
 	@Override
 	public void interpret(List<String> args) {
 		if (args.size() < 3) {
-			s.addError("grep usage: grep [options] REGEX PATH...");
+			s.addError("grep usage: grep [options] REGEX PATH ...");
 		} else {
 			exec(args);
 			// return output from function call
@@ -72,7 +69,7 @@ public class DisplayWithSubstring implements Command {
 	public void execDir(List<String> args) {
 		if (!args.get(1).equals("-R")) {
 			s.addError("Wrong options for grep no such flag as "
-					+ args.get(1) + "\n");
+					+ args.get(1));
 			return;
 		}
 
@@ -87,13 +84,12 @@ public class DisplayWithSubstring implements Command {
 				// Adding a new line
 				if (line.matches(args.get(2))) {
 					// Adds the new line to std out
-					s.addOutput(s.getCurrentDir().getEntirePath() + ":"
-							+ line + "\n");
+					s.addOutput(s.getCurrentDir().getEntirePath() + ":" + line);
 				}
 			}
 		}
 
-		// Recursivly go through all sub dirs
+		// Recursively go through all sub dirs
 
 		ArrayList<Directory> nextDirLevel = new ArrayList<Directory>();
 		while (!currentDirLevel.isEmpty()) {
@@ -141,7 +137,6 @@ public class DisplayWithSubstring implements Command {
 				// If it's an invalid path or a dir same case
 
 				s.addError("No such file as " + args.get(2));
-				return;
 			}
 
 			String lines[] = path.getContent().split("\n");

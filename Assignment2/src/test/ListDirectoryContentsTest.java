@@ -9,10 +9,13 @@ import structures.Directory.MissingNameException;
 import structures.Directory.NameExistsException;
 import structures.File;
 import structures.FileTypes.InvalidName;
+import structures.Output;
 import driver.JShell;
 import driver.MySession;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
 
 /**
  * Tests that verify the functionality of the ls command in JShell which lists
@@ -24,7 +27,12 @@ public class ListDirectoryContentsTest {
 
   @Before
   public void setUp() {
-    session = new MySession();
+    session = new MySession(new Output());
+  }
+  
+  @After
+  public void tearDown() {
+	  session.clearBuffer();
   }
 
   /**
@@ -32,10 +40,11 @@ public class ListDirectoryContentsTest {
    */
   @Test
   public void testEmptyDirectory() {
-    String message = JShell.commandProcessor("ls", session);
-    String messagePath = JShell.commandProcessor("ls /", session);
-    assertEquals("", message);
-    assertEquals("/:", messagePath);
+    JShell.commandProcessor("ls", session);
+    assertEquals("", session.returnBuffer());
+    session.clearBuffer();
+    JShell.commandProcessor("ls /", session);
+    assertEquals("/:", session.returnBuffer());
   }
 
   /**
@@ -49,10 +58,11 @@ public class ListDirectoryContentsTest {
       session.getCurrentDir().add(new File("file1"));
     } catch (NameExistsException | InvalidAddition | InvalidName e) {
     }
-    String message = JShell.commandProcessor("ls", session);
-    String messagePath = JShell.commandProcessor("ls /", session);
-    assertEquals("dir1 file1", message);
-    assertEquals("/: dir1 file1", messagePath);
+    JShell.commandProcessor("ls", session);
+    assertEquals("dir1 file1", session.returnBuffer());
+    session.clearBuffer();
+    JShell.commandProcessor("ls /", session);
+    assertEquals("/: dir1 file1", session.returnBuffer());
   }
 
   /**
@@ -64,8 +74,8 @@ public class ListDirectoryContentsTest {
       session.getCurrentDir().add(new File("file1"));
     } catch (NameExistsException | InvalidAddition | InvalidName e) {
     }
-    String message = JShell.commandProcessor("ls file1", session);
-    assertEquals("file1", message);
+    JShell.commandProcessor("ls file1", session);
+    assertEquals("file1", session.returnBuffer());
   }
 
   /**
@@ -86,8 +96,8 @@ public class ListDirectoryContentsTest {
     } catch (NameExistsException | InvalidAddition | InvalidName
         | MissingNameException e) {
     }
-    String message = JShell.commandProcessor("ls file1 / dir2 dir1", session);
-    assertEquals("/: dir1 dir2 file1\ndir1: a b c d\ndir2:\nfile1", message);
+    JShell.commandProcessor("ls file1 / dir2 dir1", session);
+    assertEquals("/: dir1 dir2 file1\ndir1: a b c d\ndir2:\nfile1", session.returnBuffer());
   }
 
 }
