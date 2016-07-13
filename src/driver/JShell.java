@@ -105,11 +105,11 @@ public class JShell {
   
   private static void processForRedirection(MySession s, List<String> args) {
     int argSize = args.size();
-    if (args.get(argSize-2).equals(">>") || args.get(argSize-2).equals(">")) {
-      callFunction(args.subList(0, argSize-2), s);
-      redirectOutput(args.get(argSize-2), args.get(argSize-1), s);
+    if (argSize < 3) {
+    	callFunction(args, s);
     } else {
-      callFunction(args, s);
+    	callFunction(args.subList(0, argSize-2), s);
+        redirectOutput(args.get(argSize-2), args.get(argSize-1), s);
     }
   }
   
@@ -141,7 +141,7 @@ public class JShell {
       if (session.getRunStatus()) {
         // Printing the output
         String ret = session.returnBuffer();
-        if (ret != null && ret != "") {
+        if (!ret.isEmpty()) {
           System.out.println(ret.trim());
         }
       }

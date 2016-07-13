@@ -1,10 +1,12 @@
 package test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
+import driver.JShell;
 import driver.MySession;
-
-import static org.junit.Assert.assertTrue;
+import structures.Output;
 
 /**
  * The Class GetHistoryTest tests out sessions history function.
@@ -17,7 +19,7 @@ public class GetHistoryTest {
    */
   @Test
   public void testGetHistoryAll() {
-    MySession session = new MySession();
+    MySession session = new MySession(new Output());
     String expectedHistory = "";
     // Test getting the history of all commands
     for (Integer i = 0; i < 5; i++) {
@@ -29,8 +31,8 @@ public class GetHistoryTest {
         expectedHistory +=
             ((i + 1) + (". " + "echo \"cmd " + i + "\"" + " > newFile"));
     }
-    assertTrue(session.getCommandHistory().getAllOutput().
-        equals(expectedHistory));
+    JShell.commandProcessor("history", session);
+    assertEquals(session.returnBuffer(), expectedHistory);
   }
 
   /**
@@ -38,7 +40,7 @@ public class GetHistoryTest {
    */
   @Test
   public void testGetHistoryLastTwo() {
-    MySession session = new MySession();
+    MySession session = new MySession(new Output());
     String expectedHistory = "";
     // Test getting the history of the last two commands
     for (Integer i = 0; i < 5; i++) {
@@ -52,8 +54,8 @@ public class GetHistoryTest {
           expectedHistory +=
               ((i + 1) + (". " + "echo \"cmd " + i + "\" > " + "newFile"));
     }
-    assertTrue(session.getCommandHistory(2).getAllOutput().
-        equals(expectedHistory));
+    JShell.commandProcessor("history 2", session);
+    assertEquals(session.returnBuffer(), expectedHistory);
   }
 
   /**
@@ -61,14 +63,14 @@ public class GetHistoryTest {
    */
   @Test
   public void testGetHistoryLastZero() {
-    MySession session = new MySession();
+    MySession session = new MySession(new Output());
     String expectedHistory = "";
     // Test getting the history of 0 commands
     for (Integer i = 0; i < 5; i++) {
       session.saveCommand("echo \"cmd " + i.toString() + "\" > newFile");
     }
-    assertTrue(session.getCommandHistory(0).getAllOutput().
-        equals(expectedHistory));
+    JShell.commandProcessor("history 0", session);
+    assertEquals(session.returnBuffer(), expectedHistory);
   }
 
   /**
@@ -77,7 +79,7 @@ public class GetHistoryTest {
    */
   @Test
   public void testGetHistoryMoreThenAll() {
-    MySession session = new MySession();
+    MySession session = new MySession(new Output());
     String expectedHistory = "";
     // Test getting the history of 6 commands
     for (Integer i = 0; i < 5; i++) {
@@ -89,8 +91,8 @@ public class GetHistoryTest {
         expectedHistory +=
             ((i + 1) + (". " + "echo \"cmd " + i + "\"" + " > newFile"));
     }
-    assertTrue(session.getCommandHistory(6).getAllOutput().
-        equals(expectedHistory));
+    JShell.commandProcessor("history 6", session);
+    assertEquals(session.returnBuffer(), expectedHistory);
   }
 
 }

@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ import driver.MySession;
 import structures.Directory.InvalidAddition;
 import structures.Directory.NameExistsException;
 import structures.FileTypes.InvalidName;
+import structures.Output;
 
 public class DisplayWithSubstringTest {
 
@@ -18,7 +20,12 @@ public class DisplayWithSubstringTest {
 
 	  @Before
 	  public void setUp() {
-	    session = new MySession();
+	    session = new MySession(new Output());
+	  }
+	  
+	  @After
+	  public void tearDown() {
+		  session.clearBuffer();
 	  }
 	  
 	  /**
@@ -32,8 +39,8 @@ public class DisplayWithSubstringTest {
 	      session.getCurrentDir().add(temp);
 	    } catch (NameExistsException | InvalidAddition | InvalidName e) {
 	    }
-	    String message = JShell.commandProcessor("grep abc.* file1", session);
-	    assertEquals("abcdefg\n" + "abcde\n" + "abc", message);
+	    JShell.commandProcessor("grep abc.* file1", session);
+	    assertEquals("abcdefg\n" + "abcde\n" + "abc", session.returnBuffer());
 	  }
 	  
 	  /**
@@ -47,8 +54,8 @@ public class DisplayWithSubstringTest {
 	      session.getCurrentDir().add(temp);
 	    } catch (NameExistsException | InvalidAddition | InvalidName e) {
 	    }
-	    String message = JShell.commandProcessor("grep -R abc.* file1", session);
-	    assertEquals("/:abcdefg\n" + "/:abcde\n" + "/:abc", message);
+	    JShell.commandProcessor("grep -R abc.* file1", session);
+	    assertEquals("/:abcdefg\n" + "/:abcde\n" + "/:abc", session.returnBuffer());
 
 	  }
 	  
@@ -60,8 +67,8 @@ public class DisplayWithSubstringTest {
 		      session.getCurrentDir().add(temp);
 		    } catch (NameExistsException | InvalidAddition | InvalidName e) {
 		    }
-		    String message = JShell.commandProcessor("grep -R .* file1", session);
-		    assertEquals("/:abcdefg\n" + "/:abcde\n" + "/:abc", message);
+		    JShell.commandProcessor("grep -R .* file1", session);
+		    assertEquals("/:abcdefg\n" + "/:abcde\n" + "/:abc", session.returnBuffer());
 
 	  }
 	  
@@ -73,8 +80,8 @@ public class DisplayWithSubstringTest {
 		      session.getCurrentDir().add(temp);
 		    } catch (NameExistsException | InvalidAddition | InvalidName e) {
 		    }
-		    String message = JShell.commandProcessor("grep -R file1", session);
-		    assertEquals("", message);
+		    JShell.commandProcessor("grep -R file1", session);
+		    assertEquals("", session.returnBuffer());
 
 		  }
 	  
@@ -86,8 +93,8 @@ public class DisplayWithSubstringTest {
 		      session.getCurrentDir().add(temp);
 		    } catch (NameExistsException | InvalidAddition | InvalidName e) {
 		    }
-		    String message = JShell.commandProcessor("grep -R abc file1", session);
-		    assertEquals("/:abc", message);
+		    JShell.commandProcessor("grep -R abc file1", session);
+		    assertEquals("/:abc", session.returnBuffer());
 
 	  }
 }

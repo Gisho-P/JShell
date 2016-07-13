@@ -9,6 +9,7 @@ import java.util.Arrays;
 import structures.Directory;
 import structures.File;
 import structures.FileTypes;
+import structures.Output;
 import driver.JShell;
 import driver.MySession;
 
@@ -25,7 +26,7 @@ public class MakeDirectoryTest {
    * Create a new instance of MySession before every testcase
    */
   public void setUp() {
-    session = new MySession();
+    session = new MySession(new Output());
   }
 
   @Test
@@ -33,8 +34,8 @@ public class MakeDirectoryTest {
    * Test creating a directory with slash as the name
    */
   public void testMkdirCreateDirWithSlash() {
-    String message = JShell.commandProcessor("mkdir /", session);
-    assertEquals("mkdir: cannot create a directory without a name\n", message);
+    JShell.commandProcessor("mkdir /", session);
+    assertEquals("mkdir: cannot create a directory without a name", session.returnBuffer());
   }
 
   @Test
@@ -43,8 +44,8 @@ public class MakeDirectoryTest {
    */
   public void testMkdirCreateDirWithMultipleSlash() {
     ArrayList<String> expected = new ArrayList<String>();
-    String message = JShell.commandProcessor("mkdir ////", session);
-    assertEquals("mkdir: cannot create a directory without a name\n", message);
+    JShell.commandProcessor("mkdir ////", session);
+    assertEquals("mkdir: cannot create a directory without a name", session.returnBuffer());
     expected.add("sub1dir1");
     JShell.commandProcessor("mkdir sub1dir1///////", session);
     assertEquals(expected, session.getRootDir().getChildNames());
@@ -55,18 +56,18 @@ public class MakeDirectoryTest {
    * Test making directories with invalid names such as ..
    */
   public void testMkdirInvalidNames() {
-    String message = JShell.commandProcessor("mkdir ..", session);
+    JShell.commandProcessor("mkdir ..", session);
     assertEquals(
-        "mkdir: cannot create directory with name '..'. It is " + "invalid.\n",
-        message);
-    message = JShell.commandProcessor("mkdir .", session);
+        "mkdir: cannot create directory with name '..'. It is " + "invalid.",
+        session.returnBuffer());
+    JShell.commandProcessor("mkdir .", session);
     assertEquals(
-        "mkdir: cannot create directory with name '.'. It is" + " invalid.\n",
-        message);
-    message = JShell.commandProcessor("mkdir one one/..", session);
+        "mkdir: cannot create directory with name '.'. It is" + " invalid.",
+        session.returnBuffer());
+    JShell.commandProcessor("mkdir one one/..", session);
     assertEquals(session.getRootDir().getChildNames().get(0), "one");
     assertEquals("mkdir: cannot create directory with name 'one/..'. It is "
-        + "invalid.\n", message);
+        + "invalid.", session.returnBuffer());
   }
 
 
@@ -77,20 +78,20 @@ public class MakeDirectoryTest {
    */
   public void testMkdirInvalidPaths() {
     // Unable to create because one doesn't exist
-    String message = JShell.commandProcessor("mkdir one/two", session);
-    assertEquals("mkdir: cannot create directory 'one/two': Invalid Path\n",
-        message);
+    JShell.commandProcessor("mkdir one/two", session);
+    assertEquals("mkdir: cannot create directory 'one/two': Invalid Path",
+        session.returnBuffer());
     // unable to create because two doesn't exist in the root
-    message = JShell.commandProcessor("mkdir one one/two two/one", session);
-    assertEquals("mkdir: cannot create directory 'two/one': Invalid Path\n",
-        message);
+    JShell.commandProcessor("mkdir one one/two two/one", session);
+    assertEquals("mkdir: cannot create directory 'two/one': Invalid Path",
+        session.returnBuffer());
     // unable to create because two doesn't exist under the root
-    message = JShell.commandProcessor(
+    JShell.commandProcessor(
         "mkdir" + " one/../two/../three one/three/four\n", session);
     assertEquals(session.getRootDir().getChildNames().get(0), "one");
     assertEquals("mkdir: cannot create directory 'one/../two/../three':"
         + " Invalid Path\n" + "mkdir: cannot create directory 'one/three/four':"
-        + " Invalid Path\n", message);
+        + " Invalid Path", session.returnBuffer());
   }
 
   @Test
@@ -101,14 +102,14 @@ public class MakeDirectoryTest {
   public void testMkdirDirOrFileExists() throws FileTypes.InvalidName,
       Directory.NameExistsException, Directory.InvalidAddition {
     // dir with same name exists shouldn't be able to create it
-    String message = JShell.commandProcessor("mkdir one one", session);
-    assertEquals("mkdir: cannot create directory 'one': File exists\n",
-        message);
+    JShell.commandProcessor("mkdir one one", session);
+    assertEquals("mkdir: cannot create directory 'one': File exists",
+        session.returnBuffer());
     // file with same name exists shouldn't be able to create it
     session.getCurrentDir().add(new File("three"));
-    message = JShell.commandProcessor("mkdir three", session);
-    assertEquals("mkdir: cannot create directory 'three': File exists\n",
-        message);
+    JShell.commandProcessor("mkdir three", session);
+    assertEquals("mkdir: cannot create directory 'three': File exists",
+        session.returnBuffer());
 
   }
 

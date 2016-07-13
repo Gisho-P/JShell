@@ -78,15 +78,15 @@ public class RetrieveUrlFile implements Command {
 
             //System.out.println(file.getContent());
         } catch (MalformedURLException e) {
-            session.addError("Malformed URL.\n");
+            session.addError("Malformed URL.");
         } catch (IOException e) {
-            session.addError("Error reading data from URL\n");
+            session.addError("Error reading data from URL");
         } catch (FileTypes.InvalidName invalidName) {
-            session.addError(invalidName.getMessage() + "\n");
+            session.addError(invalidName.getMessage());
         } catch (Directory.InvalidAddition invalidAddition) {
-            session.addError(invalidAddition.getMessage() + "\n");
+            session.addError(invalidAddition.getMessage());
         } catch (Directory.NameExistsException e) {
-            session.addError(e.getMessage() + "\n");
+            session.addError(e.getMessage());
         }
 
     }

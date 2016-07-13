@@ -13,6 +13,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
+
 /**
  * Tests that verify the functionality of the echo command in JShell which can
  * display strings in the shell or store them in files.
@@ -23,7 +25,12 @@ public class DisplayStoreStringTest {
 
   @Before
   public void setUp() {
-    session = new MySession();
+    session = new MySession(new Output());
+  }
+  
+  @After
+  public void tearDown() {
+	  session.clearBuffer();
   }
 
   /**
@@ -31,8 +38,8 @@ public class DisplayStoreStringTest {
    */
   @Test
   public void testDisplayEmptyString() {
-    String message = JShell.commandProcessor("echo \"\"", session);
-    assertEquals("", message);
+    JShell.commandProcessor("echo \"\"", session);
+    assertEquals("", session.returnBuffer());
   }
 
   /**
@@ -40,8 +47,8 @@ public class DisplayStoreStringTest {
    */
   @Test
   public void testDisplayOneWord() {
-    String message = JShell.commandProcessor("echo \"test\"", session);
-    assertEquals("test", message);
+    JShell.commandProcessor("echo \"test\"", session);
+    assertEquals("test", session.returnBuffer());
   }
 
   /**
@@ -49,8 +56,8 @@ public class DisplayStoreStringTest {
    */
   @Test
   public void testDisplayMultipleWords() {
-    String message = JShell.commandProcessor("echo \"1 2 3 4 ss\"", session);
-    assertEquals("1 2 3 4 ss", message);
+    JShell.commandProcessor("echo \"1 2 3 4 ss\"", session);
+    assertEquals("1 2 3 4 ss", session.returnBuffer());
   }
 
   /**
@@ -60,14 +67,14 @@ public class DisplayStoreStringTest {
    */
   @Test
   public void testStoreString() {
-    String out = JShell.commandProcessor("echo \"test\" > file", session);
+    JShell.commandProcessor("echo \"test\" > file", session);
     String message = "";
     try {
       message = ((File) session.getCurrentDir().getChild("file")).getContent();
     } catch (MissingNameException e) {
       fail("The file was not created");
     }
-    assertTrue(out.isEmpty());
+    assertTrue(session.getOutput().isEmpty());
     assertEquals("test", message);
   }
 
@@ -79,15 +86,15 @@ public class DisplayStoreStringTest {
    */
   @Test
   public void testStoreAppendString() {
-    String out = JShell.commandProcessor("echo \"test\" > file", session);
-    out += JShell.commandProcessor("echo \" add\" >> file", session);
+    JShell.commandProcessor("echo \"test\" > file", session);
+    JShell.commandProcessor("echo \" add\" >> file", session);
     String message = "";
     try {
       message = ((File) session.getCurrentDir().getChild("file")).getContent();
     } catch (MissingNameException e) {
       fail("The file was not created");
     }
-    assertTrue(out.isEmpty());
+    assertTrue(session.getOutput().isEmpty());
     assertEquals("test\n add", message);
   }
 
@@ -99,15 +106,15 @@ public class DisplayStoreStringTest {
    */
   @Test
   public void testStoreOverwriteString() throws MissingNameException {
-    String out = JShell.commandProcessor("echo \"test\" > file", session);
-    out += JShell.commandProcessor("echo \"write\" > file", session);
+    JShell.commandProcessor("echo \"test\" > file", session);
+    JShell.commandProcessor("echo \"write\" > file", session);
     String message = "";
     try {
       message = ((File) session.getCurrentDir().getChild("file")).getContent();
     } catch (MissingNameException e) {
       fail("The file was not created");
     }
-    assertTrue(out.isEmpty());
+    assertTrue(session.getOutput().isEmpty());
     assertEquals("write", message);
   }
 
@@ -120,9 +127,9 @@ public class DisplayStoreStringTest {
       session.getCurrentDir().add(new Directory("file"));
     } catch (NameExistsException | InvalidAddition | InvalidName e) {
     }
-    String message = JShell.commandProcessor("echo \"test\" > file", session);
+    JShell.commandProcessor("echo \"test\" > file", session);
     assertEquals("ERROR: There is already a subdirectory with the same name",
-        message);
+        session.getOutput());
   }
 
 }

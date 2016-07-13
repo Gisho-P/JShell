@@ -71,8 +71,7 @@ public class Output {
       } catch (InvalidDirectoryPathException e1) {
          addStdError("ERROR: The directory of the file does not exist");
       } catch (NameExistsException e1) {
-        //TODO: Overwrite content in here
-        /*addStdError("ERROR: There is already a subdirectory with the same name");*/
+        addStdError("ERROR: There is already a subdirectory with the same name");
       } catch (InvalidAddition e1) {
       } catch (InvalidName e1) {
          addStdError("ERROR: That's an invalid file name");
@@ -88,9 +87,10 @@ public class Output {
       // Write to the file, overwrite or append as given
       if (type.equals(">"))
         file.setContent(getStdOutput());
-      else
-        file.appendContent(getStdOutput());
-      stdOutput = "";
+      else {
+        file.appendContent(getStdOutput());getClass();
+      }
+      this.stdOutput = "";
     }
   }
   

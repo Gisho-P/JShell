@@ -47,7 +47,7 @@ public class ExecuteFromHistory implements Command {
 	  
 	  if (set.size() != 0) {
 	    if ((boolean) set.get(1)) {
-	      s.addOutput((String) set.get(0));
+	      JShell.commandProcessor((String) set.get(0), s);
 	    } else {
 	      s.addError((String) set.get(0));
 	    }

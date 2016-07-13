@@ -14,6 +14,8 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
+
 
 public class RetrieveUrlFileTest {
     MySession session;
@@ -25,6 +27,11 @@ public class RetrieveUrlFileTest {
     public void setUp() {
         session = new MySession(new Output());
     }
+    
+    @After
+    public void tearDown() {
+    	session.clearBuffer();
+    }
 
     @Test
     /**
@@ -33,7 +40,7 @@ public class RetrieveUrlFileTest {
     public void testCreatingFileInvalidUrl() {
         JShell.commandProcessor("curl hi", session);
         assertEquals(session.getError(), "Malformed " +
-                "URL.\n");
+                "URL.");
     }
 
     @Test
@@ -46,7 +53,7 @@ public class RetrieveUrlFileTest {
         JShell.commandProcessor(
                 "curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt", session);
         assertEquals(session.getError(),
-                "073.txt name is already in use in the current directory.\n");
+                "073.txt name is already in use in the current directory.");
 
     }
 

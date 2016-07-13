@@ -2,6 +2,7 @@ package commands;
 
 import java.util.List;
 
+import driver.JShell;
 import driver.MySession;
 
 /**
@@ -67,6 +68,9 @@ public class DisplayManual implements Command {
    */
   @Override
   public void exec(List<String> args) {
+	  if (args.get(1).charAt(0) == '!' && args.get(1).length() != 1) {
+		  //args.set(1, JShell.commandProcessor(args.get(1), s));
+	  }
     if (s.commandToClass.containsKey((String) args.get(1))) {
       Command c = s.commandToClass.get((String) args.get(1));
       c.man();

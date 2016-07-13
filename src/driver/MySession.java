@@ -209,6 +209,11 @@ public class MySession {
   public List<Object> retrieveDirectory() {
     return ds.popd();
   }
+  
+  /***/
+  public void clearDirectoryStack() {
+	  ds.clear();
+  }
 
   public List<Object> getHistoricalCommand(int i) {
     List<Object> a = new ArrayList<Object>();
@@ -248,7 +253,7 @@ public class MySession {
   }
   
   public void addOutput(String out) {
-    o.addStdError(out);
+    o.addStdOutput(out);
   }
   
   public void redirectOutput(String file, String type) {
