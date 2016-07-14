@@ -88,11 +88,7 @@ public class MySession {
 
 
     // try to initialize root and current directory (to root)
-    try {
-      rootDir = new Directory("");
-    } catch (FileTypes.InvalidName invalidName) {
-      invalidName.printStackTrace();
-    }
+   rootDir = Directory.createFileSystem();
     currentDir = rootDir;
   }
 
