@@ -14,9 +14,9 @@ public class File extends FileTypes {
    * Create a File with a name
    *
    * @param name Name of the file that will be created
-   * @throws InvalidName Thrown when name given to the file is invalid
+   * @throws InvalidNameException Thrown when name given to the file is invalid
    */
-  public File(String name) throws InvalidName {
+  public File(String name) throws InvalidNameException {
     super(name);
     content = "";
   }
@@ -26,9 +26,9 @@ public class File extends FileTypes {
    *
    * @param name Name of the file that will be created
    * @param content Content to store in the file
-   * @throws InvalidName Thrown when name given to file is invalid
+   * @throws InvalidNameException Thrown when name given to file is invalid
    */
-  public File(String name, String content) throws InvalidName {
+  public File(String name, String content) throws InvalidNameException {
     super(name);
     this.content = content;
   }
@@ -83,7 +83,7 @@ public class File extends FileTypes {
     File newFile = null;
     try {
       newFile = new File(file.getName(), file.getContent());
-    } catch (InvalidName invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
     }
     return newFile;

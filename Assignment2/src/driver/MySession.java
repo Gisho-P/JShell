@@ -6,7 +6,7 @@ import java.util.List;
 
 import commands.*;
 import structures.*;
-import structures.FileTypes.InvalidName;
+import structures.FileTypes.InvalidNameException;
 
 /**
  * The Class MySession maintains various attributes of a shell's current
@@ -260,7 +260,7 @@ public class MySession {
   public void clearFileSystem(){
     try {
       rootDir = new Directory("");
-    } catch (InvalidName e) {
+    } catch (InvalidNameException e) {
     }
   }
 }

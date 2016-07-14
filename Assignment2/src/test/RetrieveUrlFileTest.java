@@ -34,7 +34,7 @@ public class RetrieveUrlFileTest {
      * The filesystem uses singleton design for the root directory. For testing
      * purposes, the root needs to be set to null everytime.
      */
-    public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+    public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
             IllegalAccessException {
         Field field = session.getRootDir().getClass().getDeclaredField("root");
         field.setAccessible(true);
@@ -56,8 +56,8 @@ public class RetrieveUrlFileTest {
     /**
      * Test creating a file given a url when a file with the name already exists
      */
-    public void testCreatingFileThatExists() throws FileTypes.InvalidName,
-            Directory.NameExistsException, Directory.InvalidAddition {
+    public void testCreatingFileThatExists() throws FileTypes.InvalidNameException,
+            Directory.NameExistsException, Directory.InvalidAdditionException {
         session.getCurrentDir().add(new File("073.txt"));
         JShell.commandProcessor(
                 "curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt", session);

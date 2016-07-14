@@ -9,12 +9,12 @@ import java.lang.reflect.Field;
 import driver.JShell;
 import driver.MySession;
 import structures.Directory;
-import structures.Directory.InvalidAddition;
+import structures.Directory.InvalidAdditionException;
 import structures.Directory.MissingNameException;
 import structures.Directory.NameExistsException;
 import structures.File;
 import structures.FileTypes;
-import structures.FileTypes.InvalidName;
+import structures.FileTypes.InvalidNameException;
 import structures.Output;
 
 import static org.junit.Assert.assertEquals;
@@ -39,7 +39,7 @@ public class DisplayStoreStringTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+  public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
@@ -139,7 +139,7 @@ public class DisplayStoreStringTest {
   public void testFileWithSameNameAsDirectory() {
     try {
       session.getCurrentDir().add(new Directory("file"));
-    } catch (NameExistsException | InvalidAddition | InvalidName e) {
+    } catch (NameExistsException | InvalidAdditionException | InvalidNameException e) {
     }
     JShell.commandProcessor("echo \"test\" > file", session);
     assertEquals("ERROR: There is already a subdirectory with the same name",

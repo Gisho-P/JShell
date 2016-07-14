@@ -63,8 +63,7 @@ public class FilePathInterpreter {
       int index = init.nameExists(splitPath[0]);
       // If it doesn't exist
       if (index == -1) {
-        throw new InvalidDirectoryPathException(
-            "There are no files or directories with name " + currPath);
+        throw new InvalidDirectoryPathException(currPath);
       }
       if (init.getChildren().get(index) instanceof Directory) {
         return getSubDirFromDir(init, currPath, splitPath);
@@ -101,8 +100,7 @@ public class FilePathInterpreter {
     }
 
     // Else it doesn't exist and throw an exception
-    throw new InvalidDirectoryPathException(
-        "There are no files or directories with name " + currPath);
+    throw new InvalidDirectoryPathException(currPath);
   }
 
   /**
@@ -138,8 +136,7 @@ public class FilePathInterpreter {
           }
       }
 
-      throw new InvalidDirectoryPathException(
-              "There are no files or directories with name " + currPath);
+      throw new InvalidDirectoryPathException(currPath);
   }
   /**
    * Parses the current single dot from currPath and calls interpretPath again.
@@ -258,11 +255,22 @@ public class FilePathInterpreter {
     return init.getParent();
   }
 
+  /**
+   * InvalidDirectoryPathException is thrown when a filepath that doesn't
+   * exist in the filesystem is provided
+   */
   public static class InvalidDirectoryPathException extends Exception {
+    /**
+     * Serial version ID needed when creating exceptions.
+     */
     private static final long serialVersionUID = 59L;
 
-    public InvalidDirectoryPathException(String message) {
-      super(message);
+    /**
+     * Return an new InvalidDirectroyPathException
+     * @param currPath The path that doesn't exist
+       */
+    public InvalidDirectoryPathException(String currPath) {
+      super("There are no files or directories with name " + currPath);
     }
   }
 }

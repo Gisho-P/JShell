@@ -6,7 +6,6 @@ import driver.FilePathInterpreter;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
 import driver.MySession;
 import structures.Directory;
-import structures.Directory.InvalidAddition;
 import structures.Directory.MissingNameException;
 import structures.Directory.NameExistsException;
 import structures.FileTypes;
@@ -107,11 +106,11 @@ public class MoveFile implements Command {
             s.addError("The source or destination path does not exist\n");
         } catch (ClassCastException i) {
             s.addError("The destination path does not lead to a directory\n");
-        } catch (InvalidAddition invalidAddition) {
+        } catch (Directory.InvalidAdditionException invalidAddition) {
             s.addError(invalidAddition.getMessage());
         } catch (MissingNameException e) {
             s.addError(e.getMessage());
-        } catch (FileTypes.InvalidName invalidName) {
+        } catch (FileTypes.InvalidNameException invalidName) {
             s.addError(invalidName.getMessage());
         }
     }
@@ -148,7 +147,7 @@ public class MoveFile implements Command {
                 dest.add(src);
                 parent.remove(src.getName());
 
-            } catch (NameExistsException | InvalidAddition | MissingNameException e) {
+            } catch (NameExistsException | Directory.InvalidAdditionException | MissingNameException e) {
                 s.addError("The file cannot be added. It already " +
                         "exists or is not valid.\n");
             }

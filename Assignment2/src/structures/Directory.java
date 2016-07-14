@@ -28,7 +28,7 @@ public class Directory extends FileTypes {
      * @param name Name of the Directory
      * @return new Directory object
      */
-    public Directory(String name) throws InvalidName {
+    public Directory(String name) throws InvalidNameException {
         super(name); // store name in super class' name attribute
         children = new ArrayList<FileTypes>();
     }
@@ -44,7 +44,7 @@ public class Directory extends FileTypes {
             try {
                 root = new Directory("");
                 //Should never get to this point since it is not an invalid name
-            } catch (InvalidName invalidName) {
+            } catch (InvalidNameException invalidName) {
                 invalidName.printStackTrace();
             }
         }
@@ -57,21 +57,18 @@ public class Directory extends FileTypes {
      * @param addObject FileTypes object to be added to the current directory
      * @throws NameExistsException Thrown when FileTypes object with the same
      *                             already exists in the current directory
-     * @throws InvalidAddition     Thrown when user tries to add the current
+     * @throws InvalidAdditionException     Thrown when user tries to add the current
      *                             directory object to the current directory
      */
     public void add(FileTypes addObject)
-            throws NameExistsException, InvalidAddition {
+            throws NameExistsException, InvalidAdditionException {
         // If user tries to add the current or parent directory object to the
         // current directory
 
         Directory current = this;
         while (current != null) {
             if (addObject == current)
-                throw new InvalidAddition(
-                        "Can not add the current directory or parent " +
-                                "directory as the child of "
-                                + "the current directory.");
+                throw new InvalidAdditionException();
             current = current.getParent();
         }
         // Check if FileType object with the same name already exists
@@ -85,8 +82,7 @@ public class Directory extends FileTypes {
                 e.printStackTrace();
             }
         } else
-            throw new NameExistsException(addObject.getName()
-                    + " name is already in use in the current directory.");
+            throw new NameExistsException(addObject.getName());
     }
 
     /**
@@ -95,20 +91,17 @@ public class Directory extends FileTypes {
      * object
      *
      * @param addObject FileTypes object to be added to the current directory
-     * @throws InvalidAddition Thrown when user tries to add the current
+     * @throws InvalidAdditionException Thrown when user tries to add the current
      *                         directory object to the current directory
      */
-    public void addReplace(FileTypes addObject) throws InvalidAddition {
+    public void addReplace(FileTypes addObject) throws InvalidAdditionException {
         int index;
         // If user tries to add the current directory object to the current
         // directory
         Directory current = this;
         while (current != null) {
             if (addObject == current)
-                throw new InvalidAddition(
-                        "Can not add the current directory or parent " +
-                                "directory as the child of"
-                                + " the current directory.");
+                throw new InvalidAdditionException();
             current = current.getParent();
         }
 
@@ -139,11 +132,11 @@ public class Directory extends FileTypes {
      *
      * @param addObjects Array of FileTypes object to be added to the current
      *                   directory
-     * @throws InvalidAddition Thrown when user tries to add the current
+     * @throws InvalidAdditionException Thrown when user tries to add the current
      *                         directory object to the current directory
      */
     public void addReplaceMulti(ArrayList<FileTypes> addObjects)
-            throws InvalidAddition {
+            throws InvalidAdditionException {
         for (int i = 0; i < addObjects.size(); i++) {
             addReplace(addObjects.get(i));
         }
@@ -163,8 +156,7 @@ public class Directory extends FileTypes {
         if ((index = nameExists(name)) != -1)
             children.remove(index);
         else
-            throw new MissingNameException(
-                    name + " does not exist in the current directory\n");
+            throw new MissingNameException(name);
     }
 
 
@@ -286,8 +278,7 @@ public class Directory extends FileTypes {
         if ((index = nameExists(name)) != -1) {
             return children.get(index);
         } else
-            throw new MissingNameException(
-                    "There are no files or directories with name " + name);
+            throw new MissingNameException(name);
     }
 
     /**
@@ -324,7 +315,7 @@ public class Directory extends FileTypes {
         // been created with an invalidName
         try {
             newDir = new Directory(dir.getName());
-        } catch (InvalidName invalidName) {
+        } catch (InvalidNameException invalidName) {
             invalidName.printStackTrace();
         }
 
@@ -339,7 +330,7 @@ public class Directory extends FileTypes {
                 }
             } catch (NameExistsException e) {
                 e.printStackTrace();
-            } catch (InvalidAddition invalidAddition) {
+            } catch (InvalidAdditionException invalidAddition) {
                 invalidAddition.printStackTrace();
             }
         }
@@ -372,11 +363,11 @@ public class Directory extends FileTypes {
         /**
          * Constructor to create a new NameExistsException exception.
          *
-         * @param message Message to display when throwing exception
+         * @param name Message to display when throwing exception
          * @return NameExistsException
          */
-        public NameExistsException(String message) {
-            super(message);
+        public NameExistsException(String name) {
+            super(name + " name is already in use in the current directory.");
         }
     }
 
@@ -395,34 +386,35 @@ public class Directory extends FileTypes {
         /**
          * Constructor to create a new MissingNameException exception.
          *
-         * @param message Message to display when throwing exception
+         * @param name Name that is missing
          * @return MissingNameException
          */
-        public MissingNameException(String message) {
-            super(message);
+        public MissingNameException(String name) {
+            super(name + " does not exist in the current directory");
         }
     }
 
     /**
-     * InvalidAddition exception is used when the user tries to add the current
+     * InvalidAdditionException exception is used when the user tries to add the current
      * directory as the child of the current directory.
      *
      * @author Dhrumil Patel
      */
-    public static class InvalidAddition extends Exception {
+    public static class InvalidAdditionException extends Exception {
         /**
          * Serial ID needed when creating exceptions.
          */
         private static final long serialVersionUID = 59L;
 
         /**
-         * Constructor to create a new InvalidAddition exception.
+         * Constructor to create a new InvalidAdditionException exception.
          *
-         * @param message Message to display when throwing exception
-         * @return InvalidAddition
+         * @return InvalidAdditionException
          */
-        public InvalidAddition(String message) {
-            super(message);
+        public InvalidAdditionException() {
+            super("Can not add the current directory or parent " +
+                    "directory as the child of "
+                            + "the current directory.");
         }
     }
 }
