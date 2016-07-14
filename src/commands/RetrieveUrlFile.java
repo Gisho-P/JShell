@@ -81,9 +81,9 @@ public class RetrieveUrlFile implements Command {
             session.addError("Malformed URL.");
         } catch (IOException e) {
             session.addError("Error reading data from URL");
-        } catch (FileTypes.InvalidName invalidName) {
+        } catch (FileTypes.InvalidNameException invalidName) {
             session.addError(invalidName.getMessage());
-        } catch (Directory.InvalidAddition invalidAddition) {
+        } catch (Directory.InvalidAdditionException invalidAddition) {
             session.addError(invalidAddition.getMessage());
         } catch (Directory.NameExistsException e) {
             session.addError(e.getMessage());

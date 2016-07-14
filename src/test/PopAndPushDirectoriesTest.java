@@ -31,7 +31,7 @@ public class PopAndPushDirectoriesTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+  public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = s.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);

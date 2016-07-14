@@ -1,10 +1,10 @@
 package structures;
 
 import driver.*;
-import structures.Directory.InvalidAddition;
+import structures.Directory.InvalidAdditionException;
 import structures.Directory.NameExistsException;
 import driver.FilePathInterpreter.InvalidDirectoryPathException;
-import structures.FileTypes.InvalidName;
+import structures.FileTypes.InvalidNameException;
 
 /**
  * The Class Output stores standard output and error strings and redirects
@@ -72,8 +72,8 @@ public class Output {
          addStdError("ERROR: The directory of the file does not exist");
       } catch (NameExistsException e1) {
         addStdError("ERROR: There is already a subdirectory with the same name");
-      } catch (InvalidAddition e1) {
-      } catch (InvalidName e1) {
+      } catch (Directory.InvalidAdditionException e1) {
+      } catch (InvalidNameException e1) {
          addStdError("ERROR: That's an invalid file name");
       }
     } catch (ClassCastException e) {
@@ -100,14 +100,14 @@ public class Output {
    *
    * @param path the path to the file
    * @return the file
-   * @throws InvalidName if the file has an invalid character
+   * @throws InvalidNameException if the file has an invalid character
    * @throws InvalidDirectoryPathException if parent directory doesn't exist
    * @throws NameExistsException there already is a file/directory with the same
    *         name
-   * @throws InvalidAddition adding a file to the same file
+   * @throws Directory.InvalidAdditionException adding a file to the same file
    */
-  private File createFileFromPath(Directory directory, String path) throws InvalidName,
-      InvalidDirectoryPathException, NameExistsException, InvalidAddition {
+  private File createFileFromPath(Directory directory, String path) throws InvalidNameException,
+      InvalidDirectoryPathException, NameExistsException, InvalidAdditionException {
     File outputFile = new File("");
     // Check if the file is going to be in the current directory
     // or a different directory

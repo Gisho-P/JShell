@@ -77,7 +77,7 @@ public class CopyFile implements Command {
 					dest.add(Directory.deepCopy((Directory)src));
 				}
 				
-			} catch (NameExistsException | InvalidAddition e) {
+			} catch (NameExistsException | InvalidAdditionException e) {
 				s.addError("The file cannot be added either already exists or is not valid.\n");
 			}
 			

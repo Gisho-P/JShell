@@ -3,7 +3,7 @@ package test;
 import org.junit.Test;
 
 import structures.Directory;
-import structures.Directory.InvalidAddition;
+import structures.Directory.InvalidAdditionException;
 import structures.Directory.NameExistsException;
 import structures.File;
 import driver.FilePathInterpreter;
@@ -23,7 +23,7 @@ public class FileTraversalTest {
    * to dir
    */
   public void getLevelOneDirectoryTest() throws NameExistsException,
-      InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
+          InvalidAdditionException, InvalidDirectoryPathException, FileTypes.InvalidNameException {
     // Create FileSystem
     Directory expected = new Directory("dir1");
     Directory test = new Directory("");
@@ -43,8 +43,8 @@ public class FileTraversalTest {
    * Test interpreting path of file system with only one level when path leads
    * to a file
    */
-  public void getLevelOneFileTest() throws NameExistsException, InvalidAddition,
-      InvalidDirectoryPathException, FileTypes.InvalidName {
+  public void getLevelOneFileTest() throws NameExistsException, InvalidAdditionException,
+      InvalidDirectoryPathException, FileTypes.InvalidNameException {
     // Create FileSystem
     Directory test = new Directory("root");
     test.add(new Directory("test1"));
@@ -65,7 +65,7 @@ public class FileTraversalTest {
    * to dir
    */
   public void getLevelTwoDirectoryTest() throws NameExistsException,
-      InvalidAddition, InvalidDirectoryPathException, FileTypes.InvalidName {
+          InvalidAdditionException, InvalidDirectoryPathException, FileTypes.InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
@@ -88,8 +88,8 @@ public class FileTraversalTest {
    * Test interpreting path of file system with only multi levels when path
    * leads to a file
    */
-  public void getLevelTwoFileTest() throws NameExistsException, InvalidAddition,
-      InvalidDirectoryPathException, FileTypes.InvalidName {
+  public void getLevelTwoFileTest() throws NameExistsException, InvalidAdditionException,
+      InvalidDirectoryPathException, FileTypes.InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
@@ -112,8 +112,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting absolute path when it leads to a file
    */
-  public void fromRootFileTest() throws NameExistsException, InvalidAddition,
-      InvalidDirectoryPathException, FileTypes.InvalidName {
+  public void fromRootFileTest() throws NameExistsException, InvalidAdditionException,
+      InvalidDirectoryPathException, FileTypes.InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
@@ -138,8 +138,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting absolute path when it leads to a dir
    */
-  public void fromRootDirTest() throws NameExistsException, InvalidAddition,
-      InvalidDirectoryPathException, FileTypes.InvalidName {
+  public void fromRootDirTest() throws NameExistsException, InvalidAdditionException,
+      InvalidDirectoryPathException, FileTypes.InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
@@ -163,8 +163,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting path if it only contains slashes
    */
-  public void getDirSlashes() throws FileTypes.InvalidName, NameExistsException,
-      InvalidAddition, InvalidDirectoryPathException {
+  public void getDirSlashes() throws FileTypes.InvalidNameException, NameExistsException,
+          Directory.InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -184,8 +184,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting paths that create a mixture of double dots
    */
-  public void getParentDoubleDots() throws FileTypes.InvalidName,
-      NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+  public void getParentDoubleDots() throws FileTypes.InvalidNameException,
+      NameExistsException, Directory.InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -220,8 +220,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting paths that create a mixture of single dots
    */
-  public void singleDots() throws FileTypes.InvalidName, NameExistsException,
-      InvalidAddition, InvalidDirectoryPathException {
+  public void singleDots() throws FileTypes.InvalidNameException, NameExistsException,
+          InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -256,8 +256,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting paths that contain a mixture of dots and slashes
    */
-  public void mixtureOfDotsSlashes() throws FileTypes.InvalidName,
-      NameExistsException, InvalidAddition, InvalidDirectoryPathException {
+  public void mixtureOfDotsSlashes() throws FileTypes.InvalidNameException,
+      NameExistsException, InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -287,8 +287,8 @@ public class FileTraversalTest {
    * Test interpretMakePath function which should interpret the path leading
    * only up to the parent
    */
-  public void mkDirRootTest() throws NameExistsException, InvalidAddition,
-      InvalidDirectoryPathException, FileTypes.InvalidName {
+  public void mkDirRootTest() throws NameExistsException, Directory.InvalidAdditionException,
+      InvalidDirectoryPathException, FileTypes.InvalidNameException {
     // Create FileSystem
     Directory start = new Directory("root");
 

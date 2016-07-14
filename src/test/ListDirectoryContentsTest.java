@@ -9,12 +9,11 @@ import java.lang.reflect.Field;
 import driver.JShell;
 import driver.MySession;
 import structures.Directory;
-import structures.Directory.InvalidAddition;
+import structures.Directory.InvalidAdditionException;
 import structures.Directory.MissingNameException;
 import structures.Directory.NameExistsException;
 import structures.File;
-import structures.FileTypes;
-import structures.FileTypes.InvalidName;
+import structures.FileTypes.InvalidNameException;
 import structures.Output;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +36,7 @@ public class ListDirectoryContentsTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+  public void tearDown() throws InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
@@ -65,7 +64,7 @@ public class ListDirectoryContentsTest {
     try {
       session.getCurrentDir().add(new Directory("dir1"));
       session.getCurrentDir().add(new File("file1"));
-    } catch (NameExistsException | InvalidAddition | InvalidName e) {
+    } catch (NameExistsException | InvalidAdditionException | InvalidNameException e) {
     }
     JShell.commandProcessor("ls /", session);
     assertEquals("/: dir1 file1", session.getOutput());
@@ -82,7 +81,7 @@ public class ListDirectoryContentsTest {
   public void testFilePath() {
     try {
       session.getCurrentDir().add(new File("file1"));
-    } catch (NameExistsException | InvalidAddition | InvalidName e) {
+    } catch (NameExistsException | Directory.InvalidAdditionException | InvalidNameException e) {
     }
     JShell.commandProcessor("ls file1", session);
     assertEquals("file1\n", session.returnBuffer());
@@ -103,7 +102,7 @@ public class ListDirectoryContentsTest {
       ((Directory) session.getCurrentDir().getChild("dir1")).add(new File("c"));
       session.getCurrentDir().add(new File("file1"));
       session.getCurrentDir().add(new Directory("dir2"));
-    } catch (NameExistsException | InvalidAddition | InvalidName
+    } catch (NameExistsException | InvalidAdditionException | InvalidNameException
         | MissingNameException e) {
     }
     JShell.commandProcessor("ls file1 / dir2 dir1", session);

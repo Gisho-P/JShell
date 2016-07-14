@@ -33,7 +33,7 @@ public class ChangeDirectoryTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+  public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
@@ -150,8 +150,8 @@ public class ChangeDirectoryTest {
   /**
    * Test changing directory when path to file is given instead
    */
-  public void testCdGivenPathToFile() throws FileTypes.InvalidName,
-      Directory.NameExistsException, Directory.InvalidAddition {
+  public void testCdGivenPathToFile() throws FileTypes.InvalidNameException,
+      Directory.NameExistsException, Directory.InvalidAdditionException {
     // Create file system
     session.getRootDir().add(new File("file1"));
     JShell.commandProcessor("mkdir subdir1", session);

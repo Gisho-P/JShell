@@ -75,12 +75,12 @@ public class MakeDirectory implements Command {
       } catch (Directory.NameExistsException e) {
         s.addError(
             "mkdir: cannot create directory '" + i + "': File exists");
-      } catch (Directory.InvalidAddition invalidAddition) {
+      } catch (Directory.InvalidAdditionException invalidAddition) {
         invalidAddition.printStackTrace();
       } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
         s.addError(
             "mkdir: cannot create directory '" + i + "': Invalid Path");
-      } catch (FileTypes.InvalidName invalidName) {
+      } catch (FileTypes.InvalidNameException invalidName) {
         s.addError("mkdir: cannot create directory with name '" + i
             + "'. It is invalid.");
       }
