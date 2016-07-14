@@ -71,7 +71,7 @@ public class MySession {
     // map commands to classes in src
     commandToClass.put("man", new DisplayManual(this));
     commandToClass.put("history", new DisplayHistory(this));
-    commandToClass.put("echo", new DisplayStoreString(this));
+    commandToClass.put("echo", new DisplayString(this));
     commandToClass.put("cat", new DisplayFile(this));
     commandToClass.put("popd", new PopDirectory(this));
     commandToClass.put("pushd", new PushDirectory(this));
