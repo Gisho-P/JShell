@@ -6,6 +6,7 @@ import java.util.List;
 
 import commands.*;
 import structures.*;
+import structures.FileTypes.InvalidName;
 
 /**
  * The Class MySession maintains various attributes of a shell's current
@@ -258,5 +259,12 @@ public class MySession {
   
   public void redirectOutput(String file, String type) {
     o.redirect(file, type, this.getCurrentDir());
+  }
+  
+  public void clearFileSystem(){
+    try {
+      rootDir = new Directory("");
+    } catch (InvalidName e) {
+    }
   }
 }

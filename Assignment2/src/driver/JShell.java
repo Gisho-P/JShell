@@ -78,7 +78,7 @@ public class JShell {
 
     // Splitting the cmd
     cmd = cmd.trim();
-    if (cmd.charAt(0) == '!') {
+    if (cmd.isEmpty() ? false : cmd.charAt(0) == '!') {
       cmdArgs.add(cmd.substring(0,1));
       cmd = cmd.substring(1);
     }
@@ -105,12 +105,17 @@ public class JShell {
   
   private static void processForRedirection(MySession s, List<String> args) {
     int argSize = args.size();
-    if (argSize < 3) {
-    	callFunction(args, s);
-    } else {
-    	callFunction(args.subList(0, argSize-2), s);
-        redirectOutput(args.get(argSize-2), args.get(argSize-1), s);
+    if (argSize >= 3) {
+      Boolean containsRedirect = args.get(argSize - 2).equals(">") ||
+          args.get(argSize - 2).equals(">>");
+        if(containsRedirect){
+          callFunction(args.subList(0, argSize-2), s);
+          redirectOutput(args.get(argSize-2), args.get(argSize-1), s);
+          return;
+        }
     }
+    callFunction(args, s);
+    
   }
   
   private static void redirectOutput(String type, String file, MySession s) {

@@ -33,6 +33,7 @@ public class ListDirectoryContentsTest {
   @After
   public void tearDown() {
 	  session.clearBuffer();
+	  session.clearFileSystem();
   }
 
   /**
@@ -58,11 +59,12 @@ public class ListDirectoryContentsTest {
       session.getCurrentDir().add(new File("file1"));
     } catch (NameExistsException | InvalidAddition | InvalidName e) {
     }
-    JShell.commandProcessor("ls", session);
-    assertEquals("dir1 file1", session.returnBuffer());
-    session.clearBuffer();
     JShell.commandProcessor("ls /", session);
-    assertEquals("/: dir1 file1", session.returnBuffer());
+    assertEquals("/: dir1 file1", session.getOutput());
+    session.clearBuffer();
+    JShell.commandProcessor("ls", session);
+    assertEquals("dir1\nfile1\n", session.returnBuffer());
+    session.clearBuffer();
   }
 
   /**
@@ -75,7 +77,7 @@ public class ListDirectoryContentsTest {
     } catch (NameExistsException | InvalidAddition | InvalidName e) {
     }
     JShell.commandProcessor("ls file1", session);
-    assertEquals("file1", session.returnBuffer());
+    assertEquals("file1\n", session.returnBuffer());
   }
 
   /**
@@ -97,7 +99,8 @@ public class ListDirectoryContentsTest {
         | MissingNameException e) {
     }
     JShell.commandProcessor("ls file1 / dir2 dir1", session);
-    assertEquals("/: dir1 dir2 file1\ndir1: a b c d\ndir2:\nfile1", session.returnBuffer());
+    assertEquals("/: dir1 dir2 file1\ndir1: a b c d\ndir2:\nfile1\n",
+        session.returnBuffer());
   }
 
 }
