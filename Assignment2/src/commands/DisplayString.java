@@ -9,7 +9,7 @@ import driver.*;
  * The Class DisplayStoreString can either display a string in the JShell or
  * store it in a new or existing file.
  */
-public class DisplayStoreString implements Command {
+public class DisplayString implements Command {
 
   /** Use the session to get the current and root directory */
   private MySession s;
@@ -20,7 +20,7 @@ public class DisplayStoreString implements Command {
    * @param session Current JShell session attributes
    * @return DisplayStoreString instance
    */
-  public DisplayStoreString(MySession session) {
+  public DisplayString(MySession session) {
     s = session;
   }
 

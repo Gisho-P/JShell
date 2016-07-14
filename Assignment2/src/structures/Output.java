@@ -59,10 +59,10 @@ public class Output {
   }
   
   public void redirect(String file, String type, Directory directory) {
-    File outFile = null;
+    FileTypes outFile = null;
     // Check if the file exists in the directory
     try {
-      outFile = (File) FilePathInterpreter.interpretPath(directory, file);
+      outFile = FilePathInterpreter.interpretPath(directory, file);
     }
     // If the file doesn't exist create it
     catch (InvalidDirectoryPathException e) {
@@ -76,10 +76,11 @@ public class Output {
       } catch (InvalidNameException e1) {
          addStdError("ERROR: That's an invalid file name");
       }
-    } catch (ClassCastException e) {
-       addStdError("ERROR: There is already a subdirectory with the same name");
     }
-    redirectFile(outFile, type);
+    if(outFile instanceof File)
+      redirectFile((File) outFile, type);
+    else
+      addStdError("ERROR: There is already a subdirectory with the same name");
   }
   
   public void redirectFile(File file, String type) {
