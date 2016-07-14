@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -26,10 +27,18 @@ public class ChangeDirectoryTest {
   public void setUp() {
     session = new MySession(new Output());
   }
-  
+
   @After
-  public void tearDown() {
-	  session.clearBuffer();
+  /**
+   * The filesystem uses singleton design for the root directory. For testing
+   * purposes, the root needs to be set to null everytime.
+   */
+  public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+          IllegalAccessException {
+    Field field = session.getRootDir().getClass().getDeclaredField("root");
+    field.setAccessible(true);
+    field.set(null, null); //setting the ref parameter to null
+    session.clearBuffer();
   }
 
   /**

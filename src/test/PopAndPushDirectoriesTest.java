@@ -4,6 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+
+import structures.FileTypes;
 import structures.Output;
 import driver.JShell;
 import driver.MySession;
@@ -25,13 +28,17 @@ public class PopAndPushDirectoriesTest {
 
   @After
   /**
-   * Clear DirStack after every test
+   * The filesystem uses singleton design for the root directory. For testing
+   * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws Exception {
+  public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+          IllegalAccessException {
+    Field field = s.getRootDir().getClass().getDeclaredField("root");
+    field.setAccessible(true);
+    field.set(null, null); //setting the ref parameter to null
     s.clearBuffer();
     s.clearDirectoryStack();
   }
-
   @Test
   /**
    * Test popping from empty stack at root

@@ -74,7 +74,7 @@ public class PopDirectory implements Command {
 
     if ((boolean) res.get(1) == false) { // if stack is empty, return error
       s.setError((String) res.get(0));
-    } else { // use reflection to change directory to popped directory
+    } else {
       ChangeDirectory cd = new ChangeDirectory(s);
       List<String> r = new ArrayList<String>();
       r.addAll(args);

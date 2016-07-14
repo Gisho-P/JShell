@@ -1,21 +1,23 @@
 package test;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+
+import driver.JShell;
+import driver.MySession;
 import structures.Directory;
 import structures.Directory.InvalidAddition;
 import structures.Directory.MissingNameException;
 import structures.Directory.NameExistsException;
 import structures.File;
+import structures.FileTypes;
 import structures.FileTypes.InvalidName;
 import structures.Output;
-import driver.JShell;
-import driver.MySession;
 
 import static org.junit.Assert.assertEquals;
-
-import org.junit.After;
 
 /**
  * Tests that verify the functionality of the ls command in JShell which lists
@@ -29,13 +31,19 @@ public class ListDirectoryContentsTest {
   public void setUp() {
     session = new MySession(new Output());
   }
-  
-  @After
-  public void tearDown() {
-	  session.clearBuffer();
-	  session.clearFileSystem();
-  }
 
+  @After
+  /**
+   * The filesystem uses singleton design for the root directory. For testing
+   * purposes, the root needs to be set to null everytime.
+   */
+  public void tearDown() throws FileTypes.InvalidName, NoSuchFieldException,
+          IllegalAccessException {
+    Field field = session.getRootDir().getClass().getDeclaredField("root");
+    field.setAccessible(true);
+    field.set(null, null); //setting the ref parameter to null
+    session.clearBuffer();
+  }
   /**
    * Listing the contents of the empty root directory
    */

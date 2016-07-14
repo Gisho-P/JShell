@@ -14,6 +14,10 @@ import java.util.Queue;
 public class Directory extends FileTypes {
 
     /**
+     * Stores the root of the filesystem.
+     */
+    private static Directory root = null;
+    /**
      * Stores the children of the current directory
      */
     private ArrayList<FileTypes> children;
@@ -27,6 +31,24 @@ public class Directory extends FileTypes {
     public Directory(String name) throws InvalidName {
         super(name); // store name in super class' name attribute
         children = new ArrayList<FileTypes>();
+    }
+
+    /**
+     * Allows the user to create a new File System. If a file system already
+     * exists, the root of the existing file system is returned
+     * @return A new file system if an instance of it doesn't already exist.
+     * Otherwise it returns the existing file system.
+     */
+    public static Directory createFileSystem() {
+        if (root == null) {
+            try {
+                root = new Directory("");
+                //Should never get to this point since it is not an invalid name
+            } catch (InvalidName invalidName) {
+                invalidName.printStackTrace();
+            }
+        }
+        return root;
     }
 
     /**
