@@ -58,7 +58,8 @@ public class DisplayStoreString implements Command {
       s.addError("echo usage: echo STRING (In quotes)");
     } else {
       // Check that the string is surrounded by quotes
-      if (!args.get(1).startsWith("\"") || !args.get(1).endsWith("\"")) {
+      if (!args.get(1).startsWith("\"") || !args.get(1).endsWith("\"") ||
+          args.get(1).length() < 2) {
         s.addError("ERROR: STRING must be surrounded by double quotations");
       } else {
         exec(args);

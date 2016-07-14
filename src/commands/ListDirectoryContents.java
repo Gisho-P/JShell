@@ -74,8 +74,8 @@ public class ListDirectoryContents implements Command {
       try { // Assume it's a directory and get children
         Directory currentDir = ((Directory) FilePathInterpreter
             .interpretPath(s.getCurrentDir(), i));
-        s.addOutput(getDirectoryContents((Directory) currentDir,
-            currentDir, i, recursiveDirectories));
+        s.addOutput(getDirectoryContents((Directory) currentDir, currentDir, i,
+            recursiveDirectories));
       } catch (InvalidDirectoryPathException e) {
         s.addError("No such directory or file with path " + i + "\n");
       } catch (ClassCastException e) { // Indicates that path points to a file
@@ -86,13 +86,21 @@ public class ListDirectoryContents implements Command {
 
   private String getDirectoryContents(Directory currentDir, Directory root,
       String path, Boolean r) {
-    String curDirContents = currentDir == root ? path + ":"
-        : (path.equals("/") ? "" : path) + currentDir.getPath(root)
-            + ":";
+    String curDirContents = "";
+    if (!path.isEmpty() || r){
+      if (currentDir == root)
+        curDirContents = path + ":";
+      else
+        curDirContents =
+            (path.equals("/") ? "" : path) + currentDir.getPath(root) + ":";
+    }
     ArrayList<String> childNames = currentDir.getChildNames();
     Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
     for (String childName : childNames) {
-      curDirContents += " " + childName;
+      if (path.isEmpty())
+        curDirContents += childName + "\n";
+      else
+        curDirContents += " " + childName;
     }
     if (r) {
       ArrayList<Directory> subDirectories = currentDir.getChildDirs();
@@ -102,11 +110,13 @@ public class ListDirectoryContents implements Command {
           return d1.getName().compareTo(d2.getName()); // Ascending
         }
       });
+      curDirContents += "\n\n";
       for (Directory subDir : subDirectories) {
-        curDirContents += "\n" + getDirectoryContents(subDir, root, path, r);
+        curDirContents += getDirectoryContents(subDir, root, path, r);
       }
     }
-    return curDirContents;
+    return 
+        curDirContents;
   }
 
 
@@ -119,12 +129,11 @@ public class ListDirectoryContents implements Command {
   @Override
   public void exec(List<String> args) {
     if (args.size() == 2 && args.get(1).equals("-R")) {
-      if(s.getCurrentDir().equals(s.getRootDir()))
-        execMult(Arrays.asList("/"), args.get(1).equals("-R"));
+      if (s.getCurrentDir().equals(s.getRootDir()))
+        execMult(Arrays.asList("/"), true);
       else
-        s.addOutput(getDirectoryContents(s.getCurrentDir(),
-            s.getCurrentDir(), s.getCurrentDir().getName(),
-            args.get(1).equals("-R")));
+        s.addOutput(getDirectoryContents(s.getCurrentDir(), s.getCurrentDir(),
+            s.getCurrentDir().getName(), true));
     }
     // If there are paths specified get the output form function call
     if (args.size() > 1) {
@@ -135,8 +144,8 @@ public class ListDirectoryContents implements Command {
     }
     // Otherwise, get the contents of the current directory and return it
     else {
-      s.addOutput(getDirectoryContents(s.getCurrentDir(),
-          s.getCurrentDir(), "", false).replaceFirst(":", "").trim());
+      s.addOutput(getDirectoryContents(s.getCurrentDir(), s.getCurrentDir(), "",
+          false));
     }
   }
 
