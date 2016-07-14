@@ -60,10 +60,12 @@ public class MakeDirectoryTest {
     assertEquals(
         "mkdir: cannot create directory with name '..'. It is " + "invalid.",
         session.returnBuffer());
+    session.clearBuffer();
     JShell.commandProcessor("mkdir .", session);
     assertEquals(
         "mkdir: cannot create directory with name '.'. It is" + " invalid.",
         session.returnBuffer());
+    session.clearBuffer();
     JShell.commandProcessor("mkdir one one/..", session);
     assertEquals(session.getRootDir().getChildNames().get(0), "one");
     assertEquals("mkdir: cannot create directory with name 'one/..'. It is "
@@ -81,10 +83,12 @@ public class MakeDirectoryTest {
     JShell.commandProcessor("mkdir one/two", session);
     assertEquals("mkdir: cannot create directory 'one/two': Invalid Path",
         session.returnBuffer());
+    session.clearBuffer();
     // unable to create because two doesn't exist in the root
     JShell.commandProcessor("mkdir one one/two two/one", session);
     assertEquals("mkdir: cannot create directory 'two/one': Invalid Path",
         session.returnBuffer());
+    session.clearBuffer();
     // unable to create because two doesn't exist under the root
     JShell.commandProcessor(
         "mkdir" + " one/../two/../three one/three/four\n", session);
@@ -105,6 +109,7 @@ public class MakeDirectoryTest {
     JShell.commandProcessor("mkdir one one", session);
     assertEquals("mkdir: cannot create directory 'one': File exists",
         session.returnBuffer());
+    session.clearBuffer();
     // file with same name exists shouldn't be able to create it
     session.getCurrentDir().add(new File("three"));
     JShell.commandProcessor("mkdir three", session);
