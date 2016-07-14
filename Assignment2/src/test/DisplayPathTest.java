@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 
 import driver.JShell;
 import driver.MySession;
-import structures.FileTypes;
+import exceptions.InvalidNameException;
 import structures.Output;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +31,7 @@ public class DisplayPathTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
+  public void tearDown() throws InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);

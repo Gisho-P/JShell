@@ -8,9 +8,11 @@ import java.lang.reflect.Field;
 
 import driver.JShell;
 import driver.MySession;
-import structures.Directory;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.MissingNameException;
+import exceptions.NameExistsException;
 import structures.File;
-import structures.FileTypes;
 import structures.Output;
 
 import static junit.framework.TestCase.assertEquals;
@@ -34,7 +36,7 @@ public class RetrieveUrlFileTest {
      * The filesystem uses singleton design for the root directory. For testing
      * purposes, the root needs to be set to null everytime.
      */
-    public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
+    public void tearDown() throws InvalidNameException, NoSuchFieldException,
             IllegalAccessException {
         Field field = session.getRootDir().getClass().getDeclaredField("root");
         field.setAccessible(true);
@@ -56,8 +58,8 @@ public class RetrieveUrlFileTest {
     /**
      * Test creating a file given a url when a file with the name already exists
      */
-    public void testCreatingFileThatExists() throws FileTypes.InvalidNameException,
-            Directory.NameExistsException, Directory.InvalidAdditionException {
+    public void testCreatingFileThatExists() throws InvalidNameException,
+            NameExistsException, InvalidAdditionException {
         session.getCurrentDir().add(new File("073.txt"));
         JShell.commandProcessor(
                 "curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt", session);
@@ -83,7 +85,7 @@ public class RetrieveUrlFileTest {
      * returned from the url
      */
     public void testFileContainsCorrectContent() throws
-            Directory.MissingNameException {
+            MissingNameException {
         JShell.commandProcessor(
                 "curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt", session);
         assertTrue(((File)session.getCurrentDir().getChild("073.txt"))

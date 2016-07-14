@@ -2,6 +2,7 @@ package commands;
 
 import java.util.List;
 
+import exceptions.InvalidDirectoryPathException;
 import structures.Directory;
 import driver.FilePathInterpreter;
 import structures.FileTypes;
@@ -78,7 +79,7 @@ public class ChangeDirectory implements Command {
         s.setCurrentDir((Directory) dest);
       } else
         s.addError(dest.getName() + " is not a directory.");
-    } catch (FilePathInterpreter.InvalidDirectoryPathException e) {
+    } catch (InvalidDirectoryPathException e) {
       s.addError("No such dir as " + args.get(1));
     }
   }

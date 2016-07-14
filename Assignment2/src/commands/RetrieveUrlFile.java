@@ -8,9 +8,11 @@ import java.net.URL;
 import java.util.List;
 
 import driver.MySession;
-import structures.Directory;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.NameExistsException;
 import structures.File;
-import structures.FileTypes;
+
 //TODO: Finish
 public class RetrieveUrlFile implements Command {
     MySession session;
@@ -81,11 +83,11 @@ public class RetrieveUrlFile implements Command {
             session.addError("Malformed URL.");
         } catch (IOException e) {
             session.addError("Error reading data from URL");
-        } catch (FileTypes.InvalidNameException invalidName) {
+        } catch (InvalidNameException invalidName) {
             session.addError(invalidName.getMessage());
-        } catch (Directory.InvalidAdditionException invalidAddition) {
+        } catch (InvalidAdditionException invalidAddition) {
             session.addError(invalidAddition.getMessage());
-        } catch (Directory.NameExistsException e) {
+        } catch (NameExistsException e) {
             session.addError(e.getMessage());
         }
 

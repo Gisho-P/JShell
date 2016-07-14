@@ -4,7 +4,7 @@ import java.util.List;
 
 import structures.File;
 import driver.FilePathInterpreter;
-import driver.FilePathInterpreter.InvalidDirectoryPathException;
+import exceptions.InvalidDirectoryPathException;
 import driver.MySession;
 
 /**

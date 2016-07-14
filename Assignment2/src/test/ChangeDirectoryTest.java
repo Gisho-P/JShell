@@ -8,6 +8,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.NameExistsException;
 import structures.*;
 import driver.JShell;
 import driver.MySession;
@@ -33,7 +36,7 @@ public class ChangeDirectoryTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
+  public void tearDown() throws InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
@@ -150,8 +153,8 @@ public class ChangeDirectoryTest {
   /**
    * Test changing directory when path to file is given instead
    */
-  public void testCdGivenPathToFile() throws FileTypes.InvalidNameException,
-      Directory.NameExistsException, Directory.InvalidAdditionException {
+  public void testCdGivenPathToFile() throws InvalidNameException,
+          NameExistsException, InvalidAdditionException {
     // Create file system
     session.getRootDir().add(new File("file1"));
     JShell.commandProcessor("mkdir subdir1", session);
