@@ -6,7 +6,7 @@ import java.util.List;
 
 import commands.*;
 import structures.*;
-import structures.FileTypes.InvalidNameException;
+import exceptions.InvalidNameException;
 
 /**
  * The Class MySession maintains various attributes of a shell's current

@@ -10,9 +10,10 @@ import java.util.Arrays;
 
 import driver.JShell;
 import driver.MySession;
-import structures.Directory;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.NameExistsException;
 import structures.File;
-import structures.FileTypes;
 import structures.Output;
 
 import static org.junit.Assert.assertEquals;
@@ -36,7 +37,7 @@ public class MakeDirectoryTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
+  public void tearDown() throws InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
@@ -117,8 +118,8 @@ public class MakeDirectoryTest {
    * Test creating a directory when a directory or file with the same name
    * already exists
    */
-  public void testMkdirDirOrFileExists() throws FileTypes.InvalidNameException,
-      Directory.NameExistsException, Directory.InvalidAdditionException {
+  public void testMkdirDirOrFileExists() throws InvalidNameException,
+          NameExistsException, InvalidAdditionException {
     // dir with same name exists shouldn't be able to create it
     JShell.commandProcessor("mkdir one one", session);
     assertEquals("mkdir: cannot create directory 'one': File exists",

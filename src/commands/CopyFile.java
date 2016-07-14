@@ -2,9 +2,10 @@ package commands;
 
 import java.util.List;
 
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidDirectoryPathException;
+import exceptions.NameExistsException;
 import structures.*;
-import structures.Directory.*;
-import driver.FilePathInterpreter.*;
 import driver.*;
 
 /**

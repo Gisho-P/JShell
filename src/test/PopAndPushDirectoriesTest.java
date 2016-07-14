@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Field;
 
-import structures.FileTypes;
+import exceptions.InvalidNameException;
 import structures.Output;
 import driver.JShell;
 import driver.MySession;
@@ -31,7 +31,7 @@ public class PopAndPushDirectoriesTest {
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
-  public void tearDown() throws FileTypes.InvalidNameException, NoSuchFieldException,
+  public void tearDown() throws InvalidNameException, NoSuchFieldException,
           IllegalAccessException {
     Field field = s.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);

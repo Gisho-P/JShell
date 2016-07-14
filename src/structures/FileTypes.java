@@ -2,6 +2,10 @@ package structures;
 
 import java.util.regex.Pattern;
 
+import exceptions.InvalidNameException;
+import exceptions.InvalidSetParentException;
+import exceptions.NameExistsException;
+
 /**
  * This abstract class FileTypes provides the skeleton for all files and
  * directories created in this file system. The skeleton methods allow for a
@@ -87,12 +91,12 @@ public abstract class FileTypes {
      * @param name The new name to set
      * @throws InvalidNameException                     when invalid name is
      *                                                  given
-     * @throws structures.Directory.NameExistsException Thrown when the new name
+     * @throws NameExistsException Thrown when the new name
      *                                                  already exists in the
      *                                                  parent directory
      */
     public void setName(String name) throws InvalidNameException,
-            Directory.NameExistsException {
+            NameExistsException {
         if (isValid(name)) // check for name validity
         {
             if (this.getParent() == null)
@@ -100,7 +104,7 @@ public abstract class FileTypes {
             else if (this.getParent().nameExists(name) == -1)
                 this.name = name;
             else
-                throw new Directory.NameExistsException(name);
+                throw new NameExistsException(name);
         } else
             throw new InvalidNameException(name);
     }
@@ -120,51 +124,6 @@ public abstract class FileTypes {
         } else {
             Pattern p = Pattern.compile("[^a-zA-Z0-9._-]");
             return !p.matcher(name).find();
-        }
-    }
-
-    /**
-     * The exception class InvalidNameException is invoked when a user tries to
-     * give a name for a FileTypes object that is invalid when comparing it with
-     * restrictions for characters that can be used.
-     */
-    public static class InvalidNameException extends Exception {
-        /**
-         * Serial version ID needed when creating exceptions.
-         */
-        private static final long serialVersionUID = 59L;
-
-        /**
-         * Return a new InvalidNameException exception with specified message.
-         *
-         * @param name The invalid name
-         * @return InvalidNameException
-         */
-        public InvalidNameException(String name) {
-            super("Name " + name + " contains invalid characters");
-        }
-    }
-
-    /**
-     * The InvalidSetParentException is thrown when a user tries to set the
-     * parent directory of this FileType object but the parent directory doesn't
-     * contain this FileType object
-     */
-    public static class InvalidSetParentException extends Exception {
-        /**
-         * Serial version ID needed when creating exceptions.
-         */
-        private static final long serialVersionUID = 59L;
-
-        /**
-         * Return a new InvalidSetParentException
-         *
-         * @return InvalidNameException exception
-         */
-        public InvalidSetParentException() {
-            super("Unable to set the parent directory of this " +
-                    "FileType object. The " +
-                    "given directory does not contain this object as a child.");
         }
     }
 

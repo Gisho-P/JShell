@@ -1,14 +1,12 @@
 package commands;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import structures.Directory;
 import structures.File;
 import driver.FilePathInterpreter;
-import driver.FilePathInterpreter.InvalidDirectoryPathException;
+import exceptions.InvalidDirectoryPathException;
 import driver.MySession;
 
 /**

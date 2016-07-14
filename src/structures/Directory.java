@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.InvalidSetParentException;
+import exceptions.MissingNameException;
+import exceptions.NameExistsException;
+
 /**
  * This class represents a directory in the FileSystem. It can be used to store
  * sub-directories and files. It also stores a reference to the parent
@@ -348,75 +354,6 @@ public class Directory extends FileTypes {
         return getName();
     }
 
-    /**
-     * NameExistsException is used when a file or directory with the same name
-     * already exists in the current directory.
-     *
-     * @author Dhrumil Patel
-     */
-    public static class NameExistsException extends Exception {
-        /**
-         * Serial ID needed when creating exceptions.
-         */
-        private static final long serialVersionUID = 59L;
-
-        /**
-         * Constructor to create a new NameExistsException exception.
-         *
-         * @param name Message to display when throwing exception
-         * @return NameExistsException
-         */
-        public NameExistsException(String name) {
-            super(name + " name is already in use in the current directory.");
-        }
-    }
-
-    /**
-     * MissingNameException is used when a user tries to remove a file or
-     * directory that doesn't exist.
-     *
-     * @author Dhrumil Patel
-     */
-    public static class MissingNameException extends Exception {
-        /**
-         * Serial ID needed when creating exceptions.
-         */
-        private static final long serialVersionUID = 59L;
-
-        /**
-         * Constructor to create a new MissingNameException exception.
-         *
-         * @param name Name that is missing
-         * @return MissingNameException
-         */
-        public MissingNameException(String name) {
-            super(name + " does not exist in the current directory");
-        }
-    }
-
-    /**
-     * InvalidAdditionException exception is used when the user tries to add the current
-     * directory as the child of the current directory.
-     *
-     * @author Dhrumil Patel
-     */
-    public static class InvalidAdditionException extends Exception {
-        /**
-         * Serial ID needed when creating exceptions.
-         */
-        private static final long serialVersionUID = 59L;
-
-        /**
-         * Constructor to create a new InvalidAdditionException exception.
-         *
-         * @return InvalidAdditionException
-         */
-        public InvalidAdditionException() {
-            super("Can not add the current directory or parent " +
-                    "directory as the child of "
-                            + "the current directory.");
-        }
-    }
 }
 
 

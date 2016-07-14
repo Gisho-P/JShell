@@ -9,11 +9,11 @@ import java.lang.reflect.Field;
 import driver.JShell;
 import driver.MySession;
 import structures.Directory;
-import structures.Directory.InvalidAdditionException;
-import structures.Directory.MissingNameException;
-import structures.Directory.NameExistsException;
+import exceptions.InvalidAdditionException;
+import exceptions.MissingNameException;
+import exceptions.NameExistsException;
 import structures.File;
-import structures.FileTypes.InvalidNameException;
+import exceptions.InvalidNameException;
 import structures.Output;
 
 import static org.junit.Assert.assertEquals;
@@ -81,7 +81,7 @@ public class ListDirectoryContentsTest {
   public void testFilePath() {
     try {
       session.getCurrentDir().add(new File("file1"));
-    } catch (NameExistsException | Directory.InvalidAdditionException | InvalidNameException e) {
+    } catch (NameExistsException | InvalidAdditionException | InvalidNameException e) {
     }
     JShell.commandProcessor("ls file1", session);
     assertEquals("file1\n", session.returnBuffer());

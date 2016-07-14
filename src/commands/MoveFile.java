@@ -3,11 +3,13 @@ package commands;
 import java.util.List;
 
 import driver.FilePathInterpreter;
-import driver.FilePathInterpreter.InvalidDirectoryPathException;
+import exceptions.InvalidDirectoryPathException;
 import driver.MySession;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
 import structures.Directory;
-import structures.Directory.MissingNameException;
-import structures.Directory.NameExistsException;
+import exceptions.MissingNameException;
+import exceptions.NameExistsException;
 import structures.FileTypes;
 
 /**
@@ -106,11 +108,11 @@ public class MoveFile implements Command {
             s.addError("The source or destination path does not exist\n");
         } catch (ClassCastException i) {
             s.addError("The destination path does not lead to a directory\n");
-        } catch (Directory.InvalidAdditionException invalidAddition) {
+        } catch (InvalidAdditionException invalidAddition) {
             s.addError(invalidAddition.getMessage());
         } catch (MissingNameException e) {
             s.addError(e.getMessage());
-        } catch (FileTypes.InvalidNameException invalidName) {
+        } catch (InvalidNameException invalidName) {
             s.addError(invalidName.getMessage());
         }
     }
@@ -147,7 +149,7 @@ public class MoveFile implements Command {
                 dest.add(src);
                 parent.remove(src.getName());
 
-            } catch (NameExistsException | Directory.InvalidAdditionException | MissingNameException e) {
+            } catch (NameExistsException | InvalidAdditionException | MissingNameException e) {
                 s.addError("The file cannot be added. It already " +
                         "exists or is not valid.\n");
             }

@@ -1,5 +1,7 @@
 package structures;
 
+import exceptions.InvalidNameException;
+
 /**
  * Represents files in a file system. It has the functionality to store, and
  * modify text data.

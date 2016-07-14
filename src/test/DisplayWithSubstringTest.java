@@ -6,14 +6,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import structures.Directory;
 import structures.File;
 import driver.JShell;
 import driver.MySession;
-import structures.Directory.InvalidAdditionException;
-import structures.Directory.NameExistsException;
-import structures.FileTypes;
-import structures.FileTypes.InvalidNameException;
+import exceptions.InvalidAdditionException;
+import exceptions.NameExistsException;
+import exceptions.InvalidNameException;
 import structures.Output;
 
 public class DisplayWithSubstringTest {
@@ -67,7 +65,7 @@ public class DisplayWithSubstringTest {
 		    	File temp = new File("file1");
 		    	temp.setContent("abcdefg\n" + "abcde\n" + "abc\n");
 		      session.getCurrentDir().add(temp);
-		    } catch (NameExistsException | InvalidAdditionException | FileTypes.InvalidNameException e) {
+		    } catch (NameExistsException | InvalidAdditionException | InvalidNameException e) {
 		    }
 		    JShell.commandProcessor("grep -R .* file1", session);
 		    assertEquals("/:abcdefg\n" + "/:abcde\n" + "/:abc", session.returnBuffer());
@@ -80,7 +78,7 @@ public class DisplayWithSubstringTest {
 		    	File temp = new File("file1");
 		    	temp.setContent("abcdefg\n" + "abcde\n" + "abc\n");
 		      session.getCurrentDir().add(temp);
-		    } catch (NameExistsException | InvalidAdditionException | FileTypes.InvalidNameException e) {
+		    } catch (NameExistsException | InvalidAdditionException | InvalidNameException e) {
 		    }
 		    JShell.commandProcessor("grep -R file1", session);
 		    assertEquals("", session.returnBuffer());
@@ -93,7 +91,7 @@ public class DisplayWithSubstringTest {
 		    	File temp = new File("file1");
 		    	temp.setContent("abcdefg\n" + "abcde\n" + "abc\n");
 		      session.getCurrentDir().add(temp);
-		    } catch (NameExistsException | Directory.InvalidAdditionException | FileTypes.InvalidNameException e) {
+		    } catch (NameExistsException | InvalidAdditionException | InvalidNameException e) {
 		    }
 		    JShell.commandProcessor("grep -R abc file1", session);
 		    assertEquals("/:abc", session.returnBuffer());

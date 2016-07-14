@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.MissingNameException;
+import exceptions.NameExistsException;
 import structures.*;
 
 import static org.junit.Assert.assertEquals;
@@ -24,26 +28,26 @@ public class DirectoryFileTest {
     try {
       dir = new Directory("root");
       assertEquals(dir.getName(), "root");
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
     }
   }
 
-  @Test(expected = FileTypes.InvalidNameException.class)
+  @Test(expected = InvalidNameException.class)
   /**
    * Create a directory with .. as the name and test if the invalid name
    * exception is thrown
    */
-  public void createDirWithInValidName() throws FileTypes.InvalidNameException {
+  public void createDirWithInValidName() throws InvalidNameException {
     dir = new Directory("..");
   }
 
-  @Test(expected = FileTypes.InvalidNameException.class)
+  @Test(expected = InvalidNameException.class)
   /**
    * Create a directory with a slash in the name and test if the invalid name
    * exception is thrown
    */
-  public void createDirWithInValidNameSlash() throws FileTypes.InvalidNameException {
+  public void createDirWithInValidNameSlash() throws InvalidNameException {
     dir = new Directory("Hi/Bye");
   }
 
@@ -59,11 +63,11 @@ public class DirectoryFileTest {
       dir = new Directory("root");
       dir.add(new Directory("one"));
       assertEquals(dir.getChildNames(), child);
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -80,11 +84,11 @@ public class DirectoryFileTest {
       dir = new Directory("root");
       dir.add(new File("one"));
       assertEquals(dir.getChildNames(), child);
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -111,65 +115,65 @@ public class DirectoryFileTest {
       assertEquals((dir.getChild("two")) instanceof Directory, true);
       assertEquals((dir.getChild("three")) instanceof Directory, true);
 
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
-    } catch (Directory.MissingNameException e) {
+    } catch (MissingNameException e) {
       e.printStackTrace();
     }
   }
 
-  @Test(expected = Directory.NameExistsException.class)
+  @Test(expected = NameExistsException.class)
   /**
    * Test if NameExistsException is thrown when a directory or file with the
    * same name is added to the current directory
    */
   public void addDirectoryWithExistingName()
-      throws Directory.NameExistsException {
+      throws NameExistsException {
     try {
       // Add a directory with existing name
       dir = new Directory("one");
       dir.add(new Directory("one"));
       dir.add(new Directory("one"));
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
     }
   }
 
-  @Test(expected = Directory.InvalidAdditionException.class)
+  @Test(expected = InvalidAdditionException.class)
   /**
    * Test if InvalidAdditionException exception is thrown from add method when the
    * current directory is added as the child of the current directory
    */
-  public void testInvalidAddition() throws Directory.InvalidAdditionException {
+  public void testInvalidAddition() throws InvalidAdditionException {
     try {
       // Add the current directory to the current directory
       dir = new Directory("one");
       dir.add(dir);
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
 
-  @Test(expected = Directory.InvalidAdditionException.class)
+  @Test(expected = InvalidAdditionException.class)
   /**
    * Test if InvalidAdditionException exception is thrown from addReplace method when the
    * current directory is added as the child of the current directory
    */
   public void testInvalidAdditionInAddReplace()
-      throws Directory.InvalidAdditionException {
+      throws InvalidAdditionException {
     try {
       // Add the current directory to the current directory
       dir = new Directory("one");
       dir.addReplace(dir);
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
     }
   }
@@ -187,13 +191,13 @@ public class DirectoryFileTest {
       assertEquals(dir.getChild("two") instanceof Directory, true);
       dir.addReplace(new File("two"));
       assertEquals(dir.getChild("two") instanceof File, true);
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
-    } catch (Directory.MissingNameException e) {
+    } catch (MissingNameException e) {
       e.printStackTrace();
     }
 
@@ -229,13 +233,13 @@ public class DirectoryFileTest {
       assertEquals(dir.getChild("three") instanceof Directory, true);
       assertEquals(dir.getChild("four") instanceof File, true);
       assertEquals(dir.getChild("five") instanceof Directory, true);
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
-    } catch (Directory.MissingNameException e) {
+    } catch (MissingNameException e) {
       e.printStackTrace();
     }
 
@@ -261,13 +265,13 @@ public class DirectoryFileTest {
       assertEquals(dir.getChildNames().size(), 0);
 
 
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
-    } catch (Directory.MissingNameException e) {
+    } catch (MissingNameException e) {
       e.printStackTrace();
     }
   }
@@ -276,9 +280,9 @@ public class DirectoryFileTest {
    * Test whether or not MissingNameException is thrown when a file or directory
    * that doesn't exist is removed
    */
-  @Test(expected = Directory.MissingNameException.class)
+  @Test(expected = MissingNameException.class)
   public void testRemovingFileDoesNotExist()
-      throws Directory.MissingNameException {
+      throws MissingNameException {
     try {
       // Remove a directory that doesn't exist
       dir = new Directory("one");
@@ -287,11 +291,11 @@ public class DirectoryFileTest {
       dir.remove("three");
 
 
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -311,11 +315,11 @@ public class DirectoryFileTest {
       assertEquals(dir.nameExists("five"), -1);
       assertEquals(dir.nameExists("three"), 1);
 
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -336,11 +340,11 @@ public class DirectoryFileTest {
       assertEquals(dir.getChildDirs().size(), 2);
       assertEquals(dir.getChildDirs().get(0).getName(), "two");
       assertEquals(dir.getChildDirs().get(1).getName(), "five");
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -361,11 +365,11 @@ public class DirectoryFileTest {
       assertEquals(dir.getChildFiles().size(), 2);
       assertEquals(dir.getChildFiles().get(0).getName(), "three");
       assertEquals(dir.getChildFiles().get(1).getName(), "four");
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -379,7 +383,7 @@ public class DirectoryFileTest {
       // Check if the path to parent is correct
       dir = new Directory("one");
       assertEquals(dir.getEntirePath(), "/one");
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
     }
   }
@@ -400,11 +404,11 @@ public class DirectoryFileTest {
       dir3.add(dir4);
 
       assertEquals(dir4.getEntirePath(), "/one/two/three/four");
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -430,11 +434,11 @@ public class DirectoryFileTest {
       dir.add(new Directory("five"));
       // Check if all of the children names were retrieved
       assertEquals(dir.getChildNames(), childNames);
-    } catch (Directory.InvalidAdditionException invalidAddition) {
+    } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
-    } catch (Directory.NameExistsException e) {
+    } catch (NameExistsException e) {
       e.printStackTrace();
     }
   }
@@ -450,7 +454,7 @@ public class DirectoryFileTest {
       // Append to file
       file.appendContent("Yes it is.");
       assertEquals(file.getContent(), "B07 is fantastic!\nYes it is.");
-    } catch (FileTypes.InvalidNameException invalidName) {
+    } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
     }
 
