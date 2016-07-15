@@ -254,7 +254,7 @@ public class MySession {
   }
   
   public void redirectOutput(String file, String type) {
-    o.redirect(file, type, this.getCurrentDir());
+    o.redirect(file, type, this.getCurrentDir(), this.getRootDir());
   }
   
   public void clearFileSystem(){

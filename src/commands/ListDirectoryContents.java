@@ -137,7 +137,7 @@ public class ListDirectoryContents implements Command {
     }
     // If there are paths specified get the output form function call
     if (args.size() > 1) {
-      if (args.get(1).equals("-R"))
+      if (args.get(1).equalsIgnoreCase("-R"))
         execMult(args.subList(2, args.size()), true);
       else
         execMult(args.subList(1, args.size()), false);
