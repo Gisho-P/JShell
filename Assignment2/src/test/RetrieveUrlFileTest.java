@@ -15,6 +15,10 @@ import exceptions.NameExistsException;
 import structures.File;
 import structures.Output;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Test suite containing test cases for the curl command.
  */
