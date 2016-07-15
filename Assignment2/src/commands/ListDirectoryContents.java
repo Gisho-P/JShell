@@ -50,7 +50,8 @@ public class ListDirectoryContents implements Command {
   }
 
   /**
-   * Return list of contents in directory specified.
+   * ListDirectory Contents doesn't have any error checking until we know
+   * if the given directories are valid so interpret calls exec to do so.
    * 
    * @param args Arguments to process for ls command
    * @return output message (directory contents) or error message
@@ -61,8 +62,8 @@ public class ListDirectoryContents implements Command {
   }
 
   /**
-   * Lists the name of the given file/directory followed by the contents if it
-   * is a directory.
+   * Lists the name of the given file/directory and also lists the contents if
+   * it is a directory.
    *
    * @param paths the paths of directories/files to be listed
    * @return a list of the contents of each of the given paths
@@ -71,7 +72,7 @@ public class ListDirectoryContents implements Command {
     Collections.sort(paths, String.CASE_INSENSITIVE_ORDER);
     // Get children if path is a directory, or return path if it's a file
     for (String i : paths) {
-      try { // Assume it's a directory and get children
+      try { // Assume it's a directory and get contnets
         Directory currentDir = ((Directory) FilePathInterpreter
             .interpretPath(s.getCurrentDir(), i));
         s.addOutput(getDirectoryContents((Directory) currentDir, currentDir, i,
@@ -84,9 +85,20 @@ public class ListDirectoryContents implements Command {
     }
   }
 
+  /**
+   * Gets the contents of the current directory and all of it's subdirectories
+   * iff recursive r is true.
+   *
+   * @param currentDir the current directory
+   * @param root the root directory
+   * @param path the path to the initial specified directory
+   * @param r whether to recursively print subDirectories or not
+   * @return the directory contents
+   */
   private String getDirectoryContents(Directory currentDir, Directory root,
       String path, Boolean r) {
     String curDirContents = "";
+    // Initialize the prefix containing the directory name
     if (!path.isEmpty() || r){
       if (currentDir == root)
         curDirContents = path + ":";
@@ -94,20 +106,18 @@ public class ListDirectoryContents implements Command {
         curDirContents =
             (path.equals("/") ? "" : path) + currentDir.getPath(root) + ":";
     }
+    // Get the contents of the directory, sort alpha numerically and store it
     ArrayList<String> childNames = currentDir.getChildNames();
     Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
     for (String childName : childNames) {
-      if (path.isEmpty())
-        curDirContents += childName + "\n";
-      else
-        curDirContents += " " + childName;
+        curDirContents += path.isEmpty() ? childName + "\n" : " " + childName;
     }
-    if (r) {
+    if (r) { // If recursive get subDirectories and their contents
       ArrayList<Directory> subDirectories = currentDir.getChildDirs();
       Collections.sort(subDirectories, new Comparator<Directory>() {
         @Override
         public int compare(Directory d1, Directory d2) {
-          return d1.getName().compareTo(d2.getName()); // Ascending
+          return d1.getName().compareTo(d2.getName()); // Alphabetical Order
         }
       });
       curDirContents += "\n\n";
@@ -115,34 +125,34 @@ public class ListDirectoryContents implements Command {
         curDirContents += getDirectoryContents(subDir, root, path, r);
       }
     }
-    return 
-        curDirContents;
+    return curDirContents;
   }
 
 
   /**
-   * Returns contents of director(y/ies) in a neatly formatted string.
+   * Checks if paths are given, recursive option is given and does various
+   * function calls to get the output.
    * 
    * @param args arguments to be run with ls command
    * @return error message or directory contents
    */
   @Override
   public void exec(List<String> args) {
-    if (args.size() == 2 && args.get(1).equals("-R")) {
+    // Check if the call is a recursive call on the current directory
+    if (args.size() == 2 && args.get(1).equalsIgnoreCase("-R")) {
       if (s.getCurrentDir().equals(s.getRootDir()))
         execMult(Arrays.asList("/"), true);
       else
         s.addOutput(getDirectoryContents(s.getCurrentDir(), s.getCurrentDir(),
             s.getCurrentDir().getName(), true));
     }
-    // If there are paths specified get the output form function call
+    // Calls a function to get the contents of one or more specified directories
     if (args.size() > 1) {
       if (args.get(1).equalsIgnoreCase("-R"))
         execMult(args.subList(2, args.size()), true);
       else
         execMult(args.subList(1, args.size()), false);
     }
-    // Otherwise, get the contents of the current directory and return it
     else {
       s.addOutput(getDirectoryContents(s.getCurrentDir(), s.getCurrentDir(), "",
           false));

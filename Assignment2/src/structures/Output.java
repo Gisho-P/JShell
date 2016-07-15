@@ -11,18 +11,35 @@ import exceptions.InvalidNameException;
  * output to files.
  */
 public class Output {
+  
+  /** The standard output. */
   private String stdOutput;
+  
+  /** The standard error. */
   private String stdError;
 
+  /**
+   * Instantiates a new output with empty output and error.
+   */
   public Output() {
     stdOutput = "";
     stdError = "";
   }
 
+  /**
+   * Gets the std output.
+   *
+   * @return the std output
+   */
   public String getStdOutput() {
     return stdOutput;
   }
 
+  /**
+   * Adds the given string to stdOut.
+   *
+   * @param stdOutput the string to be added to stdOut
+   */
   public void addStdOutput(String stdOutput) {
     if (!this.stdOutput.isEmpty()) {
       this.stdOutput += "\n";
@@ -30,23 +47,46 @@ public class Output {
     this.stdOutput += stdOutput;
   }
 
+  /**
+   * Sets the stdOut to the given String.
+   *
+   * @param stdOutput the string to replace the currend stdOut
+   */
   public void setStdOutput(String stdOutput) {
     this.stdOutput = stdOutput;
   }
 
+  /**
+   * Clears the stdOut and stdError.
+   */
   public void clear() {
     stdOutput = "";
     stdError = "";
   }
 
+  /**
+   * Gets the stdError.
+   *
+   * @return the stdError
+   */
   public String getStdError() {
     return stdError;
   }
 
+  /**
+   * Sets the stdError to the given string.
+   *
+   * @param standardError the new stdError
+   */
   public void setStdError(String standardError) {
     stdError = standardError;
   }
 
+  /**
+   * Adds the string to stdEroor.
+   *
+   * @param standardError the string to be added to stdError
+   */
   public void addStdError(String standardError) {
     if (!stdError.isEmpty()) {
       stdError += "\n";
@@ -54,15 +94,34 @@ public class Output {
     stdError += standardError;
   }
 
+  /**
+   * Adds the error to stdError and clears stdOut.
+   *
+   * @param standardError the error to be added to stdError
+   */
   public void addErrorClearOutput(String standardError) {
     addStdError(standardError);
     setStdOutput("");
   }
 
+  /**
+   * Gets the all output.
+   *
+   * @return the all output
+   */
   public String getAllOutput() {
     return getStdError() + getStdOutput();
   }
 
+  /**
+   * Redirects the current stdOutput to the given file, and overwrites or
+   * appends as specified in type.
+   *
+   * @param file the file
+   * @param type the type
+   * @param curDir the cur dir
+   * @param rootDir the root dir
+   */
   public void redirect(String file, String type, Directory curDir,
       Directory rootDir) {
     FileTypes outFile = null;
@@ -84,30 +143,37 @@ public class Output {
       }
     }
     if (outFile instanceof File)
-      redirectFile((File) outFile, type);
-    else
+      addContent((File) outFile, type);
+    // If the outFile isn't a File and another error wasn't raised then
+    // raise an error
+    else if (!getStdOutput().isEmpty())
       addErrorClearOutput(
           "ERROR: There is already a subdirectory with the same name");
   }
 
-  public void redirectFile(File file, String type) {
+  /**
+   * Writes the output to the file and overwrites/appends as given by type.
+   *
+   * @param file the file where output will be stored
+   * @param type whether to append or overwrite to the file
+   */
+  public void addContent(File file, String type) {
     if (file != null) {
-      // Write to the file, overwrite or append as given
       if (type.equals(">"))
         file.setContent(getStdOutput());
       else {
         file.appendContent(getStdOutput());
         getClass();
       }
-      this.stdOutput = "";
+      setStdOutput("");
     }
   }
 
   /**
    * Creates the file from the given path, and throws an exception otherwise.
-   * 
-   * @param directory
    *
+   * @param curDir the cur dir
+   * @param rootDir the root dir
    * @param path the path to the file
    * @return the file
    * @throws InvalidNameException if the file has an invalid character
@@ -117,8 +183,7 @@ public class Output {
    * @throws InvalidAdditionException adding a file to the same file
    */
   private File createFileFromPath(Directory curDir, Directory rootDir,
-      String path)
-      throws InvalidNameException, InvalidDirectoryPathException,
+      String path) throws InvalidNameException, InvalidDirectoryPathException,
       NameExistsException, InvalidAdditionException {
     File outputFile = new File("");
     // Check if the file is going to be in the current directory
@@ -127,9 +192,9 @@ public class Output {
       // If it's a different directory get that directory and add the file
       // to it
       outputFile = new File(path.substring(path.lastIndexOf("/") + 1));
-      Directory fileDir = (Directory) FilePathInterpreter
-          .interpretPath(path.startsWith("/") ? rootDir : curDir
-              , path.substring(0, path.lastIndexOf("/")));
+      Directory fileDir = (Directory) FilePathInterpreter.interpretPath(
+          path.startsWith("/") ? rootDir : curDir,
+          path.substring(0, path.lastIndexOf("/")));
       fileDir.add(outputFile);
     } else {
       // If it's the same directory

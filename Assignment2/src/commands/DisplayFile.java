@@ -76,7 +76,7 @@ public class DisplayFile implements Command {
         if (firstFile)
           firstFile = false;
       } catch (InvalidDirectoryPathException e) {
-        s.addError("No such dir as " + i);
+        s.addError("No such file at " + i);
       } catch (ClassCastException e) {
         s.addError("Unable to cat dir " + i);
       }
