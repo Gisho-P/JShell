@@ -1,0 +1,9 @@
+Class name: NameExistsException
+Parent class: Object
+Subclasses: N/A
+
+Responsibilities:
+* 
+
+Collaborators:
+* 
