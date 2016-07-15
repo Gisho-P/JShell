@@ -42,15 +42,15 @@ import structures.*;
  * @author Adnan Bhuiyan
  * @author Girrshotan Pushparajah
  * @author John Song
+ * @author Dhrumil Patel
  */
 public class JShell {
 
   /**
-   * Returns output/error message from Shell based on command entered.
+   * Try to execute command entered by the user.
    * 
    * @param args arguments called with command
    * @param session current shell's session attributes
-   * @return output/error message of command class
    */
   private static void callFunction(List<String> args, MySession session) {
     if (session.commandToClass.containsKey(args.get(0))) {
@@ -67,11 +67,9 @@ public class JShell {
    * 
    * @param cmd user's input into shell
    * @param session session current shell's session attributes
-   * @return output/error message of command class
    */
   public static void commandProcessor(String cmd, MySession session) {
-    // Store the output here
-    List<String> cmdArgs = new ArrayList<String>();
+    List<String> cmdArgs = new ArrayList<String>(); // Store the output here
 
     // Splitting the cmd
     cmd = cmd.trim();
@@ -97,26 +95,42 @@ public class JShell {
       cmdArgs = Arrays.asList(cmd.split(" "));
     }
 
-    processForRedirection(session, cmdArgs);
+    processForRedirection(session, cmdArgs); // check for redirection
   }
 
+  /**
+   * Take processed command arguments and check if user wants to redirect output
+   * to a file and execute command accordingly.
+   * 
+   * @param s Current shell's session attributes
+   * @param args command arguments entered from shell
+   */
   private static void processForRedirection(MySession s, List<String> args) {
     int argSize = args.size();
-    if (argSize >= 3) {
-      Boolean containsRedirect = args.get(argSize - 2).equals(">")
+    if (argSize >= 3) { // a valid argument will potentially have direction
+                        // when there are 3 or more arguments
+      boolean containsRedirect = args.get(argSize - 2).equals(">")
           || args.get(argSize - 2).equals(">>");
-      if (containsRedirect) {
+      if (containsRedirect) { // redirection token was entered
+        // process non redirection args, then process output
         callFunction(args.subList(0, argSize - 2), s);
         redirectOutput(args.get(argSize - 2), args.get(argSize - 1), s);
         return;
       }
     }
-    callFunction(args, s);
-
+    callFunction(args, s); // no redirection, process args straight up
   }
 
+  /**
+   * Redirect output of command into file specified. Output will either be
+   * appended to the file or write (potentially overwrite) the file.
+   * 
+   * @param type type of redirection (append/write)
+   * @param file file that output will be stored
+   * @param s current shell's session attributes
+   */
   private static void redirectOutput(String type, String file, MySession s) {
-    if (!s.getOutput().isEmpty()) {
+    if (!s.getOutput().isEmpty()) { // only redirect output if output exists
       s.redirectOutput(file, type);
     }
   }
@@ -133,22 +147,18 @@ public class JShell {
     Scanner input = new Scanner(System.in); // accept input from user
 
     // Continually accept commands until the command exit is entered
-    // exit can precede or follow any amount of white spaces and can have
-    // anything after exit and a white space
     while (session.getRunStatus()) {
       System.out.print(session.getCurrentDir().getEntirePath() + "$: ");
       lastCommand = input.nextLine();
-      // Save the command to history
-      session.saveCommand(lastCommand);
+      session.saveCommand(lastCommand); // Save the command to history
       commandProcessor(lastCommand, session);
       if (session.getRunStatus()) {
-        // Printing the output
         String ret = session.returnBuffer();
         if (!ret.isEmpty()) {
-          System.out.println(ret.trim());
+          System.out.println(ret.trim()); // Printing the output
         }
       }
-      session.clearBuffer();
+      session.clearBuffer(); // clear output, error buffers
     }
     input.close();
   }
