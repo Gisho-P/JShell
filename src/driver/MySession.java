@@ -1,8 +1,6 @@
 package driver;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 import commands.*;
 import structures.*;
@@ -38,22 +36,22 @@ public class MySession {
    */
   public Hashtable<String, Command> commandToClass =
       new Hashtable<String, Command>();
-  
+
   /**
    * Running status of Shell
-   * */
+   */
   private boolean status;
-  
+
   /**
    * Session's directory stack
-   * */
+   */
   private DirStack ds = new DirStack();
 
   /**
    * JShell's output/error buffer
-   * */
+   */
   private Output o;
-  
+
   /**
    * Create a new MySession object with default attributes for root and current
    * directory. Furthermore, the map between commands and classes, as well as
@@ -88,7 +86,7 @@ public class MySession {
 
 
     // try to initialize root and current directory (to root)
-   rootDir = Directory.createFileSystem();
+    rootDir = Directory.createFileSystem();
     currentDir = rootDir;
   }
 
@@ -122,8 +120,8 @@ public class MySession {
       return a;
     } else { // format output and return
       String ret = "";
-      for (int cmdNumber = historySize - numberOfCommands + 1;
-          cmdNumber <= historySize; cmdNumber++) {
+      for (int cmdNumber = historySize - numberOfCommands
+          + 1; cmdNumber <= historySize; cmdNumber++) {
         ret += cmdNumber + ". " + commandHistory.get(cmdNumber - 1);
         if (cmdNumber != historySize) {
           ret += "\n";
@@ -142,9 +140,9 @@ public class MySession {
    */
   public List<Object> getCommandHistory() {
     return getCommandHistory(commandHistory.size()); // call
-                                                       // printCommandHistory
-                                                       // with the max number as
-                                                       // a parameter
+                                                     // printCommandHistory
+                                                     // with the max number as
+                                                     // a parameter
   }
 
   /**
@@ -180,51 +178,51 @@ public class MySession {
   public void setCurrentDir(Directory cDir) {
     currentDir = cDir;
   }
-  
+
   /**
    * Change the Shell's running status to false (exit)
-   * */
+   */
   public void turnOffShell() {
     status = false;
   }
-  
+
   /**
    * Get the running status of JShell
    * 
    * @return Running status of JShell
-   * */
+   */
   public boolean getRunStatus() {
     return status;
   }
-  
+
   /***/
   public void storeDirectory(String path) {
     ds.pushd(path);
   }
-  
+
   /***/
   public List<Object> retrieveDirectory() {
     return ds.popd();
   }
-  
+
   /***/
   public void clearDirectoryStack() {
-	  ds.clear();
+    ds.clear();
   }
 
   public List<Object> getHistoricalCommand(int i) {
     List<Object> a = new ArrayList<Object>();
     boolean bound = (i >= 1 && i <= commandHistory.size());
-    a.add(bound ? commandHistory.get(i-1) : 
-      "ERROR: Number entered is out of bounds.");
+    a.add(bound ? commandHistory.get(i - 1)
+        : "ERROR: Number entered is out of bounds.");
     a.add(bound);
     return a;
   }
-  
+
   public String returnBuffer() {
     return o.getAllOutput();
   }
-  
+
   public void clearBuffer() {
     o.clear();
   }
@@ -232,32 +230,32 @@ public class MySession {
   public String getError() {
     return o.getStdError();
   }
-  
+
   public void setError(String err) {
     o.setStdError(err);
   }
-  
+
   public void addError(String err) {
     o.addStdError(err);
   }
-  
+
   public String getOutput() {
     return o.getStdOutput();
   }
-  
+
   public void setOutput(String out) {
     o.setStdOutput(out);
   }
-  
+
   public void addOutput(String out) {
     o.addStdOutput(out);
   }
-  
+
   public void redirectOutput(String file, String type) {
     o.redirect(file, type, this.getCurrentDir(), this.getRootDir());
   }
-  
-  public void clearFileSystem(){
+
+  public void clearFileSystem() {
     try {
       rootDir = new Directory("");
     } catch (InvalidNameException e) {

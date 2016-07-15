@@ -77,11 +77,12 @@ public class File extends FileTypes {
 
   /**
    * Make of a copy of the given file object
+   * 
    * @param file File to be copied
    * @return Copied File
-     */
-  public static File copy(File file){
-    //Make a copy of the file with the same name and content
+   */
+  public static File copy(File file) {
+    // Make a copy of the file with the same name and content
     File newFile = null;
     try {
       newFile = new File(file.getName(), file.getContent());
@@ -94,6 +95,7 @@ public class File extends FileTypes {
   @Override
   /**
    * Determine if the two files are equal
+   * 
    * @return Whether or not the two files are equal
    */
   public boolean equals(Object obj) {

@@ -1,17 +1,12 @@
 package test;
 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import exceptions.InvalidAdditionException;
-import exceptions.InvalidNameException;
-import exceptions.MissingNameException;
-import exceptions.NameExistsException;
+import exceptions.*;
 import structures.*;
-
-import static org.junit.Assert.assertEquals;
-
 
 /**
  * Tests for the Directory and File classes
@@ -131,8 +126,7 @@ public class DirectoryFileTest {
    * Test if NameExistsException is thrown when a directory or file with the
    * same name is added to the current directory
    */
-  public void addDirectoryWithExistingName()
-      throws NameExistsException {
+  public void addDirectoryWithExistingName() throws NameExistsException {
     try {
       // Add a directory with existing name
       dir = new Directory("one");
@@ -147,8 +141,8 @@ public class DirectoryFileTest {
 
   @Test(expected = InvalidAdditionException.class)
   /**
-   * Test if InvalidAdditionException exception is thrown from add method when the
-   * current directory is added as the child of the current directory
+   * Test if InvalidAdditionException exception is thrown from add method when
+   * the current directory is added as the child of the current directory
    */
   public void testInvalidAddition() throws InvalidAdditionException {
     try {
@@ -164,8 +158,8 @@ public class DirectoryFileTest {
 
   @Test(expected = InvalidAdditionException.class)
   /**
-   * Test if InvalidAdditionException exception is thrown from addReplace method when the
-   * current directory is added as the child of the current directory
+   * Test if InvalidAdditionException exception is thrown from addReplace method
+   * when the current directory is added as the child of the current directory
    */
   public void testInvalidAdditionInAddReplace()
       throws InvalidAdditionException {
@@ -221,7 +215,6 @@ public class DirectoryFileTest {
       assertEquals(dir.getChild("four") instanceof Directory, true);
       assertEquals(dir.getChild("five") instanceof Directory, true);
 
-
       ArrayList<FileTypes> multFile = new ArrayList<FileTypes>();
       multFile.add(new File("two"));
       multFile.add(new Directory("three"));
@@ -258,12 +251,10 @@ public class DirectoryFileTest {
       dir.add(new Directory("five"));
       assertEquals(dir.getChildNames().size(), 3);
 
-
       dir.remove("two");
       dir.remove("three");
       dir.remove("five");
       assertEquals(dir.getChildNames().size(), 0);
-
 
     } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
@@ -281,15 +272,13 @@ public class DirectoryFileTest {
    * that doesn't exist is removed
    */
   @Test(expected = MissingNameException.class)
-  public void testRemovingFileDoesNotExist()
-      throws MissingNameException {
+  public void testRemovingFileDoesNotExist() throws MissingNameException {
     try {
       // Remove a directory that doesn't exist
       dir = new Directory("one");
       dir.add(new Directory("two"));
 
       dir.remove("three");
-
 
     } catch (InvalidAdditionException invalidAddition) {
       invalidAddition.printStackTrace();
@@ -458,8 +447,6 @@ public class DirectoryFileTest {
       invalidName.printStackTrace();
     }
 
-
   }
-
 
 }

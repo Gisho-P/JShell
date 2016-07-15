@@ -4,7 +4,6 @@ import java.util.List;
 
 import driver.*;
 
-
 /**
  * The Class DisplayStoreString can display a string in the JShell
  */
@@ -57,21 +56,21 @@ public class DisplayString implements Command {
       s.addError("echo usage: echo STRING (In quotes)");
     } else {
       // Check that the string is surrounded by quotes
-      if (!args.get(1).startsWith("\"") || !args.get(1).endsWith("\"") ||
-          args.get(1).length() < 2) {
+      if (!args.get(1).startsWith("\"") || !args.get(1).endsWith("\"")
+          || args.get(1).length() < 2) {
         s.addError("ERROR: STRING must be surrounded by double quotations");
       } else {
         exec(args);
       }
     }
   }
-  
+
   /* 
    * Returns the given string without the quotes
    */
   @Override
   public void exec(List<String> args) {
     String text = args.get(1);
-    s.addOutput(text.length() == 2 ? "" : text.substring(1, text.length()-1));
+    s.addOutput(text.length() == 2 ? "" : text.substring(1, text.length() - 1));
   }
 }

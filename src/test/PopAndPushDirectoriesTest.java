@@ -1,18 +1,13 @@
 package test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Field;
 
 import exceptions.InvalidNameException;
 import structures.Output;
-import driver.JShell;
-import driver.MySession;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import driver.*;
 
 // Tests for the push and pop directories class
 public class PopAndPushDirectoriesTest {
@@ -32,13 +27,14 @@ public class PopAndPushDirectoriesTest {
    * purposes, the root needs to be set to null everytime.
    */
   public void tearDown() throws InvalidNameException, NoSuchFieldException,
-          IllegalAccessException {
+      IllegalAccessException {
     Field field = s.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
-    field.set(null, null); //setting the ref parameter to null
+    field.set(null, null); // setting the ref parameter to null
     s.clearBuffer();
     s.clearDirectoryStack();
   }
+
   @Test
   /**
    * Test popping from empty stack at root

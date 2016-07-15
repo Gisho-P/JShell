@@ -29,10 +29,7 @@
 // *********************************************************
 package driver;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import commands.Command;
 import structures.*;
@@ -63,7 +60,7 @@ public class JShell {
       session.setError("ERROR: Invalid Command.");
     }
   }
-  
+
   /**
    * Take the user's input and parse it, then pass it to command class to
    * execute the command. Return any output or error messages.
@@ -79,7 +76,7 @@ public class JShell {
     // Splitting the cmd
     cmd = cmd.trim();
     if (cmd.isEmpty() ? false : cmd.charAt(0) == '!') {
-      cmdArgs.add(cmd.substring(0,1));
+      cmdArgs.add(cmd.substring(0, 1));
       cmd = cmd.substring(1);
     }
     if (cmd.contains("\"")) {
@@ -99,29 +96,29 @@ public class JShell {
       cmd = cmd.replaceAll("[\\s]+", " ");
       cmdArgs = Arrays.asList(cmd.split(" "));
     }
-    
+
     processForRedirection(session, cmdArgs);
   }
-  
+
   private static void processForRedirection(MySession s, List<String> args) {
     int argSize = args.size();
     if (argSize >= 3) {
-      Boolean containsRedirect = args.get(argSize - 2).equals(">") ||
-          args.get(argSize - 2).equals(">>");
-        if(containsRedirect){
-          callFunction(args.subList(0, argSize-2), s);
-          redirectOutput(args.get(argSize-2), args.get(argSize-1), s);
-          return;
-        }
+      Boolean containsRedirect = args.get(argSize - 2).equals(">")
+          || args.get(argSize - 2).equals(">>");
+      if (containsRedirect) {
+        callFunction(args.subList(0, argSize - 2), s);
+        redirectOutput(args.get(argSize - 2), args.get(argSize - 1), s);
+        return;
+      }
     }
     callFunction(args, s);
-    
+
   }
-  
+
   private static void redirectOutput(String type, String file, MySession s) {
     if (!s.getOutput().isEmpty()) {
       s.redirectOutput(file, type);
-    } 
+    }
   }
 
   /**
@@ -131,7 +128,8 @@ public class JShell {
    */
   public static void main(String[] args) {
     String lastCommand = "";
-    MySession session = new MySession(new Output()); // new session attributes created
+    MySession session = new MySession(new Output()); // new session attributes
+                                                     // created
     Scanner input = new Scanner(System.in); // accept input from user
 
     // Continually accept commands until the command exit is entered

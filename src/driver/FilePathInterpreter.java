@@ -1,7 +1,6 @@
 package driver;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 import exceptions.InvalidDirectoryPathException;
 import structures.*;
@@ -114,31 +113,32 @@ public class FilePathInterpreter {
    * @throws InvalidDirectoryPathException
    */
   private static FileTypes getSubDirFromDir(Directory init, String currPath,
-                                            String[] splitPath) throws InvalidDirectoryPathException {
-      // Checking sub dirs
-      ArrayList<Directory> subDirs = init.getChildDirs();
-      Iterator<Directory> dirIterator = subDirs.iterator();
+      String[] splitPath) throws InvalidDirectoryPathException {
+    // Checking sub dirs
+    ArrayList<Directory> subDirs = init.getChildDirs();
+    Iterator<Directory> dirIterator = subDirs.iterator();
 
-      // Looping over to see if what we're looking for is a dir
-      while (dirIterator.hasNext()) {
-          Directory next = dirIterator.next();
-          if (next.getName().equals(splitPath[0])) {
+    // Looping over to see if what we're looking for is a dir
+    while (dirIterator.hasNext()) {
+      Directory next = dirIterator.next();
+      if (next.getName().equals(splitPath[0])) {
 
-              int length = splitPath[0].length();
-              // Go into the new dir
-              // Taking care of the '/' in case there are other sub dirs
+        int length = splitPath[0].length();
+        // Go into the new dir
+        // Taking care of the '/' in case there are other sub dirs
 
-              if (splitPath.length == 1)
-                  return interpretPathRecursive(next,
-                          currPath.substring(length, currPath.length()));
-              else
-                  return interpretPathRecursive(next,
-                          currPath.substring(length + 1, currPath.length()));
-          }
+        if (splitPath.length == 1)
+          return interpretPathRecursive(next,
+              currPath.substring(length, currPath.length()));
+        else
+          return interpretPathRecursive(next,
+              currPath.substring(length + 1, currPath.length()));
       }
+    }
 
-      throw new InvalidDirectoryPathException(currPath);
+    throw new InvalidDirectoryPathException(currPath);
   }
+
   /**
    * Parses the current single dot from currPath and calls interpretPath again.
    *

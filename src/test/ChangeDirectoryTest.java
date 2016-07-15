@@ -1,21 +1,14 @@
 package test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import exceptions.InvalidAdditionException;
-import exceptions.InvalidNameException;
-import exceptions.NameExistsException;
+import exceptions.*;
 import structures.*;
-import driver.JShell;
-import driver.MySession;
-
-import static org.junit.Assert.assertEquals;
+import driver.*;
 
 /**
  * Tests for ChangeDirectory class
@@ -37,10 +30,10 @@ public class ChangeDirectoryTest {
    * purposes, the root needs to be set to null everytime.
    */
   public void tearDown() throws InvalidNameException, NoSuchFieldException,
-          IllegalAccessException {
+      IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
-    field.set(null, null); //setting the ref parameter to null
+    field.set(null, null); // setting the ref parameter to null
     session.clearBuffer();
   }
 
@@ -81,7 +74,8 @@ public class ChangeDirectoryTest {
    * Test changing directory when there are multiple slashes
    */
   public void testCdMultipleSlashes() {
-    // directory should still change if there are multiple slashes at the end
+    // directory should still change if there are multiple slashes at the
+    // end
     JShell.commandProcessor("mkdir sub1dir1", session);
     JShell.commandProcessor("cd sub1dir1/////////////", session);
     assertEquals(new ArrayList<String>(),
@@ -154,14 +148,13 @@ public class ChangeDirectoryTest {
    * Test changing directory when path to file is given instead
    */
   public void testCdGivenPathToFile() throws InvalidNameException,
-          NameExistsException, InvalidAdditionException {
+      NameExistsException, InvalidAdditionException {
     // Create file system
     session.getRootDir().add(new File("file1"));
     JShell.commandProcessor("mkdir subdir1", session);
     // Should fail to change directory since file is given
     JShell.commandProcessor("cd file1", session);
-    assertEquals("file1 is not a directory.",
-        session.returnBuffer());
+    assertEquals("file1 is not a directory.", session.returnBuffer());
   }
 
 }

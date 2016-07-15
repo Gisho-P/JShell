@@ -1,7 +1,6 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import driver.MySession;
 
@@ -70,7 +69,8 @@ public class PopDirectory implements Command {
    */
   @Override
   public void exec(List<String> args) {
-    List<Object> res = s.retrieveDirectory(); // pop last saved directory from stack
+    List<Object> res = s.retrieveDirectory(); // pop last saved directory from
+                                              // stack
 
     if ((boolean) res.get(1) == false) { // if stack is empty, return error
       s.setError((String) res.get(0));

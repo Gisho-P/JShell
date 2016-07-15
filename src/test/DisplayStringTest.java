@@ -1,24 +1,10 @@
 package test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.lang.reflect.Field;
-
-import driver.JShell;
-import driver.MySession;
-import structures.Directory;
-import exceptions.InvalidAdditionException;
-import exceptions.MissingNameException;
-import exceptions.NameExistsException;
-import structures.File;
-import exceptions.InvalidNameException;
-import structures.Output;
-
+import org.junit.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
+import driver.*;
+import structures.Output;
 
 /**
  * Tests that verify the functionality of the echo command in JShell which can
@@ -52,7 +38,7 @@ public class DisplayStringTest {
         "ERROR: STRING must be surrounded by double quotations";
     assertEquals(noQuotesMsg, session.returnBuffer());
   }
-  
+
   /*
    * Test that echo requires a string
    */
@@ -62,7 +48,7 @@ public class DisplayStringTest {
     String usageMsg = "echo usage: echo STRING (In quotes)";
     assertEquals(usageMsg, session.returnBuffer());
   }
-  
+
   /*
    * Test that echo requires a string
    */
@@ -72,7 +58,7 @@ public class DisplayStringTest {
     String usageMsg = "echo usage: echo STRING (In quotes)";
     assertEquals(usageMsg, session.returnBuffer());
   }
-  
+
   /*
    * Test that echo requires a string
    */
@@ -110,7 +96,7 @@ public class DisplayStringTest {
     JShell.commandProcessor("echo \"1 2 3 4 ss\"", session);
     assertEquals("1 2 3 4 ss", session.returnBuffer());
   }
-  
+
   /**
    * Displaying a string with quotations to JShell.
    */

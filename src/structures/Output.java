@@ -1,10 +1,7 @@
 package structures;
 
 import driver.*;
-import exceptions.InvalidAdditionException;
-import exceptions.NameExistsException;
-import exceptions.InvalidDirectoryPathException;
-import exceptions.InvalidNameException;
+import exceptions.*;
 
 /**
  * The Class Output stores standard output and error strings and redirects

@@ -1,7 +1,6 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import driver.MySession;
 
@@ -83,7 +82,7 @@ public class DisplayHistory implements Command {
     } else { // print all user commands history
       r.addAll(s.getCommandHistory());
     }
-    
+
     if (r.size() != 0) {
       if ((boolean) r.get(1)) {
         s.addOutput((String) r.get(0));

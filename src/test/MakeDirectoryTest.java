@@ -1,22 +1,14 @@
 package test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import driver.JShell;
-import driver.MySession;
-import exceptions.InvalidAdditionException;
-import exceptions.InvalidNameException;
-import exceptions.NameExistsException;
-import structures.File;
-import structures.Output;
-
-import static org.junit.Assert.assertEquals;
+import driver.*;
+import exceptions.*;
+import structures.*;
 
 /**
  * Tests for the MakeDirectory class
@@ -38,10 +30,10 @@ public class MakeDirectoryTest {
    * purposes, the root needs to be set to null everytime.
    */
   public void tearDown() throws InvalidNameException, NoSuchFieldException,
-          IllegalAccessException {
+      IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
-    field.set(null, null); //setting the ref parameter to null
+    field.set(null, null); // setting the ref parameter to null
   }
 
   @Test
@@ -50,7 +42,8 @@ public class MakeDirectoryTest {
    */
   public void testMkdirCreateDirWithSlash() {
     JShell.commandProcessor("mkdir /", session);
-    assertEquals("mkdir: cannot create a directory without a name", session.returnBuffer());
+    assertEquals("mkdir: cannot create a directory without a name",
+        session.returnBuffer());
   }
 
   @Test
@@ -60,7 +53,8 @@ public class MakeDirectoryTest {
   public void testMkdirCreateDirWithMultipleSlash() {
     ArrayList<String> expected = new ArrayList<String>();
     JShell.commandProcessor("mkdir ////", session);
-    assertEquals("mkdir: cannot create a directory without a name", session.returnBuffer());
+    assertEquals("mkdir: cannot create a directory without a name",
+        session.returnBuffer());
     expected.add("sub1dir1");
     JShell.commandProcessor("mkdir sub1dir1///////", session);
     assertEquals(expected, session.getRootDir().getChildNames());
@@ -87,7 +81,6 @@ public class MakeDirectoryTest {
         + "invalid.", session.returnBuffer());
   }
 
-
   @Test
   /**
    * Test making directories given invalid paths where a new directory can not
@@ -105,8 +98,8 @@ public class MakeDirectoryTest {
         session.returnBuffer());
     session.clearBuffer();
     // unable to create because two doesn't exist under the root
-    JShell.commandProcessor(
-        "mkdir" + " one/../two/../three one/three/four\n", session);
+    JShell.commandProcessor("mkdir" + " one/../two/../three one/three/four\n",
+        session);
     assertEquals(session.getRootDir().getChildNames().get(0), "one");
     assertEquals("mkdir: cannot create directory 'one/../two/../three':"
         + " Invalid Path\n" + "mkdir: cannot create directory 'one/three/four':"
@@ -119,7 +112,7 @@ public class MakeDirectoryTest {
    * already exists
    */
   public void testMkdirDirOrFileExists() throws InvalidNameException,
-          NameExistsException, InvalidAdditionException {
+      NameExistsException, InvalidAdditionException {
     // dir with same name exists shouldn't be able to create it
     JShell.commandProcessor("mkdir one one", session);
     assertEquals("mkdir: cannot create directory 'one': File exists",
@@ -132,7 +125,6 @@ public class MakeDirectoryTest {
         session.returnBuffer());
 
   }
-
 
   @Test
   /**
