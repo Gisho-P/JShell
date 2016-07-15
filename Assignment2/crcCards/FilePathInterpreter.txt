@@ -11,5 +11,4 @@ Responsibilities:
 Collaborators:
 * Directory
 * File
-*
-*
+* InvalidDirectoryException

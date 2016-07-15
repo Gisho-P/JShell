@@ -1,6 +1,4 @@
 What did I do last time?
-    - Set everything to new output structure
-	- Reorganized JShell to complete command before redirection
 	- Continued on !NUMBER command
 	
 What do I plan to do now?
