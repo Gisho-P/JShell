@@ -1,9 +1,8 @@
 Class name: InvalidAdditionException
-Parent class: Object
+Parent class: Exception
 Subclasses: N/A
 
 Responsibilities:
-* 
+* Throw exception when user tries to make current directory it's own child
 
 Collaborators:
-* 

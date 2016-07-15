@@ -14,6 +14,7 @@ public class InvalidDirectoryPathException extends Exception {
    * Return an new InvalidDirectroyPathException
    * 
    * @param currPath The path that doesn't exist
+   * @return InvalidDirectoryPathException exception
    */
   public InvalidDirectoryPathException(String currPath) {
     super("There are no files or directories with name " + currPath);

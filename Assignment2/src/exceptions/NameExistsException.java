@@ -16,7 +16,7 @@ public class NameExistsException extends Exception {
    * Constructor to create a new NameExistsException exception.
    *
    * @param name Message to display when throwing exception
-   * @return NameExistsException
+   * @return NameExistsException exception
    */
   public NameExistsException(String name) {
     super(name + " name is already in use in the current directory.");

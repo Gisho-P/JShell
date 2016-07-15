@@ -1,9 +1,9 @@
 Class name: InvalidNameException
-Parent class: Object
+Parent class: Exception
 Subclasses: N/A
 
 Responsibilities:
-* 
+* Throw exception when name entered for a file/directory has invalid
+  characters
 
 Collaborators:
-* 
