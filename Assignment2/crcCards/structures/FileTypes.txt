@@ -3,7 +3,14 @@ Parent class:
 Subclasses: Directory, File
 
 Responsibilities:
-* Template to create different types of files such as Directories or Text Files
+* Template to create different types of files
+  such as Directories or Text Files
+* gets/sets parent/name of directory
+* Check for validity of file/directory entered/searched for
+* Create deep copy of object
 
 Collaborators:
-* 
+* File
+* Directory
+* InvalidNameException
+* NameExistsException

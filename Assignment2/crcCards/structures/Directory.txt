@@ -1,5 +1,5 @@
 Class name: Directory
-Parent class (if any): Object
+Parent class (if any): FileTypes
 Subclasses (if any): None
 
 Responsibilities:
@@ -10,10 +10,10 @@ Responsibilities:
 * Allows file addition, deletion and search
 * Allows traversal to parent and child directories from current directory
 * Determine the current path from current directory to the root directory
-* Return information of files and directories in current directory
+* Return information of files and directories in current directory 
 
 Collaborators:
-* Files
-*
-*
-*
+* File
+* InvalidNameException
+* InvalidAdditionException
+* MissingNameException

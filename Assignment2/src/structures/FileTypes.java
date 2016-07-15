@@ -54,8 +54,7 @@ public abstract class FileTypes {
    */
   public void setParent(Directory dir) throws InvalidSetParentException {
     // Only setParent if the given directory already contains this object
-    // as a
-    // child. This is a safety measure to ensure the child points to the
+    // as a child. This is a safety measure to ensure the child points to the
     // correct parent. This means the child needs to be added first before
     // adding a parent
 
@@ -71,7 +70,6 @@ public abstract class FileTypes {
 
       if (!childExists)
         throw new InvalidSetParentException();
-
     } else
       this.parent = null;
   }
@@ -116,7 +114,7 @@ public abstract class FileTypes {
    */
   public static boolean isInvalidAddition(FileTypes src, FileTypes dest) {
     boolean isInvalid = false;
-    // If ft is the same as one of the parent objects then the addition is
+    // If src is the same as one of the parent objects then the addition is
     // invalid
     while (dest != null) {
       if (src == dest) {
@@ -179,6 +177,4 @@ public abstract class FileTypes {
       return !p.matcher(name).find();
     }
   }
-
-
 }
