@@ -1,22 +1,13 @@
 package test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 
-import driver.JShell;
-import driver.MySession;
-import structures.Directory;
-import exceptions.InvalidAdditionException;
-import exceptions.MissingNameException;
-import exceptions.NameExistsException;
-import structures.File;
-import exceptions.InvalidNameException;
-import structures.Output;
-
-import static org.junit.Assert.assertEquals;
+import driver.*;
+import structures.*;
+import exceptions.*;
 
 // TODO: Auto-generated Javadoc
 /**
