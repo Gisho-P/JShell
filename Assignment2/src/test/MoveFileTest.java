@@ -21,8 +21,15 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class MoveFileTest {
 
+    /**
+     * Need instance of mysession to store output and filesystem
+     */
     MySession s;
+
     @Before
+    /**
+     * Reinitialize MySession to clear output
+     */
     public void setUp() {
         s = new MySession(new Output());
     }
@@ -42,21 +49,30 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * Test mv command given the source or destination paths do not exist
+     */
     public void testMovingPathDoesNotExist() {
+        //source doesn't exist
         JShell.commandProcessor("mv a b", s);
         assertEquals("There are no files or directories with name a",
                 s.returnBuffer());
         JShell.commandProcessor("mkdir a", s);
         s.clearBuffer();
+        //dest does not exist
         JShell.commandProcessor("mv a b/c", s);
         assertEquals("There are no files or directories with name b/",
                 s.returnBuffer());
     }
 
     @Test
+    /**
+     * Test renaming directory using the mv command
+     */
     public void testMovingRenameDirectories() {
         ArrayList<String> expected = new ArrayList<String>();
         JShell.commandProcessor("mkdir a a/b a/b/c", s);
+        //test renaming a to b
         JShell.commandProcessor("mv /a b", s);
         expected.add("b");
         assertEquals(expected, s.getRootDir().getChildNames());
@@ -65,6 +81,7 @@ public class MoveFileTest {
         JShell.commandProcessor("cd b", s);
         expected.clear();
         expected.add("c");
+        //test renaming c to d
         assertEquals(expected, s.getCurrentDir().getChildNames());
         JShell.commandProcessor("mv c /b/b/d", s);
         expected.clear();
@@ -74,15 +91,20 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * Test renaming the file at src to the destination name
+     */
     public void testMovingRenameFile() throws MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
         JShell.commandProcessor("mkdir a a/b", s);
         JShell.commandProcessor("echo \"yea\" > d", s);
+        //reaname file d to c
         JShell.commandProcessor("mv d /a/b/c", s);
         expected.add("a");
         assertEquals(expected, s.getRootDir().getChildNames());
         expected.clear();
         JShell.commandProcessor("cd a/b", s);
+        //ensure that the contents of the file are the same
         expected.add("c");
         assertEquals(expected, s.getCurrentDir().getChildNames());
         assertEquals("yea", ((File)s.getCurrentDir().getChild("c"))
@@ -91,9 +113,13 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * Test moving directory to destination path that leads to file
+     */
     public void testMovingDirectoryToFile() throws
             MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
+        //try moving directory to file
         JShell.commandProcessor("mkdir a a/b z", s);
         JShell.commandProcessor("echo \"hi\" > /a/b/c", s);
         JShell.commandProcessor("mv z /a/b/c", s);
@@ -106,17 +132,23 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * Test replacing file at destination with file at source given both the
+     * source and destination paths lead to files
+     */
     public void testReplacingFile() throws MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
         JShell.commandProcessor("mkdir a a/b", s);
         JShell.commandProcessor("echo \"hello\" > a/b/c", s);
         JShell.commandProcessor("echo \"yea\" > d", s);
+        //replace file c with d
         JShell.commandProcessor("mv d /a/b/c", s);
         expected.add("a");
         assertEquals(expected, s.getRootDir().getChildNames());
         expected.clear();
         JShell.commandProcessor("cd a/b", s);
         expected.add("c");
+        //ensure that the contents of the file changed
         assertEquals(expected, s.getCurrentDir().getChildNames());
         assertEquals("yea", ((File)s.getCurrentDir().getChild("c"))
                 .getContent());
@@ -124,9 +156,13 @@ public class MoveFileTest {
     }
 
     @Test
-    public void testMovingNameDoesNotExistDestination() throws
+    /**
+     * Test moving the directory or file to another directory
+     */
+    public void testMovingFileOrDirectoryToDirectory() throws
             MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
+        //mv directory c to directory b
         JShell.commandProcessor("mkdir a a/b c c/z", s);
         JShell.commandProcessor("mv c /a/b", s);
         expected.add("a");
@@ -142,6 +178,7 @@ public class MoveFileTest {
 
         JShell.commandProcessor("cd ..", s);
         JShell.commandProcessor("echo \"yea\" > d", s);
+        //move file d to directory c
         JShell.commandProcessor("mv d /a/b/c", s);
         JShell.commandProcessor("cd c", s);
         expected.add("d");
@@ -151,9 +188,13 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * Replace file at destination with file at source if it already exists
+     */
     public void testReplaceDirectoryOrFile() throws
             MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
+        // replace directory at destination
         JShell.commandProcessor("mkdir a a/b b b/z", s);
         JShell.commandProcessor("mv b a", s);
         expected.add("a");
@@ -163,6 +204,7 @@ public class MoveFileTest {
         expected.add("z");
         assertEquals(expected, s.getCurrentDir().getChildNames());
 
+        //replace file at destination
         JShell.commandProcessor("echo \"hi\" > m", s);
         JShell.commandProcessor("cd /", s);
         JShell.commandProcessor("echo \"hello\" > m", s);
@@ -173,10 +215,14 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * Test replacing a directory with children at the destination
+     */
     public void testReplaceDirectoryHasChildren() throws
             MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
         JShell.commandProcessor("mkdir a a/b a/b/c b b/z", s);
+        //try replacing directory with children. Should result in an error
         JShell.commandProcessor("mv b a", s);
 
         assertEquals("Unable to move. Type mismatch between " +
@@ -185,11 +231,15 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * Test replacing a directory with file and file with a directory
+     */
     public void testReplaceDirectoryWithFileAndFileWithDirectory() throws
             MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
         JShell.commandProcessor("mkdir a a/b", s);
         JShell.commandProcessor("echo \"yea\" > b", s);
+        //replace directory with a file
         JShell.commandProcessor("mv b a", s);
 
         assertEquals("Unable to move. Type mismatch between " +
@@ -197,7 +247,7 @@ public class MoveFileTest {
                 "file being replaced is not empty.", s.returnBuffer());
 
         s.clearBuffer();
-
+        //replace file with a directory
         JShell.commandProcessor("mkdir c", s);
         JShell.commandProcessor("echo \"hello\" > a/b/c", s);
         JShell.commandProcessor("mv c a/b", s);
@@ -209,28 +259,33 @@ public class MoveFileTest {
     }
 
     @Test
+    /**
+     * test moving src to a subdirectory
+     */
     public void testMovingParentToSubdirectory() throws
             MissingNameException {
         ArrayList<String> expected = new ArrayList<String>();
         JShell.commandProcessor("mkdir a a/b", s);
+        //should not be able to move src to subdirectory
         JShell.commandProcessor("mv a a/b", s);
         assertEquals("Can not add parent directory as the child of a sub" +
                 " directory.", s.returnBuffer());
         s.clearBuffer();
         expected.add("a");
         assertEquals(expected, s.getCurrentDir().getChildNames());
+        //should not be able to move root to subdirectory
         JShell.commandProcessor("mv / a", s);
         assertEquals("Can not add parent directory as the child of a sub " +
                 "directory.", s.returnBuffer());
         assertEquals(expected, s.getRootDir().getChildNames());
         s.clearBuffer();
-
+        //should not be able to move directory to itself
         JShell.commandProcessor("mv a a", s);
         assertEquals("Can not add parent directory as the child of a sub " +
                 "directory.", s.returnBuffer());
         assertEquals(expected, s.getRootDir().getChildNames());
         s.clearBuffer();
-
+        //should not be able to move file to itself
         JShell.commandProcessor("echo \"hello\" > z", s);
         JShell.commandProcessor("mv z z", s);
         assertEquals("Can not add parent directory as the child of a sub " +

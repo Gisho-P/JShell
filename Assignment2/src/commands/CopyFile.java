@@ -2,11 +2,9 @@ package commands;
 
 import java.util.List;
 
+import driver.MySession;
 import exceptions.InvalidAdditionException;
-import exceptions.InvalidDirectoryPathException;
 import exceptions.NameExistsException;
-import structures.*;
-import driver.*;
 
 /**
  * The Class DisplayFile handles the copying of a file to another dir.
@@ -58,24 +56,17 @@ public class CopyFile implements Command {
 	}
 
 	public void exec(List<String> args) {
-		try {
-			FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(0));
-			Directory dest = (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(1));
-
+		MoveFile mv = new MoveFile(s);
+		mv.exec(args);
+		if (s.getError() == "") {
 			try {
-				if(src instanceof File){
-					dest.add(File.copy((File)src));
-				}
-				else if(src instanceof Directory){
-					dest.add(Directory.deepCopy((Directory)src));
-				}
-
-			} catch (NameExistsException | InvalidAdditionException e) {
-				s.addError("The file cannot be added either already exists or is not valid.\n");
+				mv.getSourceParent().add(mv.getSourceCopy());
+				//shouldn't make it to these two branches
+			} catch (NameExistsException e) {
+				s.addError(e.getMessage());
+			} catch (InvalidAdditionException e) {
+				s.addError(e.getMessage());
 			}
-
-		} catch (InvalidDirectoryPathException e) {
-			s.addError("The source path does not exist\n");
 		}
 	}
 
