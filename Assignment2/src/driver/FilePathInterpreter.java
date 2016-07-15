@@ -21,7 +21,7 @@ public class FilePathInterpreter {
    * @param init The init dir to move from.
    * @param path The path relative to the init dir.
    * @return The dir at that valid path.
-   * @throws InvalidDirectoryPathException
+   * @throws InvalidDirectoryPathException if path is invalid/non-existent
    */
   public static FileTypes interpretPath(Directory init, String path)
       throws InvalidDirectoryPathException {
@@ -47,7 +47,7 @@ public class FilePathInterpreter {
    * @param init The current dir the path is relative to.
    * @param currPath The current path of the dir/file.
    * @return The dir or file at that path.
-   * @throws InvalidDirectoryPathException
+   * @throws InvalidDirectoryPathException if file or dir is non existent
    */
   private static FileTypes interpretPathRecursive(Directory init,
       String currPath) throws InvalidDirectoryPathException {
@@ -78,13 +78,13 @@ public class FilePathInterpreter {
   }
 
   /**
-   * Returns the file from a subdir.
+   * Returns the file from a subdir if it exists.
    *
    * @param init The dir the file is found at.
    * @param currPath The current path of the file.
    * @param splitPath An array split from currPath with the '/' delimiter;
    * @return A file with the given path relative to init;
-   * @throws InvalidDirectoryPathException
+   * @throws InvalidDirectoryPathException if subdir does not exist
    */
   private static FileTypes getFileFromDir(Directory init, String currPath,
       String[] splitPath) throws InvalidDirectoryPathException {
@@ -113,7 +113,7 @@ public class FilePathInterpreter {
    * @param currPath The current path of the subdir.
    * @param splitPath An array split from currPath with the '/' delimiter;
    * @return A file with the given path relative to init;
-   * @throws InvalidDirectoryPathException
+   * @throws InvalidDirectoryPathException if directory is invalid
    */
   private static FileTypes getSubDirFromDir(Directory init, String currPath,
       String[] splitPath) throws InvalidDirectoryPathException {
