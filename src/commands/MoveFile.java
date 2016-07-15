@@ -22,6 +22,18 @@ public class MoveFile implements Command {
     // root or current directory
     private MySession s;
 
+    private FileTypes sourceCopy;
+
+    public FileTypes getSourceCopy() {
+        return sourceCopy;
+    }
+
+    public Directory getSourceParent() {
+        return sourceParent;
+    }
+
+    private Directory sourceParent;
+
     public MoveFile(MySession session) {
         s = session;
     }
@@ -85,18 +97,21 @@ public class MoveFile implements Command {
                 dest = FilePathInterpreter
                         .interpretMakePath(s.getCurrentDir(),
                                 args.get(1));
-//                //The destination can't be a file at this point
-//                if (dest instanceof File) {
-//                    throw new InvalidDirectoryPathException(args.get(1));
-//                }
+
                 String[] names = args.get(1).split("/");
                 newName = names[names.length - 1];
             }
 
+            //If src is parent or equivalent to destination, InvalidAddition
             if (FileTypes.isInvalidAddition(src, dest))
                 throw new InvalidAdditionException();
 
+            //Make a backup of the source object
+            sourceCopy = FileTypes.deepCopy(src);
+
             Directory parent = src.getParent();
+            //backup of the source parent
+            sourceParent = parent;
 
             if (dest instanceof File) {
                 if (src instanceof File) {
@@ -156,53 +171,7 @@ public class MoveFile implements Command {
         } catch (InvalidNameException invalidName) {
             s.addError(invalidName.getMessage());
         } catch (NameExistsException e) {
-            //should never reach this point because setting a valid name
-            e.printStackTrace();
+            s.addError(e.getMessage());
         }
     }
-
-//    /**
-//     * Copies the file from one directory to another
-//     *
-//     * @param args Valid arguments parsed from command
-//     * @return The contents of the files given.
-//     */
-//    @Override
-//    public void exec(List<String> args) {
-//        try {
-//            // Getting both the src and dest place
-//
-//            //still need to do case mv a b where file a's name is changed to b
-//            FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(),
-//                    args.get(0));
-//
-//
-//            Directory dest = (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(),
-//                    args.get(1));
-//
-//            try {
-//                Directory parent = (Directory) FilePathInterpreter.interpretMakePath(s.getCurrentDir(),
-//                        args.get(0));
-//
-//                // Removing the previous if it exists
-//                // Need to double check this
-//                if (dest.nameExists(src.getName()) != -1) {
-//                    dest.remove(src.getName());
-//                }
-//
-//                dest.add(src);
-//                parent.remove(src.getName());
-//
-//            } catch (NameExistsException | InvalidAdditionException | MissingNameException e) {
-//                s.addError("The file cannot be added. It already " +
-//                        "exists or is not valid.\n");
-//            }
-//
-//        } catch (InvalidDirectoryPathException e) {
-//            s.addError("The source path does not exist\n");
-//        } catch (ClassCastException i) {
-//            s.addError("The destination path leads to a file instead of a " +
-//                    "directory");
-//        }
-//    }
 }

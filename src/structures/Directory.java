@@ -317,40 +317,40 @@ public class Directory extends FileTypes {
         return false;
     }
 
-    /**
-     * Create a deep copy of the directory and all of its contents
-     *
-     * @param dir Directory to be copied
-     * @return the copied Directory
-     */
-    public static Directory deepCopy(Directory dir) {
-        Directory newDir = null;
-        //This should always work since the original directory couldn't have
-        // been created with an invalidName
-        try {
-            newDir = new Directory(dir.getName());
-        } catch (InvalidNameException invalidName) {
-            invalidName.printStackTrace();
-        }
-
-        for (FileTypes fileType : dir.getChildren()) {
-            //Depending on the type of the File, add a copy of it ot the
-            // new directory
-            try {
-                if (fileType instanceof File) {
-                    newDir.add(File.copy((File) fileType));
-                } else if (fileType instanceof Directory) {
-                    newDir.add(deepCopy((Directory) fileType));
-                }
-            } catch (NameExistsException e) {
-                e.printStackTrace();
-            } catch (InvalidAdditionException invalidAddition) {
-                invalidAddition.printStackTrace();
-            }
-        }
-
-        return newDir;
-    }
+//    /**
+//     * Create a deep copy of the directory and all of its contents
+//     *
+//     * @param dir Directory to be copied
+//     * @return the copied Directory
+//     */
+//    public static Directory deepCopy(Directory dir) {
+//        Directory newDir = null;
+//        //This should always work since the original directory couldn't have
+//        // been created with an invalidName
+//        try {
+//            newDir = new Directory(dir.getName());
+//        } catch (InvalidNameException invalidName) {
+//            invalidName.printStackTrace();
+//        }
+//
+//        for (FileTypes fileType : dir.getChildren()) {
+//            //Depending on the type of the File, add a copy of it ot the
+//            // new directory
+//            try {
+//                if (fileType instanceof File) {
+//                    newDir.add(File.copy((File) fileType));
+//                } else if (fileType instanceof Directory) {
+//                    newDir.add(deepCopy((Directory) fileType));
+//                }
+//            } catch (NameExistsException e) {
+//                e.printStackTrace();
+//            } catch (InvalidAdditionException invalidAddition) {
+//                invalidAddition.printStackTrace();
+//            }
+//        }
+//
+//        return newDir;
+//    }
 
     /**
      * The number of children in the directory

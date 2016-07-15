@@ -2,6 +2,7 @@ package structures;
 
 import java.util.regex.Pattern;
 
+import exceptions.InvalidAdditionException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidSetParentException;
 import exceptions.NameExistsException;
@@ -128,6 +129,40 @@ public abstract class FileTypes {
             dest = dest.getParent();
         }
         return isInvalid;
+    }
+
+    /**
+     * Create a deep copy of the fileType object and all of its contents
+     *
+     * @param ft FileType to be copied
+     * @return The copied fileType object
+     */
+    public static FileTypes deepCopy(FileTypes ft) {
+        if (ft instanceof File)
+            return File.copy((File)ft);
+        else{
+            Directory newDir = null;
+            //This should always work since the original directory couldn't have
+            // been created with an invalidName
+            try {
+                newDir = new Directory(ft.getName());
+            } catch (InvalidNameException invalidName) {
+                invalidName.printStackTrace();
+            }
+
+            for (FileTypes fileType : ((Directory)ft).getChildren()) {
+                //Depending on the type of the File, add a copy of it ot the
+                // new directory
+                try {
+                    newDir.add(deepCopy(fileType));
+                } catch (NameExistsException e) {
+                    e.printStackTrace();
+                } catch (InvalidAdditionException invalidAddition) {
+                    invalidAddition.printStackTrace();
+                }
+            }
+            return newDir;
+        }
     }
 
     /**
