@@ -3,8 +3,14 @@ Parent class: Object
 Subclasses: N/A
 
 Responsibilities:
-* Store command input history
-* Stores the current and root directories of the shell
+* Store attributes of the shell
+* Initialize/maintain output/error buffers, current/root directories
+* Store/maintain run status
+* Store/maintain command input history
 
 Collaborators:
 * Directory
+* Command (and all command classes that implement this interface)
+* DirStack
+* Output
+* InvalidNameException

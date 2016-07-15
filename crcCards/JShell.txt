@@ -4,14 +4,12 @@ Subclasses: N/A
 
 Responsibilities:
 * Create shell with a console for a user to enter input
-* Create empty root directory
 * Start session to keep user information at time of creation
-* Exit console and session upon user command and cleanup
-* Sends input to processor to call write command
-* Display any output/errors from command
+* Process commands entered by user and execute them
+* Display user input, output and errors
+* Exit console and session upon user command
 
 Collaborators:
-* CommandInterpreter
 * Session
-*
-*
+* Command
+* Output
