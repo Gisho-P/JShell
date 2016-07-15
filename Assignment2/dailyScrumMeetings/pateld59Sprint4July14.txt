@@ -1,0 +1,12 @@
+What did I do last time?
+  - Fixed mv and cp bugs
+  - Create mv test
+  - Improved exceptions
+
+What do I plan to do now?
+  - Create cp test
+  - Update documentation
+  - Fix curl bug
+
+Am I blocked on anything?
+    - No
