@@ -1,13 +1,17 @@
 package test;
 
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 
-import driver.*;
+import driver.JShell;
+import driver.MySession;
 import exceptions.InvalidNameException;
 import structures.Output;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for DisplayPath class (pwd command)

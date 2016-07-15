@@ -1,14 +1,20 @@
 package test;
 
-import org.junit.*;
-import static junit.framework.TestCase.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import driver.*;
-import exceptions.*;
-import structures.*;
+import driver.JShell;
+import driver.MySession;
+import exceptions.InvalidNameException;
+import exceptions.MissingNameException;
+import structures.File;
+import structures.Output;
+
+import static junit.framework.TestCase.assertEquals;
 
 /**
  * Tests for mv command.
@@ -296,4 +302,51 @@ public class MoveFileTest {
     assertEquals(expected, s.getRootDir().getChildNames());
     s.clearBuffer();
   }
+
+  @Test
+  /**
+   * Test moving subdirectory up few levels
+   */
+  public void testMovingSubdirectoryUp()
+          throws MissingNameException {
+    ArrayList<String> expected = new ArrayList<String>();
+    JShell.commandProcessor("mkdir a a/b a/b/c", s);
+    //move subdirectory to root
+    JShell.commandProcessor("mv a/b/c /", s);
+    expected.add("a");
+    expected.add("c");
+    assertEquals(expected, s.getCurrentDir().getChildNames());
+    JShell.commandProcessor("echo \"hello\" > a/b/z", s);
+    //move subfile to root
+    JShell.commandProcessor("mv a/b/z /", s);
+    expected.add("z");
+    assertEquals(expected, s.getCurrentDir().getChildNames());
+    JShell.commandProcessor("cd a/b/", s);
+    expected.clear();
+    assertEquals(expected, s.getCurrentDir().getChildNames());
+    JShell.commandProcessor("cd /a", s);
+    //move directory/file to the same location
+    JShell.commandProcessor("mv /a/b /a", s);
+    expected.add("b");
+    assertEquals(expected, s.getCurrentDir().getChildNames());
+    assertEquals("", s.returnBuffer());
+  }
+  @Test
+  /**
+   * Test moving directory while in the directory
+   */
+  public void moveDirectoryWhileInIt()
+          throws MissingNameException {
+    ArrayList<String> expected = new ArrayList<String>();
+    JShell.commandProcessor("mkdir a a/b a/b/c", s);
+    //move subdirectory to root while in the subdirectory
+    JShell.commandProcessor("cd a/b/c", s);
+    JShell.commandProcessor("mv /a/b/c /", s);
+    expected.add("a");
+    expected.add("c");
+    assertEquals(expected, s.getRootDir().getChildNames());
+    assertEquals(s.getRootDir(), s.getCurrentDir().getParent());
+    assertEquals("", s.returnBuffer());
+  }
+
 }

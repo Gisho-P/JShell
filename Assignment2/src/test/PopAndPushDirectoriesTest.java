@@ -1,13 +1,15 @@
 package test;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 
+import driver.JShell;
+import driver.MySession;
 import exceptions.InvalidNameException;
 import structures.Output;
-import driver.*;
 
 /**
  * Tests for pushp and popd commands, testing the PushDirectory and PopDirectory

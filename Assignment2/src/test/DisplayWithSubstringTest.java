@@ -1,12 +1,18 @@
 package test;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import driver.JShell;
+import driver.MySession;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.NameExistsException;
+import structures.File;
+import structures.Output;
+
 import static org.junit.Assert.assertEquals;
-
-import org.junit.*;
-
-import structures.*;
-import driver.*;
-import exceptions.*;
 
 public class DisplayWithSubstringTest {
 

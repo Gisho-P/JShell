@@ -1,14 +1,22 @@
 package test;
 
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import exceptions.*;
-import structures.*;
-import driver.*;
+import driver.JShell;
+import driver.MySession;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.NameExistsException;
+import structures.File;
+import structures.Output;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for ChangeDirectory class (cd command)

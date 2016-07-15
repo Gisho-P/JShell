@@ -1,13 +1,19 @@
 package test;
 
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 
-import driver.*;
-import structures.*;
-import exceptions.*;
+import driver.JShell;
+import driver.MySession;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.NameExistsException;
+import structures.Directory;
+import structures.File;
+import structures.Output;
 
 /**
  * Tests that verify the functionality of the cat command in JShell which
