@@ -15,6 +15,9 @@ public class DisplayStringTest {
   MySession session;
 
   @Before
+  /**
+   * Current session's attributes
+   */
   public void setUp() {
     session = new MySession(new Output());
   }
@@ -28,8 +31,8 @@ public class DisplayStringTest {
     session.clearBuffer();
   }
 
-  /*
-   * Test that echo requires double quotes
+  /**
+   * Test for echo when a string with no quotes is entered
    */
   @Test
   public void testNoQuotes() {
@@ -39,8 +42,8 @@ public class DisplayStringTest {
     assertEquals(noQuotesMsg, session.returnBuffer());
   }
 
-  /*
-   * Test that echo requires a string
+  /**
+   * Test for echo when no string is given
    */
   @Test
   public void testNoString() {
@@ -49,8 +52,8 @@ public class DisplayStringTest {
     assertEquals(usageMsg, session.returnBuffer());
   }
 
-  /*
-   * Test that echo requires a string
+  /**
+   * Test for echo when an extra quotation mark has been entered
    */
   @Test
   public void testExtraArgument() {
@@ -59,8 +62,8 @@ public class DisplayStringTest {
     assertEquals(usageMsg, session.returnBuffer());
   }
 
-  /*
-   * Test that echo requires a string
+  /**
+   * Test for echo where only one quote has been entered.
    */
   @Test
   public void testOneQuote() {
@@ -105,5 +108,4 @@ public class DisplayStringTest {
     JShell.commandProcessor("echo \"\"\"", session);
     assertEquals("\"", session.returnBuffer());
   }
-
 }

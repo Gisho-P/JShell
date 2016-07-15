@@ -11,7 +11,7 @@ import exceptions.*;
 
 /**
  * The Class OutputRedirectionTest tests our various cases of redirecting
- * standard output in to a file.
+ * standard output into a file.
  */
 public class OutputRedirectionTest {
 
@@ -19,7 +19,7 @@ public class OutputRedirectionTest {
   MySession session;
 
   /**
-   * Sets the up.
+   * Sets the test up, create new session instance
    */
   @Before
   public void setUp() {
@@ -27,7 +27,7 @@ public class OutputRedirectionTest {
   }
 
   /**
-   * Tear down.
+   * Tear down after each test case
    *
    * @throws InvalidNameException the invalid name exception
    * @throws NoSuchFieldException the no such field exception
@@ -53,11 +53,13 @@ public class OutputRedirectionTest {
   public void testStoreString() {
     JShell.commandProcessor("echo \"test\" > file", session);
     String message = "";
+
     try {
       message = ((File) session.getCurrentDir().getChild("file")).getContent();
     } catch (MissingNameException e) {
       fail("The file was not created");
     }
+
     assertTrue(session.getOutput().isEmpty());
     assertEquals("test", message);
   }
@@ -73,11 +75,13 @@ public class OutputRedirectionTest {
     JShell.commandProcessor("echo \"test\" > file", session);
     JShell.commandProcessor("echo \" add\" >> file", session);
     String message = "";
+
     try {
       message = ((File) session.getCurrentDir().getChild("file")).getContent();
     } catch (MissingNameException e) {
       fail("The file was not created");
     }
+
     assertTrue(session.getOutput().isEmpty());
     assertEquals("test\n add", message);
   }
@@ -94,11 +98,13 @@ public class OutputRedirectionTest {
     JShell.commandProcessor("echo \"test\" > file", session);
     JShell.commandProcessor("echo \"write\" > file", session);
     String message = "";
+
     try {
       message = ((File) session.getCurrentDir().getChild("file")).getContent();
     } catch (MissingNameException e) {
       fail("The file was not created");
     }
+
     assertTrue(session.getOutput().isEmpty());
     assertEquals("write", message);
   }
@@ -113,14 +119,15 @@ public class OutputRedirectionTest {
     } catch (NameExistsException | InvalidAdditionException
         | InvalidNameException e) {
     }
+
     JShell.commandProcessor("echo \"test\" > dir1", session);
     assertEquals("ERROR: There is already a subdirectory with the same name",
         session.returnBuffer());
   }
 
   /**
-   * Verifies that redirecting the output of a command that produces no
-   * output does not create the file.
+   * Verifies that redirecting the output of a command that produces no output
+   * does not create the file.
    */
   @Test
   public void testRedirectNoOutput() {
@@ -130,6 +137,7 @@ public class OutputRedirectionTest {
         | InvalidNameException e) {
       fail("Couldn't create a directory");
     }
+
     JShell.commandProcessor("cd dir1 > a", session);
     session.setCurrentDir(session.getRootDir());
     // Verify the file wasn't created
@@ -145,11 +153,13 @@ public class OutputRedirectionTest {
   public void testRedirectCopyFile() throws InvalidNameException {
     File testFile = new File("file1");
     testFile.setContent("file\ncontents\n");
+
     try {
       session.getCurrentDir().add(testFile);
     } catch (NameExistsException | InvalidAdditionException e) {
       fail("Couldn't create file");
     }
+
     JShell.commandProcessor("cat file1 > file1Dup", session);
     session.setCurrentDir(session.getRootDir());
     // Verify the file was created
@@ -177,6 +187,7 @@ public class OutputRedirectionTest {
         | InvalidNameException e) {
       fail("Couldn't create a directory");
     }
+
     session.setCurrentDir((Directory) session.getCurrentDir().getChild("dir"));
     JShell.commandProcessor("echo \"hi\" > /hi", session);
     session.setCurrentDir(session.getRootDir());
@@ -206,6 +217,7 @@ public class OutputRedirectionTest {
         | InvalidNameException e) {
       fail("Couldn't create a directory");
     }
+
     session.setCurrentDir((Directory) session.getCurrentDir().getChild("dirA"));
     JShell.commandProcessor("echo \"hi\" > subDir/hi", session);
     // Verify the file was created
@@ -239,8 +251,8 @@ public class OutputRedirectionTest {
   }
 
   /**
-   * Tests that output is redirected to the file and error is sent to shell
-   * when both are present.
+   * Tests that output is redirected to the file and error is sent to shell when
+   * both are present.
    *
    * @throws InvalidNameException the invalid name exception
    * @throws MissingNameException the missing name exception
@@ -255,6 +267,7 @@ public class OutputRedirectionTest {
         | InvalidNameException e) {
       fail("Couldn't create a directory");
     }
+
     JShell.commandProcessor("ls dirA dirB dirC > file", session);
     String expectedOutput = "dirA:\ndirB:";
     // Verify the file was created
@@ -268,5 +281,4 @@ public class OutputRedirectionTest {
       fail("File wasn't created");
     }
   }
-
 }

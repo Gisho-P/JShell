@@ -45,8 +45,8 @@ public class ListDirectoryContents implements Command {
   }
 
   /**
-   * ListDirectory Contents doesn't have any error checking until we know
-   * if the given directories are valid so interpret calls exec to do so.
+   * ListDirectory Contents doesn't have any error checking until we know if the
+   * given directories are valid so interpret calls exec to do so.
    * 
    * @param args Arguments to process for ls command
    * @return output message (directory contents) or error message
@@ -94,7 +94,7 @@ public class ListDirectoryContents implements Command {
       String path, Boolean r) {
     String curDirContents = "";
     // Initialize the prefix containing the directory name
-    if (!path.isEmpty() || r){
+    if (!path.isEmpty() || r) {
       if (currentDir == root)
         curDirContents = path + ":";
       else
@@ -105,7 +105,7 @@ public class ListDirectoryContents implements Command {
     ArrayList<String> childNames = currentDir.getChildNames();
     Collections.sort(childNames, String.CASE_INSENSITIVE_ORDER);
     for (String childName : childNames) {
-        curDirContents += path.isEmpty() ? childName + "\n" : " " + childName;
+      curDirContents += path.isEmpty() ? childName + "\n" : " " + childName;
     }
     if (r) { // If recursive get subDirectories and their contents
       ArrayList<Directory> subDirectories = currentDir.getChildDirs();
@@ -147,8 +147,7 @@ public class ListDirectoryContents implements Command {
         execMult(args.subList(2, args.size()), true);
       else
         execMult(args.subList(1, args.size()), false);
-    }
-    else {
+    } else {
       s.addOutput(getDirectoryContents(s.getCurrentDir(), s.getCurrentDir(), "",
           false));
     }

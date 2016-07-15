@@ -11,7 +11,7 @@ import structures.*;
 import driver.*;
 
 /**
- * Tests for ChangeDirectory class
+ * Tests for ChangeDirectory class (cd command)
  */
 public class ChangeDirectoryTest {
   public MySession session;
@@ -55,6 +55,7 @@ public class ChangeDirectoryTest {
     // change to parent directory with slash at front or end
     JShell.commandProcessor("cd ../", session);
     assertEquals(session.getCurrentDir(), session.getRootDir());
+
     JShell.commandProcessor("cd /..", session);
     assertEquals(session.getCurrentDir(), session.getRootDir());
   }
@@ -97,6 +98,7 @@ public class ChangeDirectoryTest {
     // Test changing directory
     expected.addAll(Arrays.asList("subdir1", "subdir2", "subdir3"));
     assertEquals(expected, session.getCurrentDir().getChildNames());
+
     JShell.commandProcessor("cd ..", session);
     expected.clear();
     expected.add("dir1");
@@ -120,6 +122,7 @@ public class ChangeDirectoryTest {
     // Change directory on file system with multiple layers
     expected.addAll(Arrays.asList("sub2dir1", "sub2dir2", "sub2dir3"));
     assertEquals(expected, session.getCurrentDir().getChildNames());
+
     JShell.commandProcessor("cd ..", session);
     expected.clear();
     expected.add("subdir1");
@@ -156,5 +159,4 @@ public class ChangeDirectoryTest {
     JShell.commandProcessor("cd file1", session);
     assertEquals("file1 is not a directory.", session.returnBuffer());
   }
-
 }

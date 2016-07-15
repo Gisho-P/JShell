@@ -65,7 +65,7 @@ public class DisplayString implements Command {
     }
   }
 
-  /* 
+  /*
    * Returns the given string without the quotes
    */
   @Override

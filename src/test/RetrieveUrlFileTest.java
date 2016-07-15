@@ -10,7 +10,11 @@ import driver.*;
 import exceptions.*;
 import structures.*;
 
+/**
+ * Test suite containing test cases for the curl command.
+ */
 public class RetrieveUrlFileTest {
+
   MySession session;
 
   @Before
@@ -54,7 +58,6 @@ public class RetrieveUrlFileTest {
         session);
     assertEquals(session.getError(),
         "073.txt name is already in use in the current directory.");
-
   }
 
   @Test
@@ -65,7 +68,6 @@ public class RetrieveUrlFileTest {
     JShell.commandProcessor("curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt",
         session);
     assertFalse(session.getCurrentDir().nameExists("073.txt") == -1);
-
   }
 
   @Test
@@ -79,7 +81,6 @@ public class RetrieveUrlFileTest {
     assertTrue(((File) session.getCurrentDir().getChild("073.txt")).getContent()
         .contains("how his brothers had\n"
             + "betrayed him, and how he had nevertheless kept silence"));
-
   }
 
   @Test
@@ -90,6 +91,5 @@ public class RetrieveUrlFileTest {
   public void testCreatingFileWithCorrectNameGivenUrlSlashAtEnd() {
     JShell.commandProcessor("curl http://www.google.ca/", session);
     assertFalse(session.getCurrentDir().nameExists("www.google.ca") == -1);
-
   }
 }

@@ -11,7 +11,7 @@ import exceptions.*;
 import structures.*;
 
 /**
- * Tests for the MakeDirectory class
+ * Tests for the MakeDirectory class (mkdir command)
  */
 public class MakeDirectoryTest {
   MySession session;
@@ -55,6 +55,7 @@ public class MakeDirectoryTest {
     JShell.commandProcessor("mkdir ////", session);
     assertEquals("mkdir: cannot create a directory without a name",
         session.returnBuffer());
+
     expected.add("sub1dir1");
     JShell.commandProcessor("mkdir sub1dir1///////", session);
     assertEquals(expected, session.getRootDir().getChildNames());
@@ -69,12 +70,14 @@ public class MakeDirectoryTest {
     assertEquals(
         "mkdir: cannot create directory with name '..'. It is " + "invalid.",
         session.returnBuffer());
+
     session.clearBuffer();
     JShell.commandProcessor("mkdir .", session);
     assertEquals(
         "mkdir: cannot create directory with name '.'. It is" + " invalid.",
         session.returnBuffer());
     session.clearBuffer();
+
     JShell.commandProcessor("mkdir one one/..", session);
     assertEquals(session.getRootDir().getChildNames().get(0), "one");
     assertEquals("mkdir: cannot create directory with name 'one/..'. It is "
@@ -92,11 +95,13 @@ public class MakeDirectoryTest {
     assertEquals("mkdir: cannot create directory 'one/two': Invalid Path",
         session.returnBuffer());
     session.clearBuffer();
+
     // unable to create because two doesn't exist in the root
     JShell.commandProcessor("mkdir one one/two two/one", session);
     assertEquals("mkdir: cannot create directory 'two/one': Invalid Path",
         session.returnBuffer());
     session.clearBuffer();
+
     // unable to create because two doesn't exist under the root
     JShell.commandProcessor("mkdir" + " one/../two/../three one/three/four\n",
         session);
@@ -120,6 +125,7 @@ public class MakeDirectoryTest {
     session.clearBuffer();
     // file with same name exists shouldn't be able to create it
     session.getCurrentDir().add(new File("three"));
+
     JShell.commandProcessor("mkdir three", session);
     assertEquals("mkdir: cannot create directory 'three': File exists",
         session.returnBuffer());
@@ -135,6 +141,7 @@ public class MakeDirectoryTest {
     JShell.commandProcessor("mkdir /two", session);
     JShell.commandProcessor("mkdir three", session);
     ArrayList<String> expected = new ArrayList<String>();
+
     expected.addAll(Arrays.asList("one", "two", "three"));
     assertEquals(session.getRootDir().getChildNames(), expected);
   }
@@ -154,11 +161,13 @@ public class MakeDirectoryTest {
     expected.addAll(Arrays.asList("one", "three", "four"));
     assertEquals(expected, session.getRootDir().getChildNames());
     expected.clear();
+
     expected.addAll(Arrays.asList("two", "three"));
     JShell.commandProcessor("cd one", session);
     assertEquals(expected, session.getCurrentDir().getChildNames());
     JShell.commandProcessor("cd two", session);
     expected.clear();
+
     expected.add("three");
     assertEquals(expected, session.getCurrentDir().getChildNames());
   }
