@@ -25,6 +25,7 @@ c-3. (ExecuteFromHistory) fix errors
 d-1. (DisplayWithSubstring) add tests
 d-2. (DisplayWithSubstring) fix errors
 e-1. (JShell) Add method to work with potential redirections
+e-2. (OutputRedirectionTest) Add tests for redirection of output
 f-1. (CopyFile) add tests
 f-2. (CopyFile) fix errors
 g-1. (MoveFile) add tests
@@ -33,7 +34,7 @@ g-2. (MoveFile) fix errors
 These tasks are assigned as follows:
 
 User: Gisho
-Tasks: a-1, a-2, e-1
+Tasks: a-1, a-2, e-1, e-2
 
 User: John
 Tasks: d-1, d-2, f-1, f-2, g-1, g-2

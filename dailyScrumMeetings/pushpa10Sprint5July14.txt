@@ -1,0 +1,12 @@
+What did I do last time?
+    - Add tests for the display file
+   	- Add tests for output redirection
+   	- Fixed output redirection to work with absolute paths
+   	- Added more detailed docs to output, listdirectoryContents, displayFile
+
+What do I plan to do now?
+   - Look through repository and see if anything can be improved
+   - Polish up the project by adding some more docs.
+
+Am I blocked on anything?
+    - No, we are pretty much done.

@@ -6,8 +6,7 @@ import driver.*;
 
 
 /**
- * The Class DisplayStoreString can either display a string in the JShell or
- * store it in a new or existing file.
+ * The Class DisplayStoreString can display a string in the JShell
  */
 public class DisplayString implements Command {
 
@@ -67,6 +66,9 @@ public class DisplayString implements Command {
     }
   }
   
+  /* 
+   * Returns the given string without the quotes
+   */
   @Override
   public void exec(List<String> args) {
     String text = args.get(1);
