@@ -15,7 +15,7 @@ public class InvalidAdditionException extends Exception {
   /**
    * Constructor to create a new InvalidAdditionException exception.
    *
-   * @return InvalidAdditionException
+   * @return InvalidAdditionException exception
    */
   public InvalidAdditionException() {
     super("Can not add parent " + "directory as the child of "

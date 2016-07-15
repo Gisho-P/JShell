@@ -15,7 +15,7 @@ public class InvalidNameException extends Exception {
    * Return a new InvalidNameException exception with specified message.
    *
    * @param name The invalid name
-   * @return InvalidNameException
+   * @return InvalidNameException exception
    */
   public InvalidNameException(String name) {
     super("Name " + name + " contains invalid characters");

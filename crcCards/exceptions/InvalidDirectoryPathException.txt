@@ -1,9 +1,8 @@
 Class name: InvalidDirectoryPathException
-Parent class: Object
+Parent class: Exception
 Subclasses: N/A
 
 Responsibilities:
-* 
+* Throw exception when path entered does not exist in filesystem
 
 Collaborators:
-* 

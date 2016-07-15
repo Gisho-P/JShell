@@ -1,9 +1,8 @@
 Class name: MissingNameException
-Parent class: Object
+Parent class: Exception
 Subclasses: N/A
 
 Responsibilities:
-* 
+* Throw exception when user tries to remove non-existent file/ directory
 
 Collaborators:
-* 

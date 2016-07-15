@@ -1,9 +1,9 @@
 Class name: InvalidSetParentException
-Parent class: Object
+Parent class: Exception
 Subclasses: N/A
 
 Responsibilities:
-* 
+* Throw exception when directory being set does not contain a specified
+  FileType
 
 Collaborators:
-* 

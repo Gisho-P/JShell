@@ -16,7 +16,7 @@ public class MissingNameException extends Exception {
    * Constructor to create a new MissingNameException exception.
    *
    * @param name Name that is missing
-   * @return MissingNameException
+   * @return MissingNameException exception
    */
   public MissingNameException(String name) {
     super(name + " does not exist in the current directory");
