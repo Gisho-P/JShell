@@ -1,0 +1,9 @@
+Class name: InvalidDirectoryPathException
+Parent class: Object
+Subclasses: N/A
+
+Responsibilities:
+* 
+
+Collaborators:
+* 
