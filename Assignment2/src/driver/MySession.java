@@ -92,7 +92,7 @@ public class MySession {
     rootDir = Directory.createFileSystem();
     currentDir = rootDir;
   }
-  
+
   /**
    * Change the Shell's running status to false (exit)
    */
@@ -144,8 +144,7 @@ public class MySession {
   }
 
   /**
-   * Retrieve all commands from the history of commands entered and return
-   * them.
+   * Retrieve all commands from the history of commands entered and return them.
    * 
    * @return The history of commands or error message, along with success status
    */
@@ -155,14 +154,14 @@ public class MySession {
                                                      // with the max number as
                                                      // a parameter
   }
-  
+
   /**
    * Based on parameter i, get i'th command entered from history or error
    * message if i is out of bounds
    * 
-   * @param i   command to get
+   * @param i command to get
    * @return command or error message, success status
-   * */
+   */
   public List<Object> getHistoricalCommand(int i) {
     List<Object> a = new ArrayList<Object>();
     boolean bound = (i >= 1 && i <= commandHistory.size());
@@ -205,10 +204,10 @@ public class MySession {
   public void setCurrentDir(Directory cDir) {
     currentDir = cDir;
   }
-  
+
   /**
    * Reset file system to the state it was when first initialized.
-   * */
+   */
   public void clearFileSystem() {
     try {
       rootDir = new Directory(""); // reset rootDir to a new clean directory
@@ -227,31 +226,31 @@ public class MySession {
 
   /**
    * Store path entered into directory stack
-   * */
+   */
   public void storeDirectory(String path) {
     ds.pushd(path);
   }
 
   /**
-   * Retrieve last stored directory from directory stack or error
-   * message if there is nothing stored or path stored was incorrect.
+   * Retrieve last stored directory from directory stack or error message if
+   * there is nothing stored or path stored was incorrect.
    * 
    * @return Path stored or error message, error status
-   * */
+   */
   public List<Object> retrieveDirectory() {
     return ds.popd();
   }
 
   /**
    * Clear directory stack.
-   * */
+   */
   public void clearDirectoryStack() {
     ds.clear();
   }
 
   /**
    * Return contents of the error buffer.
-   * */
+   */
   public String getError() {
     return o.getStdError();
   }
@@ -260,7 +259,7 @@ public class MySession {
    * Store err into error buffer.
    * 
    * @param err Error message to store
-   * */
+   */
   public void setError(String err) {
     o.setStdError(err);
   }
@@ -269,14 +268,14 @@ public class MySession {
    * Append err to the error buffer.
    * 
    * @param err Error message to store
-   * */
+   */
   public void addError(String err) {
     o.addStdError(err);
   }
 
   /**
    * Return the contents of the output buffer.
-   * */
+   */
   public String getOutput() {
     return o.getStdOutput();
   }
@@ -285,7 +284,7 @@ public class MySession {
    * Set the contents of the output buffer to out.
    * 
    * @param out Output to store into buffer
-   * */
+   */
   public void setOutput(String out) {
     o.setStdOutput(out);
   }
@@ -294,7 +293,7 @@ public class MySession {
    * Append out to the contents of the output buffer.
    * 
    * @param out Output to add to the buffer
-   * */
+   */
   public void addOutput(String out) {
     o.addStdOutput(out);
   }
@@ -302,23 +301,23 @@ public class MySession {
   /**
    * Redirect (Append/Write) output buffer into file specified.
    * 
-   * @param file    Path to file where contents will be stored
-   * @param type    Redirection type (Append/ Write)
-   * */
+   * @param file Path to file where contents will be stored
+   * @param type Redirection type (Append/ Write)
+   */
   public void redirectOutput(String file, String type) {
     o.redirect(file, type, this.getCurrentDir(), this.getRootDir());
   }
-  
+
   /**
    * Return the output and error buffers.
-   * */  
+   */
   public String returnBuffer() {
     return o.getAllOutput();
   }
 
   /**
    * Clear the output and error buffers.
-   * */
+   */
   public void clearBuffer() {
     o.clear();
   }

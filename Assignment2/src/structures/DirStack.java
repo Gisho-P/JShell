@@ -25,7 +25,7 @@ public class DirStack {
   public List<Object> popd() {
     String newDir = "";
     boolean success = false;
-    
+
     if (directories.size() == 0) { // can't pop from empty stack
       newDir = "ERROR: Empty stack, nothing to pop";
     } else {

@@ -15,7 +15,7 @@ import exceptions.*;
  */
 public class ListDirectoryContentsTest {
 
-  /** The session. */
+  /** The session */
   MySession session;
 
   /**
@@ -27,22 +27,20 @@ public class ListDirectoryContentsTest {
   }
 
   /**
-   * Tear down.
+   * Tear down. The filesystem uses singleton design for the root directory. For
+   * testing purposes, the root needs to be set to null everytime.
    *
    * @throws InvalidNameException the invalid name exception
    * @throws NoSuchFieldException the no such field exception
    * @throws IllegalAccessException the illegal access exception
    */
   @After
-  /**
-   * The filesystem uses singleton design for the root directory. For testing
-   * purposes, the root needs to be set to null everytime.
-   */
   public void tearDown() throws InvalidNameException, NoSuchFieldException,
       IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
     field.set(null, null); // setting the ref parameter to null
+
     session.clearBuffer();
   }
 
@@ -54,6 +52,7 @@ public class ListDirectoryContentsTest {
     JShell.commandProcessor("ls", session);
     assertEquals("", session.returnBuffer());
     session.clearBuffer();
+
     JShell.commandProcessor("ls /", session);
     assertEquals("/:", session.returnBuffer());
   }
@@ -70,9 +69,11 @@ public class ListDirectoryContentsTest {
     } catch (NameExistsException | InvalidAdditionException
         | InvalidNameException e) {
     }
+
     JShell.commandProcessor("ls /", session);
     assertEquals("/: dir1 file1", session.getOutput());
     session.clearBuffer();
+
     JShell.commandProcessor("ls", session);
     assertEquals("dir1\nfile1\n", session.returnBuffer());
     session.clearBuffer();
@@ -88,6 +89,7 @@ public class ListDirectoryContentsTest {
     } catch (NameExistsException | InvalidAdditionException
         | InvalidNameException e) {
     }
+
     JShell.commandProcessor("ls file1", session);
     assertEquals("file1\n", session.returnBuffer());
   }
@@ -110,6 +112,7 @@ public class ListDirectoryContentsTest {
     } catch (NameExistsException | InvalidAdditionException
         | InvalidNameException | MissingNameException e) {
     }
+
     JShell.commandProcessor("ls file1 / dir2 dir1", session);
     assertEquals("/: dir1 dir2 file1\ndir1: a b c d\ndir2:\nfile1\n",
         session.returnBuffer());
@@ -135,6 +138,7 @@ public class ListDirectoryContentsTest {
     } catch (NameExistsException | InvalidAdditionException
         | InvalidNameException | MissingNameException e) {
     }
+
     JShell.commandProcessor("ls -R", session);
     String expectedOutput =
         "/: dir1 dir2 file1\n\n/dir1: a b c d\n\n/dir1/a:\n\n/dir1/b:\n\n/dir1/"
@@ -143,8 +147,8 @@ public class ListDirectoryContentsTest {
   }
 
   /**
-   * Test getting the contents of all the given directories
-   * and their sub directories.
+   * Test getting the contents of all the given directories and their sub
+   * directories.
    */
   @Test
   public void testRecursiveDirectoriesPaths() {
@@ -163,20 +167,20 @@ public class ListDirectoryContentsTest {
     } catch (NameExistsException | InvalidAdditionException
         | InvalidNameException | MissingNameException e) {
     }
+
     JShell.commandProcessor("ls -R dir1 dir2", session);
     String expectedOutput = "dir1: a b c d\n\ndir1/a:\n\ndir1/b:\n\ndir1/"
         + "c:\n\ndir1/d:\n\n\ndir2:\n\n";
     assertEquals(expectedOutput, session.returnBuffer());
   }
-  
+
   @Test
   /**
    * Verifies that when an invalid path is given an error is raised
    */
-  public void testInvalidPath(){
+  public void testInvalidPath() {
     JShell.commandProcessor("ls dir1", session);
     String expectedOutput = "No such directory or file with path dir1\n";
     assertEquals(expectedOutput, session.returnBuffer());
   }
-
 }

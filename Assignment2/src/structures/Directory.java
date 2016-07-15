@@ -17,7 +17,7 @@ public class Directory extends FileTypes {
    * Stores the root of the filesystem.
    */
   private static Directory root = null;
-  
+
   /**
    * Stores the children of the current directory
    */
@@ -50,7 +50,7 @@ public class Directory extends FileTypes {
         invalidName.printStackTrace();
       }
     }
-    
+
     return root;
   }
 
@@ -69,11 +69,11 @@ public class Directory extends FileTypes {
     // current directory
 
     Directory current = this;
-    
+
     while (current != null) {
       if (addObject == current)
         throw new InvalidAdditionException();
-      
+
       current = current.getParent();
     }
     // Check if FileType object with the same name already exists
@@ -156,14 +156,14 @@ public class Directory extends FileTypes {
     // If the object exists remove it
     if ((index = nameExists(name)) != -1) {
       FileTypes tempChild = getChild(name);
-      
+
       try {
         tempChild.setParent(null);
         // should never enter this part
       } catch (InvalidSetParentException e) {
         e.printStackTrace();
       }
-      
+
       children.remove(index);
     } else
       throw new MissingNameException(name);
@@ -297,7 +297,7 @@ public class Directory extends FileTypes {
   public boolean hasDeepChild(FileTypes wanted) {
     Queue<Directory> children = new LinkedList<Directory>();
     children.addAll(this.getChildDirs());
-    
+
     while (!children.isEmpty()) {
       // Dequeuing our latest
       Directory curr = children.poll();

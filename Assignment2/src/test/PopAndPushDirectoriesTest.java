@@ -9,7 +9,10 @@ import exceptions.InvalidNameException;
 import structures.Output;
 import driver.*;
 
-// Tests for the push and pop directories class
+/**
+ * Tests for pushp and popd commands, testing the PushDirectory and PopDirectory
+ * classes
+ */
 public class PopAndPushDirectoriesTest {
   MySession s;
 
@@ -126,7 +129,7 @@ public class PopAndPushDirectoriesTest {
 
   @Test
   /**
-   * Test popping dot dot
+   * Test popping to location after placement before pop
    */
   public void testPopNonEmptyStackPopToLocationAfter() {
     JShell.commandProcessor("mkdir a mkdir a/b mkdir a/b/c", s);
@@ -141,7 +144,8 @@ public class PopAndPushDirectoriesTest {
 
   @Test
   /**
-   * Test popping stack after performing some other commands
+   * Test popping stack after between two subtrees (jump from one end to the
+   * other)
    */
   public void testPopNonEmptyStackPopBetweenSubTrees() {
     JShell.commandProcessor("mkdir a b a/c b/d a/e b/f", s);
@@ -197,7 +201,7 @@ public class PopAndPushDirectoriesTest {
 
   @Test
   /**
-   * Test pushing ..
+   * Test pushing to a directory before the current directory before push
    */
   public void testPushToDirectoryBeforeCurrent() {
     JShell.commandProcessor("mkdir a a/b/", s);
@@ -210,7 +214,7 @@ public class PopAndPushDirectoriesTest {
 
   @Test
   /**
-   * Test pushing single dot
+   * Test pushing current directory (dot notation)
    */
   public void testPushAtDirectoryToDirectory() {
     JShell.commandProcessor("mkdir a a/b/", s);
@@ -324,5 +328,4 @@ public class PopAndPushDirectoriesTest {
     assertEquals("", s.returnBuffer());
     assertEquals("/", s.getCurrentDir().getEntirePath());
   }
-
 }

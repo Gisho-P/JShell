@@ -194,7 +194,6 @@ public class DirectoryFileTest {
     } catch (MissingNameException e) {
       e.printStackTrace();
     }
-
   }
 
   @Test
@@ -235,7 +234,6 @@ public class DirectoryFileTest {
     } catch (MissingNameException e) {
       e.printStackTrace();
     }
-
   }
 
   @Test
@@ -446,7 +444,5 @@ public class DirectoryFileTest {
     } catch (InvalidNameException invalidName) {
       invalidName.printStackTrace();
     }
-
   }
-
 }

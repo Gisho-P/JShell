@@ -10,7 +10,7 @@ import exceptions.InvalidNameException;
 import structures.Output;
 
 /**
- * Tests for DisplayPath class
+ * Tests for DisplayPath class (pwd command)
  */
 public class DisplayPathTest {
   MySession session;
@@ -80,5 +80,4 @@ public class DisplayPathTest {
     JShell.commandProcessor("pwd", session);
     assertEquals("/one/one/one/one", session.returnBuffer());
   }
-
 }

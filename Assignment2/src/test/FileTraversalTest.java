@@ -23,11 +23,13 @@ public class FileTraversalTest {
     // Create FileSystem
     Directory expected = new Directory("dir1");
     Directory test = new Directory("");
+
     test.add(expected);
     test.add(new Directory("dir2"));
     test.add(new Directory("dir3"));
     test.add(new File("file1"));
     test.add(new File("file2", "c2"));
+
     // interpret path to dir single layer
     Directory result;
     result = (Directory) FilePathInterpreter.interpretPath(test, "dir1");
@@ -44,16 +46,18 @@ public class FileTraversalTest {
       InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory test = new Directory("root");
+
     test.add(new Directory("test1"));
     test.add(new Directory("test2"));
+
     test.add(new Directory("test3"));
     File expected = new File("file1", "c1");
+
     test.add(expected);
     test.add(new File("file2", "c2"));
     // interpret path to dir multi layer
     File result = (File) FilePathInterpreter.interpretPath(test, "file1");
     assertTrue(result.equals(expected));
-
   }
 
   @Test
@@ -68,17 +72,18 @@ public class FileTraversalTest {
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
     test.add(sub);
+
     Directory expected = new Directory("dir4");
     sub.add(expected);
     test.add(new Directory("dir2"));
     test.add(new Directory("dir3"));
     test.add(new File("file1"));
     test.add(new File("file2", "c2"));
+
     // interpret path to dir multi layer
     Directory result;
     result = (Directory) FilePathInterpreter.interpretPath(test, "dir1/dir4");
     assertTrue(result.equals(expected));
-
   }
 
   @Test
@@ -94,17 +99,18 @@ public class FileTraversalTest {
     Directory test = new Directory("root");
     test.add(sub);
     sub.add(new Directory("dir4"));
+
     File expected = new File("file3", "c3");
     sub.add(expected);
     test.add(new Directory("dir2"));
     test.add(new Directory("dir3"));
     test.add(new File("file1"));
     test.add(new File("file2", "c2"));
+
     // interpret path to file multi layer
     File result;
     result = (File) FilePathInterpreter.interpretPath(test, "dir1/file3");
     assertTrue(result.equals(expected));
-
   }
 
   @Test
@@ -118,20 +124,21 @@ public class FileTraversalTest {
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
     test.add(sub);
+
     Directory start = new Directory("dir4");
     sub.add(start);
+
     File expected = new File("file3", "c3");
     start.add(expected);
     test.add(new Directory("dir2"));
     test.add(new Directory("dir3"));
     test.add(new File("file1"));
     test.add(new File("file2", "c2"));
+
     // Test if the absolute path is interpreted
-    File result;
-    result =
+    File result =
         (File) FilePathInterpreter.interpretPath(start, "/dir1/dir4/file3");
     assertTrue(result.equals(expected));
-
   }
 
   @Test
@@ -145,14 +152,17 @@ public class FileTraversalTest {
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
     test.add(sub);
+
     Directory start = new Directory("dir4");
     sub.add(start);
+
     Directory expected = new Directory("expectedDir");
     start.add(expected);
     test.add(new Directory("dir2"));
     test.add(new Directory("dir3"));
     test.add(new File("file1"));
     test.add(new File("file2", "c2"));
+
     // Test if the absolute path to dir is interpreted
     Directory result;
     result = (Directory) FilePathInterpreter.interpretPath(start,
@@ -170,12 +180,15 @@ public class FileTraversalTest {
     Directory root = new Directory("");
     Directory child = new Directory("child");
     root.add(child);
+
     // Should return the child directory
     Directory result;
     result = (Directory) FilePathInterpreter.interpretPath(root, "child/");
     assertTrue(result.equals(child));
+
     result = (Directory) FilePathInterpreter.interpretPath(child, "/child/");
     assertTrue(result.equals(child));
+
     // Should interpret path to be root
     result = (Directory) FilePathInterpreter.interpretPath(child, "///////");
     assertTrue(result.equals(root));
@@ -192,27 +205,37 @@ public class FileTraversalTest {
     Directory root = new Directory("");
     Directory child = new Directory("child");
     root.add(child);
+
     Directory result;
     result = (Directory) FilePathInterpreter.interpretPath(child, "..");
     assertTrue(result.equals(root));
+
     // Test interpreting paths that create a mixture of double dots
     result = (Directory) FilePathInterpreter.interpretPath(root, "..");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(child, "../");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(child, "/..");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(root, "/..");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(root, "child/..");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(child, "/child/..");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(root, "/child/..");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(root,
         "/../child/../../../..");
     assertTrue(result.equals(root));
+
     result = (Directory) FilePathInterpreter.interpretPath(root,
         "/../child/../../../../");
     assertTrue(result.equals(root));
@@ -229,29 +252,27 @@ public class FileTraversalTest {
     Directory child = new Directory("child");
     root.add(child);
     // Test interpreting paths that create a mixture of single dots
-    Directory result;
-    result = (Directory) FilePathInterpreter.interpretPath(child, ".");
-    assertTrue(result.equals(child));
-    result = (Directory) FilePathInterpreter.interpretPath(root, ".");
-    assertTrue(result.equals(root));
-    result = (Directory) FilePathInterpreter.interpretPath(child, "/.");
-    assertTrue(result.equals(root));
-    result = (Directory) FilePathInterpreter.interpretPath(child, "./");
-    assertTrue(result.equals(child));
-    result = (Directory) FilePathInterpreter.interpretPath(root, "/.");
-    assertTrue(result.equals(root));
-    result = (Directory) FilePathInterpreter.interpretPath(root, "child/.");
-    assertTrue(result.equals(child));
-    result = (Directory) FilePathInterpreter.interpretPath(child, "/child/.");
-    assertTrue(result.equals(child));
-    result = (Directory) FilePathInterpreter.interpretPath(root, "/child/.");
-    assertTrue(result.equals(child));
-    result =
-        (Directory) FilePathInterpreter.interpretPath(root, "/./child/./.");
-    assertTrue(result.equals(child));
-    result =
-        (Directory) FilePathInterpreter.interpretPath(root, "/./child/././");
-    assertTrue(result.equals(child));
+
+    Directory res = (Directory) FilePathInterpreter.interpretPath(child, ".");
+    assertTrue(res.equals(child));
+    res = (Directory) FilePathInterpreter.interpretPath(root, ".");
+    assertTrue(res.equals(root));
+    res = (Directory) FilePathInterpreter.interpretPath(child, "/.");
+    assertTrue(res.equals(root));
+    res = (Directory) FilePathInterpreter.interpretPath(child, "./");
+    assertTrue(res.equals(child));
+    res = (Directory) FilePathInterpreter.interpretPath(root, "/.");
+    assertTrue(res.equals(root));
+    res = (Directory) FilePathInterpreter.interpretPath(root, "child/.");
+    assertTrue(res.equals(child));
+    res = (Directory) FilePathInterpreter.interpretPath(child, "/child/.");
+    assertTrue(res.equals(child));
+    res = (Directory) FilePathInterpreter.interpretPath(root, "/child/.");
+    assertTrue(res.equals(child));
+    res = (Directory) FilePathInterpreter.interpretPath(root, "/./child/./.");
+    assertTrue(res.equals(child));
+    res = (Directory) FilePathInterpreter.interpretPath(root, "/./child/././");
+    assertTrue(res.equals(child));
   }
 
   @Test
@@ -266,6 +287,7 @@ public class FileTraversalTest {
     Directory child = new Directory("child");
     root.add(child);
     child.add(new Directory("grandchild"));
+
     // Should return the child directory
     Directory result;
     result = (Directory) FilePathInterpreter.interpretPath(child, "./../");
@@ -282,7 +304,6 @@ public class FileTraversalTest {
     result = (Directory) FilePathInterpreter.interpretPath(child,
         "/./../child/grandchild/./../grandchild/.././");
     assertTrue(result.equals(child));
-
   }
 
   @Test
@@ -308,7 +329,5 @@ public class FileTraversalTest {
     result =
         (Directory) FilePathInterpreter.interpretMakePath(start, "../test");
     assertTrue(result.equals(start));
-
   }
-
 }
