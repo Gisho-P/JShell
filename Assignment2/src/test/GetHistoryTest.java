@@ -1,11 +1,9 @@
 package test;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import driver.JShell;
-import driver.MySession;
+import driver.*;
 import structures.Output;
 
 /**

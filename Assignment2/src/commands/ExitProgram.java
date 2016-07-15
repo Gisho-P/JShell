@@ -14,9 +14,9 @@ public class ExitProgram implements Command {
 
   /**
    * Current JShell attributes
-   * */
+   */
   private MySession s;
-  
+
   /**
    * Returns a ExitProgram object that represents the exit command. This class
    * is only used for exit's manual.

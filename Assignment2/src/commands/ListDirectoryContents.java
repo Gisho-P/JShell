@@ -1,15 +1,10 @@
 package commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import structures.Directory;
-import driver.FilePathInterpreter;
+import driver.*;
 import exceptions.InvalidDirectoryPathException;
-import driver.MySession;
 
 /**
  * The Class ListDirectoryContents can list the children of a given list of

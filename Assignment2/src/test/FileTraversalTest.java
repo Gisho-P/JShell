@@ -1,16 +1,11 @@
 package test;
 
 import org.junit.Test;
-
-import exceptions.InvalidNameException;
-import structures.Directory;
-import exceptions.InvalidAdditionException;
-import exceptions.NameExistsException;
-import structures.File;
-import driver.FilePathInterpreter;
-import exceptions.InvalidDirectoryPathException;
-
 import static org.junit.Assert.assertTrue;
+
+import exceptions.*;
+import structures.*;
+import driver.FilePathInterpreter;
 
 /**
  * Tests for the FilePathInterpreter
@@ -22,8 +17,9 @@ public class FileTraversalTest {
    * Test interpreting path of file system with only one level when path leads
    * to dir
    */
-  public void getLevelOneDirectoryTest() throws NameExistsException,
-          InvalidAdditionException, InvalidDirectoryPathException, InvalidNameException {
+  public void getLevelOneDirectoryTest()
+      throws NameExistsException, InvalidAdditionException,
+      InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory expected = new Directory("dir1");
     Directory test = new Directory("");
@@ -43,7 +39,8 @@ public class FileTraversalTest {
    * Test interpreting path of file system with only one level when path leads
    * to a file
    */
-  public void getLevelOneFileTest() throws NameExistsException, InvalidAdditionException,
+  public void getLevelOneFileTest()
+      throws NameExistsException, InvalidAdditionException,
       InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory test = new Directory("root");
@@ -64,8 +61,9 @@ public class FileTraversalTest {
    * Test interpreting path of file system with only two levels when path leads
    * to dir
    */
-  public void getLevelTwoDirectoryTest() throws NameExistsException,
-          InvalidAdditionException, InvalidDirectoryPathException, InvalidNameException {
+  public void getLevelTwoDirectoryTest()
+      throws NameExistsException, InvalidAdditionException,
+      InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
     Directory test = new Directory("root");
@@ -88,7 +86,8 @@ public class FileTraversalTest {
    * Test interpreting path of file system with only multi levels when path
    * leads to a file
    */
-  public void getLevelTwoFileTest() throws NameExistsException, InvalidAdditionException,
+  public void getLevelTwoFileTest()
+      throws NameExistsException, InvalidAdditionException,
       InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
@@ -112,7 +111,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting absolute path when it leads to a file
    */
-  public void fromRootFileTest() throws NameExistsException, InvalidAdditionException,
+  public void fromRootFileTest()
+      throws NameExistsException, InvalidAdditionException,
       InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
@@ -138,7 +138,8 @@ public class FileTraversalTest {
   /**
    * Test interpreting absolute path when it leads to a dir
    */
-  public void fromRootDirTest() throws NameExistsException, InvalidAdditionException,
+  public void fromRootDirTest()
+      throws NameExistsException, InvalidAdditionException,
       InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory sub = new Directory("dir1");
@@ -164,7 +165,7 @@ public class FileTraversalTest {
    * Test interpreting path if it only contains slashes
    */
   public void getDirSlashes() throws InvalidNameException, NameExistsException,
-          InvalidAdditionException, InvalidDirectoryPathException {
+      InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -184,8 +185,9 @@ public class FileTraversalTest {
   /**
    * Test interpreting paths that create a mixture of double dots
    */
-  public void getParentDoubleDots() throws InvalidNameException,
-      NameExistsException, InvalidAdditionException, InvalidDirectoryPathException {
+  public void getParentDoubleDots()
+      throws InvalidNameException, NameExistsException,
+      InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -221,7 +223,7 @@ public class FileTraversalTest {
    * Test interpreting paths that create a mixture of single dots
    */
   public void singleDots() throws InvalidNameException, NameExistsException,
-          InvalidAdditionException, InvalidDirectoryPathException {
+      InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -256,8 +258,9 @@ public class FileTraversalTest {
   /**
    * Test interpreting paths that contain a mixture of dots and slashes
    */
-  public void mixtureOfDotsSlashes() throws InvalidNameException,
-      NameExistsException, InvalidAdditionException, InvalidDirectoryPathException {
+  public void mixtureOfDotsSlashes()
+      throws InvalidNameException, NameExistsException,
+      InvalidAdditionException, InvalidDirectoryPathException {
     // Create FileSystem
     Directory root = new Directory("");
     Directory child = new Directory("child");
@@ -287,7 +290,8 @@ public class FileTraversalTest {
    * Test interpretMakePath function which should interpret the path leading
    * only up to the parent
    */
-  public void mkDirRootTest() throws NameExistsException, InvalidAdditionException,
+  public void mkDirRootTest()
+      throws NameExistsException, InvalidAdditionException,
       InvalidDirectoryPathException, InvalidNameException {
     // Create FileSystem
     Directory start = new Directory("root");
@@ -306,6 +310,5 @@ public class FileTraversalTest {
     assertTrue(result.equals(start));
 
   }
-
 
 }

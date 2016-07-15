@@ -2,14 +2,9 @@ package commands;
 
 import java.util.List;
 
-import exceptions.InvalidAdditionException;
-import exceptions.InvalidDirectoryPathException;
-import exceptions.InvalidNameException;
-import exceptions.NameExistsException;
-import structures.Directory;
-import driver.FilePathInterpreter;
-import structures.FileTypes;
-import driver.MySession;
+import exceptions.*;
+import structures.*;
+import driver.*;
 
 public class MakeDirectory implements Command {
 
@@ -73,17 +68,14 @@ public class MakeDirectory implements Command {
             ((Directory) parentDir)
                 .add(new Directory(splitPath[splitPath.length - 1]));
           } else
-            s.addError(
-                "mkdir: cannot create a directory without a name");
+            s.addError("mkdir: cannot create a directory without a name");
         }
       } catch (NameExistsException e) {
-        s.addError(
-            "mkdir: cannot create directory '" + i + "': File exists");
+        s.addError("mkdir: cannot create directory '" + i + "': File exists");
       } catch (InvalidAdditionException invalidAddition) {
         invalidAddition.printStackTrace();
       } catch (InvalidDirectoryPathException e) {
-        s.addError(
-            "mkdir: cannot create directory '" + i + "': Invalid Path");
+        s.addError("mkdir: cannot create directory '" + i + "': Invalid Path");
       } catch (InvalidNameException invalidName) {
         s.addError("mkdir: cannot create directory with name '" + i
             + "'. It is invalid.");

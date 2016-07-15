@@ -1,7 +1,6 @@
 package structures;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * This class represents the directory stack where directories can be pushed and

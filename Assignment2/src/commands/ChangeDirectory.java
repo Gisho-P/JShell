@@ -3,10 +3,8 @@ package commands;
 import java.util.List;
 
 import exceptions.InvalidDirectoryPathException;
-import structures.Directory;
-import driver.FilePathInterpreter;
-import structures.FileTypes;
-import driver.MySession;
+import structures.*;
+import driver.*;
 
 /**
  * ChangeDirectory class replicates the cd command in a shell. It allows

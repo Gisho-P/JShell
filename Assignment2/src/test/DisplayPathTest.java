@@ -1,17 +1,13 @@
 package test;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 
-import driver.JShell;
-import driver.MySession;
+import driver.*;
 import exceptions.InvalidNameException;
 import structures.Output;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for DisplayPath class
@@ -26,16 +22,17 @@ public class DisplayPathTest {
   public void setUp() {
     session = new MySession(new Output());
   }
+
   @After
   /**
    * The filesystem uses singleton design for the root directory. For testing
    * purposes, the root needs to be set to null everytime.
    */
   public void tearDown() throws InvalidNameException, NoSuchFieldException,
-          IllegalAccessException {
+      IllegalAccessException {
     Field field = session.getRootDir().getClass().getDeclaredField("root");
     field.setAccessible(true);
-    field.set(null, null); //setting the ref parameter to null
+    field.set(null, null); // setting the ref parameter to null
     session.clearBuffer();
   }
 
@@ -83,6 +80,5 @@ public class DisplayPathTest {
     JShell.commandProcessor("pwd", session);
     assertEquals("/one/one/one/one", session.returnBuffer());
   }
-
 
 }

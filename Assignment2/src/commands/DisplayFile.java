@@ -3,9 +3,8 @@ package commands;
 import java.util.List;
 
 import structures.File;
-import driver.FilePathInterpreter;
+import driver.*;
 import exceptions.InvalidDirectoryPathException;
-import driver.MySession;
 
 /**
  * The Class DisplayFile handles displaying the contents of one or more files.
@@ -70,7 +69,7 @@ public class DisplayFile implements Command {
             ((File) FilePathInterpreter.interpretPath(s.getCurrentDir(), i));
         // print three line breaks in between files
         if (!firstFile)
-           s.addOutput("\n\n");
+          s.addOutput("\n\n");
         // Add the content to the return
         s.addOutput(currentFile.getContent());
         if (firstFile)
