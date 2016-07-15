@@ -11,134 +11,132 @@ import exceptions.InvalidDirectoryPathException;
  * pattern.
  */
 public class DisplayWithSubstring implements Command {
-  private MySession s;
+	private MySession s;
 
-  public DisplayWithSubstring(MySession session) {
-    s = session;
-  }
+	public DisplayWithSubstring(MySession session) {
+		s = session;
+	}
 
-  /**
-   * Returns the manual for the grep command.
-   * 
-   * @return the manual for the grep command
-   */
-  @Override
-  public void man() {
-    s.setOutput("GREP(1)\t\t\t\tUser Commands\t\t\t\tGREP(1)\n"
-        + "\nNAME\n\t\tcat - displays the contents of one or "
-        + "more files on the standard output\n\nSYNOPSIS\n\t\t"
-        + "grep FILE1 [FILE2 ...]\n\nDESCRIPTION\n\t\t"
-        + "Concatenates one or more files to the standard output"
-        + ".\n\t\tCan take any amount of files greater then one as a"
-        + " parameter.");
-  }
+	/**
+	 * Returns the manual for the grep command.
+	 * 
+	 * @return the manual for the grep command
+	 */
+	@Override
+	public void man() {
+		s.setOutput("GREP(1)\t\t\t\tUser Commands\t\t\t\tGREP(1)\n"
+				+ "\nNAME\n\t\tcat - displays the contents of one or "
+				+ "more files on the standard output\n\nSYNOPSIS\n\t\t"
+				+ "grep [-OPTIONS] REGEX FILETYPE \n\nDESCRIPTION\n\t\t"
+				+ "Prints out a list of all lines of files that contain the regex."
+				+ ".\n\t\tCan put -r flag to recrusive through a directory instead."
+				+ "");
+	}
 
-  /**
-   * Process arguments passed for grep command and determine whether the command
-   * was entered correctly or not.
-   * 
-   * @param args Arguments parsed from command
-   * @return The files lines names with the pattern inside.
-   */
-  @Override
-  public void interpret(List<String> args) {
-    if (args.size() < 3) {
-      s.addError("grep usage: grep [options] REGEX PATH ...");
-    } else {
-      exec(args);
-      // return output from function call
-    }
-  }
+	/**
+	 * Process arguments passed for grep command and determine whether the
+	 * command was entered correctly or not.
+	 * 
+	 * @param args
+	 *            Arguments parsed from command
+	 * @return The files lines names with the pattern inside.
+	 */
+	@Override
+	public void interpret(List<String> args) {
+		if (args.size() < 3) {
+			s.addError("grep usage: grep [options] REGEX PATH ...");
+		} else {
+			exec(args);
+			// return output from function call
+		}
+	}
 
-  // TODO: 11/07/16 Check if lowercase -r is supposed to work as well. I think i
-  // saw it somewhere
-  /**
-   * Returns the files with the pattern inside.
-   * 
-   * @param args Valid arguments parsed from command
-   * @return The files lines names with the pattern inside.
-   */
-  public void execDir(List<String> args) {
-    if (!args.get(1).equals("-R")) {
-      s.addError("Wrong options for grep no such flag as " + args.get(1));
-      return;
-    }
+	// TODO: 11/07/16 Check if lowercase -r is supposed to work as well. I think
+	// i
+	// saw it somewhere
+	/**
+	 * Returns the files with the pattern inside.
+	 * 
+	 * @param args
+	 *            Valid arguments parsed from command
+	 * @return The files lines names with the pattern inside.
+	 */
+	public void execDir(List<String> args) {
+		// Adding previous dirs
+		ArrayList<Directory> currentDirLevel = new ArrayList<Directory>();
+		try {
+			Directory start = ((Directory) FilePathInterpreter.interpretPath(
+					s.getCurrentDir(), args.get(3)));
+			currentDirLevel.add(start);
+		} catch (InvalidDirectoryPathException ClassCastException) {
+			// If it's an invalid path or a dir same case
+			s.addError("No such directory as " + args.get(3));
+		}
+		// Recursively go through all sub dirs
+		ArrayList<Directory> nextDirLevel = new ArrayList<Directory>();
+		while (!currentDirLevel.isEmpty()) {
+			// Loop through all the dirs in the current level
+			for (Directory dir : currentDirLevel) {
+				for (File path : dir.getChildFiles()) {
+					for (String item : getWithSubstring(path, args.get(2))) {
+						s.addOutput(path.getAbsolutePath() + ":" + item);
+					}
+				}
+				// Add them to the set of next level
+				nextDirLevel.addAll(dir.getChildDirs());
+			}
+			// Increment the level by one
+			currentDirLevel = nextDirLevel;
+		}
+		// Removing the last blank space
+		s.setOutput(s.getOutput().trim());
+	}
 
-    // Adding previous dirs
-    ArrayList<Directory> currentDirLevel = new ArrayList<Directory>();
-    currentDirLevel.addAll(s.getCurrentDir().getChildDirs());
+	/**
+	 * Recursively goes through a dir and checks every file and returns all
+	 * lines in files that contain the specified pattern.
+	 * 
+	 * @param args
+	 *            Valid arguments parsed from command
+	 * @return The files lines names with the pattern inside.
+	 */
+	@Override
+	public void exec(List<String> args) {
+		if (args.size() == 4 && args.get(1).toLowerCase().equals("-r")) {
+			execDir(args);
+		} else {
+			// Splitting the file with new lines
+			File path = null;
+			try {
+				path = ((File) FilePathInterpreter.interpretPath(
+						s.getCurrentDir(), args.get(2)));
+			} catch (ClassCastException | InvalidDirectoryPathException e) {
+				// If it's an invalid path or a dir same case
+				s.addError("No such file as " + args.get(2));
+			}
+			for (String item : getWithSubstring(path, args.get(1))) {
+				s.addOutput(item);
+			}
+			// Removing the last blank space
+			s.setOutput(s.getOutput().trim());
+		}
+	}
 
-    // Loop for current files right npw
-    for (File path : s.getCurrentDir().getChildFiles()) {
-      String lines[] = path.getContent().split("\n");
-      for (String line : lines) {
-        // Adding a new line
-        if (line.matches(args.get(2))) {
-          // Adds the new line to std out
-          s.addOutput(s.getCurrentDir().getEntirePath() + ":" + line);
-        }
-      }
-    }
+	/**
+	 * Returns a list lines in a file that match a regex.
+	 * 
+	 * @return List of lines that match a regex
+	 */
+	public ArrayList<String> getWithSubstring(File file, String regex) {
+		String originalLines[] = file.getContent().split("\n");
+		ArrayList<String> lines = new ArrayList<String>();
 
-    // Recursively go through all sub dirs
-
-    ArrayList<Directory> nextDirLevel = new ArrayList<Directory>();
-    while (!currentDirLevel.isEmpty()) {
-      // Loop through all the dirs in the current level
-      for (Directory dir : currentDirLevel) {
-        for (File path : s.getCurrentDir().getChildFiles()) {
-          String lines[] = path.getContent().split("\n");
-          for (String line : lines) {
-            // Adding a new line
-            if (line.matches(args.get(2))) {
-              s.addOutput(line + "\n" + path);
-            }
-          }
-        }
-        // Add them to the set of next level
-        nextDirLevel.addAll(dir.getChildDirs());
-      }
-      // Increment the level by one
-      currentDirLevel = nextDirLevel;
-    }
-
-    // Removing the last blank space
-    s.setOutput(s.getOutput().trim());
-  }
-
-  /**
-   * Recursively goes through a dir and checks every file and returns all lines
-   * in files that contain the specified pattern.
-   * 
-   * @param args Valid arguments parsed from command
-   * @return The files lines names with the pattern inside.
-   */
-  @Override
-  public void exec(List<String> args) {
-    if (args.size() > 3) {
-      execDir(args);
-    } else {
-      // Splitting the file with new lines
-      File path = null;
-      try {
-        path = ((File) FilePathInterpreter.interpretPath(s.getCurrentDir(),
-            args.get(2)));
-      } catch (InvalidDirectoryPathException ClassCastException) {
-        // If it's an invalid path or a dir same case
-
-        s.addError("No such file as " + args.get(2));
-      }
-
-      String lines[] = path.getContent().split("\n");
-
-      for (String line : lines) {
-        // Adding a new line
-        if (line.matches(args.get(1))) {
-          s.addOutput(line + "\n");
-        }
-      }
-      // Removing the last blank space
-      s.setOutput(s.getOutput().trim());
-    }
-  }
+		for (String line : originalLines) {
+			// Adding a new line
+			if (line.matches(regex)) {
+				lines.add(line);
+			}
+		}
+		return lines;
+	}
 }

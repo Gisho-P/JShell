@@ -206,16 +206,6 @@ public class MySession {
   }
 
   /**
-   * Reset file system to the state it was when first initialized.
-   */
-  public void clearFileSystem() {
-    try {
-      rootDir = new Directory(""); // reset rootDir to a new clean directory
-    } catch (InvalidNameException e) {
-    }
-  }
-
-  /**
    * Get the running status of JShell
    * 
    * @return Running status of JShell
@@ -308,6 +298,17 @@ public class MySession {
     o.redirect(file, type, this.getCurrentDir(), this.getRootDir());
   }
 
+  /**
+   * Reset file system to the state it was when first initialized.
+   */
+  public void clearFileSystem() {
+    try {
+      rootDir = new Directory("");
+      currentDir = rootDir;
+    } catch (InvalidNameException e) {
+    }
+  }
+    
   /**
    * Return the output and error buffers.
    */
