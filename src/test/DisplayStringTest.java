@@ -1,10 +1,14 @@
 package test;
 
-import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import driver.*;
+import driver.JShell;
+import driver.MySession;
 import structures.Output;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests that verify the functionality of the echo command in JShell which can

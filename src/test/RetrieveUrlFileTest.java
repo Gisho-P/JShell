@@ -1,14 +1,19 @@
 package test;
 
-import org.junit.*;
-import static junit.framework.TestCase.*;
-import static org.junit.Assert.assertTrue;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 
-import driver.*;
-import exceptions.*;
-import structures.*;
+import driver.JShell;
+import driver.MySession;
+import exceptions.InvalidAdditionException;
+import exceptions.InvalidNameException;
+import exceptions.MissingNameException;
+import exceptions.NameExistsException;
+import structures.File;
+import structures.Output;
 
 /**
  * Test suite containing test cases for the curl command.
