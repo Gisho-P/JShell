@@ -18,8 +18,8 @@ public class InvalidAdditionException extends Exception {
      * @return InvalidAdditionException
      */
     public InvalidAdditionException() {
-        super("Can not add the current directory or parent " +
+        super("Can not add parent " +
                 "directory as the child of "
-                        + "the current directory.");
+                        + "a sub directory.");
     }
 }

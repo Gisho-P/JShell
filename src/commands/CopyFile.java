@@ -57,14 +57,6 @@ public class CopyFile implements Command {
 		}
 	}
 
-	/**
-	 * Copies the file from one directory to another
-	 * 
-	 * @param args
-	 *            Valid arguments parsed from command
-	 * @return The contents of the files given.
-	 */
-	@Override
 	public void exec(List<String> args) {
 		try {
 			FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(0));
@@ -77,13 +69,42 @@ public class CopyFile implements Command {
 				else if(src instanceof Directory){
 					dest.add(Directory.deepCopy((Directory)src));
 				}
-				
+
 			} catch (NameExistsException | InvalidAdditionException e) {
 				s.addError("The file cannot be added either already exists or is not valid.\n");
 			}
-			
+
 		} catch (InvalidDirectoryPathException e) {
 			s.addError("The source path does not exist\n");
 		}
 	}
+
+	/**
+	 * Copies the file from one directory to another
+	 * 
+	 * @param args
+	 *            Valid arguments parsed from command
+	 * @return The contents of the files given.
+	 */
+//	public void exec(List<String> args) {
+//		try {
+//			FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(0));
+//			Directory dest = (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(), args.get(1));
+//
+//			try {
+//				if(src instanceof File){
+//					dest.add(File.copy((File)src));
+//				}
+//				else if(src instanceof Directory){
+//					dest.add(Directory.deepCopy((Directory)src));
+//				}
+//
+//			} catch (NameExistsException | InvalidAdditionException e) {
+//				s.addError("The file cannot be added either already exists or is not valid.\n");
+//			}
+//
+//		} catch (InvalidDirectoryPathException e) {
+//			s.addError("The source path does not exist\n");
+//		}
+//	}
 }

@@ -159,8 +159,16 @@ public class Directory extends FileTypes {
     public void remove(String name) throws MissingNameException {
         int index;
         // If the object exists remove it
-        if ((index = nameExists(name)) != -1)
+        if ((index = nameExists(name)) != -1) {
+            FileTypes tempChild = getChild(name);
+            try {
+                tempChild.setParent(null);
+                //should never enter this part
+            } catch (InvalidSetParentException e) {
+                e.printStackTrace();
+            }
             children.remove(index);
+        }
         else
             throw new MissingNameException(name);
     }
@@ -342,6 +350,14 @@ public class Directory extends FileTypes {
         }
 
         return newDir;
+    }
+
+    /**
+     * The number of children in the directory
+     * @return the number of children
+     */
+    public int size() {
+        return children.size();
     }
 
     /**
