@@ -62,18 +62,21 @@ public abstract class FileTypes {
         // correct parent. This means the child needs to be added first before
         // adding a parent
 
-        boolean childExists = false;
-        for (FileTypes ft : dir.getChildren()) {
-            if (ft == this) {
-                this.parent = dir;
-                childExists = true;
-                break;
+        if (dir != null) {
+            boolean childExists = false;
+            for (FileTypes ft : dir.getChildren()) {
+                if (ft == this) {
+                    this.parent = dir;
+                    childExists = true;
+                    break;
+                }
             }
-        }
 
-        if (!childExists)
-            throw new InvalidSetParentException();
+            if (!childExists)
+                throw new InvalidSetParentException();
 
+        }else
+            this.parent = null;
     }
 
     /**
@@ -89,11 +92,9 @@ public abstract class FileTypes {
      * Set the name of the FileTypes object.
      *
      * @param name The new name to set
-     * @throws InvalidNameException                     when invalid name is
-     *                                                  given
-     * @throws NameExistsException Thrown when the new name
-     *                                                  already exists in the
-     *                                                  parent directory
+     * @throws InvalidNameException  when invalid name is given
+     * @throws NameExistsException Thrown when the new  already exists in the
+     * parent directory
      */
     public void setName(String name) throws InvalidNameException,
             NameExistsException {
@@ -107,6 +108,26 @@ public abstract class FileTypes {
                 throw new NameExistsException(name);
         } else
             throw new InvalidNameException(name);
+    }
+
+    /**
+     * Determine if the src object is a parent or equivalent object to dest
+     * @param src The fileType object to add
+     * @param dest The fileType object to add to
+     * @return Whether or not the src is a parent or equivalent object to dest
+     */
+    public static boolean isInvalidAddition(FileTypes src, FileTypes dest) {
+        boolean isInvalid = false;
+        //If ft is the same as one of the parent objects then the addition is
+        //invalid
+        while (dest != null) {
+            if (src == dest) {
+                isInvalid = true;
+                break;
+            }
+            dest = dest.getParent();
+        }
+        return isInvalid;
     }
 
     /**

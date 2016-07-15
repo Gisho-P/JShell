@@ -3,13 +3,14 @@ package commands;
 import java.util.List;
 
 import driver.FilePathInterpreter;
-import exceptions.InvalidDirectoryPathException;
 import driver.MySession;
 import exceptions.InvalidAdditionException;
+import exceptions.InvalidDirectoryPathException;
 import exceptions.InvalidNameException;
-import structures.Directory;
 import exceptions.MissingNameException;
 import exceptions.NameExistsException;
+import structures.Directory;
+import structures.File;
 import structures.FileTypes;
 
 /**
@@ -60,105 +61,148 @@ public class MoveFile implements Command {
         }
     }
 
-    // TODO: 10/07/16 Need to check what happens if the user tries to move the root. Also have some sort of collaboration with cp and mv 
+    // TODO: 10/07/16 Need to check what happens if the user tries to move the root. Also have some sort of collaboration with cp and mv
+    // mv a b and a and b are both files then b is replaced with a
+
     /**
      * Once this is finished delete the other one
-     * @param args
      */
-    public void exec2(List<String> args) {
+    public void exec(List<String> args) {
         try {
             FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(),
                     args.get(0));
 
-            Directory dest;
+            FileTypes dest;
             String newName = "";
             try {
                 //Determine if the destination path exists
-                dest = (Directory) FilePathInterpreter.interpretPath(s
+                dest = FilePathInterpreter.interpretPath(s
                                 .getCurrentDir(),
                         args.get(1));
             } catch (InvalidDirectoryPathException e) {
                 //If the dest path doesn't exist, maybe the command is asking
                 // for a rename so check if the parent exists
-                dest = (Directory) FilePathInterpreter
+                dest = FilePathInterpreter
                         .interpretMakePath(s.getCurrentDir(),
                                 args.get(1));
-                String [] names = args.get(1).split("/");
-                newName= names[names.length - 1];
+//                //The destination can't be a file at this point
+//                if (dest instanceof File) {
+//                    throw new InvalidDirectoryPathException(args.get(1));
+//                }
+                String[] names = args.get(1).split("/");
+                newName = names[names.length - 1];
             }
 
-            Directory parent = (Directory) FilePathInterpreter.interpretMakePath(s.getCurrentDir(),
-                    args.get(0));
+            if (FileTypes.isInvalidAddition(src, dest))
+                throw new InvalidAdditionException();
 
+            Directory parent = src.getParent();
 
-            //Are we supposed to replace?
-            dest.addReplace(src);
-            parent.remove(src.getName());
-
-            if (!newName.equals("")) {
-                try {
+            if (dest instanceof File) {
+                if (src instanceof File) {
+                    //If src and destination lead to file, then replace the file in
+                    // the destination with the file in the src
+                    Directory dParent = dest.getParent();
+                    parent.remove(src.getName());
+                    src.setName(dest.getName());
+                    dParent.addReplace(src);
+                } else {
+                    //moving directory to a file case
+                    s.addError("Invalid destination path. Can not move " +
+                            "source directory.");
+                }
+            } else {
+                Directory dDest = (Directory) dest;
+                //Rename case
+                if (!newName.equals("")) {
+                    parent.remove(src.getName());
                     src.setName(newName);
-                } catch (NameExistsException e) {
-                    e.printStackTrace();
+                    dDest.add(src);
+                } else {
+                    //determine whether or not to move
+                    boolean move = false;
+                    //move if dest doesn't contain same name as src
+                    if (dDest.nameExists(src.getName()) == -1) {
+                        move = true;
+                    } else {
+                        //move if dest contains same name as src but both the
+                        // src and dest child are directories or files. If both
+                        // are directories, only move if dest child directory
+                        // is empty
+                        FileTypes dChild = dDest.getChild(src.getName());
+                        if ((src instanceof Directory && dChild instanceof
+                                Directory && ((Directory) dChild).size() ==
+                                0) || (src instanceof File && dChild
+                                instanceof File))
+                            move = true;
+                    }
+
+                    //add or replace the file in dest
+                    if (move) {
+                        parent.remove(src.getName());
+                        dDest.addReplace(src);
+                    } else
+                        s.addError("Unable to move. Type mismatch between " +
+                                "source file and file being replaced or the " +
+                                "file being replaced is not empty.");
                 }
             }
-
-
         } catch (InvalidDirectoryPathException e) {
-            s.addError("The source or destination path does not exist\n");
-        } catch (ClassCastException i) {
-            s.addError("The destination path does not lead to a directory\n");
+            s.addError(e.getMessage());
         } catch (InvalidAdditionException invalidAddition) {
             s.addError(invalidAddition.getMessage());
         } catch (MissingNameException e) {
             s.addError(e.getMessage());
         } catch (InvalidNameException invalidName) {
             s.addError(invalidName.getMessage());
+        } catch (NameExistsException e) {
+            //should never reach this point because setting a valid name
+            e.printStackTrace();
         }
     }
 
-    /**
-     * Copies the file from one directory to another
-     *
-     * @param args Valid arguments parsed from command
-     * @return The contents of the files given.
-     */
-    @Override
-    public void exec(List<String> args) {
-        try {
-            // Getting both the src and dest place
-
-            //still need to do case mv a b where file a's name is changed to b
-            FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(),
-                    args.get(0));
-
-
-            Directory dest = (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(),
-                    args.get(1));
-
-            try {
-                Directory parent = (Directory) FilePathInterpreter.interpretMakePath(s.getCurrentDir(),
-                        args.get(0));
-
-                // Removing the previous if it exists
-                // Need to double check this
-                if (dest.nameExists(src.getName()) != -1) {
-                    dest.remove(src.getName());
-                }
-
-                dest.add(src);
-                parent.remove(src.getName());
-
-            } catch (NameExistsException | InvalidAdditionException | MissingNameException e) {
-                s.addError("The file cannot be added. It already " +
-                        "exists or is not valid.\n");
-            }
-
-        } catch (InvalidDirectoryPathException e) {
-            s.addError("The source path does not exist\n");
-        } catch (ClassCastException i) {
-            s.addError("The destination path leads to a file instead of a " +
-                    "directory");
-        }
-    }
+//    /**
+//     * Copies the file from one directory to another
+//     *
+//     * @param args Valid arguments parsed from command
+//     * @return The contents of the files given.
+//     */
+//    @Override
+//    public void exec(List<String> args) {
+//        try {
+//            // Getting both the src and dest place
+//
+//            //still need to do case mv a b where file a's name is changed to b
+//            FileTypes src = FilePathInterpreter.interpretPath(s.getCurrentDir(),
+//                    args.get(0));
+//
+//
+//            Directory dest = (Directory) FilePathInterpreter.interpretPath(s.getCurrentDir(),
+//                    args.get(1));
+//
+//            try {
+//                Directory parent = (Directory) FilePathInterpreter.interpretMakePath(s.getCurrentDir(),
+//                        args.get(0));
+//
+//                // Removing the previous if it exists
+//                // Need to double check this
+//                if (dest.nameExists(src.getName()) != -1) {
+//                    dest.remove(src.getName());
+//                }
+//
+//                dest.add(src);
+//                parent.remove(src.getName());
+//
+//            } catch (NameExistsException | InvalidAdditionException | MissingNameException e) {
+//                s.addError("The file cannot be added. It already " +
+//                        "exists or is not valid.\n");
+//            }
+//
+//        } catch (InvalidDirectoryPathException e) {
+//            s.addError("The source path does not exist\n");
+//        } catch (ClassCastException i) {
+//            s.addError("The destination path leads to a file instead of a " +
+//                    "directory");
+//        }
+//    }
 }
