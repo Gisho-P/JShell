@@ -4,19 +4,21 @@ import driver.*;
 import exceptions.*;
 
 /**
- * The Class Output stores standard output and error strings and redirects
- * output to files.
+ * The Output class stores, retrieves and clears the standard output/error
+ * buffers and redirects output to files.
  */
 public class Output {
-  
-  /** The standard output. */
+
+  /** The standard output buffer */
   private String stdOutput;
-  
-  /** The standard error. */
+
+  /** The standard error buffer */
   private String stdError;
 
   /**
-   * Instantiates a new output with empty output and error.
+   * Instantiates a new output object with empty output and error buffers.
+   * 
+   * @return new Output object
    */
   public Output() {
     stdOutput = "";
@@ -24,7 +26,7 @@ public class Output {
   }
 
   /**
-   * Gets the std output.
+   * Gets the std output buffer.
    *
    * @return the std output
    */
@@ -33,28 +35,28 @@ public class Output {
   }
 
   /**
-   * Adds the given string to stdOut.
+   * Adds the given string to std output buffer.
    *
    * @param stdOutput the string to be added to stdOut
    */
   public void addStdOutput(String stdOutput) {
-    if (!this.stdOutput.isEmpty()) {
+    if (!this.stdOutput.isEmpty()) { // if output isn't empty add a newline
       this.stdOutput += "\n";
     }
     this.stdOutput += stdOutput;
   }
 
   /**
-   * Sets the stdOut to the given String.
+   * Sets the std output buffer to the given string.
    *
-   * @param stdOutput the string to replace the currend stdOut
+   * @param stdOutput the string to replace the current std output
    */
   public void setStdOutput(String stdOutput) {
     this.stdOutput = stdOutput;
   }
 
   /**
-   * Clears the stdOut and stdError.
+   * Clears the std output and std error buffers.
    */
   public void clear() {
     stdOutput = "";
@@ -62,16 +64,16 @@ public class Output {
   }
 
   /**
-   * Gets the stdError.
+   * Gets the std error buffer.
    *
-   * @return the stdError
+   * @return std error buffer
    */
   public String getStdError() {
     return stdError;
   }
 
   /**
-   * Sets the stdError to the given string.
+   * Sets the std error buffer to the given string.
    *
    * @param standardError the new stdError
    */
@@ -80,21 +82,21 @@ public class Output {
   }
 
   /**
-   * Adds the string to stdEroor.
+   * Adds the string specified to std error buffer.
    *
    * @param standardError the string to be added to stdError
    */
   public void addStdError(String standardError) {
-    if (!stdError.isEmpty()) {
+    if (!stdError.isEmpty()) { // if error buffer isn't empty, add newline
       stdError += "\n";
     }
     stdError += standardError;
   }
 
   /**
-   * Adds the error to stdError and clears stdOut.
+   * Adds the error to std error buffer and clears std output buffer.
    *
-   * @param standardError the error to be added to stdError
+   * @param standardError the error to be added to std error
    */
   public void addErrorClearOutput(String standardError) {
     addStdError(standardError);
@@ -102,9 +104,9 @@ public class Output {
   }
 
   /**
-   * Gets the all output.
+   * Gets contents from the error and output buffers.
    *
-   * @return the all output
+   * @return the error and output buffers contents
    */
   public String getAllOutput() {
     return getStdError() + getStdOutput();
@@ -122,12 +124,11 @@ public class Output {
   public void redirect(String file, String type, Directory curDir,
       Directory rootDir) {
     FileTypes outFile = null;
-    // Check if the file exists in the directory
-    try {
+
+    try { // Check if the file exists in the directory
       outFile = FilePathInterpreter.interpretPath(curDir, file);
     } catch (InvalidDirectoryPathException e) {
-      // If the file doesn't exist create it
-      try {
+      try { // If the file doesn't exist create it
         outFile = createFileFromPath(curDir, rootDir, file);
       } catch (InvalidDirectoryPathException e1) {
         addErrorClearOutput("ERROR: The directory of the file does not exist");
@@ -139,6 +140,7 @@ public class Output {
         addErrorClearOutput("ERROR: That's an invalid file name");
       }
     }
+
     if (outFile instanceof File)
       addContent((File) outFile, type);
     // If the outFile isn't a File and another error wasn't raised then
@@ -167,7 +169,7 @@ public class Output {
   }
 
   /**
-   * Creates the file from the given path, and throws an exception otherwise.
+   * Creates the file from the given path or throws an exception otherwise.
    *
    * @param curDir the cur dir
    * @param rootDir the root dir
@@ -193,8 +195,7 @@ public class Output {
           path.startsWith("/") ? rootDir : curDir,
           path.substring(0, path.lastIndexOf("/")));
       fileDir.add(outputFile);
-    } else {
-      // If it's the same directory
+    } else { // If it's the same directory
       outputFile = new File((String) path);
       curDir.add(outputFile);
     }

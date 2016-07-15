@@ -8,7 +8,7 @@ import exceptions.InvalidNameException;
  */
 public class File extends FileTypes {
   /**
-   * Stores file content *
+   * Stores file content
    */
   private String content;
 

@@ -3,9 +3,14 @@ Parent class: Object
 Subclasses: N/A
 
 Responsibilities:
-* Store the standard output, and standard error
+* store/retrieve/clear the standard output and standard error
 * Redirect the output to a file
-* Get the standard output, and standard error
 
 Collaborators:
-* String
+* File
+* Directory
+* FilePathInterpreter
+* InvalidNameException
+* NameExistsException
+* InvalidDirectoryPathException
+* InvalidAdditionException

@@ -1,14 +1,11 @@
-Class name: pushpop
+Class name: DirStack
 Parent class (if any): Object
 Subclasses (if any): None
 
 Responsibilities:
-*Determine if the command arguments have the correct format
-*Stores directories in a stack
-*Removes the most recent stored directory
-*Able to retrieve last stored directory
-*Checks if the stack is empty
+* Clear directory stack
+* Add path to directory stack
+* Pop last stored directory from stack
+* Return error message if necessary
 
 Collaborators:
-*FilePathInterpreter
-*Directory
