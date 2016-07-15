@@ -9,6 +9,9 @@ import structures.*;
  * The FilePathInterpreter takes a path and processes it from the current
  * directory until the end of the path is reached and returns a FileTypes object
  * in which operations specified by the user command can be done.
+ * 
+ * @author John Song
+ * @author Dhrumil Patel
  */
 public class FilePathInterpreter {
 
@@ -161,7 +164,8 @@ public class FilePathInterpreter {
   }
 
   /**
-   * Parses the double dots from currPath and calls interpretPath again.
+   * Parses the double dots from currPath (for parent) and calls interpretPath
+   * again.
    *
    * @param init The dir to interpret the path from.
    * @param currPath The current path of the file.
@@ -171,25 +175,16 @@ public class FilePathInterpreter {
    */
   private static FileTypes interpretDoubleDots(Directory init, String currPath,
       String[] splitPath) throws InvalidDirectoryPathException {
-    // Checking to see if we're at the current root of not
-    if (init.getParent() != null) {
-      // Checking if we have '../moredirs/evenmore' or just '..'
-      if (splitPath.length > 1) {
-        return interpretPathRecursive(init.getParent(),
-            currPath.substring(3, currPath.length()));
-      } else {
-        return interpretPathRecursive(init.getParent(),
-            currPath.substring(2, currPath.length()));
-      }
+
+    // Checking if we have '../moredirs/evenmore' or just '..'
+    if (splitPath.length > 1) {
+      return interpretPathRecursive(
+          init.getParent() != null ? init.getParent() : init,
+          currPath.substring(3, currPath.length()));
     } else {
-      // Checking if we have '../moredirs/evenmore' or just '..'
-      if (splitPath.length > 1) {
-        return interpretPathRecursive(init,
-            currPath.substring(3, currPath.length()));
-      } else {
-        return interpretPathRecursive(init,
-            currPath.substring(2, currPath.length()));
-      }
+      return interpretPathRecursive(
+          init.getParent() != null ? init.getParent() : init,
+          currPath.substring(2, currPath.length()));
     }
   }
 
@@ -230,11 +225,14 @@ public class FilePathInterpreter {
   }
 
   /**
-   * @param init The initial dir in which the intrepret path was called in
+   * Given initial directory init and future path specified by path, check for
+   * validity of path and go to the parent where file be created.
+   * 
+   * @param init The initial dir in which the interpret path was called in
    * @param path The path of the File/Dir TO BE MADE, the last position of the
    *        path is to be made and does not exist
-   * @return The DIR of the path before the file
-   * @throws InvalidDirectoryPathException
+   * @return The DIR of the path before the file (parent of the file)
+   * @throws InvalidDirectoryPathException if the path given is invalid
    */
   public static FileTypes interpretMakePath(Directory init, String path)
       throws InvalidDirectoryPathException {
