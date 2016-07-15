@@ -8,7 +8,5 @@ Responsibilities:
 * Goes through the path and reads the contents of the file
 
 Collaborators:
-* FilePathInterpreter
 * MySession
-* File
 * Output
