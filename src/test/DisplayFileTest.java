@@ -15,6 +15,8 @@ import structures.Directory;
 import structures.File;
 import structures.Output;
 
+import static junit.framework.TestCase.assertEquals;
+
 /**
  * Tests that verify the functionality of the cat command in JShell which
  * displays the contents of one or more files.

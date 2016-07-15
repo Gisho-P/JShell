@@ -1,11 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import org.junit.*;
-
-import driver.*;
+import driver.JShell;
+import driver.MySession;
 import structures.Output;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * The Class GetHistoryTest tests out sessions history function.

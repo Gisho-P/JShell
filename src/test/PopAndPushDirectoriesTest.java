@@ -11,6 +11,8 @@ import driver.MySession;
 import exceptions.InvalidNameException;
 import structures.Output;
 
+import static junit.framework.TestCase.assertEquals;
+
 /**
  * Tests for pushp and popd commands, testing the PushDirectory and PopDirectory
  * classes
@@ -297,6 +299,9 @@ public class PopAndPushDirectoriesTest {
     assertNotEquals("should not be successful", "", s.returnBuffer());
     assertEquals("stuck at at last cd'd dir", "/a/b",
         s.getCurrentDir().getEntirePath());
+  }
+
+  private void assertNotEquals(String s, String s1, String s2) {
   }
 
   @Test
