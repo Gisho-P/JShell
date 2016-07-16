@@ -198,10 +198,10 @@ public abstract class FileTypes {
 	 */
 	public String getAbsolutePath() {
 		String path = name;
-		if (parent != null) {
-			path = parent.getAbsolutePath() + path;
-		} else {
-			path = "/" + path;
+		FileTypes current = parent;
+		while(current != null){
+			path = current.getName() + "/" + path;
+			current = current.getParent();
 		}
 		return path;
 	}

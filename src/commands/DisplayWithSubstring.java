@@ -73,8 +73,8 @@ public class DisplayWithSubstring implements Command {
 			s.addError("No such directory as " + args.get(3));
 		}
 		// Recursively go through all sub dirs
-		ArrayList<Directory> nextDirLevel = new ArrayList<Directory>();
 		while (!currentDirLevel.isEmpty()) {
+			ArrayList<Directory> nextDirLevel = new ArrayList<Directory>();
 			// Loop through all the dirs in the current level
 			for (Directory dir : currentDirLevel) {
 				for (File path : dir.getChildFiles()) {
@@ -104,7 +104,7 @@ public class DisplayWithSubstring implements Command {
 	public void exec(List<String> args) {
 		if (args.size() == 4 && args.get(1).toLowerCase().equals("-r")) {
 			execDir(args);
-		} else {
+		} else if (args.size() == 3) {
 			// Splitting the file with new lines
 			File path = null;
 			try {
@@ -119,13 +119,19 @@ public class DisplayWithSubstring implements Command {
 			}
 			// Removing the last blank space
 			s.setOutput(s.getOutput().trim());
+		} else {
+			s.addError("grep usage: grep [options] REGEX PATH ...");
 		}
 	}
 
 	/**
 	 * Returns a list lines in a file that match a regex.
 	 * 
-	 * @return List of lines that match a regex
+	 * @param file
+	 *            A file to the substrings of.
+	 * @param regex
+	 *            The regex to be compared to.
+	 * @return List of lines that match a regex.
 	 */
 	public ArrayList<String> getWithSubstring(File file, String regex) {
 		String originalLines[] = file.getContent().split("\n");
