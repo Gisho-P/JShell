@@ -61,12 +61,16 @@ public class RetrieveUrlFileTest {
    * Test creating a file given a url when a file with the name already exists
    */
   public void testCreatingFileThatExists() throws InvalidNameException,
-      NameExistsException, InvalidAdditionException {
+          NameExistsException, InvalidAdditionException, MissingNameException {
     session.getCurrentDir().add(new File("073.txt"));
     JShell.commandProcessor("curl http://www.cs.cmu.edu/~spok/grimmtmp/073.txt",
         session);
     assertEquals(session.getError(),
-        "073.txt name is already in use in the current directory.");
+        "");
+    assertTrue(((File) session.getCurrentDir().getChild("073.txt")).getContent()
+            .contains("how his brothers had\n"
+                    + "betrayed him, and how he had nevertheless kept " +
+                    "silence"));
   }
 
   @Test

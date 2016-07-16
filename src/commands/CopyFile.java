@@ -8,7 +8,8 @@ import exceptions.NameExistsException;
 import structures.Directory;
 
 /**
- * The Class DisplayFile handles the copying of a file to another dir.
+ * The Class DisplayFile handles the copying of a file to another dir and
+ * renaming the copied file.
  */
 public class CopyFile implements Command {
 
@@ -16,6 +17,10 @@ public class CopyFile implements Command {
   // root or current directory
   private MySession s;
 
+  /**
+   * Create a CopyFile object
+   * @param session
+     */
   public CopyFile(MySession session) {
     s = session;
   }
@@ -60,13 +65,17 @@ public class CopyFile implements Command {
    * @return The contents of the files given.
    */
   public void exec(List<String> args) {
+    //Use move command to move file
     MoveFile mv = new MoveFile(s);
     mv.exec(args);
     if (s.getError().equals("")) {
       try {
+        //get backup copy and add it to original location
         mv.getSourceParent().add(mv.getSourceCopy());
-        if (mv.isCurrentDirSame())
+        if (mv.isCurrentDirSame()) {
+          //used to reset current directory after performing mv
           s.setCurrentDir((Directory) mv.getSourceCopy());
+        }
       } catch (NameExistsException e) {
         s.addError("Unable to copy. File already exists in directory.");
       } catch (InvalidAdditionException e) {
