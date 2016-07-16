@@ -75,7 +75,7 @@ public class RetrieveUrlFile implements Command {
       }
       in.close();
       // Add the file to the current directory
-      session.getCurrentDir().add(file);
+      session.getCurrentDir().addReplace(file);
 
       // System.out.println(file.getContent());
     } catch (MalformedURLException e) {
@@ -86,8 +86,6 @@ public class RetrieveUrlFile implements Command {
       session.addError(invalidName.getMessage());
     } catch (InvalidAdditionException invalidAddition) {
       session.addError(invalidAddition.getMessage());
-    } catch (NameExistsException e) {
-      session.addError(e.getMessage());
     }
 
   }
