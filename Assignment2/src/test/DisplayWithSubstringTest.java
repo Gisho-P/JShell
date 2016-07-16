@@ -16,10 +16,11 @@ import static org.junit.Assert.assertEquals;
 
 public class DisplayWithSubstringTest {
 
-	public static MySession session = new MySession(new Output());
+	MySession session;
 
-	@After
+	@Before
 	public void tearDown() {
+		session = new MySession(new Output());
 		session.clearFileSystem();
 		session.clearBuffer();
 	}
