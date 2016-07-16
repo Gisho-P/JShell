@@ -308,7 +308,7 @@ public class MySession {
     } catch (InvalidNameException e) {
     }
   }
-    
+
   /**
    * Return the output and error buffers.
    */

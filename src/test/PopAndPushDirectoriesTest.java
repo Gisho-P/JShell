@@ -301,8 +301,7 @@ public class PopAndPushDirectoriesTest {
         s.getCurrentDir().getEntirePath());
   }
 
-  private void assertNotEquals(String s, String s1, String s2) {
-  }
+  private void assertNotEquals(String s, String s1, String s2) {}
 
   @Test
   /**

@@ -307,17 +307,16 @@ public class MoveFileTest {
   /**
    * Test moving subdirectory up few levels
    */
-  public void testMovingSubdirectoryUp()
-          throws MissingNameException {
+  public void testMovingSubdirectoryUp() throws MissingNameException {
     ArrayList<String> expected = new ArrayList<String>();
     JShell.commandProcessor("mkdir a a/b a/b/c", s);
-    //move subdirectory to root
+    // move subdirectory to root
     JShell.commandProcessor("mv a/b/c /", s);
     expected.add("a");
     expected.add("c");
     assertEquals(expected, s.getCurrentDir().getChildNames());
     JShell.commandProcessor("echo \"hello\" > a/b/z", s);
-    //move subfile to root
+    // move subfile to root
     JShell.commandProcessor("mv a/b/z /", s);
     expected.add("z");
     assertEquals(expected, s.getCurrentDir().getChildNames());
@@ -325,21 +324,21 @@ public class MoveFileTest {
     expected.clear();
     assertEquals(expected, s.getCurrentDir().getChildNames());
     JShell.commandProcessor("cd /a", s);
-    //move directory/file to the same location
+    // move directory/file to the same location
     JShell.commandProcessor("mv /a/b /a", s);
     expected.add("b");
     assertEquals(expected, s.getCurrentDir().getChildNames());
     assertEquals("", s.returnBuffer());
   }
+
   @Test
   /**
    * Test moving directory while in the directory
    */
-  public void moveDirectoryWhileInIt()
-          throws MissingNameException {
+  public void moveDirectoryWhileInIt() throws MissingNameException {
     ArrayList<String> expected = new ArrayList<String>();
     JShell.commandProcessor("mkdir a a/b a/b/c", s);
-    //move subdirectory to root while in the subdirectory
+    // move subdirectory to root while in the subdirectory
     JShell.commandProcessor("cd a/b/c", s);
     JShell.commandProcessor("mv /a/b/c /", s);
     expected.add("a");
