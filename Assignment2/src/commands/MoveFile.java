@@ -17,6 +17,10 @@ public class MoveFile implements Command {
 
   private FileTypes sourceCopy;
 
+  private Directory sourceParent;
+
+  private boolean currentDirIsSame = false;
+
   public FileTypes getSourceCopy() {
     return sourceCopy;
   }
@@ -25,7 +29,9 @@ public class MoveFile implements Command {
     return sourceParent;
   }
 
-  private Directory sourceParent;
+  public boolean isCurrentDirSame() {
+    return currentDirIsSame;
+  }
 
   public MoveFile(MySession session) {
     s = session;
@@ -102,6 +108,10 @@ public class MoveFile implements Command {
       // backup of the source parent
       sourceParent = parent;
 
+      //Determine if the current directory needs to be moved
+      if (src == s.getCurrentDir())
+        currentDirIsSame = true;
+
       if (dest instanceof File) {
         if (src instanceof File) {
           // If src and destination lead to file, then replace the file in
@@ -145,7 +155,7 @@ public class MoveFile implements Command {
             parent.remove(src.getName());
             dDest.addReplace(src);
           } else
-            s.addError("Unable to move. Type mismatch between "
+            s.addError("Error. Type mismatch between "
                 + "source file and file being replaced or the "
                 + "file being replaced is not empty.");
         }

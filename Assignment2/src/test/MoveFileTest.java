@@ -229,7 +229,7 @@ public class MoveFileTest {
     JShell.commandProcessor("mkdir a a/b a/b/c b b/z", s);
     // try replacing directory with children. Should result in an error
     JShell.commandProcessor("mv b a", s);
-    assertEquals("Unable to move. Type mismatch between "
+    assertEquals("Error. Type mismatch between "
         + "source file and file being replaced or the "
         + "file being replaced is not empty.", s.returnBuffer());
   }
@@ -244,7 +244,7 @@ public class MoveFileTest {
     JShell.commandProcessor("echo \"yea\" > b", s);
     // replace directory with a file
     JShell.commandProcessor("mv b a", s);
-    assertEquals("Unable to move. Type mismatch between "
+    assertEquals("Error. Type mismatch between "
         + "source file and file being replaced or the "
         + "file being replaced is not empty.", s.returnBuffer());
 
@@ -254,7 +254,7 @@ public class MoveFileTest {
     JShell.commandProcessor("echo \"hello\" > a/b/c", s);
     JShell.commandProcessor("mv c a/b", s);
 
-    assertEquals("Unable to move. Type mismatch between "
+    assertEquals("Error. Type mismatch between "
         + "source file and file being replaced or the "
         + "file being replaced is not empty.", s.returnBuffer());
 
