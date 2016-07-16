@@ -1,10 +1,10 @@
 What did I do last time?
-	- Added the revised CRC card for grep
-	- Added some more tests for grep
-	- Corrected some of my old sprint logs
+	- Added the revised CRC card for MV, CP
+	- Added MV and CP
 
 What do I plan to do now?
-   - MV and CP command
+   - MV and CP test and documentation
+   - Grep Tests
 
 Am I blocked on anything?
     - Nothing at the moment
