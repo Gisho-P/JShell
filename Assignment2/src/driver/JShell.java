@@ -73,7 +73,7 @@ public class JShell {
 
     // Splitting the cmd
     cmd = cmd.trim();
-    if (cmd.isEmpty() ? false : cmd.charAt(0) == '!') {
+    if (cmd.isEmpty() ? false : cmd.charAt(0) == '!') { // check for !#
       cmdArgs.add(cmd.substring(0, 1));
       cmd = cmd.substring(1);
     }
@@ -92,7 +92,7 @@ public class JShell {
       }
     } else { // split string and save as args
       cmd = cmd.replaceAll("[\\s]+", " ");
-      cmdArgs = Arrays.asList(cmd.split(" "));
+      cmdArgs.addAll(Arrays.asList(cmd.split(" ")));
     }
 
     processForRedirection(session, cmdArgs); // check for redirection

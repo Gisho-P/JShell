@@ -67,15 +67,32 @@ public class DisplayManual implements Command {
    */
   @Override
   public void exec(List<String> args) {
+    // check for !# and get #'th command
     if (args.get(1).charAt(0) == '!' && args.get(1).length() != 1) {
-      // args.set(1, JShell.commandProcessor(args.get(1), s));
+      try {
+        int a = Integer.parseInt(args.get(1).substring(1)); // convert # to int
+        List<Object> command = s.getHistoricalCommand(a); // get #'th command
+        
+        if ((boolean) command.get(1)) {
+       // get #'th command's command
+          String[] newCmd = ((String) command.get(0)).trim()
+              .replaceAll("[\\s]+", " ").split(" ");
+          // if there's a ! then man !, otherwise man cmd (potentially error)
+          args.set(1, newCmd[0].charAt(0) == '!' ? "!" : newCmd[0]);
+        } else { // couldn't get #'th command, store error and leave
+          s.addError((String) command.get(0));
+          return;
+        }
+      } catch (NumberFormatException e) { // supposed # wasn't a #
+        s.addError("ERROR: Invalid number entered for !");
+        return;
+      }
     }
     if (s.commandToClass.containsKey((String) args.get(1))) {
-      Command c = s.commandToClass.get((String) args.get(1));
-      c.man();
+      Command c = s.commandToClass.get((String) args.get(1)); // get cmd
+      c.man(); // call the cmd's man function
     } else {
       s.addError("ERROR: Command does not exist.");
     }
   }
-
 }

@@ -107,7 +107,7 @@ public class PopAndPushDirectoriesTest {
    * Test if popping from non-empty stack takes you to the prev location
    */
   public void testPopNonEmptyStackPopToLocationBefore() {
-    JShell.commandProcessor("mkdir a mkdir a/b mkdir a/b/c", s);
+    JShell.commandProcessor("mkdir a a/b a/b/c", s);
     JShell.commandProcessor("cd a", s);
     JShell.commandProcessor("pushd b", s);
     JShell.commandProcessor("popd", s);
@@ -121,7 +121,7 @@ public class PopAndPushDirectoriesTest {
    * Test popping dot
    */
   public void testPopNonEmptyStackPopToSameLocation() {
-    JShell.commandProcessor("mkdir a mkdir a/b mkdir a/b/c", s);
+    JShell.commandProcessor("mkdir a a/b a/b/c", s);
     JShell.commandProcessor("cd a/b", s);
     JShell.commandProcessor("pushd .", s);
     JShell.commandProcessor("popd", s);
@@ -136,7 +136,7 @@ public class PopAndPushDirectoriesTest {
    * Test popping to location after placement before pop
    */
   public void testPopNonEmptyStackPopToLocationAfter() {
-    JShell.commandProcessor("mkdir a mkdir a/b mkdir a/b/c", s);
+    JShell.commandProcessor("mkdir a a/b a/b/c", s);
     JShell.commandProcessor("cd a/b/c", s);
     JShell.commandProcessor("pushd ..", s);
     JShell.commandProcessor("popd", s);
