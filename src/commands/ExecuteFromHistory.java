@@ -4,15 +4,33 @@ import java.util.*;
 
 import driver.*;
 
+/**
+ * The ExecuteFromHistory class represents the ! command which allows a user
+ * to retrieve a call from their history based on the number they enter.
+ * */
 public class ExecuteFromHistory implements Command {
 
+  /**
+   * Shell's current attributes
+   * */
   private MySession s;
 
+  /**
+   * Initialize a new ExecuteFromHistory object to be able to execute the
+   * ! command.
+   * 
+   * @param session Shell's current attributes
+   * @return ExecuteFromHistory object
+   * */
   public ExecuteFromHistory(MySession session) {
     s = session;
   }
 
   // TODO: DO THE DAMN BUILD XML FILE GOD
+  /**
+   * Retrieve the manual page for the ! command and store it to the output
+   * buffer.
+   * */
   @Override
   public void man() {
     s.setOutput("!(1)\t\t\t\tUser Commands\t\t\t\t!(1)"
@@ -26,6 +44,10 @@ public class ExecuteFromHistory implements Command {
         + "executes the third command typed by a user.");
   }
 
+  /**
+   * Check that the correct number of arguments have been entered for this
+   * command; a superficial check.
+   * */
   @Override
   public void interpret(List<String> args) {
     if (args.size() != 2) {
@@ -36,22 +58,27 @@ public class ExecuteFromHistory implements Command {
   }
 
   @Override
+  /**
+   * Gets the command to execute from history, if possible, executes it and
+   * stores the output/error to the appropriate buffer. If not possible, error
+   * message is stored to error buffer.
+   * */
   public void exec(List<String> args) {
     List<Object> set = new ArrayList<Object>();
-    try {
+    
+    try { // try to parse # entered
       int i = Integer.parseInt(args.get(1));
-      set = s.getHistoricalCommand(i);
-    } catch (NumberFormatException e) {
+      set = s.getHistoricalCommand(i); // get #'th cmd from history
+    } catch (NumberFormatException e) { // number isn't a number; error
       s.addError("! ERROR: Enter a number");
     }
 
-    if (set.size() != 0) {
-      if ((boolean) set.get(1)) {
+    if (set.size() != 0) { // if a command has been gotten from history
+      if ((boolean) set.get(1)) { // store error or execute command
         JShell.commandProcessor((String) set.get(0), s);
       } else {
         s.addError((String) set.get(0));
       }
     }
   }
-
 }

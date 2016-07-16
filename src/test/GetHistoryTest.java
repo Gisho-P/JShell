@@ -1,7 +1,7 @@
 package test;
 
 import org.junit.After;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import driver.JShell;
@@ -20,7 +20,7 @@ public class GetHistoryTest {
   /**
    * Set up before any tests are run, create session instance
    */
-  @BeforeClass
+  @Before
   public void setUp() {
     session = new MySession(new Output());
   }
