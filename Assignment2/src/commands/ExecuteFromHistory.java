@@ -5,23 +5,23 @@ import java.util.*;
 import driver.*;
 
 /**
- * The ExecuteFromHistory class represents the ! command which allows a user
- * to retrieve a call from their history based on the number they enter.
- * */
+ * The ExecuteFromHistory class represents the ! command which allows a user to
+ * retrieve a call from their history based on the number they enter.
+ */
 public class ExecuteFromHistory implements Command {
 
   /**
    * Shell's current attributes
-   * */
+   */
   private MySession s;
 
   /**
-   * Initialize a new ExecuteFromHistory object to be able to execute the
-   * ! command.
+   * Initialize a new ExecuteFromHistory object to be able to execute the !
+   * command.
    * 
    * @param session Shell's current attributes
    * @return ExecuteFromHistory object
-   * */
+   */
   public ExecuteFromHistory(MySession session) {
     s = session;
   }
@@ -30,7 +30,7 @@ public class ExecuteFromHistory implements Command {
   /**
    * Retrieve the manual page for the ! command and store it to the output
    * buffer.
-   * */
+   */
   @Override
   public void man() {
     s.setOutput("!(1)\t\t\t\tUser Commands\t\t\t\t!(1)"
@@ -47,7 +47,7 @@ public class ExecuteFromHistory implements Command {
   /**
    * Check that the correct number of arguments have been entered for this
    * command; a superficial check.
-   * */
+   */
   @Override
   public void interpret(List<String> args) {
     if (args.size() != 2) {
@@ -62,10 +62,10 @@ public class ExecuteFromHistory implements Command {
    * Gets the command to execute from history, if possible, executes it and
    * stores the output/error to the appropriate buffer. If not possible, error
    * message is stored to error buffer.
-   * */
+   */
   public void exec(List<String> args) {
     List<Object> set = new ArrayList<Object>();
-    
+
     try { // try to parse # entered
       int i = Integer.parseInt(args.get(1));
       set = s.getHistoricalCommand(i); // get #'th cmd from history

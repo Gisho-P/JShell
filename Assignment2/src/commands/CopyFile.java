@@ -19,8 +19,9 @@ public class CopyFile implements Command {
 
   /**
    * Create a CopyFile object
+   * 
    * @param session
-     */
+   */
   public CopyFile(MySession session) {
     s = session;
   }
@@ -33,11 +34,11 @@ public class CopyFile implements Command {
   @Override
   public void man() {
     s.setOutput("cp(1)\t\t\t\tUser Commands\t\t\t\tcp(1)\n"
-            + "\nNAME\n\t\tcp - Copy file from source to destination. \n" + "\n"
-            + "SYNOPSIS\n" + "\t\t" + "\n\t\t"
-            + "cp FILE1 [FILE2]\n\nDESCRIPTION\n\t\t"
-            + "Copy the file from the source path to the \n"
-            + "destination paths if it is valid.");
+        + "\nNAME\n\t\tcp - Copy file from source to destination. \n" + "\n"
+        + "SYNOPSIS\n" + "\t\t" + "\n\t\t"
+        + "cp FILE1 [FILE2]\n\nDESCRIPTION\n\t\t"
+        + "Copy the file from the source path to the \n"
+        + "destination paths if it is valid.");
   }
 
   /**
@@ -65,15 +66,15 @@ public class CopyFile implements Command {
    * @return The contents of the files given.
    */
   public void exec(List<String> args) {
-    //Use move command to move file
+    // Use move command to move file
     MoveFile mv = new MoveFile(s);
     mv.exec(args);
     if (s.getError().equals("")) {
       try {
-        //get backup copy and add it to original location
+        // get backup copy and add it to original location
         mv.getSourceParent().add(mv.getSourceCopy());
         if (mv.isCurrentDirSame()) {
-          //used to reset current directory after performing mv
+          // used to reset current directory after performing mv
           s.setCurrentDir((Directory) mv.getSourceCopy());
         }
       } catch (NameExistsException e) {

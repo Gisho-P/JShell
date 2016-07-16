@@ -72,9 +72,9 @@ public class DisplayManual implements Command {
       try {
         int a = Integer.parseInt(args.get(1).substring(1)); // convert # to int
         List<Object> command = s.getHistoricalCommand(a); // get #'th command
-        
+
         if ((boolean) command.get(1)) {
-       // get #'th command's command
+          // get #'th command's command
           String[] newCmd = ((String) command.get(0)).trim()
               .replaceAll("[\\s]+", " ").split(" ");
           // if there's a ! then man !, otherwise man cmd (potentially error)
