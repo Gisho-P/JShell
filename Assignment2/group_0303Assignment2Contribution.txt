@@ -3,103 +3,554 @@
 
 
 PART 1) +++SVN CHECKOUT ON YOUR ASSIGNMENT1+++
+A    Assignment2/build2b.xml
 A    Assignment2/sprints
+A    Assignment2/sprints/Sprint4Backlog.txt
+A    Assignment2/sprints/Sprint5Backlog.txt
 A    Assignment2/sprints/readMeSprints.txt
 A    Assignment2/sprints/Sprint1Backlog.txt
 A    Assignment2/sprints/Sprint2Backlog.txt
 A    Assignment2/sprints/Sprint3Backlog.txt
 A    Assignment2/productBacklog
+A    Assignment2/productBacklog/productBacklogFor2.txt
 A    Assignment2/productBacklog/productBacklogFor2A.txt
 A    Assignment2/productBacklog/readMeProductBacklog.txt
+A    Assignment2/Assignment2AMark.txt
 A    Assignment2/crcCards
-A    Assignment2/crcCards/File.txt
-A    Assignment2/crcCards/FilePathInterpreter.txt
-A    Assignment2/crcCards/DisplayPath.txt
-A    Assignment2/crcCards/PopDirectory.txt
-A    Assignment2/crcCards/DisplayHistory.txt
-A    Assignment2/crcCards/MySession.txt
-A    Assignment2/crcCards/ExitProgram.txt
-A    Assignment2/crcCards/MakeDirectory.txt
-A    Assignment2/crcCards/DisplayManual.txt
-A    Assignment2/crcCards/FileTypes.txt
-A    Assignment2/crcCards/Directory.txt
-A    Assignment2/crcCards/PushDirectory.txt
-A    Assignment2/crcCards/dirStack.txt
-A    Assignment2/crcCards/DisplayFile.txt
-A    Assignment2/crcCards/shell.txt
+A    Assignment2/crcCards/driver
+A    Assignment2/crcCards/driver/FilePathInterpreter.txt
+A    Assignment2/crcCards/driver/JShell.txt
+A    Assignment2/crcCards/driver/MySession.txt
+A    Assignment2/crcCards/commands
+A    Assignment2/crcCards/commands/PushDirectory.txt
+A    Assignment2/crcCards/commands/DisplayFile.txt
+A    Assignment2/crcCards/commands/MoveFile.txt
+A    Assignment2/crcCards/commands/RetrieveUrlFile.txt
+A    Assignment2/crcCards/commands/ChangeDirectory.txt
+A    Assignment2/crcCards/commands/CopyFile.txt
+A    Assignment2/crcCards/commands/Command.txt
+A    Assignment2/crcCards/commands/ListDirectoryContents.txt
+A    Assignment2/crcCards/commands/DisplayPath.txt
+A    Assignment2/crcCards/commands/PopDirectory.txt
+A    Assignment2/crcCards/commands/DisplayHistory.txt
+A    Assignment2/crcCards/commands/DisplayString.txt
+A    Assignment2/crcCards/commands/ExitProgram.txt
+A    Assignment2/crcCards/commands/DisplayWithSubstring.txt
+A    Assignment2/crcCards/commands/MakeDirectory.txt
+A    Assignment2/crcCards/commands/DisplayManual.txt
+A    Assignment2/crcCards/exceptions
+A    Assignment2/crcCards/exceptions/InvalidAdditionException.txt
+A    Assignment2/crcCards/exceptions/InvalidNameException.txt
+A    Assignment2/crcCards/exceptions/InvalidDirectoryPathException.txt
+A    Assignment2/crcCards/exceptions/MissingNameException.txt
+A    Assignment2/crcCards/exceptions/InvalidSetParentException.txt
+A    Assignment2/crcCards/exceptions/NameExistsException.txt
+A    Assignment2/crcCards/structures
+A    Assignment2/crcCards/structures/File.txt
+A    Assignment2/crcCards/structures/Output.txt
+A    Assignment2/crcCards/structures/DirStack.txt
+A    Assignment2/crcCards/structures/Directory.txt
+A    Assignment2/crcCards/structures/FileTypes.txt
 A    Assignment2/crcCards/readMeForCrcCards.txt
-A    Assignment2/crcCards/DisplayStoreString.txt
-A    Assignment2/crcCards/ChangeDirectory.txt
-A    Assignment2/crcCards/Command.txt
-A    Assignment2/crcCards/ListDirectoryContents.txt
 A    Assignment2/readMeAssignment2A.txt
 A    Assignment2/src
 A    Assignment2/src/driver
-A    Assignment2/src/driver/DisplayPath.java
-A    Assignment2/src/driver/PopDirectory.java
-A    Assignment2/src/driver/DisplayHistory.java
 A    Assignment2/src/driver/MySession.java
-A    Assignment2/src/driver/ExitProgram.java
-A    Assignment2/src/driver/MakeDirectory.java
-A    Assignment2/src/driver/DisplayManual.java
-A    Assignment2/src/driver/PushDirectory.java
-A    Assignment2/src/driver/DirStack.java
-A    Assignment2/src/driver/Directory.java
-A    Assignment2/src/driver/FileTypes.java
-A    Assignment2/src/driver/DisplayFile.java
-A    Assignment2/src/driver/DisplayStoreString.java
-A    Assignment2/src/driver/ChangeDirectory.java
-A    Assignment2/src/driver/Command.java
-A    Assignment2/src/driver/ListDirectoryContents.java
-A    Assignment2/src/driver/File.java
 A    Assignment2/src/driver/FilePathInterpreter.java
 A    Assignment2/src/driver/JShell.java
 A    Assignment2/src/test
-A    Assignment2/src/test/GetHistoryTest.java
 A    Assignment2/src/test/DisplayPathTest.java
+A    Assignment2/src/test/ExecuteHistoryTest.java
+A    Assignment2/src/test/OutputRedirectionTest.java
+A    Assignment2/src/test/DisplayStringTest.java
+A    Assignment2/src/test/GetHistoryTest.java
+A    Assignment2/src/test/DisplayWithSubstringTest.java
 A    Assignment2/src/test/MakeDirectoryTest.java
 A    Assignment2/src/test/FileTraversalTest.java
 A    Assignment2/src/test/DirectoryFileTest.java
-A    Assignment2/src/test/DisplayStoreStringTest.java
+A    Assignment2/src/test/DisplayFileTest.java
+A    Assignment2/src/test/MoveFileTest.java
+A    Assignment2/src/test/RetrieveUrlFileTest.java
 A    Assignment2/src/test/ChangeDirectoryTest.java
+A    Assignment2/src/test/CopyFileTest.java
 A    Assignment2/src/test/ListDirectoryContentsTest.java
 A    Assignment2/src/test/PopAndPushDirectoriesTest.java
+A    Assignment2/src/commands
+A    Assignment2/src/commands/Command.java
+A    Assignment2/src/commands/ListDirectoryContents.java
+A    Assignment2/src/commands/DisplayPath.java
+A    Assignment2/src/commands/PopDirectory.java
+A    Assignment2/src/commands/DisplayHistory.java
+A    Assignment2/src/commands/DisplayString.java
+A    Assignment2/src/commands/ExitProgram.java
+A    Assignment2/src/commands/DisplayWithSubstring.java
+A    Assignment2/src/commands/MakeDirectory.java
+A    Assignment2/src/commands/DisplayManual.java
+A    Assignment2/src/commands/PushDirectory.java
+A    Assignment2/src/commands/DisplayFile.java
+A    Assignment2/src/commands/MoveFile.java
+A    Assignment2/src/commands/RetrieveUrlFile.java
+A    Assignment2/src/commands/ExecuteFromHistory.java
+A    Assignment2/src/commands/ChangeDirectory.java
+A    Assignment2/src/commands/CopyFile.java
+A    Assignment2/src/exceptions
+A    Assignment2/src/exceptions/NameExistsException.java
+A    Assignment2/src/exceptions/InvalidAdditionException.java
+A    Assignment2/src/exceptions/InvalidNameException.java
+A    Assignment2/src/exceptions/InvalidDirectoryPathException.java
+A    Assignment2/src/exceptions/MissingNameException.java
+A    Assignment2/src/exceptions/InvalidSetParentException.java
+A    Assignment2/src/structures
+A    Assignment2/src/structures/DirStack.java
+A    Assignment2/src/structures/Directory.java
+A    Assignment2/src/structures/FileTypes.java
+A    Assignment2/src/structures/File.java
+A    Assignment2/src/structures/Output.java
 A    Assignment2/dailyScrumMeetings
-A    Assignment2/dailyScrumMeetings/readMeDailyScrumMeetings.txt
-A    Assignment2/dailyScrumMeetings/songjin8Sprint1June8.txt
-A    Assignment2/dailyScrumMeetings/pateld59Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/songjun8Sprint5July4.txt
 A    Assignment2/dailyScrumMeetings/pushpa10Sprint1June8.txt
-A    Assignment2/dailyScrumMeetings/bhuiya16Sprint1June11.txt
-A    Assignment2/dailyScrumMeetings/pateld59Sprint3June20.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint5July11.txt
 A    Assignment2/dailyScrumMeetings/bhuiya16Sprint3June20.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint5July14.txt
 A    Assignment2/dailyScrumMeetings/pateld59Sprint2June14.txt
-A    Assignment2/dailyScrumMeetings/bhuiya16Sprint2June14.txt
-A    Assignment2/dailyScrumMeetings/pateld59Sprint3June23.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint4July2.txt
 A    Assignment2/dailyScrumMeetings/bhuiya16Sprint3June23.txt
 A    Assignment2/dailyScrumMeetings/pateld59Sprint2June17.txt
-A    Assignment2/dailyScrumMeetings/pateld59Sprint3June26.txt
-A    Assignment2/dailyScrumMeetings/bhuiya16Sprint2June17.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint4July5.txt
 A    Assignment2/dailyScrumMeetings/songjin8Sprint1June11.txt
-A    Assignment2/dailyScrumMeetings/songjin8Sprint1June20.txt
 A    Assignment2/dailyScrumMeetings/bhuiya16Sprint3June26.txt
-A    Assignment2/dailyScrumMeetings/pushpa10Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint4July5.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint4July8.txt
 A    Assignment2/dailyScrumMeetings/songjin8Sprint1June14.txt
-A    Assignment2/dailyScrumMeetings/songjin8Sprint1June23.txt
 A    Assignment2/dailyScrumMeetings/pushpa10Sprint3June20.txt
-A    Assignment2/dailyScrumMeetings/pushpa10Sprint2June14.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint4July8.txt
 A    Assignment2/dailyScrumMeetings/songjin8Sprint1June17.txt
-A    Assignment2/dailyScrumMeetings/songjin8Sprint1June26.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint4July3.txt
 A    Assignment2/dailyScrumMeetings/pushpa10Sprint3June23.txt
-A    Assignment2/dailyScrumMeetings/pushpa10Sprint2June17.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint4July5.txt
 A    Assignment2/dailyScrumMeetings/pushpa10Sprint3June26.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint4July11.txt
 A    Assignment2/dailyScrumMeetings/pateld59Sprint1June8.txt
 A    Assignment2/dailyScrumMeetings/bhuiya16Sprint1June8.txt
-Checked out revision 183.
+A    Assignment2/dailyScrumMeetings/pateld59Sprint4July14.txt
+A    Assignment2/dailyScrumMeetings/readMeDailyScrumMeetings.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June8.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint3June20.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint2June14.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint3June23.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June20.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint2June17.txt
+A    Assignment2/dailyScrumMeetings/pateld59Sprint3June26.txt
+A    Assignment2/dailyScrumMeetings/songjun8Sprint5July11.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint1June11.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June23.txt
+A    Assignment2/dailyScrumMeetings/songjun8Sprint5July14.txt
+A    Assignment2/dailyScrumMeetings/songjin8Sprint1June26.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint2June14.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint4July2.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint2June17.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint4July5.txt
+A    Assignment2/dailyScrumMeetings/pushpa10Sprint4July8.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint5July11.txt
+A    Assignment2/dailyScrumMeetings/bhuiya16Sprint5July14.txt
+A    Assignment2/group_0303Assignment2Contribution.txt
+Checked out revision 278.
 
 
 
 PART 2) +++SVN COMMIT LOGS ARE+++
 Marks Deductions here (-.5 max): 
+------------------------------------------------------------------------
+r278 | bhuiya16@UTORONTO.CA | 2016-07-15 23:58:32 -0400 (Fri, 15 Jul 2016) | 2 lines
+
+started build file, kinda incomplete
+
+------------------------------------------------------------------------
+r277 | songjin8@UTORONTO.CA | 2016-07-15 23:52:57 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Revised a scrum past scrum log.
+------------------------------------------------------------------------
+r276 | songjin8@UTORONTO.CA | 2016-07-15 23:52:28 -0400 (Fri, 15 Jul 2016) | 2 lines
+
+Changed back crc card to input output as a collaborator.
+
+------------------------------------------------------------------------
+r275 | songjin8@UTORONTO.CA | 2016-07-15 23:51:53 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Fixed errors with tests relating to history.
+------------------------------------------------------------------------
+r274 | songjin8@UTORONTO.CA | 2016-07-15 23:33:39 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Changed the teardown method for each test.
+------------------------------------------------------------------------
+r273 | songjin8@UTORONTO.CA | 2016-07-15 22:47:36 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Added scrum log for july 14th.
+------------------------------------------------------------------------
+r272 | songjin8@UTORONTO.CA | 2016-07-15 22:45:43 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Updated grep tests.
+------------------------------------------------------------------------
+r271 | pateld59@UTORONTO.CA | 2016-07-15 22:39:42 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Fixed curl and mv bugs.
+------------------------------------------------------------------------
+r270 | bhuiya16@UTORONTO.CA | 2016-07-15 22:39:39 -0400 (Fri, 15 Jul 2016) | 1 line
+
+finish !, adjust manual for !#, fixed pushd/popd, halfway done test for ExecuteHistoryTest
+------------------------------------------------------------------------
+r269 | pateld59@UTORONTO.CA | 2016-07-15 21:28:18 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Fixed bugs in mv and cp and added several more tests
+------------------------------------------------------------------------
+r268 | pateld59@UTORONTO.CA | 2016-07-15 18:47:43 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Removed MoveCopyFileTest.java because there are already seperate tests for mv and cp
+------------------------------------------------------------------------
+r267 | pateld59@UTORONTO.CA | 2016-07-15 18:46:05 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Resolved testimport errors
+------------------------------------------------------------------------
+r266 | pateld59@UTORONTO.CA | 2016-07-15 18:42:58 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Added CopyFileTest
+------------------------------------------------------------------------
+r265 | songjin8@UTORONTO.CA | 2016-07-15 18:33:29 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Updated and shortened grep length.
+------------------------------------------------------------------------
+r264 | bhuiya16@UTORONTO.CA | 2016-07-15 18:23:22 -0400 (Fri, 15 Jul 2016) | 1 line
+
+tweaking tests
+------------------------------------------------------------------------
+r263 | bhuiya16@UTORONTO.CA | 2016-07-15 16:22:21 -0400 (Fri, 15 Jul 2016) | 1 line
+
+structures cleanup, crcs
+------------------------------------------------------------------------
+r262 | bhuiya16@UTORONTO.CA | 2016-07-15 15:21:57 -0400 (Fri, 15 Jul 2016) | 1 line
+
+movement of commands to commands folder (crcs)
+------------------------------------------------------------------------
+r261 | bhuiya16@UTORONTO.CA | 2016-07-15 15:20:45 -0400 (Fri, 15 Jul 2016) | 2 lines
+
+structures folder for crc cards
+
+------------------------------------------------------------------------
+r260 | bhuiya16@UTORONTO.CA | 2016-07-15 15:14:40 -0400 (Fri, 15 Jul 2016) | 1 line
+
+tweaks to exception classes, created their crc cards
+------------------------------------------------------------------------
+r259 | bhuiya16@UTORONTO.CA | 2016-07-15 14:50:18 -0400 (Fri, 15 Jul 2016) | 1 line
+
+exceptions crc cards
+------------------------------------------------------------------------
+r258 | bhuiya16@UTORONTO.CA | 2016-07-15 14:46:03 -0400 (Fri, 15 Jul 2016) | 1 line
+
+new crccards folders to resemble code structure. first one done is driver, appropriate cards moved there
+------------------------------------------------------------------------
+r257 | bhuiya16@UTORONTO.CA | 2016-07-15 14:42:47 -0400 (Fri, 15 Jul 2016) | 1 line
+
+renamed/finalized crc cards for classes in driver, new scrum
+------------------------------------------------------------------------
+r256 | bhuiya16@UTORONTO.CA | 2016-07-15 14:25:20 -0400 (Fri, 15 Jul 2016) | 1 line
+
+ok it seems everything works fine
+------------------------------------------------------------------------
+r255 | bhuiya16@UTORONTO.CA | 2016-07-15 14:21:20 -0400 (Fri, 15 Jul 2016) | 1 line
+
+still modifying FilePathInterpreter, could be buggy so doing this commit so it is easier to revert
+------------------------------------------------------------------------
+r254 | bhuiya16@UTORONTO.CA | 2016-07-15 14:20:47 -0400 (Fri, 15 Jul 2016) | 1 line
+
+finished formatting jshell, mysession
+------------------------------------------------------------------------
+r253 | bhuiya16@UTORONTO.CA | 2016-07-15 03:06:01 -0400 (Fri, 15 Jul 2016) | 1 line
+
+little updates
+------------------------------------------------------------------------
+r252 | bhuiya16@UTORONTO.CA | 2016-07-15 02:38:51 -0400 (Fri, 15 Jul 2016) | 1 line
+
+fixed import statements, formatted all files
+------------------------------------------------------------------------
+r251 | pushpa10@UTORONTO.CA | 2016-07-15 02:29:52 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Updated DisplayFile's crc card to remove old collaborators
+------------------------------------------------------------------------
+r250 | pushpa10@UTORONTO.CA | 2016-07-15 02:28:29 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Added tests for outputredirection, displaying a file, and the recursive option of listdirectorycontents. Added more detailed docs to the Output, ListDirectoryContents, and DisplayString class. Added last scrum log.
+------------------------------------------------------------------------
+r249 | pateld59@UTORONTO.CA | 2016-07-15 00:55:34 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Change cp to collaborate with mv. Update mv test documentation
+------------------------------------------------------------------------
+r248 | pateld59@UTORONTO.CA | 2016-07-15 00:01:56 -0400 (Fri, 15 Jul 2016) | 1 line
+
+Added last scrum meeting log
+------------------------------------------------------------------------
+r247 | pateld59@UTORONTO.CA | 2016-07-14 23:20:48 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Added MoveFileTest and updated mv command to deal with all of the edge cases
+------------------------------------------------------------------------
+r246 | pushpa10@UTORONTO.CA | 2016-07-14 20:44:49 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Added tests for redirection, and fixed redirection to work for absolute paths
+------------------------------------------------------------------------
+r245 | pushpa10@UTORONTO.CA | 2016-07-14 16:04:57 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Updates to echo to only display string, added usage tests for echo
+------------------------------------------------------------------------
+r244 | pateld59@UTORONTO.CA | 2016-07-14 13:29:55 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Refactored code. Moved all exception subclasses to their own classes in exception package
+------------------------------------------------------------------------
+r243 | pateld59@UTORONTO.CA | 2016-07-14 13:08:54 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Updated the messages of exceptions to make them more general. The exception constructor will now take more specific parameters such as the name. Also renamed some exception classes for follow the guideline
+------------------------------------------------------------------------
+r242 | pateld59@UTORONTO.CA | 2016-07-14 11:18:29 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Applied singleton design to the filesystem. Updated tests to set the root to null in the teardown part
+------------------------------------------------------------------------
+r241 | pateld59@UTORONTO.CA | 2016-07-14 10:18:06 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Fixed bugs inthe makedirectory test
+------------------------------------------------------------------------
+r240 | pushpa10@UTORONTO.CA | 2016-07-14 04:32:09 -0400 (Thu, 14 Jul 2016) | 1 line
+
+Fixes to listDirectoryContents after errors from output update, fixed jshell to not shrink args if the command doesn't ask for redirection
+------------------------------------------------------------------------
+r239 | pateld59@UTORONTO.CA | 2016-07-13 10:49:54 -0400 (Wed, 13 Jul 2016) | 1 line
+
+Fixed a bug in setParent method in FileTypes
+------------------------------------------------------------------------
+r238 | bhuiya16@UTORONTO.CA | 2016-07-12 20:05:58 -0400 (Tue, 12 Jul 2016) | 1 line
+
+changes to tests to conform to new system of output, fixed some commands to also conform
+------------------------------------------------------------------------
+r237 | pateld59@UTORONTO.CA | 2016-07-12 12:43:19 -0400 (Tue, 12 Jul 2016) | 1 line
+
+Added scrum meeting
+------------------------------------------------------------------------
+r236 | pateld59@UTORONTO.CA | 2016-07-12 09:59:28 -0400 (Tue, 12 Jul 2016) | 1 line
+
+Fixed a bug in the setName method and updated documentation
+------------------------------------------------------------------------
+r235 | bhuiya16@UTORONTO.CA | 2016-07-12 08:00:09 -0400 (Tue, 12 Jul 2016) | 1 line
+
+logs
+------------------------------------------------------------------------
+r234 | songjin8@UTORONTO.CA | 2016-07-11 23:57:41 -0400 (Mon, 11 Jul 2016) | 1 line
+
+Updated grep to new output.
+------------------------------------------------------------------------
+r233 | songjin8@UTORONTO.CA | 2016-07-11 23:57:29 -0400 (Mon, 11 Jul 2016) | 1 line
+
+Added sprint log for july 11th.
+------------------------------------------------------------------------
+r232 | pateld59@UTORONTO.CA | 2016-07-11 22:52:52 -0400 (Mon, 11 Jul 2016) | 1 line
+
+Removed set and get parent methods from the Directory class and added it to the FileTypes class. Also added InvalidSetParentException. This commit may introduce bugs in Directory class
+------------------------------------------------------------------------
+r231 | pateld59@UTORONTO.CA | 2016-07-10 21:31:07 -0400 (Sun, 10 Jul 2016) | 1 line
+
+Fixed some bugs in the mv command
+------------------------------------------------------------------------
+r230 | pateld59@UTORONTO.CA | 2016-07-10 19:17:12 -0400 (Sun, 10 Jul 2016) | 1 line
+
+updated curl command to work with the new output design
+------------------------------------------------------------------------
+r229 | bhuiya16@UTORONTO.CA | 2016-07-10 10:23:05 -0400 (Sun, 10 Jul 2016) | 3 lines
+
+- formatted use of output and as a result changed methods of man, interpret, exec.
+- changed jshell to have more methods for redirection
+incomplete though
+------------------------------------------------------------------------
+r228 | pateld59@UTORONTO.CA | 2016-07-09 23:10:16 -0400 (Sat, 09 Jul 2016) | 1 line
+
+Added a test for the curl command
+------------------------------------------------------------------------
+r227 | pateld59@UTORONTO.CA | 2016-07-09 23:09:33 -0400 (Sat, 09 Jul 2016) | 1 line
+
+Fixed bugs inmv, cp and curl commands
+------------------------------------------------------------------------
+r226 | pateld59@UTORONTO.CA | 2016-07-09 20:42:36 -0400 (Sat, 09 Jul 2016) | 1 line
+
+Fixed bugs in the curl command
+------------------------------------------------------------------------
+r225 | pateld59@UTORONTO.CA | 2016-07-09 20:41:51 -0400 (Sat, 09 Jul 2016) | 1 line
+
+July 8 Sprint logs had wrong name. Changed the names from sprint 4 to sprint 5
+------------------------------------------------------------------------
+r224 | pateld59@UTORONTO.CA | 2016-07-09 20:36:51 -0400 (Sat, 09 Jul 2016) | 1 line
+
+Added scrum meeting for sprint 5
+------------------------------------------------------------------------
+r223 | bhuiya16@UTORONTO.CA | 2016-07-09 06:00:38 -0400 (Sat, 09 Jul 2016) | 1 line
+
+update sprint 4, 5 new scrum log
+------------------------------------------------------------------------
+r222 | songjin8@UTORONTO.CA | 2016-07-08 23:55:42 -0400 (Fri, 08 Jul 2016) | 1 line
+
+Updated sprint 4 backlog.
+------------------------------------------------------------------------
+r221 | nairaks1@UTORONTO.CA | 2016-07-08 23:44:09 -0400 (Fri, 08 Jul 2016) | 1 line
+
+Assignment2A marked
+------------------------------------------------------------------------
+r220 | bhuiya16@UTORONTO.CA | 2016-07-08 23:34:34 -0400 (Fri, 08 Jul 2016) | 1 line
+
+updated with added task
+------------------------------------------------------------------------
+r219 | songjin8@UTORONTO.CA | 2016-07-08 23:24:45 -0400 (Fri, 08 Jul 2016) | 1 line
+
+Added scrum log for July 08th.
+------------------------------------------------------------------------
+r218 | songjin8@UTORONTO.CA | 2016-07-08 23:24:21 -0400 (Fri, 08 Jul 2016) | 1 line
+
+Added CRC cards for copy and move file.
+------------------------------------------------------------------------
+r217 | songjin8@UTORONTO.CA | 2016-07-08 23:21:07 -0400 (Fri, 08 Jul 2016) | 1 line
+
+Added commands to my session and added started tests for move and copy file.
+------------------------------------------------------------------------
+r216 | songjin8@UTORONTO.CA | 2016-07-08 23:19:54 -0400 (Fri, 08 Jul 2016) | 2 lines
+
+Added move and copy file commands.
+
+------------------------------------------------------------------------
+r215 | pushpa10@UTORONTO.CA | 2016-07-08 07:09:25 -0400 (Fri, 08 Jul 2016) | 1 line
+
+Added scrum log and updated list directory contents crc card
+------------------------------------------------------------------------
+r214 | pushpa10@UTORONTO.CA | 2016-07-08 07:04:57 -0400 (Fri, 08 Jul 2016) | 1 line
+
+updated the empty ls return to not include colon
+------------------------------------------------------------------------
+r213 | pushpa10@UTORONTO.CA | 2016-07-08 06:56:43 -0400 (Fri, 08 Jul 2016) | 1 line
+
+Implemented the listDirectoryContents with the recursive option
+------------------------------------------------------------------------
+r212 | songjin8@UTORONTO.CA | 2016-07-05 23:50:14 -0400 (Tue, 05 Jul 2016) | 1 line
+
+Added new tests and CRC card for DisplayWithSubstring.
+------------------------------------------------------------------------
+r211 | songjin8@UTORONTO.CA | 2016-07-05 23:49:28 -0400 (Tue, 05 Jul 2016) | 1 line
+
+Added grep to list of commands.
+------------------------------------------------------------------------
+r210 | songjin8@UTORONTO.CA | 2016-07-05 23:48:03 -0400 (Tue, 05 Jul 2016) | 1 line
+
+Added scrum log for July 5th.
+------------------------------------------------------------------------
+r209 | bhuiya16@UTORONTO.CA | 2016-07-05 23:48:00 -0400 (Tue, 05 Jul 2016) | 1 line
+
+NEW SPRINT LOG ALERT! MAJOR LOGS! MORE SUCCESS!
+------------------------------------------------------------------------
+r208 | pateld59@UTORONTO.CA | 2016-07-05 23:03:59 -0400 (Tue, 05 Jul 2016) | 1 line
+
+Added July 5th scrum log
+------------------------------------------------------------------------
+r207 | pushpa10@UTORONTO.CA | 2016-07-05 19:12:02 -0400 (Tue, 05 Jul 2016) | 1 line
+
+Added scrum log
+------------------------------------------------------------------------
+r206 | bhuiya16@UTORONTO.CA | 2016-07-05 19:08:56 -0400 (Tue, 05 Jul 2016) | 3 lines
+
+- fixed some calls to classes based on new dir structures
+- new class for !
+
+------------------------------------------------------------------------
+r205 | bhuiya16@UTORONTO.CA | 2016-07-05 18:16:29 -0400 (Tue, 05 Jul 2016) | 1 line
+
+updates imports on tests
+------------------------------------------------------------------------
+r204 | bhuiya16@UTORONTO.CA | 2016-07-05 16:50:32 -0400 (Tue, 05 Jul 2016) | 1 line
+
+organized classes into different directories
+------------------------------------------------------------------------
+r203 | songjin8@UTORONTO.CA | 2016-07-03 22:58:28 -0400 (Sun, 03 Jul 2016) | 1 line
+
+Added the GREP command and tests for grep.
+------------------------------------------------------------------------
+r202 | pushpa10@UTORONTO.CA | 2016-07-03 18:14:05 -0400 (Sun, 03 Jul 2016) | 1 line
+
+Updated exec in man to work with output, and updated redirect to work with stdErrors and stdOutput
+------------------------------------------------------------------------
+r201 | pushpa10@UTORONTO.CA | 2016-07-03 05:57:16 -0400 (Sun, 03 Jul 2016) | 1 line
+
+Updated DisplayFile constructor that was affecting it's output
+------------------------------------------------------------------------
+r200 | pushpa10@UTORONTO.CA | 2016-07-03 04:44:58 -0400 (Sun, 03 Jul 2016) | 2 lines
+
+Added scrum meeting log
+
+------------------------------------------------------------------------
+r199 | pushpa10@UTORONTO.CA | 2016-07-03 04:34:30 -0400 (Sun, 03 Jul 2016) | 1 line
+
+Added/Modified crc cards for the addition of the output class
+------------------------------------------------------------------------
+r198 | pushpa10@UTORONTO.CA | 2016-07-03 04:01:12 -0400 (Sun, 03 Jul 2016) | 1 line
+
+Added Output class, and implemented the redirection for all commands
+------------------------------------------------------------------------
+r197 | pateld59@UTORONTO.CA | 2016-07-02 13:18:34 -0400 (Sat, 02 Jul 2016) | 1 line
+
+Added crc card for curl command and updated sprint to add additional task. Also added July 2 scurm meeting
+------------------------------------------------------------------------
+r196 | pateld59@UTORONTO.CA | 2016-07-02 13:05:24 -0400 (Sat, 02 Jul 2016) | 1 line
+
+Updated RetrieveUrlFile class. Also added deepCopy and copy methods to the Directory and Fileclasses to use for mv and cp.
+------------------------------------------------------------------------
+r195 | pushpa10@UTORONTO.CA | 2016-07-02 00:52:44 -0400 (Sat, 02 Jul 2016) | 1 line
+
+Updated Sprint backlog to include output redirecting task
+------------------------------------------------------------------------
+r194 | pateld59@UTORONTO.CA | 2016-07-01 23:49:56 -0400 (Fri, 01 Jul 2016) | 1 line
+
+Updated MySession to store RetrieveUrlFile information in the hash table. Also updatedRetrieveUrlFile to work with urls that contain files at the end of the path
+------------------------------------------------------------------------
+r193 | songjin8@UTORONTO.CA | 2016-07-01 23:00:42 -0400 (Fri, 01 Jul 2016) | 1 line
+
+Updated backlog for sprint 4.
+------------------------------------------------------------------------
+r192 | pateld59@UTORONTO.CA | 2016-07-01 22:15:40 -0400 (Fri, 01 Jul 2016) | 1 line
+
+Added the retrieve file from url class
+------------------------------------------------------------------------
+r191 | pushpa10@UTORONTO.CA | 2016-07-01 21:33:58 -0400 (Fri, 01 Jul 2016) | 1 line
+
+Update sprint backlog to include ls tasks
+------------------------------------------------------------------------
+r190 | bhuiya16@UTORONTO.CA | 2016-07-01 20:07:32 -0400 (Fri, 01 Jul 2016) | 1 line
+
+fixed formatting of product backlog
+------------------------------------------------------------------------
+r189 | bhuiya16@UTORONTO.CA | 2016-07-01 20:06:18 -0400 (Fri, 01 Jul 2016) | 1 line
+
+updated sprint backlog
+------------------------------------------------------------------------
+r188 | bhuiya16@UTORONTO.CA | 2016-07-01 20:04:25 -0400 (Fri, 01 Jul 2016) | 1 line
+
+edited formating to sprint logs, added little bits to product backlog
+------------------------------------------------------------------------
+r187 | bhuiya16@UTORONTO.CA | 2016-07-01 19:48:45 -0400 (Fri, 01 Jul 2016) | 1 line
+
+added missing story to product backlog
+------------------------------------------------------------------------
+r186 | bhuiya16@UTORONTO.CA | 2016-07-01 19:40:19 -0400 (Fri, 01 Jul 2016) | 1 line
+
+new product backlog
+------------------------------------------------------------------------
+r185 | bhuiya16@UTORONTO.CA | 2016-07-01 19:39:52 -0400 (Fri, 01 Jul 2016) | 1 line
+
+Addition of backlog files
+------------------------------------------------------------------------
+r184 | pateld59@UTORONTO.CA | 2016-06-28 00:00:00 -0400 (Tue, 28 Jun 2016) | 1 line
+
+made minor changes crc
 ------------------------------------------------------------------------
 r183 | bhuiya16@UTORONTO.CA | 2016-06-27 23:59:12 -0400 (Mon, 27 Jun 2016) | 1 line
 
@@ -857,67 +1308,63 @@ r1 | markus | 2016-06-05 18:21:18 -0400 (Sun, 05 Jun 2016) | 1 line
 Part 3) +++Work Distribution of Team Members+++
 +++ON ALL SOURCE FILES+++
   24 attarwal@U
-1546 bhuiya16@U
-1587 pateld59@U
- 488 pushpa10@U
- 456 songjin8@U
+2940 bhuiya16@U
+2540 pateld59@U
+ 877 pushpa10@U
+ 849 songjin8@U
 +++ON CRC CARDS+++
    9 attarwal@U
-  23 bhuiya16@U
-  23 pateld59@U
-  86 pushpa10@U
- 129 songjin8@U
 +++ON DAILYSCRUMMEETINGS+++
   33 attarwal@U
-  88 bhuiya16@U
-  71 pateld59@U
-  70 pushpa10@U
-  78 songjin8@U
+ 138 bhuiya16@U
+ 122 pateld59@U
+ 118 pushpa10@U
+ 126 songjin8@U
 +++ON PRODUCT BACKLOG +++
   11 attarwal@U
-  85 bhuiya16@U
+ 200 bhuiya16@U
 +++ON SPRINTS+++
   68 attarwal@U
- 178 bhuiya16@U
-   4 pateld59@U
-   3 pushpa10@U
-3595
+ 257 bhuiya16@U
+  10 pateld59@U
+  13 pushpa10@U
+28906
 Part 4) SVN Commits
 
 
 On Sprints
    1  attarwal@UTORONTO.CA 
-  11  bhuiya16@UTORONTO.CA 
-   3  pateld59@UTORONTO.CA 
-   2  pushpa10@UTORONTO.CA 
-   2  songjin8@UTORONTO.CA 
+  16  bhuiya16@UTORONTO.CA 
+   4  pateld59@UTORONTO.CA 
+   5  pushpa10@UTORONTO.CA 
+   4  songjin8@UTORONTO.CA 
 
 
 On CRC Cards
    1  attarwal@UTORONTO.CA 
-   2  bhuiya16@UTORONTO.CA 
-   2  pateld59@UTORONTO.CA 
-   3  pushpa10@UTORONTO.CA 
-   7  songjin8@UTORONTO.CA 
+   9  bhuiya16@UTORONTO.CA 
+   4  pateld59@UTORONTO.CA 
+   7  pushpa10@UTORONTO.CA 
+  10  songjin8@UTORONTO.CA 
 
 
 On DailyScrumMeetings
    1  attarwal@UTORONTO.CA 
-  10  bhuiya16@UTORONTO.CA 
-  10  pateld59@UTORONTO.CA 
-   8  pushpa10@UTORONTO.CA 
-   8  songjin8@UTORONTO.CA 
+  14  bhuiya16@UTORONTO.CA 
+  16  pateld59@UTORONTO.CA 
+  12  pushpa10@UTORONTO.CA 
+  14  songjin8@UTORONTO.CA 
 
 
 On ProductBacklog
    1  attarwal@UTORONTO.CA 
-   8  bhuiya16@UTORONTO.CA 
+  12  bhuiya16@UTORONTO.CA 
    1  pateld59@UTORONTO.CA 
 
 
 On source
    1  attarwal@UTORONTO.CA 
-  20  bhuiya16@UTORONTO.CA 
-  41  pateld59@UTORONTO.CA 
-  23  pushpa10@UTORONTO.CA 
-  26  songjin8@UTORONTO.CA 
+  35  bhuiya16@UTORONTO.CA 
+  63  pateld59@UTORONTO.CA 
+  33  pushpa10@UTORONTO.CA 
+  36  songjin8@UTORONTO.CA 
